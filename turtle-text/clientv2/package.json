@@ -1,0 +1,62 @@
+{
+  "name": "turtle-text-client",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "npx webpack --config webpack.config.js"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "prettier": {
+    "trailingComma": "es5"
+  },
+  "tslint": {
+    "defaultSeverity": "error",
+    "extends": [
+      "tslint:recommended",
+      "tslint-jest",
+      "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {},
+    "rulesDirectory": []
+  },
+  "quokka": {},
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/uuid": "^3.4.4",
+    "jest": "^24.7.1",
+    "prettier": "^1.17.0",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.0.4",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-jest": "^1.0.5",
+    "typescript": "^3.4.5",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "moment": "^2.24.0",
+    "uuid": "^3.3.2"
+  }
+}
