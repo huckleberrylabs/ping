@@ -1,0 +1,881 @@
+﻿Company,RON,CAD,Position,City,years,PFA,Graduate,Timestamp,Keywords
+Tba,5030.00,1559.30,Senior Software Developer,Satu Mare,8,FALSE,TRUE,Nov-16,Java
+Dexter SEO Marketing,1500.00,465.00,No Idea,Pitesti,3,FALSE,FALSE,Feb-16,PHP  SEO  Web
+Smartsoft,8000.00,2480.00,Senior Developer,Targu Mures,8,FALSE,TRUE,Jul-17,
+Reea,3300.00,1023.00,Senior PHP Developer,Targu Mures,8,FALSE,TRUE,Feb-16,PHP  MySQL  HTML5  CSS3
+Reea,4000.00,1240.00,iOS Developer,Targu Mures,4,FALSE,TRUE,Feb-16,Swift  Objective  Coredata
+Reea,4500.00,1395.00,Senior PHP Developer,Targu Mures,10,FALSE,FALSE,Feb-16,CSS  PHP  Js  HTML
+Lateral,9500.00,2945.00,Senior Javascript Developer,Targu Mures,4,FALSE,FALSE,Feb-16,Javascript  Js  Angular
+Reea,4500.00,1395.00,Software Developer,Targu Mures,5,FALSE,TRUE,Feb-16,Java
+Hella Romania,2500.00,775.00,Service Desk Analyst,Timisoata,1,FALSE,FALSE,Mar-17,Servicedesk
+Nbd,3000.00,930.00,Junior Software Developer - Part Time,Petrosani,1,TRUE,FALSE,Mar-17,Java
+Atos IT Solution And Services,4800.00,1488.00,System Administrator,Timisoata,7,FALSE,TRUE,Aug-17,
+Continental,3600.00,1116.00,Software Developer,Timisoata,2,FALSE,TRUE,Aug-17,C  Embedded
+Ness,6000.00,1860.00,Sw Developer,Timisoata,4,FALSE,TRUE,Aug-17,C  Embedded
+Nokia,5800.00,1798.00,Software Developer,Timisoata,12,FALSE,TRUE,Aug-17,Integration
+Continental,4900.00,1519.00,Sw Developer 2,Timisoata,4,FALSE,TRUE,Jul-17,C
+Profi Rom Food Srl,1300.00,403.00,Tehnician IT,Timisoata,1,FALSE,TRUE,Jul-17,Tehnician  IT
+Atos IT Solution And Services,11000.00,3410.00,Senior Technical Support Engineer,Timisoata,9,FALSE,TRUE,Jul-17,Windows  Server
+Continental,4700.00,1457.00,Software Engineer 2,Timisoata,4,FALSE,TRUE,Jul-17,C  Embedded
+SAP,6000.00,1860.00,Associate Development Consultant,Timisoata,1,FALSE,FALSE,Jun-17,"Spring  Framework    Java,"
+Nagarro,10000.00,3100.00,Java Senior Developer,Timisoata,8,FALSE,TRUE,Jun-17,Java
+Hella Romania,7500.00,2325.00,Sw Project Manager,Timisoata,12,FALSE,TRUE,Jun-17,
+Continental,2000.00,620.00,Software Developer Intern,Timisoata,1,FALSE,FALSE,Jun-17,Embedded
+Atos IT Solution And Services,5250.00,1627.50,System Administrator,Timisoata,4,FALSE,TRUE,May-17,Windows  Server
+Hella Romania,7000.00,2170.00,System Engineer,Timisoata,7,FALSE,TRUE,Apr-17,Doors
+Autoliv,3500.00,1085.00,Software Tester,Timisoata,2,FALSE,TRUE,Apr-17,Jscript
+Aci Worldwide,9750.00,3022.50,Senior Software Engineer,Timisoata,9,FALSE,TRUE,Apr-17,Java  Spring  Maven  Eclipse
+Cottontex,1800.00,558.00,Graphic Designer,Timisoata,0,FALSE,FALSE,Apr-17,Designer  Graphic
+Nokia,4500.00,1395.00,Junior Software Developer,Timisoata,1,FALSE,TRUE,Apr-17,C++
+Nokia,3800.00,1178.00,Junior Software Developer,Timisoata,0,FALSE,TRUE,Apr-17,C++
+Atos IT Solution And Services,5000.00,1550.00,Senior Windows System Administrator,Timisoata,10,FALSE,FALSE,Apr-17,Windows System Administrator
+Oce Software Romania,8300.00,2573.00,Senior Software Developer,Timisoata,9,FALSE,TRUE,Mar-17,C#  Java  C++
+IBM,3400.00,1054.00,System Administrator,Timisoata,2,FALSE,FALSE,Feb-17,Linux
+Atos IT Solution And Services,1700.00,527.00,System Administrator,Timisoata,0,FALSE,FALSE,Feb-17,Eoc
+Atos IT Solution And Services,2100.00,651.00,System Administrator,Timisoata,5,FALSE,FALSE,Feb-17,Big Data&security
+Continental,4100.00,1271.00,Software Developer,Timisoata,3,FALSE,TRUE,Feb-17,C  Embedded
+Hella Romania,4000.00,1240.00,Technical Support Specialist,Timisoata,4,FALSE,FALSE,Feb-17,2nd
+Infobest,5200.00,1612.00,Software Developer,Timisoata,3,FALSE,TRUE,Jan-17,C#
+Infobest,5100.00,1581.00,Software Developer,Timisoata,4,FALSE,TRUE,Jan-17,.NET
+Atos IT Solution And Services,5000.00,1550.00,System Administrator,Timisoata,15,FALSE,FALSE,Jan-17,Windows  Server  Exchange
+Aci Worldwide,10000.00,3100.00,Senior Software Engineer,Timisoata,12,FALSE,TRUE,Jan-17,Java  C++
+Nokia,7600.00,2356.00,Software Developer,Timisoata,1,FALSE,FALSE,Jan-17,C#  SQL  Unix
+Continental,3700.00,1147.00,Software Developer Junior,Timisoata,3,FALSE,TRUE,Dec-16,C
+Continental,3400.00,1054.00,Software Developer,Timisoata,1,FALSE,TRUE,Dec-16,C  Embedded
+Huf Romania,5000.00,1550.00,Software Developer,Timisoata,4,FALSE,TRUE,Dec-16,C  Embedded
+Autoliv,6500.00,2015.00,Software Developer,Timisoata,5,FALSE,TRUE,Dec-16,C  Embedded
+Continental,5100.00,1581.00,IT System Administrator,Timisoata,11,FALSE,TRUE,Dec-16,Networking  Servers
+Autoliv,3400.00,1054.00,Software Verification Engineer,Timisoata,3,FALSE,TRUE,Dec-16,Prepretensioner  Can  Jscript  Airbag
+Continental,4200.00,1302.00,Software Engineer 2,Timisoata,3,FALSE,TRUE,Nov-16,C#  Python  WPF  VBA
+Lockdown-code,6000.00,1860.00,Software Developer,Timisoata,2,FALSE,FALSE,Nov-16,Java
+Krohne,2500.00,775.00,Software Developer,Timisoata,15,FALSE,TRUE,Nov-16,C#
+Flex,2100.00,651.00,Tehnician Debug,Timisoata,4,FALSE,FALSE,Oct-16,Electronic  Debug  Diagnostic
+Aci Worldwide,8000.00,2480.00,Senior Software Developer,Timisoata,9,FALSE,TRUE,Oct-16,C++
+Aci Worldwide,6850.00,2123.50,Software Engineer,Timisoata,6,FALSE,TRUE,Oct-16,Java  Spring  Maven  Eclipse
+Aci Worldwide,9000.00,2790.00,Senior Software Engineer,Timisoata,8,FALSE,TRUE,Oct-16,Java  Spring  Maven  Eclipse
+Berg Computers,5200.00,1612.00,Software Engineer,Timisoata,5,FALSE,TRUE,Oct-16,Java  Eclipse  Db2  IBM
+Nokia,9500.00,2945.00,Software Developer,Timisoata,2,FALSE,TRUE,Sep-16,C#  PHP  SQL  Bash
+Hella Romania,4200.00,1302.00,Software Developer,Timisoata,3,FALSE,TRUE,Aug-16,C
+Unified Post,4000.00,1240.00,Software Developer,Timisoata,2,FALSE,TRUE,Aug-16,Java
+Atos IT Solution And Services,5000.00,1550.00,Senior Technical Support Engineer,Timisoata,3,FALSE,TRUE,Aug-16,Ad  Server  Technical  Support
+Yazaki,4450.00,1379.50,Software Developer,Timisoata,3,FALSE,TRUE,Aug-16,C
+Continental,4500.00,1395.00,Software Developer,Timisoata,2,FALSE,TRUE,Aug-16,C++  C
+Huf Romania,3800.00,1178.00,Software Developer,Timisoata,1,FALSE,TRUE,Aug-16,C
+Continental,1700.00,527.00,Intern,Timisoata,0,FALSE,FALSE,Jul-16,C Embedded
+Yazaki,4600.00,1426.00,Software Developer,Timisoata,3,FALSE,TRUE,Jul-16,C
+Ness,6200.00,1922.00,Software Developer,Timisoata,3,FALSE,TRUE,Jul-16,C
+Yazaki,4650.00,1441.50,Software Engineer 2,Timisoata,3,FALSE,TRUE,Jul-16,C  Embedded
+Yazaki,4000.00,1240.00,Software Developer,Timisoata,3,FALSE,TRUE,Jul-16,C
+Alcatel Lucent,3200.00,992.00,Software Developer,Timisoata,4,FALSE,FALSE,Jul-16,C++  C  Python
+Atigeo,9500.00,2945.00,Senior Software Developer,Timisoata,5,FALSE,FALSE,Feb-16,Java  Python  Bigdata
+Atos IT Solution And Services,1800.00,558.00,System Administrator,Timisoata,1,FALSE,FALSE,Feb-16,Windows  Server  Network
+Hella Romania,1200.00,372.00,Software Developer,Timisoata,1,FALSE,TRUE,Feb-16,C
+Continental,4500.00,1395.00,Mechanical Designer,Timisoata,5,FALSE,TRUE,Feb-16,Catia
+Softvision,5500.00,1705.00,Software Developer,Timisoata,3,FALSE,TRUE,Feb-16,C#
+Atigeo,10000.00,3100.00,Team Leader,Timisoata,7,FALSE,TRUE,Feb-16,Java  Python  Bigdata
+Continental,5200.00,1612.00,Mechanical Designer,Timisoata,6,FALSE,TRUE,Feb-16,2.0  CREO
+Visma,6650.00,2061.50,Senior Software Developer,Timisoata,10,FALSE,FALSE,Feb-16,C#  C++
+Huf Romania,4500.00,1395.00,Software Developer,Timisoata,4,FALSE,TRUE,Feb-16,C
+Atos IT Solution And Services,4000.00,1240.00,System Administrator,Timisoata,11,FALSE,FALSE,Feb-16,Antivirus
+Atos IT Solution And Services,3000.00,930.00,SAP Consultant,Timisoata,3,FALSE,TRUE,Feb-16,SAP
+Autoliv,4000.00,1240.00,Software Developer,Timisoata,2,FALSE,TRUE,Feb-16,C++
+Continental,5300.00,1643.00,Middle Software Developer,Timisoata,9,FALSE,TRUE,Feb-16,Embeddedc
+Oce Software Romania,3800.00,1178.00,Junior Software Developer,Timisoata,1,FALSE,TRUE,Feb-16,C#  Java  C++
+Alcatel Lucent,3100.00,961.00,Junior Software Developer,Timisoata,1,FALSE,TRUE,Feb-16,Java
+Hella Romania,5050.00,1565.50,Software Engineer 2,Timisoata,3,FALSE,TRUE,Feb-16,C
+Yazaki,6200.00,1922.00,Software Developer,Timisoata,6,FALSE,FALSE,Feb-16,C
+Continental,1600.00,496.00,Graduate Diploma Intern,Timisoata,2,FALSE,FALSE,Feb-16,Agile  Java  Rcp
+Softvision,7500.00,2325.00,Middle Software Developer,Timisoata,9,FALSE,FALSE,Feb-16,.NET  MVC
+Autoliv,5200.00,1612.00,Software Developer,Timisoata,5,FALSE,FALSE,Feb-16,C
+Continental,4500.00,1395.00,Junior Software Developer,Timisoata,4,FALSE,TRUE,Feb-16,Java  C
+Hella Romania,2900.00,899.00,Software Tesrer,Timisoata,3,FALSE,TRUE,Feb-16,C
+Continental,9800.00,3038.00,Grup Leader,Timisoata,11,FALSE,FALSE,Feb-16,Hardware
+Continental,4500.00,1395.00,Software Developer,Timisoata,3,FALSE,TRUE,Feb-16,C
+Harman International Romania,12000.00,3720.00,Software Architect,Bucuresti,9,FALSE,TRUE,Sep-17,C++
+Harman International Romania,7000.00,2170.00,Software Developer,Bucuresti,3,FALSE,TRUE,Sep-17,Java
+Harman International Romania,8500.00,2635.00,Senior Software Engineer,Bucuresti,4,FALSE,TRUE,Sep-17,C++
+Luxoft,13000.00,4030.00,Senior Software Engineer,Bucuresti,5,FALSE,FALSE,Aug-17,Java
+Honeywell,3700.00,1147.00,System Engineer,Bucuresti,4,FALSE,TRUE,Aug-17,"Automation,  Engineer"
+Yokogawa,2800.00,868.00,System Engineer,Bucuresti,3,FALSE,TRUE,Aug-17,"Automation,  Engineer"
+BCR,6000.00,1860.00,Product Owner,Bucuresti,10,FALSE,FALSE,Aug-17,
+Accenture,5400.00,1674.00,Junior Pl/sql Developer,Bucuresti,1,FALSE,FALSE,Aug-17,
+Bearingpoint,5000.00,1550.00,Analist Programator,Bucuresti,3,FALSE,TRUE,Aug-17,"SQL  Angular  C#,  Js,"
+Gameloft,2550.00,790.50,Programator,Bucuresti,3,FALSE,FALSE,Aug-17,Python
+Amber,2500.00,775.00,QA Test Lead,Bucuresti,3,FALSE,FALSE,Aug-17,
+Ericsson Telecommunications Romania Srl,6500.00,2015.00,Back Office Engineer,Bucuresti,6,FALSE,TRUE,Aug-17,"Services  Telecom,  Managed"
+Amber,1500.00,465.00,QA Tester,Bucuresti,2,FALSE,FALSE,Aug-17,
+Luxoft,10500.00,3255.00,Java,Bucuresti,5,FALSE,TRUE,Aug-17,Spring    Boot
+BCR,3700.00,1147.00,Java Junior Developer,Bucuresti,1,FALSE,TRUE,Jul-17,Java  Spring  Maven  Boot
+Microsoft,4300.00,1333.00,Incident Controller,Bucuresti,3,FALSE,FALSE,Jul-17,Management  Proiect
+Pentalog,9000.00,2790.00,Programator Senior,Bucuresti,6,FALSE,FALSE,Jul-17,"Javascript,  Html,  Css,  Php,  Python,  Django"
+Softelligence,3000.00,930.00,QA Engineer,Bucuresti,2,FALSE,TRUE,Jul-17,
+Bitdefender,4500.00,1395.00,C++ Developer,Bucuresti,1,FALSE,FALSE,Jul-17,
+Luxoft,6000.00,1860.00,Software Engineer,Bucuresti,2,FALSE,TRUE,Jul-17,C++
+Enea,4400.00,1364.00,Software Tester,Bucuresti,3,FALSE,TRUE,Jul-17,
+Uti Grup Sa,4000.00,1240.00,Programator PHP,Bucuresti,2,FALSE,TRUE,Jul-17,"PHP  C++,"
+Rinf,10200.00,3162.00,Senior Java Developer,Bucuresti,10,FALSE,TRUE,Jul-17,Java
+Harman International Romania,5000.00,1550.00,Software Engineer,Bucuresti,2,FALSE,TRUE,Jul-17,C++
+Adonis Software,2000.00,620.00,Junior Android Developer,Bucuresti,1,TRUE,FALSE,Jul-17,Android
+Ubis Unicredit,5000.00,1550.00,Test Analyst,Bucuresti,3,FALSE,TRUE,Jul-17,Selenium
+Deutsche Bank,15000.00,4650.00,UX Designer,Bucuresti,6,FALSE,FALSE,Jul-17,Experience  User
+Orange,2500.00,775.00,Senior Java Developer,Bucuresti,8,FALSE,TRUE,Jul-17,Java
+Software Bussienes Parteners,2800.00,868.00,Junior Software Developer,Bucuresti,1,FALSE,FALSE,Jul-17,
+Luxoft,10000.00,3100.00,Senior Software Engineer,Bucuresti,6,FALSE,FALSE,Jul-17,C++
+Stefanini,2300.00,713.00,Helpdesk Technician,Bucuresti,1,FALSE,FALSE,Jul-17,N/a
+Advahoo,3600.00,1116.00,Junior Java Developer,Bucuresti,1,FALSE,TRUE,Jul-17,Java
+Avira,5000.00,1550.00,C++ Developer,Bucuresti,3,FALSE,FALSE,Jul-17,C++
+Luxoft,10000.00,3100.00,Senior Software Engineer,Bucuresti,9,FALSE,TRUE,Jul-17,C++
+Misys,4500.00,1395.00,Junior Software Engineer,Bucuresti,1,FALSE,TRUE,Jul-17,Java/c
+Ericsson Telecommunications Romania Srl,7000.00,2170.00,Software Developer,Bucuresti,2,FALSE,TRUE,Jul-17,Java
+Rasirom,1500.00,465.00,Analist Programator,Bucuresti,1,FALSE,TRUE,Jul-17,Java
+Upc,2650.00,821.50,B2b Support,Bucuresti,1,FALSE,FALSE,Jun-17,CCNA
+Stefanini,1900.00,589.00,Technical Support Specialist,Bucuresti,3,FALSE,FALSE,Jun-17,
+Dominobyte,13000.00,4030.00,Senior Software Developer,Bucuresti,10,FALSE,TRUE,Jun-17,Javascript  .NET  SQL  MVC
+Emag,6000.00,1860.00,PHP Developer,Bucuresti,2,FALSE,TRUE,Jun-17,PHP  Symfony
+Emag,6000.00,1860.00,PHP Developer,Bucuresti,3,FALSE,TRUE,Jun-17,PHP
+Hewlett Packard Enterprise,4800.00,1488.00,Business Intelligence Project Manager,Bucuresti,2,FALSE,TRUE,Jun-17,
+Adobe,6300.00,1953.00,Software Engineer In Test,Bucuresti,2,FALSE,TRUE,Jun-17,
+Fullscreen Digital,8000.00,2480.00,Full Stack Developer,Bucuresti,3,FALSE,TRUE,Jun-17,"Angularjs  Php,"
+Accenture,5000.00,1550.00,Data Analyst,Bucuresti,1,FALSE,FALSE,Jun-17,
+Accenture,5000.00,1550.00,Data Analyst,Bucuresti,1,FALSE,FALSE,Jun-17,"Testing  Sql,"
+Luxoft,7000.00,2170.00,Senior Software Engineer,Bucuresti,4,FALSE,TRUE,Jun-17,C++
+Exe,6000.00,1860.00,.NET Developer,Bucuresti,3,FALSE,TRUE,Jun-17,C#  .NET  Vb.net
+Luxoft,5000.00,1550.00,Software Engineer,Bucuresti,2,FALSE,TRUE,Jun-17,C++
+Endava,5500.00,1705.00,Java Developer,Bucuresti,1,FALSE,TRUE,May-17,Java
+Coconet,3000.00,930.00,Junior Java Developer,Bucuresti,1,FALSE,TRUE,May-17,Java
+Clarisoft Technologies,3900.00,1209.00,Full Stack Developer,Bucuresti,2,FALSE,FALSE,May-17,Angularjs  PHP  MySQL  Yii
+Tradeshift,5000.00,1550.00,Java Developer,Bucuresti,1,FALSE,FALSE,May-17,Java
+Arnia,10000.00,3100.00,Java Senior Developer,Bucuresti,6,FALSE,TRUE,May-17,Spring  Hibernate
+Endava,7500.00,2325.00,Senior Application Management Engineer,Bucuresti,5,FALSE,TRUE,Apr-17,Java
+Misys,3700.00,1147.00,Junior Software Developer,Bucuresti,0,FALSE,TRUE,Apr-17,Java
+Totalsoft,4500.00,1395.00,Middle Software Developer,Bucuresti,5,FALSE,TRUE,Apr-17,Javascript  T-SQL  .NET  Wcf
+Fortin Agency,1700.00,527.00,Junior Web Developer,Bucuresti,0,FALSE,FALSE,Apr-17,CSS  HTML  Bootstrap  Wordpress
+Emag,2700.00,837.00,Junior Software Developer,Bucuresti,1,FALSE,FALSE,Apr-17,PHP  Symfony2
+Vauban,2000.00,620.00,Junior PHP Developer,Bucuresti,0,FALSE,FALSE,Apr-17,PHP  HTML  SQL
+EA Games,1500.00,465.00,Game Tester,Bucuresti,1,FALSE,TRUE,Apr-17,QA  Testing
+Deutsche Bank,16000.00,4960.00,Senior Java Developer,Bucuresti,8,FALSE,TRUE,Apr-17,Java
+Siveco,4900.00,1519.00,Middle Software Developer,Bucuresti,6,FALSE,TRUE,Apr-17,Flash Actionscript 3 Javascript
+Emag,2000.00,620.00,Junior Software Developer - Part Time,Bucuresti,0,FALSE,FALSE,Apr-17,PHP  MySQL  Symfony
+Ptc,6000.00,1860.00,Data Analytics Engineer,Bucuresti,2,FALSE,TRUE,Apr-17,SQL  Thingworx
+Cegeka,3000.00,930.00,Junior Software Developer,Bucuresti,1,FALSE,FALSE,Apr-17,C#
+Deutsche Bank,9300.00,2883.00,QA Engineer,Bucuresti,3,FALSE,FALSE,Apr-17,Javascript  Java  Selenium
+Hollosoft,4000.00,1240.00,PHP Developer,Bucuresti,4,FALSE,FALSE,Apr-17,PHP Developer
+Hp,5700.00,1767.00,Web Developer,Bucuresti,5,FALSE,TRUE,Apr-17,Javascript  Java
+Ubis Unicredit,1800.00,558.00,Intern Java,Bucuresti,0,FALSE,FALSE,Apr-17,Java
+Luxoft,9000.00,2790.00,Senior Software Engineer,Bucuresti,6,FALSE,TRUE,Mar-17,C#  .NET  WPF  Wcf
+Rinf,9100.00,2821.00,Senior Java Developer,Bucuresti,12,FALSE,FALSE,Mar-17,Java
+Cashare-ag,10000.00,3100.00,Senior Java Developer,Bucuresti,12,FALSE,FALSE,Mar-17,Java
+Rinf,10700.00,3317.00,Senior Java Developer,Bucuresti,12,FALSE,TRUE,Mar-17,Java
+Gameloft,9100.00,2821.00,Big Data Java Engineer,Bucuresti,12,FALSE,TRUE,Mar-17,Java
+Goodwave Srl,4000.00,1240.00,Front End Developer,Bucuresti,2,FALSE,FALSE,Mar-17,CSS  Js  Jquery  HTML  Bootstrap
+Infineon,7000.00,2170.00,Embedded Software Developer,Bucuresti,5,FALSE,FALSE,Mar-17,C
+Infineon,900.00,279.00,Intern,Bucuresti,0,FALSE,FALSE,Mar-17,C
+Endava,7600.00,2356.00,Software Developer,Bucuresti,5,TRUE,FALSE,Mar-17,Java
+IBM,6500.00,2015.00,Virtual Sysadmin,Bucuresti,2,FALSE,TRUE,Mar-17,Windows  Vmware  Citrix
+IBM,18000.00,5580.00,Devops,Bucuresti,20,FALSE,TRUE,Mar-17,Architecture  Consulting
+Cegeka,9000.00,2790.00,Senior Software Developer,Bucuresti,8,FALSE,TRUE,Mar-17,C++
+Vodafone,3000.00,930.00,Junior Software Tester,Bucuresti,0,FALSE,FALSE,Mar-17,Testare
+Clarisoft Technologies,3800.00,1178.00,Android Developer,Bucuresti,2,FALSE,TRUE,Feb-17,Java  Android
+Thales,4900.00,1519.00,C++ Developer,Bucuresti,4,FALSE,TRUE,Feb-17,C++
+Gameloft,13500.00,4185.00,Senior Software Developer,Bucuresti,15,FALSE,TRUE,Feb-17,C++  Opengl
+Thales,3300.00,1023.00,Software Engineer,Bucuresti,2,FALSE,TRUE,Feb-17,C  Unix
+Luxoft,3500.00,1085.00,Software Integrator,Bucuresti,2,FALSE,TRUE,Feb-17,Linux
+Luxoft,7500.00,2325.00,Senior Software Developer,Bucuresti,4,FALSE,TRUE,Feb-17,C++
+Luxoft,3550.00,1100.50,QA Automation,Bucuresti,1,FALSE,TRUE,Feb-17,Bash
+Luxoft,4550.00,1410.50,QA Automation,Bucuresti,2,FALSE,TRUE,Feb-17,Bash
+Luxoft,10000.00,3100.00,Senior Software Developer,Bucuresti,7,FALSE,TRUE,Feb-17,C++
+Ubis Unicredit,5500.00,1705.00,Dwh Developer,Bucuresti,2,FALSE,TRUE,Feb-17,SQL  Teradata  Datastage
+Amiq,4000.00,1240.00,Software Developer,Bucuresti,1,FALSE,FALSE,Jan-17,Java
+Amiq,2500.00,775.00,Software Developer Intern,Bucuresti,0,FALSE,FALSE,Jan-17,Java
+Nextus Solutions,6000.00,1860.00,Web Developer,Bucuresti,9,FALSE,TRUE,Jan-17,PHP  Laravel
+Fortech,3050.00,945.50,Java  Developer Jd2-3,Cluj-Napoca,1,FALSE,TRUE,Jun-18,Java
+Toptal,16000.00,4960.00,Software Engineer,Cluj-Napoca,3,TRUE,TRUE,Sep-17,"Javascript,  Amazon  Aws  .net,"
+Garmin,15000.00,4650.00,Android,Cluj-Napoca,11,FALSE,TRUE,Aug-17,"Java  Experience  Android,  Previous"
+Betfair,7130.00,2210.30,QA,Cluj-Napoca,4,FALSE,TRUE,Aug-17,
+Info World,3300.00,1023.00,Junior Web Developer,Cluj-Napoca,1,FALSE,TRUE,Aug-17,Javascript
+Betfair,5100.00,1581.00,Java Junior Developer,Cluj-Napoca,1,FALSE,TRUE,Aug-17,Java
+Iquest Technologies,10000.00,3100.00,Senior QA Automation,Cluj-Napoca,6,FALSE,FALSE,Aug-17,"Automation  Java,  Selenium,  Api,  Backend,"
+Accenture,4500.00,1395.00,Middle Software Engineer,Cluj-Napoca,4,FALSE,TRUE,Jul-17,C#
+Dualit,4200.00,1302.00,Junior Software Developer,Cluj-Napoca,2,FALSE,TRUE,Jul-17,"PHP  C++,"
+Nordlogic,8500.00,2635.00,Android Developer,Cluj-Napoca,5,TRUE,FALSE,Jul-17,
+Emerson,5100.00,1581.00,Project Engineer,Cluj-Napoca,5,FALSE,FALSE,Jul-17,Dcs
+Betfair,15000.00,4650.00,Senior Systems Administrator,Cluj-Napoca,5,FALSE,TRUE,Jul-17,
+Betfair,7000.00,2170.00,Senior Java Developer,Cluj-Napoca,5,TRUE,FALSE,Jul-17,
+Artsoft Consult,1000.00,310.00,Intern,Cluj-Napoca,1,FALSE,FALSE,Jul-17,.NET
+EBS,8800.00,2728.00,Senior Embedded Software Developer,Cluj-Napoca,8,FALSE,TRUE,Jul-17,C
+Endava,4000.00,1240.00,IT System Administrator,Cluj-Napoca,3,FALSE,TRUE,Jul-17,C++
+Endava,9500.00,2945.00,Scrum Master,Cluj-Napoca,8,FALSE,FALSE,Jul-17,
+Iquest Technologies,12000.00,3720.00,Senior Software Engineer,Cluj-Napoca,9,FALSE,FALSE,Jul-17,C#  .NET
+Iquest Technologies,12300.00,3813.00,Tech Lead,Cluj-Napoca,10,FALSE,TRUE,Jul-17,C#  .NET
+MSG Systems,6750.00,2092.50,Developer,Cluj-Napoca,7,TRUE,FALSE,Jun-17,Java
+Iquest Technologies,12500.00,3875.00,Tech Lead,Cluj-Napoca,9,FALSE,TRUE,Jun-17,.NET
+Emerson,2700.00,837.00,Project Administrator,Cluj-Napoca,3,FALSE,FALSE,Jun-17,
+Porsche Engineering,4500.00,1395.00,Middle Software Engineer,Cluj-Napoca,2,FALSE,TRUE,Jun-17,C  Embedded
+Telenav,12000.00,3720.00,Senior Software Engineer,Cluj-Napoca,7,FALSE,TRUE,Jun-17,C++
+Fortech,2000.00,620.00,Jsd2,Cluj-Napoca,1,FALSE,TRUE,Jun-17,C#
+Erni,1000.00,310.00,Java Intern,Cluj-Napoca,1,FALSE,FALSE,Jun-17,Java
+Endava,15600.00,4836.00,Test Manager,Cluj-Napoca,9,FALSE,FALSE,Jun-17,
+Arobs,2300.00,713.00,Junior Android Developer,Cluj-Napoca,1,FALSE,FALSE,Jun-17,Java  Android
+Arobs,2300.00,713.00,Junior Android Developer,Cluj-Napoca,1,FALSE,FALSE,Jun-17,Android
+Smedix,9000.00,2790.00,Software Developer,Cluj-Napoca,3,FALSE,TRUE,Jun-17,.NET
+Accenture,4000.00,1240.00,Software Engineering Analyst,Cluj-Napoca,4,FALSE,TRUE,Jun-17,Vb.net
+Pitech+plus,1300.00,403.00,Java Intern,Cluj-Napoca,1,FALSE,FALSE,Jun-17,Java
+Ntt Data,12500.00,3875.00,Programator ABAP,Cluj-Napoca,7,TRUE,FALSE,May-17,SAP  ABAP
+MSG Systems,4530.00,1404.30,Associate IT Consultant,Cluj-Napoca,2,FALSE,TRUE,Apr-17,Java
+Softvision,4000.00,1240.00,Frontend Developer,Cluj-Napoca,1,FALSE,FALSE,Apr-17,Javascript
+Yonder,4000.00,1240.00,Software Developer,Cluj-Napoca,8,FALSE,TRUE,Apr-17,Progress
+Artisan,4400.00,1364.00,Java Junior Developer,Cluj-Napoca,0,FALSE,TRUE,Apr-17,Java
+EBS,8500.00,2635.00,Senior Software Developer,Cluj-Napoca,8,FALSE,TRUE,Apr-17,C++17
+Freshbyte,1500.00,465.00,Junior Web Developer,Cluj-Napoca,0,FALSE,FALSE,Apr-17,Javascript
+Softvision,5500.00,1705.00,Full Stack Developer,Cluj-Napoca,3,FALSE,TRUE,Apr-17,Javascript  PHP  Linux
+Infoworld,2200.00,682.00,Junior Software Developer - Part Time,Cluj-Napoca,0,FALSE,FALSE,Apr-17,Javascript
+Infoworld,3000.00,930.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Apr-17,Javascript
+Iquest Technologies,3500.00,1085.00,Junior Software Developer,Cluj-Napoca,1,FALSE,TRUE,Apr-17,C++
+EBS,1200.00,372.00,Junior Software Developer,Cluj-Napoca,0,FALSE,TRUE,Apr-17,C++  4ore
+EBS,8100.00,2511.00,Senior Software Developer,Cluj-Napoca,7,FALSE,TRUE,Apr-17,C++
+Thomsons Online Benefits,2300.00,713.00,Associate Configuration Specialist,Cluj-Napoca,0,FALSE,TRUE,Mar-17,Implementation  Thomsons  Online  Configuration  Darwin  Benefits
+Thomsons Online Benefits,2300.00,713.00,Associate Configuration Specialist,Cluj-Napoca,0,FALSE,TRUE,Mar-17,Darwin  Configuration  Employeebenefits  Benefits
+Softvision,4000.00,1240.00,Junior Javascript Developer,Cluj-Napoca,0,TRUE,TRUE,Mar-17,Javascript
+Yonder,4000.00,1240.00,Software Developer,Cluj-Napoca,6,FALSE,TRUE,Mar-17,Progress
+Endava,4000.00,1240.00,Java Developer,Cluj-Napoca,1,FALSE,FALSE,Mar-17,Java
+Ullink,6800.00,2108.00,Principal QA,Cluj-Napoca,9,FALSE,TRUE,Mar-17,Ultest
+Freelancer,21000.00,6510.00,Full Stack Developer,Cluj-Napoca,6,TRUE,TRUE,Mar-17,PHP  Perl
+Softvision,2000.00,620.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Mar-17,iOS  Android
+Mhp,3750.00,1162.50,IT Consultant,Cluj-Napoca,1,FALSE,TRUE,Mar-17,SAP  ABAP
+Bosch,3600.00,1116.00,Junior Software Developer,Cluj-Napoca,1,FALSE,TRUE,Mar-17,Java
+Fortech,2350.00,728.50,Junior Software Developer,Cluj-Napoca,1,FALSE,FALSE,Mar-17,.NET
+Ullink,12000.00,3720.00,C# Developer,Cluj-Napoca,7,FALSE,TRUE,Mar-17,C#
+Ullink,3500.00,1085.00,Test Engineer,Cluj-Napoca,3,FALSE,FALSE,Mar-17,Javascript
+MSG Systems,2300.00,713.00,Associate IT Consultant,Cluj-Napoca,2,FALSE,TRUE,Mar-17,ABAP  Java  Ui6
+Sdl,3000.00,930.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Mar-17,C#  .NET
+3pillar Global,8500.00,2635.00,Senior Software Developer,Cluj-Napoca,8,FALSE,TRUE,Mar-17,Js
+Evozon System,2300.00,713.00,Frontend Developer,Cluj-Napoca,1,FALSE,FALSE,Feb-17,Redux  CSS  Jquery  Javascript  Backbone  HTML  React
+EBS,8100.00,2511.00,Senior Software Developer,Cluj-Napoca,7,FALSE,TRUE,Feb-17,C++14  Qt
+EBS,9400.00,2914.00,Senior Software Developer,Cluj-Napoca,11,FALSE,TRUE,Feb-17,C++14  Qt
+Evozon System,10000.00,3100.00,Programator PHP,Cluj-Napoca,7,FALSE,FALSE,Feb-17,PHP
+Daglo,10800.00,3348.00,Software Developer,Cluj-Napoca,8,TRUE,FALSE,Feb-17,C++  C
+MSG,1130.00,350.30,Intern SAP ABAP Part Time,Cluj-Napoca,0,FALSE,FALSE,Feb-17,SAP  ABAP
+Bosch,9450.00,2929.50,Senior Software Developer,Cluj-Napoca,8,FALSE,TRUE,Feb-17,C++14  Matlab
+EBS,12500.00,3875.00,Solution Architect,Cluj-Napoca,12,FALSE,TRUE,Feb-17,C#  C++14
+Osf Global,6500.00,2015.00,Senior PHP Developer,Cluj-Napoca,7,FALSE,FALSE,Feb-17,MySQL  Laravel  Codeigniter  PHP  Oop  Slim  Lamp
+Info World,3000.00,930.00,Frontend Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-17,Javascript
+Info World,1500.00,465.00,Junior Software Developer - Part Time,Cluj-Napoca,1,FALSE,FALSE,Feb-17,Javascript
+Mhp,4000.00,1240.00,Junior Software Developer,Cluj-Napoca,2,FALSE,TRUE,Feb-17,SAP  ABAP
+Atracore,14500.00,4495.00,Software Developer,Cluj-Napoca,5,TRUE,TRUE,Feb-17,.NET
+3dflip,4500.00,1395.00,Web Developer,Cluj-Napoca,3,TRUE,TRUE,Feb-17,Javascript  Angularjs
+Banca Transilvania,2100.00,651.00,Ofiter Bancar,Cluj-Napoca,6,FALSE,TRUE,Feb-17,-
+Pitech+plus,3400.00,1054.00,Junior Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-17,Rails  Ruby
+Pentalog,5000.00,1550.00,PHP Developer,Cluj-Napoca,4,FALSE,FALSE,Feb-17,PHP
+Eleknis,3500.00,1085.00,Software Developer,Cluj-Napoca,2,FALSE,FALSE,Jan-17,Automation  C  Embedded
+Evozon System,9000.00,2790.00,Senior Software Developer,Cluj-Napoca,8,FALSE,TRUE,Jan-17,C++14
+Info World,1600.00,496.00,Junior Web Developer,Cluj-Napoca,0,FALSE,FALSE,Jan-17,MySQL
+Yonder,6000.00,1860.00,Middle Software Tester,Cluj-Napoca,3,FALSE,TRUE,Jan-17,QA  Manual
+Fortech,4200.00,1302.00,Middle Software Tester,Cluj-Napoca,3,FALSE,TRUE,Jan-17,QA  Manual
+Pitech+plus,5800.00,1798.00,Software Developer,Cluj-Napoca,3,FALSE,FALSE,Jan-17,PHP  Symfony
+Gameloft,8100.00,2511.00,Senior Software Engineer,Cluj-Napoca,11,FALSE,TRUE,Jan-17,C++
+Evozon System,6000.00,1860.00,Java Developer,Cluj-Napoca,3,TRUE,TRUE,Jan-17,Java
+Bls Cluj,6000.00,1860.00,Customer Development Specialist,Cluj-Napoca,6,FALSE,TRUE,Jan-17,Sqlserver
+Telenav,1800.00,558.00,Intern,Cluj-Napoca,0,FALSE,FALSE,Jan-17,C++
+Softvision,9600.00,2976.00,Senior Java Developer,Cluj-Napoca,7,FALSE,TRUE,Jan-17,Java
+EBS,9000.00,2790.00,Senior Software Developer,Cluj-Napoca,12,FALSE,TRUE,Jan-17,Agile  C++  Qt
+Softvision,3500.00,1085.00,Software Developer,Cluj-Napoca,2,FALSE,FALSE,Jan-17,Java
+EBS,12000.00,3720.00,Solution Architect,Cluj-Napoca,10,FALSE,TRUE,Dec-16,Agile  Germana  C++14
+Endava,7300.00,2263.00,Senior Software Developer,Cluj-Napoca,3,FALSE,TRUE,Dec-16,Java
+Servustech,7000.00,2170.00,Full Stack Developer,Cluj-Napoca,3,FALSE,TRUE,Dec-16,MySQL  PHP  Javascript  Bash  HTML  SCSS
+Arobs,11000.00,3410.00,Senior Software Developer,Cluj-Napoca,7,TRUE,TRUE,Dec-16,C#
+Evozon System,9000.00,2790.00,Senior Software Developer,Cluj-Napoca,10,FALSE,TRUE,Dec-16,Agile  C++14
+Magic Solutions,2000.00,620.00,Software Developer,Miercurea Ciuc,2,FALSE,TRUE,Mar-17,Thymeleaf  Knockoutjs  Hibernate  Springmvc  Javaee  JPA
+Intel,7600.00,2356.00,Software Developer,Galati,7,FALSE,TRUE,Aug-17,C/c++/linux
+Windriver,8000.00,2480.00,Senior Software Developer,Galati,4,FALSE,TRUE,Sep-16,Java  C++
+Windriver,7400.00,2294.00,Senior Engineer Auto,Galati,1,FALSE,TRUE,Sep-16,C++  C  Bash  Ubuntu
+Computaris,7300.00,2263.00,Senior Software Developer,Galati,14,FALSE,TRUE,Sep-16,Vaadin  REST  Unix  Telecom  Angulrjs  SQL  OOD  JEE  Oop  Ws  Ajax  Spring  Jdbc  Java  JPA
+Computaris,7300.00,2263.00,Senior Software Developer,Galati,14,FALSE,TRUE,Sep-16,Vaadin  Ws  Ajax  Angulrjs  REST  Jdbc  JPA  OOD  Unix  Telecom  SQL  JEE  Oop  Spring  Java
+Computaris,2400.00,744.00,Junior Software Developer,Galati,1,FALSE,FALSE,Jul-16,Java  Telecom
+F5 IT,8000.00,2480.00,Junior Software Developer,Galati,0,FALSE,FALSE,Feb-16,C#  Unittest
+Windriver,2300.00,713.00,Software Tesrer,Galati,0,TRUE,FALSE,Feb-16,C
+Firma,1400.00,434.00,Tehnician IT,Galati,2,FALSE,FALSE,Feb-16,IT
+Cnud Efco Romania,7000.00,2170.00,IT System Administrator,Iasi,5,FALSE,FALSE,Aug-17,
+Igw Romania,9000.00,2790.00,IT System Administrator,Iasi,7,FALSE,FALSE,Aug-17,
+Endava,4500.00,1395.00,Java Developer,Iasi,2,FALSE,TRUE,Aug-17,Java
+Ubis Unicredit,2900.00,899.00,Java Developer,Iasi,1,FALSE,TRUE,Aug-17,Java
+Continental Corporation,3800.00,1178.00,Software Tester,Iasi,2,FALSE,FALSE,Aug-17,
+Endava,6200.00,1922.00,.NET Developer,Iasi,5,FALSE,FALSE,Aug-17,Net
+Endava,6200.00,1922.00,Software Developer,Iasi,5,FALSE,FALSE,Aug-17,.NET
+Centric IT Solutions,12000.00,3720.00,Technical Lead,Iasi,15,FALSE,TRUE,Jul-17,C#  Angularjs  Asp.net
+Ubis Unicredit,2300.00,713.00,Junior Software Developer,Iasi,1,FALSE,TRUE,Jul-17,Java
+Continental,3000.00,930.00,C++ Developer,Iasi,1,FALSE,TRUE,Jun-17,
+Levi9,6400.00,1984.00,Junior Java Developer,Iasi,1,FALSE,FALSE,Jun-17,Java  Spring  Mule
+Continental,4000.00,1240.00,Software Developer,Iasi,4,FALSE,FALSE,Jun-17,Python
+Continental,3500.00,1085.00,Sw Test Engineer / Devops,Iasi,2,FALSE,TRUE,Jun-17,Python
+Endava,9500.00,2945.00,Senior Java Developer,Iasi,8,FALSE,TRUE,Jun-17,"Maven,  Jetty,  Junit,  Oracle,  Rest,  Web  Services  (rest  And  Soap),  Jms,  Html/css/js,  Sql,  Gradle,  Mockito,  Amazon  Aws"
+People Centric,6500.00,2015.00,Java Developer,Iasi,4,FALSE,TRUE,Jun-17,"J2ee/  Cms,  Javascript,  Json,  Jsp,  Css,  Ajax,  Jquery,  REST  /  Soap  API"
+Ness,7500.00,2325.00,Java Senior Developer,Iasi,7,FALSE,TRUE,Jun-17,"Jdk  8,  Oracle,  Sql,  Jsp,  Alfresco"
+Endava,8500.00,2635.00,Java Senior Developer,Iasi,7,FALSE,TRUE,Jun-17,"Jdk  8,  Oracle,  Sql,  Jsf,  Hibernate"
+Mind Cti,7500.00,2325.00,Java Senior Developer,Iasi,6,FALSE,TRUE,Jun-17,"Java,  J2ee/j2se,  Ejb3,  Sql,  Jsf,  Javascript,  Css,  Xslt,  Hibernate,  Jbpm,  Eclipse,  Svn;"
+Cegeka,8500.00,2635.00,Senior Java Developer,Iasi,8,FALSE,TRUE,Jun-17,"J2ee,  Sql,  Spring,  Jpa,  Jta,  Rest/soap,  Jms,  Jdbc,  Angular  Js"
+Mambu Gmbh,8500.00,2635.00,Java Developer,Iasi,6,FALSE,TRUE,Jun-17,"Oop,  Data  Structures,  Java  Se,  Orm,  Microservices,  Ee  7,  Docker,  Java8,  Openshift"
+Edurom,7500.00,2325.00,Java Developer,Iasi,5,FALSE,TRUE,Jun-17,"Maven,  Ant,  Jboss,  Servlets,  Jsp,html,  Css3,  Query,  Javascript,  Ajax,oracle,  Sql,rest,  Soap,spring,  Jsf,  Bootstrap,  Hibernate"
+Beenear,7500.00,2325.00,Java  Developer,Iasi,7,FALSE,TRUE,Jun-17,"Jdk  8,  Oracle,  Sql,  Jsp,  Jpa,  Angular  Js"
+Amazon,8500.00,2635.00,Software Development Engineer,Iasi,8,FALSE,TRUE,Jun-17,"Python  Ruby  Js/html/css,java,  Bash,  And"
+Levi9,6500.00,2015.00,Java Developer,Iasi,3,FALSE,TRUE,Jun-17,"J2ee,  Sql,  Spring,  Jpa,  Jta,  Rest/soap,  Jms,  Jdbc,  Angular  Js"
+Optymyze,7500.00,2325.00,Java Developer,Iasi,6,FALSE,TRUE,Jun-17,"J2ee,  Sql,  Jdbc,  Spring,  Hibernate,  Jsf,  Glassfish,  Intellij  Idea,  Team  City,  Maven,  Gradle"
+Atexis,5500.00,1705.00,Java Developer,Iasi,3,FALSE,TRUE,Jun-17,"Java8,  Maven,  Swing,  Basex/  Validation  Xml:  Dtd;  Xsd/  Xquery/  Xpath,  SVN"
+Thales,7500.00,2325.00,Full Stack Developer,Iasi,6,FALSE,TRUE,Jun-17,"Jdk,  Html,  Css,  Rest,  Bootstrap,  Javascript,  Web  Developer,  Angular  2"
+Prominfo Expert,6500.00,2015.00,Junior Web Developer,Iasi,1,FALSE,TRUE,Jun-17,"Javascript,  Jquery,  Html,  Css,  Gimp,  Ubuntu"
+Continental,8500.00,2635.00,System Engineer,Iasi,10,FALSE,FALSE,Jun-17,
+Software Development Partnership,5250.00,1627.50,Web Designer,Iasi,2,FALSE,FALSE,Jun-17,"Wordpress  Javascript,  Html,  Css,  Php,"
+Ubis Unicredit,3300.00,1023.00,Junior Java Developer,Iasi,2,FALSE,TRUE,May-17,Java
+Dinnerbooking,5000.00,1550.00,PHP Developer,Iasi,2,FALSE,FALSE,May-17,PHP  Cakephp
+Continental,8000.00,2480.00,Software Developer,Iasi,6,FALSE,TRUE,Apr-17,C  Embedded  Autosar
+Ubis Unicredit,3000.00,930.00,Junior Software Developer,Iasi,2,FALSE,FALSE,Apr-17,Java
+Softvision,9000.00,2790.00,Software Developer,Iasi,10,FALSE,FALSE,Mar-17,Java  Backend
+Ness,10000.00,3100.00,Senior Software Engineer,Iasi,8,FALSE,TRUE,Mar-17,Javascript
+Continental,7500.00,2325.00,Team Leader,Iasi,8,FALSE,TRUE,Mar-17,C  Embedded  Matlab
+Continental,3900.00,1209.00,Sw Developer,Iasi,2,FALSE,TRUE,Feb-17,C
+Maxcode,3000.00,930.00,.NET Developer,Iasi,3,FALSE,TRUE,Jan-17,C#  Angular  Bootstrap  Asp
+Continental,3800.00,1178.00,Software Developer,Iasi,3,FALSE,TRUE,Jan-17,C++  C
+Continental,1300.00,403.00,Software Developer - Part-time 4 Ore,Iasi,0,FALSE,FALSE,Dec-16,C++  Qt  Node.js
+Ness,2700.00,837.00,QA Tester,Iasi,2,FALSE,TRUE,Dec-16,Istqb
+Beenear,1200.00,372.00,Junior Software Developer - Part Time,Iasi,2,FALSE,FALSE,Dec-16,C#  Silverlight
+Appsbroker,11000.00,3410.00,Java Developer,Iasi,4,TRUE,FALSE,Nov-16,Javascript  Javaj
+Continental,6500.00,2015.00,Software Developer,Iasi,6,FALSE,TRUE,Nov-16,C
+Greensoft,1800.00,558.00,Java Developer,Iasi,2,FALSE,TRUE,Oct-16,Java
+Continental,3100.00,961.00,Embedded Software Developer,Iasi,2,FALSE,TRUE,Aug-16,C  Embedded
+Gemini CAD Systems,3500.00,1085.00,Software Developer,Iasi,0,FALSE,FALSE,Aug-16,C++
+Continental,3200.00,992.00,Embedded Software Developer,Iasi,2,FALSE,TRUE,Aug-16,C  Embedded  Microcontroler
+SCC Services Romania,3300.00,1023.00,Infrastructure Specialist,Iasi,3,FALSE,TRUE,Aug-16,Vsphere  Virtualizare  Networking  Windows  Server  Exchange
+Continental,6500.00,2015.00,Sw Project Manager,Iasi,10,FALSE,TRUE,Aug-16,Embedded C
+Continental,1700.00,527.00,Software Developer Intern,Iasi,0,FALSE,FALSE,Jul-16,Python
+Ubis Unicredit,1800.00,558.00,Intern Java,Iasi,0,FALSE,FALSE,Jul-16,Java  SQL
+Continental,1000.00,310.00,Software Developer Intern - Part-time 4 Ore,Iasi,0,FALSE,FALSE,Jul-16,C++  C  Embeded
+SCC Services Romania,1700.00,527.00,Service Desk Analyst,Iasi,2,FALSE,FALSE,Feb-16,Ad  Troubleshoot  Jsox  Exchange  Sla
+Amazon,2500.00,775.00,Software Developer Intern,Iasi,0,FALSE,TRUE,Feb-16,Java SQL
+Endava,4100.00,1271.00,Software Developer,Iasi,2,FALSE,TRUE,Feb-16,Java
+Lionns,1800.00,558.00,Graphic Designer,Iasi,2,FALSE,FALSE,Feb-16,Designer  Graphic
+Lionns,1600.00,496.00,Specialist Dmarketing Digital,Iasi,2,FALSE,FALSE,Feb-16,SEO  Marketing  Online
+RDS & RCS,1800.00,558.00,Call Center Operator,Iasi,0,FALSE,FALSE,Feb-16,Time  Full
+Continental,3400.00,1054.00,Software Developer,Iasi,2,FALSE,TRUE,Feb-16,C
+Mobiletouch,1000.00,310.00,Software Developer,Iasi,1,FALSE,FALSE,Feb-16,iOS  Web  Android
+Pentalog,4200.00,1302.00,Senior PHP Developer,Iasi,7,FALSE,FALSE,Feb-16,MySQL  CSS  Js  Jquery  PHP  HTML
+Ubis Unicredit,2500.00,775.00,Java Junior Developer,Iasi,0,FALSE,FALSE,Feb-16,Java
+Optymyze,6500.00,2015.00,Software Developer,Iasi,4,TRUE,TRUE,Feb-16,Java
+Optymyze,6000.00,1860.00,Software Developer,Iasi,3,TRUE,FALSE,Feb-16,Java
+Continental,4000.00,1240.00,Software Developer,Iasi,3,FALSE,TRUE,Feb-16,Java
+Freelancer,16000.00,4960.00,iOS Developer,Iasi,3,TRUE,TRUE,Feb-16,Freelancer  Objective  iOS  C  Swift  Ninja  Xcode
+Softvision,3700.00,1147.00,Frontend Developer,Iasi,1,FALSE,FALSE,Feb-16,Javascript
+Expert Network,2250.00,697.50,Junior Software Developer,Iasi,0,FALSE,TRUE,Feb-16,C#  .NET
+Continental,3000.00,930.00,Junior Software Developer,Iasi,1,FALSE,TRUE,Feb-16,C  Embedded
+Vuzum,2000.00,620.00,iOS Developer,Iasi,1,TRUE,FALSE,Feb-16,iOS  Xcode  Objectivec
+Fits,7000.00,2170.00,Software Developer,Iasi,6,FALSE,TRUE,Feb-16,C++
+Levi9,2200.00,682.00,Junior Software Developer,Iasi,1,FALSE,TRUE,Feb-16,C#  .NET
+Continental,2900.00,899.00,Quality Engineer,Iasi,0,FALSE,TRUE,Feb-16,Aspice
+Vodoo Solutions,5000.00,1550.00,Web Developer,Iasi,3,FALSE,FALSE,Feb-16,CSS  PHP  Js  Laravel  Wordpress
+Vuzum,2000.00,620.00,iOS Developer,Iasi,1,TRUE,FALSE,Feb-16,Swift  Objectivec
+Freelancer,9000.00,2790.00,.NET Web Developer,Iasi,10,TRUE,TRUE,Feb-16,Reactjs  CSS3  C#  HTML5  Backbone  Angular  Asp.net  Bootstrap
+Mhp,2800.00,868.00,Junior Software Developer,Cluj-Napoca,1,FALSE,FALSE,Dec-16,SAP  ABAP
+Bosch,2400.00,744.00,SAP Key User,Cluj-Napoca,2,FALSE,TRUE,Dec-16,SAP  Erp  Aim
+EBS,5000.00,1550.00,Test Engineer,Cluj-Napoca,3,FALSE,TRUE,Dec-16,SAP  Java  Web  Networking  Germana
+Evozon System,7800.00,2418.00,Senior Software Developer,Cluj-Napoca,7,FALSE,TRUE,Dec-16,Agile  C++14
+Evozon System,8200.00,2542.00,Senior Software Developer,Cluj-Napoca,8,FALSE,TRUE,Dec-16,Agile  C++14
+Evozon System,7500.00,2325.00,Software Developer,Cluj-Napoca,7,FALSE,TRUE,Dec-16,Agile  C++14
+Evozon System,2300.00,713.00,Frontend Developer,Cluj-Napoca,0,FALSE,FALSE,Dec-16,Redux  Backbone  React  Flux  CSS  Javascript  HTML
+Transart,3800.00,1178.00,Customer Support,Cluj-Napoca,4,FALSE,TRUE,Dec-16,.NET  SQL
+Evozon System,9000.00,2790.00,Senior Software Developer,Cluj-Napoca,11,FALSE,TRUE,Dec-16,C#  C++
+Siemens Ag,3700.00,1147.00,Junior Software Developer,Cluj-Napoca,1,FALSE,TRUE,Nov-16,C#
+Prodvinalco,13000.00,4030.00,Senior Software Developer,Cluj-Napoca,29,TRUE,TRUE,Nov-16,Cobol
+Ntt,2200.00,682.00,Junior Java Developer,Cluj-Napoca,0,FALSE,TRUE,Nov-16,Java
+Harman International Romania,8400.00,2604.00,Software Engineer,Bucuresti,4,FALSE,TRUE,Sep-17,C++
+NXP,5000.00,1550.00,Junior Software Developer,Bucuresti,2,FALSE,FALSE,Jul-17,Java  C++  C
+Siemens,6800.00,2108.00,Senior Software Developer,Brasov,8,FALSE,TRUE,Sep-17,C++
+Elektrobit Automotive,8000.00,2480.00,Senior Software Engineer,Brasov,9,FALSE,TRUE,Aug-17,
+Atos IT Solution And Services,5500.00,1705.00,Application Management Specialist,Brasov,4,FALSE,FALSE,Jun-17,"Windows  Management  Server,  Powershell,  Application"
+Iquest Technologies,8000.00,2480.00,Senior Software Developer,Brasov,9,FALSE,TRUE,Jan-17,C#
+Iquest Technologies,8900.00,2759.00,Senior Software Engineer,Brasov,6,FALSE,TRUE,Jan-17,C#  Sharepoint
+Siemens,7400.00,2294.00,Programator,Brasov,17,FALSE,TRUE,Dec-16,C#  Java
+Schaeffler Romania,1800.00,558.00,Junior Software Developer,Brasov,1,FALSE,TRUE,Nov-16,C#  Javascript  Oracle
+Schaeffler Romania,2700.00,837.00,Senior Software Developer,Brasov,3,FALSE,TRUE,Nov-16,C#  Javascript  Oracle  Asp.net
+Freelancer,5000.00,1550.00,Senior Javascript Developer,Brasov,8,TRUE,TRUE,Sep-16,.NET
+Next Level,4500.00,1395.00,Software Developer,Brasov,1,FALSE,TRUE,Sep-16,Java  JEE  JPA  Cdi  Ejb
+Elektrobit Automotive,6900.00,2139.00,Senior Software Developer,Brasov,7,FALSE,TRUE,Aug-16,C++
+Elektrobit Automotive,3800.00,1178.00,Software Engineer,Brasov,3,FALSE,TRUE,Aug-16,C++
+Elektrobit Automotive,4500.00,1395.00,Software Engineer,Brasov,4,FALSE,TRUE,Aug-16,C++
+Vlsi Company,6000.00,1860.00,Digital Design Engineer,Brasov,5,FALSE,TRUE,Aug-16,Asic  Fpga
+IBM,7800.00,2418.00,Java Application Developer,Brasov,7,FALSE,TRUE,Feb-16,SAP  JEE  Websphere Mq
+Freelancer,11440.00,3546.40,Senior Software Developer,Brasov,15,TRUE,FALSE,Feb-16,Gamedev  Unreal  C++  Directx  Opengl  Unity
+Atos IT Solution And Services,3150.00,976.50,Technical Support Specialist,Brasov,4,FALSE,TRUE,Feb-16,Telecom  Voip
+Ipsos Interactive Services,2700.00,837.00,Senior Software Developer,Brasov,5,FALSE,FALSE,Feb-16,IBM
+Atos IT Solution And Services,3600.00,1116.00,Senior Technical Support Engineer,Brasov,5,FALSE,TRUE,Feb-16,Telecom  Voip  Sip
+Arvato,1700.00,527.00,Call Center Operator,Brasov,0,FALSE,FALSE,Feb-16,Center  Suport  Engleza  Franceza  Call
+Awinta Consulting,8000.00,2480.00,Agent Servicii Clienti,Brasov,2,FALSE,FALSE,Feb-16,Germana
+IBM,7500.00,2325.00,Senior Software Developer,Brasov,9,FALSE,FALSE,Feb-16,CSS  Linux  Sqlserver  SQL  Javascript  Python  Oracle  HTML  Java
+Autoliv,2200.00,682.00,Technical Support Specialist,Brasov,5,FALSE,TRUE,Feb-16,Windows  Support  Tehnic  Tichete
+Siemens Ag,4000.00,1240.00,Software Engineer,Brasov,8,FALSE,FALSE,Feb-16,C++  Opengl
+Awinta Consulting,4700.00,1457.00,Software Engineer,Brasov,5,FALSE,FALSE,Feb-16,Java
+Sc Winsoft Group Srl,1600.00,496.00,Agent Servicii Clienti,Toata Tara,8,FALSE,TRUE,Feb-16,Foxpro
+Espack Eurologistica,2500.00,775.00,IT Supervisor,Craiova,2,FALSE,FALSE,Aug-17,"System  Administrator  Network  IT  Supervisor,  Administrator,"
+Netrom,6600.00,2046.00,Software Developer,Craiova,8,FALSE,TRUE,Mar-17,PHP
+Star Storage,1800.00,558.00,Junior Software Developer,Craiova,0,FALSE,FALSE,Mar-17,C#  .NET
+Ates Networks,1800.00,558.00,Java Developer,Craiova,0,FALSE,TRUE,Mar-17,Java
+Star Storage,1500.00,465.00,Junior Software Developer,Craiova,0,FALSE,FALSE,Jan-17,C#  .NET
+Elind,1050.00,325.50,Inginer,Craiova,8,FALSE,TRUE,Nov-16,Ferate  Cai  Inginerie  Cfr  Echipamente
+Softronic,1350.00,418.50,Inginer,Craiova,3,FALSE,TRUE,Nov-16,Echipamente  Verificari  Metrologie
+Netrom,3800.00,1178.00,Junior Software Developer,Craiova,0,FALSE,TRUE,Nov-16,Javaee
+Netrom,2800.00,868.00,Junior PHP Developer,Craiova,0,FALSE,FALSE,Nov-16,PHP
+Netrom,6500.00,2015.00,PHP Developer,Craiova,5,FALSE,TRUE,Sep-16,PHP
+IT Six Global Services,4500.00,1395.00,Software Developer,Craiova,4,FALSE,TRUE,Sep-16,Java
+IT Six Global Services,2500.00,775.00,Junior Software Developer,Craiova,2,FALSE,FALSE,Sep-16,Java
+Netrom,3200.00,992.00,QA Automation,Craiova,1,FALSE,TRUE,Sep-16,SQL  Karma
+Sintec Media,1800.00,558.00,Software Developer,Craiova,1,FALSE,TRUE,Jul-16,Java  C++  SQL
+IT Six Global Services,4000.00,1240.00,Software Developer,Craiova,3,FALSE,TRUE,Feb-16,C#  .NET
+Iquest Technologies,5000.00,1550.00,Junior Software Developer,Craiova,2,FALSE,TRUE,Feb-16,C#  Javascript
+IT Six Global Services,5000.00,1550.00,Middle Software Developer,Craiova,4,FALSE,TRUE,Feb-16,Java
+IT Six Global Services,15000.00,4650.00,Senior Software Developer,Craiova,5,FALSE,FALSE,Feb-16,Java
+IT Six Global Services,4000.00,1240.00,Automation Tester,Craiova,2,FALSE,TRUE,Feb-16,Selenium  Ruby  Cucumber
+Iquest Technologies,3600.00,1116.00,Junior Software Developer,Craiova,2,FALSE,TRUE,Feb-16,C#
+Netrom,4100.00,1271.00,Software Developer,Craiova,2,FALSE,TRUE,Feb-16,C#  Javascript  SQL
+Sintec Media,7800.00,2418.00,Software Developer,Craiova,3,FALSE,TRUE,Feb-16,Java  C++  SQL
+IT Six Global Services,2000.00,620.00,Junior Software Developer,Craiova,0,FALSE,FALSE,Feb-16,C#  Java
+Bosch,1400.00,434.00,Automation Student,Blaj,1,FALSE,FALSE,Oct-16,Plc  Hmi  Ladder
+Zitec,9800.00,3038.00,Senior PHP Developer,Constanta,7,TRUE,TRUE,Mar-17,PHP
+Hitdm,4000.00,1240.00,Software Developer,Constanta,1,FALSE,TRUE,Mar-17,C#  Android Sdk  Agile Methodology  Mssql Server
+Hitdm,2900.00,899.00,.NET Developer,Constanta,1,FALSE,TRUE,Nov-16,C#  SQL Server
+Bluepink Software,700.00,217.00,Junior Web Developer,Constanta,1,FALSE,TRUE,Feb-16,CSS  Jquery  HTML  Bootstrap
+F5 IT,3500.00,1085.00,.NET Web Developer,Constanta,1,FALSE,TRUE,Feb-16,C#  Angularjs  T-SQL
+F5 IT,3850.00,1193.50,.NET Web Developer,Constanta,2,FALSE,TRUE,Feb-16,C#  Angularjs  T-SQL
+Solution Center,2400.00,744.00,.NET Developer,Constanta,1,FALSE,FALSE,Feb-16,C#  Asp  Signalr
+Assist Software,1800.00,558.00,Android Developer,Suceava,2,FALSE,TRUE,Feb-16,Java  Android
+Service,2500.00,775.00,Software Engineering,Suceava,1,FALSE,TRUE,Feb-16,C++
+Accesa,900.00,279.00,Intern,Oradea,1,FALSE,TRUE,Jun-17,Angular
+Accesa,1500.00,465.00,Junior Software Developer,Oradea,2,FALSE,TRUE,Jun-17,Angular
+Pss-prosoft Solutions,10000.00,3100.00,SAP Sd Consultant,Oradea,4,TRUE,TRUE,Mar-17,Asfasf
+Cylex,1800.00,558.00,Software Developer Junior,Oradea,0,FALSE,TRUE,Jan-17,C#
+Fortech,2200.00,682.00,Junior Software Developer,Oradea,0,FALSE,TRUE,Nov-16,Java
+Qubiz,2000.00,620.00,Junior Software Developer,Oradea,1,FALSE,FALSE,Aug-16,C#
+Gmab,2100.00,651.00,Proiectant,Oradea,4,FALSE,FALSE,Feb-16,3D
+Smartware,4000.00,1240.00,Senior Web Developer,Oradea,5,TRUE,TRUE,Feb-16,Javascript  PHP  SQL
+Gmab,1120.00,347.20,Proiectant,Oradea,1,FALSE,FALSE,Feb-16,Catia
+Whitecity Code,2000.00,620.00,Programator,Alba Iulia,1,FALSE,TRUE,Jan-17,Clojure
+Continental,4328.00,1341.68,Test Manager,Sibiu,5,FALSE,FALSE,Jul-17,Python
+EBS,9450.00,2929.50,Senior Embedded Software Developer,Sibiu,8,FALSE,TRUE,Jul-17,Autosar
+EBS,2600.00,806.00,Junior Software Developer,Sibiu,1,FALSE,TRUE,Jun-17,C++
+EBS,8500.00,2635.00,Senior Software Developer,Sibiu,8,FALSE,TRUE,Apr-17,Embedded
+EBS,6300.00,1953.00,Software Developer,Sibiu,4,FALSE,TRUE,Apr-17,C++14
+EBS,6300.00,1953.00,Software Developer,Sibiu,5,FALSE,TRUE,Apr-17,C++
+EBS,13500.00,4185.00,Software Architect,Sibiu,11,FALSE,TRUE,Apr-17,C++17
+EBS,8500.00,2635.00,Senior Software Developer,Sibiu,7,FALSE,TRUE,Apr-17,Embedded
+Iquest Technologies,4000.00,1240.00,Software Developer,Sibiu,2,FALSE,TRUE,Apr-17,.NET
+EBS,9000.00,2790.00,Senior Software Developer,Sibiu,8,FALSE,TRUE,Apr-17,C++14
+EBS,8100.00,2511.00,Software Engineer,Sibiu,7,FALSE,TRUE,Apr-17,Embedded  C++14
+EBS,8100.00,2511.00,Senior Software Developer,Sibiu,7,FALSE,TRUE,Mar-17,C++14
+Continental,3250.00,1007.50,Software Developer,Sibiu,2,FALSE,TRUE,Mar-17,Java  C
+Continental,6000.00,1860.00,Software Project Manager,Sibiu,6,FALSE,TRUE,Feb-17,C  Embedded
+EBS,8200.00,2542.00,Senior Software Developer,Sibiu,8,FALSE,TRUE,Feb-17,C++
+Visma,4100.00,1271.00,Junior Software Developer,Sibiu,1,FALSE,TRUE,Jan-17,.NET
+Proit Srl,5000.00,1550.00,Middle Software Tester,Sibiu,4,FALSE,FALSE,Dec-16,Matlab
+EBS,6200.00,1922.00,Software Developer,Sibiu,5,FALSE,TRUE,Dec-16,Agile  Embedded
+EBS,6300.00,1953.00,Senior Software Developer,Sibiu,6,FALSE,TRUE,Dec-16,Agile  Embedded
+EBS,7500.00,2325.00,Senior Software Developer,Sibiu,7,FALSE,TRUE,Dec-16,Agile  Embedded
+EBS,1900.00,589.00,Software Developer,Sibiu,0,FALSE,TRUE,Nov-16,Embedded
+EBS,7500.00,2325.00,Software Developer,Sibiu,8,FALSE,TRUE,Nov-16,C  Embedded
+Continental,4700.00,1457.00,Software Engineer,Sibiu,5,FALSE,TRUE,Nov-16,Java  PHP  C++  C  Python
+EBS,9000.00,2790.00,Senior Software Developer,Sibiu,12,FALSE,TRUE,Oct-16,C++
+EBS,8500.00,2635.00,Senior Software Developer,Sibiu,11,FALSE,TRUE,Oct-16,C++
+EBS,8500.00,2635.00,Middle Software Developer,Sibiu,9,FALSE,TRUE,Oct-16,C++
+Tntcomputers,1200.00,372.00,Programator Sistem Informatic,Sibiu,1,FALSE,FALSE,Oct-16,C#  Asp.net  Mssql
+EBS,9000.00,2790.00,Software Developer,Sibiu,9,FALSE,TRUE,Sep-16,C++
+EBS,7200.00,2232.00,Software Developer,Sibiu,5,FALSE,TRUE,Sep-16,Embedded
+EBS,6500.00,2015.00,Software Developer,Sibiu,4,FALSE,TRUE,Aug-16,Embedded
+Continental,4500.00,1395.00,Software Developer,Sibiu,6,FALSE,TRUE,Aug-16,C++
+EBS,9000.00,2790.00,Senior Software Developer,Sibiu,10,TRUE,TRUE,Aug-16,Embedded
+EBS,7500.00,2325.00,Software Developer,Sibiu,7,FALSE,TRUE,Aug-16,Embedded
+EBS,9000.00,2790.00,Senior Software Developer,Sibiu,7,FALSE,TRUE,Jul-16,Embedded
+Continental,4000.00,1240.00,Software Developer,Sibiu,5,FALSE,TRUE,Jul-16,C++
+Continental,5800.00,1798.00,Senior Software Developer,Sibiu,7,FALSE,TRUE,Jul-16,Embedded C
+Continental,3800.00,1178.00,Software Developer,Sibiu,3,FALSE,TRUE,Jul-16,C  Embedded
+Continental,4300.00,1333.00,Software Developer,Sibiu,4,FALSE,TRUE,Feb-16,C  Embedded
+Continental,5200.00,1612.00,Software Developer,Sibiu,8,FALSE,TRUE,Feb-16,C++  Embedded C
+Continental,6500.00,2015.00,Software Developer,Sibiu,8,FALSE,TRUE,Feb-16,Embedded
+Continental,3800.00,1178.00,Hardware Developer,Sibiu,5,FALSE,TRUE,Feb-16,Hardware  Test  Embedded
+Continental,2500.00,775.00,Test Engineer,Sibiu,1,FALSE,FALSE,Feb-16,C
+Continental,2800.00,868.00,Test Engineer,Sibiu,3,FALSE,TRUE,Feb-16,ICT  Embeded  Electronica
+Kromberg & Schubert,23540.00,7297.40,Team Leader,Sibiu,7,FALSE,TRUE,Feb-16,Windows  Unix  Oracle
+Continental,740.00,229.40,Intern,Sibiu,0,FALSE,FALSE,Feb-16,C#  C++  Python  Matlab  Etc
+Kromberg & Schubert,2313.00,717.03,Sysadmin,Sibiu,1,FALSE,TRUE,Feb-16,Windows  SQL  Unix  Support  Solaris
+Gemini,7650.00,2371.50,Senior Software Developer,Sibiu,8,FALSE,TRUE,Feb-16,.NET
+Continental,6000.00,1860.00,Software Developer,Sibiu,9,FALSE,TRUE,Feb-16,C
+Continental,4000.00,1240.00,Software Developer,Sibiu,5,FALSE,TRUE,Feb-16,C++
+IBM,9000.00,2790.00,Senior Business Analyst,Bucuresti,10,FALSE,FALSE,Dec-16,Cobol  Business Analyst
+Telekom Romania,2700.00,837.00,Business Analyst,Bucuresti,3,FALSE,TRUE,Nov-16,Comisionare
+Accenture,4700.00,1457.00,Senior Business Analyst,Cluj-Napoca,10,FALSE,TRUE,Jul-16,SAP
+Yonder,9000.00,2790.00,Business Analyst,Cluj-Napoca,4,FALSE,TRUE,Feb-16,BA  Business  Analyst
+Vodafone,4900.00,1519.00,Business Analyst,Bucuresti,1,FALSE,TRUE,Feb-16,Business  IT  Analysis
+Bosch,3200.00,992.00,Test Engineer,Cluj-Napoca,5,FALSE,FALSE,Feb-16,ICT  Flash  Embeded
+Insoft-dc,3800.00,1178.00,Test Engineer,Bucuresti,2,FALSE,TRUE,Feb-16,Istqb  Java  Selenium  Jira  Mantis
+Sparkware,5300.00,1643.00,Test Engineer,Bucuresti,8,FALSE,TRUE,Feb-16,QA  Tester  Test  Test Engineer
+Softelligence,2000.00,620.00,Quality Assurance Manual,Bucuresti,0,FALSE,TRUE,Feb-16,QA  Manual  Tester
+Teamnet,7000.00,2170.00,.NET Web Developer,Bucuresti,3,FALSE,FALSE,Feb-16,C#  Javascript  MVC
+Ubisoft,4600.00,1426.00,.NET Web Developer,Bucuresti,3,FALSE,FALSE,Feb-16,Javascript  MVC
+Digital Equation,3700.00,1147.00,PHP Software Engineer,Bucuresti,2,FALSE,FALSE,Dec-16,API  Sass  Less  CSS  Jquery  Laravel  PHP  Angularjs  Ajax  HTML
+Emerson,2500.00,775.00,Analist Vanzari,Cluj-Napoca,3,FALSE,TRUE,Feb-16,Sales. Backoffice
+Endava,18000.00,5580.00,Senior Software Developer,Bucuresti,3,FALSE,FALSE,Jan-17,C#
+Accenture,7700.00,2387.00,Senior Software Developer,Bucuresti,4,FALSE,TRUE,Jan-17,Javascript  .NET  SQL
+EBS,7800.00,2418.00,Senior Software Developer,Cluj-Napoca,7,FALSE,TRUE,Nov-16,C++
+Erni,6000.00,1860.00,Senior Software Developer,Cluj-Napoca,8,FALSE,TRUE,Oct-16,.NET
+EBS,9000.00,2790.00,Senior Software Developer,Cluj-Napoca,12,FALSE,TRUE,Oct-16,C++
+Betfair,11000.00,3410.00,Senior Software Developer,Cluj-Napoca,7,FALSE,TRUE,Sep-16,Java
+EBS,8000.00,2480.00,Senior Software Developer,Cluj-Napoca,5,TRUE,TRUE,Aug-16,C  Embedded
+Intel,11000.00,3410.00,Senior Software Developer,Cluj-Napoca,15,FALSE,TRUE,Jul-16,Java
+EBS,8100.00,2511.00,Senior Software Developer,Cluj-Napoca,6,FALSE,TRUE,Jul-16,Embedded
+Betfair,13000.00,4030.00,Senior Software Developer,Cluj-Napoca,10,FALSE,TRUE,Feb-16,Java
+Fortech,11000.00,3410.00,Senior Software Developer,Cluj-Napoca,10,FALSE,FALSE,Feb-16,Agile  Java
+Stefanini,7500.00,2325.00,Senior Software Developer,Bucuresti,4,FALSE,FALSE,Feb-16,C#  Javascript  PHP  SQL
+Fortech,6200.00,1922.00,Senior Software Developer,Cluj-Napoca,9,FALSE,TRUE,Feb-16,Java
+Endava,7700.00,2387.00,Senior Software Developer,Cluj-Napoca,6,FALSE,FALSE,Feb-16,Java
+MSG,8300.00,2573.00,Senior Software Developer,Cluj-Napoca,6,TRUE,TRUE,Feb-16,Java
+Accenture,9300.00,2883.00,Senior Software Developer,Cluj-Napoca,10,FALSE,TRUE,Feb-16,-
+Ria Solutions,7800.00,2418.00,Senior Software Developer,Cluj-Napoca,6,TRUE,TRUE,Feb-16,.NET
+Nemetos Consulting,9500.00,2945.00,Senior Software Developer,Cluj-Napoca,6,TRUE,FALSE,Feb-16,C#  Episerver  Sitecore
+Nemetos Consulting,8200.00,2542.00,Senior Software Developer,Cluj-Napoca,4,TRUE,FALSE,Feb-16,C#  Episerver  Sitecore
+EBS,13000.00,4030.00,Senior Software Developer,Cluj-Napoca,7,TRUE,TRUE,Feb-16,Java  Germana
+EBS,8000.00,2480.00,Senior Software Developer,Cluj-Napoca,7,TRUE,TRUE,Feb-16,Java
+Agilio,7191.00,2229.21,Senior Software Developer,Cluj-Napoca,7,FALSE,FALSE,Feb-16,PHP  MySQL  SVN  git  Memcached
+Intel,8500.00,2635.00,Senior Software Developer,Bucuresti,10,FALSE,TRUE,Feb-16,C++  C
+Life Is Hard,8000.00,2480.00,Senior Software Developer,Cluj-Napoca,8,TRUE,FALSE,Feb-16,PHP  MySQL
+SAP,5200.00,1612.00,SAP Consultant,Cluj-Napoca,4,FALSE,TRUE,Feb-16,SAP
+EBS,2600.00,806.00,SAP Consultant,Cluj-Napoca,4,FALSE,TRUE,Feb-16,SAP
+Arobs,10000.00,3100.00,Senior Embedded Software Developer,Cluj-Napoca,7,TRUE,FALSE,Jul-16,C  Python  Perl
+Interactions,8100.00,2511.00,Frontend Developer,Bucuresti,2,FALSE,FALSE,Jan-17,Javascript  CSS  HTML
+Softvision,8000.00,2480.00,Frontend Developer,Bucuresti,5,FALSE,TRUE,Jan-17,Javascript  CSS  HTML
+Creadiv,2500.00,775.00,Frontend Developer,Bucuresti,1,FALSE,FALSE,Jan-17,Javascript  CSS  HTML
+Avira,7200.00,2232.00,Frontend Developer,Bucuresti,5,FALSE,FALSE,Oct-16,Javascript  Angularjs
+Softvision,5000.00,1550.00,Frontend Developer,Bucuresti,2,FALSE,TRUE,Sep-16,Front-end  Ui
+Gama Software,3500.00,1085.00,Frontend Developer,Cluj-Napoca,1,TRUE,FALSE,Feb-16,Javascript  CSS  HTML
+Hollo,2000.00,620.00,Frontend Developer,Bucuresti,2,FALSE,FALSE,Feb-16,CSS  Jquery  HTML
+Gameloft,5300.00,1643.00,Frontend Developer,Bucuresti,3,FALSE,TRUE,Feb-16,Javascript  Angularjs  Jquery  HTML5  CSS3
+Qualitance,7500.00,2325.00,Senior Frontend Developer,Bucuresti,5,FALSE,TRUE,Feb-16,Javascript  Angular  UX  HTML5
+Luxoft,2400.00,744.00,Junior Technical Support Engineer,Bucuresti,0,FALSE,TRUE,Oct-16,Juniper
+Hp,6000.00,1860.00,Senior PHP Developer,Bucuresti,6,FALSE,FALSE,Oct-16,PHP
+Emag,8000.00,2480.00,Senior PHP Developer,Bucuresti,6,TRUE,TRUE,Feb-16,Java  PHP
+Teamnet,6000.00,1860.00,Android Developer,Bucuresti,3,FALSE,TRUE,Aug-16,Java  Android
+Softvision,5700.00,1767.00,Android Developer,Cluj-Napoca,5,FALSE,TRUE,Feb-16,Java  Android
+Amaris,5300.00,1643.00,Android Developer,Bucuresti,2,FALSE,FALSE,Feb-16,Android
+Endava,5500.00,1705.00,Senior Software Tester,Cluj-Napoca,2,FALSE,TRUE,Nov-16,Java
+Gameloft,1400.00,434.00,QA Tester Ws,Cluj-Napoca,0,FALSE,FALSE,Oct-16,QA
+Gama Software,2500.00,775.00,QA Tester,Cluj-Napoca,3,TRUE,TRUE,Feb-16,Manual  Testing
+Sien Srl,1500.00,465.00,QA Tester Software,Bucuresti,2,FALSE,TRUE,Feb-16,Testing  Software
+Quantic Lab,1300.00,403.00,QA Tester,Cluj-Napoca,1,FALSE,FALSE,Feb-16,QA
+EA Games,1000.00,310.00,Game Tester,Bucuresti,0,FALSE,TRUE,Feb-16,Tester  Game
+Gama Software,2800.00,868.00,QA Tester,Cluj-Napoca,1,TRUE,FALSE,Feb-16,QA
+Wirtek,3400.00,1054.00,Product Tester,Cluj-Napoca,5,TRUE,FALSE,Feb-16,Istqb  Testing  Product  Telephony
+Quantic Lab,1900.00,589.00,Tester,Cluj-Napoca,1,FALSE,FALSE,Feb-16,QA
+Endava,4300.00,1333.00,Software Tester,Bucuresti,2,FALSE,TRUE,Feb-16,Java
+Endava,4200.00,1302.00,Software Tester,Bucuresti,2,FALSE,TRUE,Feb-16,Java
+Ubisoft,989.00,306.59,Tester,Bucuresti,0,FALSE,FALSE,Feb-16,Gametester
+Garmin,5100.00,1581.00,Software Tester,Cluj-Napoca,6,FALSE,TRUE,Feb-16,Vbsript  Uft
+Freelancer,4300.00,1333.00,iOS Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,Xcode  Swift  Storyboards
+Up2date Software,5000.00,1550.00,iOS Developer,Bucuresti,1,FALSE,FALSE,Feb-16,iOS  Swift  Objective-C
+Freelancer,18120.00,5617.20,iOS Developer,Cluj-Napoca,4,TRUE,TRUE,Feb-16,iOS  Mobile
+Oracle,5700.00,1767.00,Technical Consultant,Bucuresti,2,FALSE,TRUE,Aug-16,Consultant  Cloud  SQL  Javascript  Mobile  Oracle  Java
+Oracle,5700.00,1767.00,Technical Consultant,Bucuresti,2,FALSE,TRUE,Aug-16,Cloud  SQL  Javascript  Mobile  Consultant  Oracle  Java
+NXP,2000.00,620.00,Software Developer Intern,Bucuresti,0,FALSE,FALSE,Feb-16,Java  C++  C
+Softwire Romania,3000.00,930.00,Software Developer Intern,Bucuresti,0,FALSE,FALSE,Feb-16,Any
+1 And 1 Internet Development,1070.00,331.70,Software Developer Intern,Bucuresti,0,FALSE,FALSE,Feb-16,Java  Internship
+Zitec,1200.00,372.00,Software Developer Intern,Bucuresti,0,FALSE,TRUE,Feb-16,Magento  PHP
+Emerson,3800.00,1178.00,Oracle Analyst,Cluj-Napoca,3,FALSE,TRUE,Feb-16,Oracle
+MSG,2200.00,682.00,Junior IT Consultant,Cluj-Napoca,0,FALSE,FALSE,Feb-16,SAP
+Stefanini,2500.00,775.00,Technical Support Specialist,Bucuresti,2,FALSE,TRUE,Dec-16,Spanish
+Bitdefender,3000.00,930.00,Technical Support Specialist,Bucuresti,2,FALSE,FALSE,Sep-16,Citirix  Networking  Linux  Cloud  Storage  Antimalware  Wserver  Virtualizare  Hyperv  Vmware  Amazonaws
+Bitdefender,3000.00,930.00,Technical Support Specialist,Bucuresti,2,FALSE,FALSE,Sep-16,Wserver  Antimalware  Amazonaws  Citirix  Hyperv  Networking  Linux  Cloud  Storage  Virtualizare  Vmware
+Totalsoft,4500.00,1395.00,Technical Support Specialist,Bucuresti,4,FALSE,TRUE,Jul-16,SQL  Database
+Luxoft,11000.00,3410.00,Team Leader,Bucuresti,6,FALSE,TRUE,Feb-16,Oracle
+Emag,9000.00,2790.00,Team Leader,Bucuresti,5,TRUE,TRUE,Feb-16,iOS  C#  PHP
+Luxoft,12000.00,3720.00,Team Leader,Bucuresti,5,FALSE,TRUE,Feb-16,Java
+Endava,4500.00,1395.00,Team Leader,Cluj-Napoca,4,FALSE,TRUE,Feb-16,Java
+3 Pillar Global,13300.00,4123.00,Team Leader,Cluj-Napoca,6,FALSE,TRUE,Feb-16,Javascript  Js  Frontend
+Edisoft,13500.00,4185.00,Team Leader,Bucuresti,10,FALSE,TRUE,Feb-16,PHP  MySQL
+Arobs,6300.00,1953.00,.NET Developer,Cluj-Napoca,3,TRUE,TRUE,Oct-16,C#  .NET
+Dell,8000.00,2480.00,.NET Developer,Bucuresti,5,FALSE,TRUE,Oct-16,C#
+Endava,6800.00,2108.00,.NET Developer,Cluj-Napoca,3,FALSE,TRUE,Feb-16,C#
+Freelancer,16200.00,5022.00,.NET Developer,Cluj-Napoca,7,TRUE,TRUE,Feb-16,C#  .NET  SQL
+Endava,4000.00,1240.00,.NET Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,Agile  C#  .NET  Scrum  MVC  Mssql  Asp.net
+Qualysoft Information Technology,7000.00,2170.00,.NET Developer,Bucuresti,4,FALSE,TRUE,Feb-16,C#
+Class IT,3100.00,961.00,Middle System Administrator,Bucuresti,2,FALSE,FALSE,Feb-16,System  Administrator
+Ntt Data,2200.00,682.00,Junior Java Programmer,Cluj-Napoca,1,FALSE,TRUE,Nov-16,Java
+Deutsche Bank,6000.00,1860.00,Junior Java Programmer,Bucuresti,0,FALSE,TRUE,Jul-16,Java
+Everymatrix Srl,2000.00,620.00,Junior Java Programmer,Bucuresti,0,FALSE,FALSE,Jul-16,Java
+Gentlab,1800.00,558.00,Junior Java Programmer,Bucuresti,0,FALSE,FALSE,Feb-16,Java
+Evozon System,2500.00,775.00,Junior QA Automation,Cluj-Napoca,0,FALSE,FALSE,Jul-16,Java  Selenium
+Garmin,3400.00,1054.00,Junior QA Automation,Cluj-Napoca,1,FALSE,FALSE,Feb-16,C++
+Betfair,5600.00,1736.00,Junior QA Automation,Cluj-Napoca,1,FALSE,FALSE,Feb-16,Java  Automation
+Evozon System,1600.00,496.00,Junior QA Automation,Cluj-Napoca,0,FALSE,FALSE,Feb-16,Java
+Bitdefender,4500.00,1395.00,Junior QA Automation,Cluj-Napoca,1,FALSE,FALSE,Feb-16,C  Python
+Bitdefender,4000.00,1240.00,Junior QA Automation,Cluj-Napoca,0,FALSE,FALSE,Feb-16,C
+Axway,2800.00,868.00,Junior QA Automation,Bucuresti,0,FALSE,FALSE,Feb-16,Java  Selenium
+Software Bussienes Parteners,1500.00,465.00,Ajutor Programator,Bucuresti,0,FALSE,FALSE,Jan-17,C#  C++
+Emerson,4500.00,1395.00,Junior Developer,Bucuresti,3,FALSE,TRUE,Feb-16,C+q
+Lateral,1500.00,465.00,Junior Developer - Part Time,Cluj-Napoca,0,FALSE,FALSE,Feb-16,iOS
+Groupama,2100.00,651.00,Junior Developer - Part Time,Bucuresti,0,FALSE,FALSE,Feb-16,SQL  Oracle
+Betfair,5000.00,1550.00,Junior Developer - Part Time,Cluj-Napoca,2,FALSE,FALSE,Feb-16,SQL
+Evozon System,2800.00,868.00,Junior Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,C#
+Siemens Ag,4500.00,1395.00,Junior Developer,Cluj-Napoca,0,FALSE,TRUE,Feb-16,C#
+Luxoft,8500.00,2635.00,Software Developer,Bucuresti,3,FALSE,TRUE,Jan-17,Java
+Deutsche Bank,7100.00,2201.00,Software Developer,Bucuresti,1,FALSE,TRUE,Dec-16,Angularjs  Java
+Misys,3800.00,1178.00,Associate Quality Assurence Engineer,Bucuresti,1,FALSE,TRUE,Feb-16,Automated  Testing  Unix  SQL  Jira  Manual
+EBS,6500.00,2015.00,Database Developer,Bucuresti,3,FALSE,TRUE,Dec-16,SQL
+Electronic Arts,1350.00,418.50,QA Test Lead,Bucuresti,1,FALSE,FALSE,Feb-16,QA  Test  Lead
+Jolly,1600.00,496.00,Specialist Marketing,Cluj-Napoca,1,FALSE,FALSE,Jul-16,Magento
+Nttdata,11000.00,3410.00,Senior Java Developer,Cluj-Napoca,9,FALSE,FALSE,Nov-16,Java
+Ullink,9000.00,2790.00,Senior Java Developer,Cluj-Napoca,5,FALSE,TRUE,Aug-16,Java
+Ixxus Europe,13500.00,4185.00,Senior Java Developer,Cluj-Napoca,7,FALSE,TRUE,Feb-16,Java
+Betfair,9600.00,2976.00,Senior Java Developer,Cluj-Napoca,10,FALSE,TRUE,Feb-16,Java
+Uti Grup,13000.00,4030.00,Tehnical Manager,Bucuresti,9,FALSE,TRUE,Oct-16,Java  Web  Lead  Architecture
+Arobs,8300.00,2573.00,QA Automation Engineer,Cluj-Napoca,5,TRUE,TRUE,Nov-16,Selenium
+Accenture,7000.00,2170.00,Software Engineering Senior Analyst,Bucuresti,5,FALSE,TRUE,Sep-16,Java
+Accenture,7800.00,2418.00,Software Engineering Senior Analyst,Bucuresti,4,FALSE,TRUE,Aug-16,Java  Spring
+Accenture,2800.00,868.00,Software Engineering Associate,Bucuresti,1,FALSE,TRUE,Feb-16,Java
+Accenture,6400.00,1984.00,Software Engineering Senior Analyst,Bucuresti,4,FALSE,TRUE,Feb-16,Java
+Accenture,2350.00,728.50,Software Engineering Associate,Cluj-Napoca,0,FALSE,TRUE,Feb-16,SAP
+Accenture,5200.00,1612.00,Software Engineering Analyst,Bucuresti,3,FALSE,TRUE,Feb-16,Java
+Integrisoft,3000.00,930.00,Backend Software Developer,Bucuresti,0,FALSE,FALSE,Feb-16,C# Web .NET TSQL Backend Server-side
+Bigstep,3250.00,1007.50,Backend Software Developer,Bucuresti,1,FALSE,TRUE,Feb-16,PHP
+Integrisoft,2200.00,682.00,Backend Software Developer,Bucuresti,0,FALSE,FALSE,Feb-16,TSQL  Server-side  Backend  C#  .NET  Web
+Hollo,5500.00,1705.00,Backend Software Developer,Bucuresti,3,FALSE,FALSE,Feb-16,PHP
+Bigstep,3200.00,992.00,Backend Software Developer,Bucuresti,1,FALSE,TRUE,Feb-16,PHP
+Luxoft,5200.00,1612.00,Software Engineer,Bucuresti,1,FALSE,TRUE,Dec-16,Java
+Gemini,15000.00,4650.00,Software Engineer,Bucuresti,11,FALSE,TRUE,Dec-16,Scala  C#  .NET  Typescript  Javascript  Bigdata
+Iquest Technologies,9500.00,2945.00,Senior Software Engineer,Cluj-Napoca,6,FALSE,TRUE,Nov-16,Java
+Deutsche Bank,6300.00,1953.00,Software Engineer,Bucuresti,1,FALSE,TRUE,Nov-16,SQL  Spring  Java8
+Sdl,8000.00,2480.00,Software Engineer,Cluj-Napoca,4,FALSE,TRUE,Oct-16,Java
+Softvision,3000.00,930.00,Middle Software Engineer,Cluj-Napoca,1,FALSE,TRUE,Oct-16,C#
+Garmin,8900.00,2759.00,Software Engineer,Cluj-Napoca,3,FALSE,TRUE,Sep-16,Android
+Garmin,8900.00,2759.00,Software Engineer,Cluj-Napoca,3,FALSE,TRUE,Aug-16,Android
+NXP,5500.00,1705.00,Software Engineer 2,Bucuresti,4,FALSE,TRUE,Aug-16,C
+Ixia,8000.00,2480.00,Senior Software Engineer,Bucuresti,5,FALSE,TRUE,Feb-16,C#
+Luxoft,1800.00,558.00,Software Engineer,Bucuresti,0,FALSE,FALSE,Feb-16,C++  C
+Luxoft,3000.00,930.00,Software Engineer,Bucuresti,0,FALSE,TRUE,Feb-16,C++
+Nortal Solutions,9500.00,2945.00,Software Engineer,Bucuresti,3,FALSE,TRUE,Feb-16,Oracle  Bootstrap  JEE  Websphere  Javascript  Java
+Luxoft,9000.00,2790.00,Software Engineer,Bucuresti,3,FALSE,TRUE,Feb-16,Java  GWT
+Qualitance,6200.00,1922.00,Senior Software Engineer,Bucuresti,5,FALSE,FALSE,Feb-16,Javascript  Unity3d  Angular  Node  Webrtc
+Axway,7500.00,2325.00,Senior Software Engineer,Bucuresti,4,FALSE,TRUE,Feb-16,C++  C  Ci
+Eau De Web,1800.00,558.00,Software Engineer Intern,Bucuresti,0,FALSE,FALSE,Feb-16,Python
+Emerson,12000.00,3720.00,Software Engineer,Cluj-Napoca,5,FALSE,TRUE,Feb-16,C
+Thales,4500.00,1395.00,Software Engineer,Bucuresti,1,FALSE,TRUE,Feb-16,Java  C  Linux
+Xoomworks,7000.00,2170.00,Software Engineer,Cluj-Napoca,2,TRUE,TRUE,Feb-16,Java
+Garmin,7800.00,2418.00,Software Engineer 2,Cluj-Napoca,4,FALSE,FALSE,Feb-16,Android
+Adobe,7200.00,2232.00,Software Engineer In Test,Bucuresti,2,FALSE,TRUE,Feb-16,Java
+Bearingpoint,6434.00,1994.54,Software Engineer,Bucuresti,3,FALSE,TRUE,Feb-16,Java
+Wirtek,3000.00,930.00,Software Engineer 2,Cluj-Napoca,0,FALSE,TRUE,Feb-16,C#
+Garmin,6000.00,1860.00,Software Engineer,Cluj-Napoca,3,FALSE,TRUE,Feb-16,C++
+Intel,9000.00,2790.00,Software Engineer,Cluj-Napoca,5,FALSE,TRUE,Feb-16,C#  Mobile  WPF  Xamarin
+Electronic Arts,1800.00,558.00,Software Engineer Intern,Bucuresti,0,FALSE,FALSE,Feb-16,C++
+Endava,6000.00,1860.00,Software Engineer,Cluj-Napoca,5,FALSE,TRUE,Feb-16,C#  .NET  SQL  Winforms
+Softvision,10000.00,3100.00,Software Engineer,Cluj-Napoca,3,TRUE,FALSE,Feb-16,PHP
+Consiliul Judetean,3400.00,1054.00,Sysadmin,Bucuresti,4,FALSE,TRUE,Feb-16,Unix
+Class IT,3250.00,1007.50,Field Sysadmin,Bucuresti,4,FALSE,FALSE,Feb-16,Windows  System  Administrator
+Class IT,2450.00,759.50,Field Sysadmin,Bucuresti,6,FALSE,TRUE,Feb-16,iOS  Android  Windows  Level  1
+Rezolvit,2500.00,775.00,Sysadmin,Bucuresti,1,FALSE,FALSE,Feb-16,Windows  Linux
+Teamnet,8000.00,2480.00,Solution Architect,Bucuresti,6,FALSE,TRUE,Feb-16,Presales
+1 And 1 Internet Development,8000.00,2480.00,UX Designer,Bucuresti,3,FALSE,FALSE,Feb-16,Designer  UX  Axure
+Softvision,4000.00,1240.00,Ui UX Designer,Cluj-Napoca,6,FALSE,FALSE,Feb-16,Design  User  Sketch  After  Effects  Interface  Photoshop  Illustrator  Experience
+Luxoft,9600.00,2976.00,Quality Engineer,Bucuresti,4,FALSE,TRUE,Jan-17,Java
+Gameloft,25000.00,7750.00,Studio Manager,Cluj-Napoca,12,FALSE,FALSE,Feb-16,Manager
+Assystem Romania,2000.00,620.00,Inginer De Sistem In Informatica,Bucuresti,1,FALSE,TRUE,Nov-16,C
+Yardi,3000.00,930.00,Data Analyst,Cluj-Napoca,2,FALSE,TRUE,Sep-16,SQL
+Yardi,1800.00,558.00,Data Analyst,Cluj-Napoca,1,FALSE,TRUE,Feb-16,Oracle  Perl  Propertyshark
+Yardi,2300.00,713.00,Data Analyst,Cluj-Napoca,3,FALSE,TRUE,Feb-16,SQL
+Endava,2300.00,713.00,Java Graduate,Bucuresti,0,FALSE,FALSE,Jan-17,Java
+SAP,5500.00,1705.00,SAP Fi Consultant,Cluj-Napoca,3,FALSE,TRUE,Feb-16,SAP
+Kruk Romania,2600.00,806.00,Programator SQL,Bucuresti,0,FALSE,TRUE,Jan-17,SQL
+Crispico,1500.00,465.00,Programator Junior,Bucuresti,0,FALSE,FALSE,Nov-16,Java  Spring  Hibernate
+Luxoft,9000.00,2790.00,Programator Senior,Bucuresti,8,FALSE,TRUE,Oct-16,C++
+IT Grup Srl,600.00,186.00,Programator Junior,Bucuresti,0,FALSE,TRUE,Aug-16,C#  Ore  Sql-4
+Ubisoft,8000.00,2480.00,Programator,Bucuresti,5,FALSE,TRUE,Aug-16,C#  C++
+Ipsos Interactive Services,4500.00,1395.00,Programator SQL,Bucuresti,2,FALSE,TRUE,Feb-16,SQL
+Gameloft,3800.00,1178.00,Programator,Bucuresti,2,FALSE,TRUE,Feb-16,C#  .NET
+Rezolvit,3500.00,1085.00,Programator PHP,Bucuresti,2,FALSE,FALSE,Feb-16,PHP  Kohana  Framework
+Stefanini,3300.00,1023.00,Tehnician IT,Bucuresti,2,FALSE,TRUE,Oct-16,French
+Bosch,1500.00,465.00,Tehnician IT,Cluj-Napoca,0,FALSE,TRUE,Feb-16,SQL
+Gameloft,4500.00,1395.00,HR Manager,Cluj-Napoca,9,FALSE,FALSE,Feb-16,Manager  HR
+Samsung,8000.00,2480.00,IT Consultant,Bucuresti,12,FALSE,TRUE,Oct-16,Erp
+MSG,4300.00,1333.00,Associate IT Consultant,Cluj-Napoca,2,FALSE,TRUE,Sep-16,SAP
+MSG,3150.00,976.50,Associate IT Consultant,Cluj-Napoca,0,FALSE,FALSE,Aug-16,SAP  ABAP
+MSG,2700.00,837.00,Associate IT Consultant,Cluj-Napoca,0,FALSE,FALSE,Aug-16,ABAP
+MSG Systems,6000.00,1860.00,IT Consultant,Cluj-Napoca,3,TRUE,TRUE,Aug-16,Java  Germana
+MSG,2850.00,883.50,IT Consultant,Cluj-Napoca,4,FALSE,TRUE,Feb-16,SAP
+MSG,6600.00,2046.00,IT Consultant,Cluj-Napoca,4,TRUE,TRUE,Feb-16,Java Germana
+Axway,4600.00,1426.00,IT Consultant,Bucuresti,2,FALSE,TRUE,Feb-16,Java  C  Unix  Cobol
+Edited Development,3000.00,930.00,IT Consultant,Bucuresti,2,FALSE,TRUE,Feb-16,. Net
+MSG,3300.00,1023.00,Associate IT Consultant,Cluj-Napoca,1,FALSE,FALSE,Feb-16,SAP  ABAP
+Endava,2700.00,837.00,Junior Ui Developer,Bucuresti,1,FALSE,FALSE,Nov-16,Angular2
+Gameloft,3150.00,976.50,Junior Software Developer,Bucuresti,0,FALSE,TRUE,Nov-16,Java  Se
+4psa,5400.00,1674.00,Junior Software Developer,Bucuresti,2,FALSE,FALSE,Nov-16,PHP
+Rohde & Schwarz Topex,3000.00,930.00,Junior PHP Developer,Bucuresti,0,FALSE,FALSE,Oct-16,PHP  Web
+Garmin,5000.00,1550.00,Junior Software Developer,Cluj-Napoca,1,FALSE,FALSE,Sep-16,Java
+Ubis Unicredit,3200.00,992.00,Junior Software Developer,Bucuresti,0,FALSE,TRUE,Sep-16,Java
+Codemart,2250.00,697.50,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Sep-16,Java
+Ubis Unicredit,2500.00,775.00,Junior Software Developer,Bucuresti,0,FALSE,TRUE,Aug-16,Java
+Mhp,2850.00,883.50,Junior Software Developer,Cluj-Napoca,0,FALSE,TRUE,Jul-16,SAP  ABAP  Oop  Sapui5
+Tora,2400.00,744.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Jul-16,Java
+IBM,3200.00,992.00,Junior Software Developer,Bucuresti,0,FALSE,TRUE,Jul-16,C#
+Evozon System,2200.00,682.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Jul-16,PHP Magento
+3 Pillar Global,8500.00,2635.00,Junior Software Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,Java
+Luxoft,3500.00,1085.00,Junior Software Developer,Bucuresti,1,FALSE,TRUE,Feb-16,C  Networking
+Gameloft,1800.00,558.00,Big Data Java Engineer,Bucuresti,0,FALSE,FALSE,Sep-16,Java  Web
+Valoris,1200.00,372.00,Analyst Crm,Bucuresti,2,FALSE,TRUE,Feb-16,VBA  TSQL  Excel  Crm Dynamics
+IBM,15000.00,4650.00,See Information Security Technical Sales,Bucuresti,9,FALSE,TRUE,Feb-16,Security
+Emag,5500.00,1705.00,PHP Developer,Bucuresti,2,FALSE,TRUE,Jan-17,PHP
+Dcs Plus,5500.00,1705.00,PHP Developer,Bucuresti,2,FALSE,FALSE,Aug-16,PHP  MySQL
+Gameloft,5000.00,1550.00,PHP Developer,Bucuresti,6,FALSE,TRUE,Feb-16,PHP
+Advanced Ideas,6000.00,1860.00,PHP Developer,Bucuresti,2,TRUE,TRUE,Feb-16,MySQL  Codeigniter
+Softdreams,5000.00,1550.00,PHP Developer,Bucuresti,8,FALSE,FALSE,Feb-16,PHP  Laravel
+Emag,3800.00,1178.00,PHP Developer,Bucuresti,2,FALSE,TRUE,Feb-16,PHP
+Up2date Software,3500.00,1085.00,PHP Developer,Bucuresti,1,FALSE,FALSE,Feb-16,PHP  Web
+Hollo,3500.00,1085.00,PHP Developer,Bucuresti,3,FALSE,FALSE,Feb-16,PHP  Developer
+Emag,8500.00,2635.00,PHP Developer,Bucuresti,7,FALSE,FALSE,Feb-16,PHP
+Emag,4400.00,1364.00,Junior PHP Developer,Bucuresti,2,FALSE,FALSE,Feb-16,PHP  Symfony
+Rom-it,3000.00,930.00,PHP Developer,Bucuresti,1,FALSE,FALSE,Feb-16,PHP
+Evozon System,1300.00,403.00,PHP Developer Intern,Cluj-Napoca,0,FALSE,FALSE,Feb-16,PHP  MySQL  Linux
+Softvision,2300.00,713.00,Junior PHP Developer,Cluj-Napoca,1,FALSE,FALSE,Feb-16,PHP  Lamp
+Emag,3000.00,930.00,Junior PHP Developer,Bucuresti,1,FALSE,FALSE,Feb-16,PHP  Symfony
+Wirtek,2000.00,620.00,Software Tesrer,Cluj-Napoca,2,FALSE,FALSE,Feb-16,C#
+Audicon,9700.00,3007.00,Test Automation,Cluj-Napoca,3,FALSE,TRUE,Oct-16,C#
+IBM,2800.00,868.00,Web Builder,Bucuresti,3,FALSE,TRUE,Feb-16,CSS  HTML
+Evozon System,3500.00,1085.00,QA Automation,Cluj-Napoca,0,TRUE,FALSE,Oct-16,Java  Selenium
+Sdl,6000.00,1860.00,Senior QA,Cluj-Napoca,4,FALSE,FALSE,Feb-16,Java Automation
+MSG Systems,7500.00,2325.00,Senior QA,Cluj-Napoca,5,TRUE,FALSE,Feb-16,Java Automation
+Softvision,6500.00,2015.00,Senior QA,Cluj-Napoca,5,FALSE,TRUE,Feb-16,Automation
+Xoomworks,6500.00,2015.00,Senior QA,Cluj-Napoca,4,TRUE,TRUE,Feb-16,Java  Selenium  Automation
+Betfair,1800.00,558.00,Intern QA,Cluj-Napoca,0,FALSE,FALSE,Feb-16,Java  Automation
+Sdl,1200.00,372.00,Intern QA,Cluj-Napoca,0,FALSE,FALSE,Feb-16,Java
+Mapn,1200.00,372.00,Administrator Retele,Bucuresti,3,FALSE,TRUE,Feb-16,Windows  Linux  Virtualizare  Retele
+Ericsson Telecommunications Romania Srl,4400.00,1364.00,Administrator Retele,Bucuresti,4,FALSE,TRUE,Feb-16,Telecom  3G  2G  4g
+Novomatic,2450.00,759.50,Tehnician,Bucuresti,2,FALSE,FALSE,Aug-16,Tehnician
+Gameloft,5000.00,1550.00,C++ Developer,Cluj-Napoca,3,FALSE,TRUE,Jul-16,C++  Python
+Erni,4000.00,1240.00,Middle Software Developer,Cluj-Napoca,4,FALSE,TRUE,Nov-16,C#
+Fortech,7000.00,2170.00,Middle Software Developer,Cluj-Napoca,4,TRUE,TRUE,Nov-16,C#
+Uti Grup Sa,5500.00,1705.00,Middle Software Developer,Bucuresti,2,FALSE,TRUE,Oct-16,Java
+Deutsche Bank,13000.00,4030.00,Middle Software Developer,Bucuresti,3,FALSE,TRUE,Feb-16,Java
+Stefanini,7900.00,2449.00,Middle Software Developer,Bucuresti,5,FALSE,TRUE,Feb-16,C#
+Qsp Systems,4000.00,1240.00,Middle Software Developer,Bucuresti,3,FALSE,TRUE,Feb-16,C++  SQL  Oracle  Qt
+Softvision,8800.00,2728.00,Middle Software Developer,Cluj-Napoca,3,TRUE,TRUE,Feb-16,iOS  Mobile  Apple
+Hp,5000.00,1550.00,Middle Software Developer,Bucuresti,4,FALSE,TRUE,Feb-16,C++
+Appscend,6000.00,1860.00,Middle Software Developer,Bucuresti,3,FALSE,FALSE,Feb-16,iOS  Mobile
+Iquest Technologies,4800.00,1488.00,Middle Software Developer,Cluj-Napoca,2,FALSE,TRUE,Feb-16,C#
+Telax,7500.00,2325.00,Web Designer,Bucuresti,8,TRUE,FALSE,Feb-16,CSS  HTML  Design  Webdesign
+Mhp,3250.00,1007.50,ABAP Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,ABAP  Java  PHP
+EBS,15750.00,4882.50,ABAP Developer,Cluj-Napoca,8,TRUE,TRUE,Feb-16,SAP
+Qualitance,2000.00,620.00,Software Developer Trainee,Bucuresti,0,FALSE,FALSE,Feb-16,Javascript  Angular
+Luxoft,5200.00,1612.00,Java Developer,Bucuresti,2,FALSE,TRUE,Jan-17,Java  GWT
+Softvision,4500.00,1395.00,Java Developer,Bucuresti,2,FALSE,TRUE,Dec-16,Java  Spring
+Temenos,5600.00,1736.00,Java Developer,Bucuresti,5,FALSE,TRUE,Nov-16,Java
+Softvision,6000.00,1860.00,Java Developer,Cluj-Napoca,2,FALSE,TRUE,Oct-16,Java
+Aquasoft,3200.00,992.00,Java Developer,Bucuresti,1,FALSE,FALSE,Sep-16,Java
+Isdc,5500.00,1705.00,Java Developer,Cluj-Napoca,3,FALSE,TRUE,Aug-16,Java
+Endava,4500.00,1395.00,Java Developer,Cluj-Napoca,3,FALSE,TRUE,Feb-16,Java
+Sii Romania,4700.00,1457.00,Java Developer,Bucuresti,3,FALSE,FALSE,Feb-16,Javascript  Backend  Javaee  Webservices  Frontend
+Luxoft,10000.00,3100.00,Java Developer,Bucuresti,3,FALSE,TRUE,Feb-16,Spring
+IT Smart Systems,1800.00,558.00,Java Developer,Bucuresti,0,FALSE,FALSE,Feb-16,Java
+Accesa,3000.00,930.00,Java Developer,Cluj-Napoca,1,FALSE,FALSE,Feb-16,Java
+Up2date Software,5000.00,1550.00,Java Developer,Bucuresti,1,FALSE,FALSE,Feb-16,Java  Android
+Everymatrix Srl,4300.00,1333.00,Java Developer,Bucuresti,4,TRUE,TRUE,Feb-16,Java
+Mhp,3300.00,1023.00,Java Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,Java  PHP
+Servus Information & Communication Technologies,1600.00,496.00,Call Center Operator,Bucuresti,3,FALSE,TRUE,Feb-16,Excel  Shd  Office  Mediatel
+Metrosystems Romania,4000.00,1240.00,System Administrator,Bucuresti,3,FALSE,TRUE,Oct-16,Linux  Aix
+Misys,2500.00,775.00,Associate Technical Writer,Bucuresti,0,FALSE,TRUE,Feb-16,Authoring  Framemaker  Robohelp
+Misys,3000.00,930.00,Technical Writer,Bucuresti,2,FALSE,TRUE,Feb-16,Authoring  Framemaker  Robohelp
+BCR,2000.00,620.00,IT Intern,Bucuresti,0,FALSE,FALSE,Oct-16,Java  SQL
+Groupama,3000.00,930.00,Hardware Administator,Cluj-Napoca,11,FALSE,FALSE,Feb-16,Hardware
+EBS,15900.00,4929.00,SAP Sd Consultant,Cluj-Napoca,10,TRUE,TRUE,Feb-16,SAP  Sd
+EBS,2700.00,837.00,Embedded Software Developer,Cluj-Napoca,0,FALSE,TRUE,Feb-16,C
+MSG,5400.00,1674.00,Associate IT Consultan,Cluj-Napoca,4,TRUE,FALSE,Feb-16,SAP  ABAP
+Emag,2600.00,806.00,Junior Network Administrator,Bucuresti,0,FALSE,FALSE,Feb-16,Networking  Cisco  CCNA  Voip
+Vodafone,13500.00,4185.00,Infrastructure Specialist,Bucuresti,15,FALSE,FALSE,Oct-16,Storage
+Ve Interactive,2400.00,744.00,Technical Support Analyst,Cluj-Napoca,1,FALSE,TRUE,Sep-16,CSS  Js  HTML  English
+Sc Winsoft Group Srl,1200.00,372.00,Technical Support Analyst,Bucuresti,4,FALSE,FALSE,Feb-16,Foxpro
+Arnia,7500.00,2325.00,Senior Javascript Developer,Bucuresti,4,FALSE,TRUE,Sep-16,Javascript  Angular  MVC
+Garmin,2000.00,620.00,Intern Java,Cluj-Napoca,0,FALSE,FALSE,Aug-16,Java
+IBM,4250.00,1317.50,Java Application Developer,Bucuresti,2,FALSE,TRUE,Feb-16,Java
+IT Smart Systems,4500.00,1395.00,Java Application Developer,Bucuresti,1,FALSE,TRUE,Feb-16,Java
+IT Smart Systems,4000.00,1240.00,Java Application Developer,Bucuresti,1,FALSE,TRUE,Feb-16,Java
+Lateral,11000.00,3410.00,Senior Javascript Developer,Cluj-Napoca,4,FALSE,TRUE,Feb-16,Javascript  Js  Angular  Frontend  Senior
+ING,18000.00,5580.00,Senior Javascript Developer,Bucuresti,5,TRUE,TRUE,Feb-16,Javascript  CSS  Angularjs
+Clarisoft Technologies,1500.00,465.00,Junior Web Developer,Bucuresti,0,FALSE,TRUE,Feb-16,PHP
+Emag,7000.00,2170.00,Product Owner,Bucuresti,7,FALSE,TRUE,Feb-16,Non-it
+Euroweb Romania,2900.00,899.00,Network Supervisor - Noc,Bucuresti,0,FALSE,FALSE,Nov-16,Ccna1
+Gameloft,2600.00,806.00,Hardware Manager,Cluj-Napoca,10,FALSE,FALSE,Feb-16,Hardware
+Metrosystems Romania,2000.00,620.00,Front Office Engineer,Bucuresti,0,FALSE,TRUE,Feb-16,Networking
+Ericsson Telecommunications Romania Srl,2800.00,868.00,Front Office Engineer,Bucuresti,0,FALSE,TRUE,Feb-16,Telecom  3G  2G  GSM
+Evozon System,8000.00,2480.00,IT Project Manager,Cluj-Napoca,11,TRUE,TRUE,Feb-16,.NET
+Vodafone,7000.00,2170.00,IT Project Manager,Bucuresti,3,FALSE,FALSE,Feb-16,Manager  Project  IT
+Oracle,3500.00,1085.00,Global Service Desk - Support Analyst,Bucuresti,0,FALSE,FALSE,Feb-16,Callcenter
+Pitech+plus,2000.00,620.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Feb-16,PHP
+4psa,4400.00,1364.00,Junior Software Developer,Bucuresti,0,FALSE,FALSE,Feb-16,PHP
+Qualitance,2000.00,620.00,Junior Software Developer,Bucuresti,1,FALSE,FALSE,Feb-16,Javascript  Angular
+Bitdefender,3200.00,992.00,Junior Software Developer,Cluj-Napoca,1,FALSE,FALSE,Feb-16,C  Assembly  Kernel
+Evozon System,1800.00,558.00,Junior Software Developer,Cluj-Napoca,2,FALSE,FALSE,Feb-16,Java  Software
+Bitdefender,6000.00,1860.00,Junior Software Developer,Cluj-Napoca,2,FALSE,FALSE,Feb-16,C++  C  Python
+Qualitance,3500.00,1085.00,Junior Software Developer,Bucuresti,1,FALSE,TRUE,Feb-16,Javascript  Angular
+Netinform,1500.00,465.00,Junior Software Developer,Cluj-Napoca,0,FALSE,TRUE,Feb-16,CSS  Magento  PHP  HTML  Opencart  Wordpress
+Mhp,2200.00,682.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Feb-16,C#  Java  PHP
+Mhp,2650.00,821.50,Junior Software Developer,Cluj-Napoca,0,FALSE,TRUE,Feb-16,ABAP  Java  PHP
+Mhp,3200.00,992.00,Junior Software Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,ABAP  C#  PHP
+Luxoft,2000.00,620.00,Junior Software Developer,Bucuresti,0,FALSE,FALSE,Feb-16,Java
+Fortech,1750.00,542.50,Junior Software Developer,Cluj-Napoca,1,FALSE,FALSE,Feb-16,Java  Software  Junior
+Fortech,1970.00,610.70,Junior Software Developer,Cluj-Napoca,1,FALSE,FALSE,Feb-16,Javascript  CSS  HTML
+Fortech,2000.00,620.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Feb-16,Java
+Fortech,1900.00,589.00,Junior Software Developer,Cluj-Napoca,2,FALSE,FALSE,Feb-16,C#
+Bitdefender,4000.00,1240.00,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Feb-16,C
+Umt Software,2500.00,775.00,Junior Software Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,.NET
+Teamnet,2600.00,806.00,Junior Software Developer,Bucuresti,0,FALSE,FALSE,Feb-16,Java
+Evozon System,2700.00,837.00,Junior Software Developer,Cluj-Napoca,0,TRUE,TRUE,Feb-16,C#
+Evozon System,2250.00,697.50,Junior Software Developer,Cluj-Napoca,0,FALSE,TRUE,Feb-16,Java
+Yonder,2950.00,914.50,Junior Software Developer,Cluj-Napoca,0,FALSE,FALSE,Feb-16,C#  Java
+MSG,3000.00,930.00,Junior Software Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,Java
+MSG,3100.00,961.00,Junior Software Developer,Cluj-Napoca,1,FALSE,TRUE,Feb-16,Java
+Fortech,2200.00,682.00,Junior Software Developer,Cluj-Napoca,1,FALSE,FALSE,Feb-16,iOS
+End Soft Design,2500.00,775.00,Web Developer,Bucuresti,2,FALSE,TRUE,Nov-16,Javascript  CSS  PHP  Wordpress
+Mejix,4500.00,1395.00,Web Developer,Cluj-Napoca,4,FALSE,TRUE,Aug-16,C#  Js  SQL
+Oracle,6400.00,1984.00,Web Developer,Bucuresti,7,FALSE,TRUE,Aug-16,SQL  PLSQL  Apex
+Endava,4000.00,1240.00,Web Developer,Cluj-Napoca,3,FALSE,TRUE,Feb-16,.NET
+Modern Web,3000.00,930.00,Web Developer,Bucuresti,1,FALSE,FALSE,Feb-16,PHP  Yii2
+Softelligence,5500.00,1705.00,Web Developer,Bucuresti,5,FALSE,TRUE,Feb-16,CSS  Jquery  CSS3  .NET  HTML5  MVC  Javascript  HTML  Angular
+Celilo Group Media - Bucharest Office,7200.00,2232.00,Web Developer,Bucuresti,5,FALSE,FALSE,Feb-16,Javascript  PHP  Laravel  Emberjs
+Samsung,6000.00,1860.00,Ap Accountant Senior,Bucuresti,10,FALSE,TRUE,Oct-16,SAP
+Empire Games,2500.00,775.00,Unity Developer,Cluj-Napoca,3,FALSE,TRUE,Feb-16,C#  Unity3d
+Ericsson Telecommunications Romania Srl,2100.00,651.00,Planning And Design Engineer,Bucuresti,0,FALSE,TRUE,Feb-16,Telecom  Outsource
+Steelcase,2500.00,775.00,Graphic Analyst,Cluj-Napoca,1,FALSE,FALSE,Nov-16,Graphic
+Temenos,2000.00,620.00,Junior Cobol Developer,Bucuresti,0,FALSE,TRUE,Feb-16,Cobol
+Incrys,785.00,243.35,Junior Cobol Developer-intern,Bucuresti,0,FALSE,FALSE,Feb-16,Cobol
+BCR,15700.00,4867.00,Project Manager,Bucuresti,8,TRUE,TRUE,Jul-16,Pmp
+Advanced Ideas,4000.00,1240.00,Project Manager,Bucuresti,1,FALSE,TRUE,Feb-16,Agile  PHP  Codeigniter  Scrum
+ABS Consulting,2000.00,620.00,Project Manager,Bucuresti,1,TRUE,TRUE,Feb-16,Consultanta  Management  Project  Fonduri  Europene  Manager
+RDS & RCS,2350.00,728.50,Nmc Engineer,Bucuresti,0,FALSE,FALSE,Aug-16,CCNA
+Accenture,7700.00,2387.00,Team Manager,Cluj-Napoca,9,FALSE,TRUE,Feb-16,-
+Pwc Romania,7000.00,2170.00,Consultant,Bucuresti,2,FALSE,TRUE,Oct-16,Consultant  Mergers  Aquisitions
+Ndata,5000.00,1550.00,Consultant,Cluj-Napoca,4,FALSE,FALSE,Feb-16,Rails
+SAP,5800.00,1798.00,Development Consultant,Bucuresti,4,FALSE,TRUE,Feb-16,ABAP
+Orange,7000.00,2170.00,Technical Service Manager,Bucuresti,4,FALSE,FALSE,Oct-16,Itil
+Gama Software,4700.00,1457.00,Coldfusion Developer,Cluj-Napoca,1,TRUE,FALSE,Feb-16,Coldfusion
+Arnia Software,3500.00,1085.00,Quality Assurance,Bucuresti,2,FALSE,TRUE,Oct-16,Java  Selenium
+Garmin,5300.00,1643.00,Quality Assurance,Cluj-Napoca,3,FALSE,FALSE,Jul-16,Automation
+Gameloft,1050.00,325.50,Quality Assurance,Cluj-Napoca,1,FALSE,TRUE,Feb-16,Assurance  Tester  Quality
+Fortech,2300.00,713.00,Quality Assurance,Cluj-Napoca,2,FALSE,FALSE,Feb-16,QA  Manual
+Softvision,5500.00,1705.00,Quality Assurance,Cluj-Napoca,5,FALSE,FALSE,Feb-16,QA
+Gameloft,1100.00,341.00,Quality Assurance,Cluj-Napoca,0,FALSE,FALSE,Feb-16,QA
+Endava,4000.00,1240.00,Quality Assurance,Cluj-Napoca,4,FALSE,TRUE,Feb-16,QA
+Arobs,4500.00,1395.00,Quality Assurance,Cluj-Napoca,3,FALSE,FALSE,Feb-16,Istqb
+Code Factory,3200.00,992.00,Quality Assurance,Bucuresti,4,FALSE,TRUE,Feb-16,QA  Analyst  Tester
+Bitdefender,3500.00,1085.00,Quality Assurance - Box Product,Bucuresti,2,FALSE,FALSE,Feb-16,Lua
+Garmin,3500.00,1085.00,Quality Assurance,Cluj-Napoca,3,FALSE,TRUE,Feb-16,Istqb  Agile  Javascript  Java  Automation
+Endava,3800.00,1178.00,Quality Assurance,Cluj-Napoca,3,FALSE,FALSE,Feb-16,QA  Istqb  Manual  Agile
+Life Is Hard,1500.00,465.00,Quality Assurance,Cluj-Napoca,0,FALSE,TRUE,Feb-16,Manuala  Testeare
+Isdc,5700.00,1767.00,Baze De Date,Cluj-Napoca,4,FALSE,FALSE,Aug-16,Database  Bi
+Bls Cluj,5000.00,1550.00,Baze De Date,Cluj-Napoca,11,FALSE,TRUE,Feb-16,Sqlserver
+Ixia,4500.00,1395.00,Technical Support Engineer I,Bucuresti,1,FALSE,TRUE,Jan-17,CCNA
+Stefanini,2500.00,775.00,Incident Controller,Bucuresti,1,FALSE,TRUE,Jul-16,Management  Incident
+Genpact,2000.00,620.00,Order Management,Cluj-Napoca,1,FALSE,TRUE,Feb-16,SAP
+Mejix,4500.00,1395.00,Full Stack Developer,Cluj-Napoca,4,FALSE,TRUE,Sep-16,C#  Js  SQL
+Evozon System,7500.00,2325.00,Full Stack Developer,Cluj-Napoca,5,TRUE,FALSE,Feb-16,Javascript  Back-end
+Xoomworks,900.00,279.00,HR,Cluj-Napoca,3,FALSE,FALSE,Feb-16,HR
+Endava,6800.00,2108.00,Senior Technical Support Engineer,Cluj-Napoca,8,FALSE,TRUE,Feb-16,Networking  Windows  Linux  Storage  Security  Vmware  Ad  Cisco
+Oracle,7500.00,2325.00,Senior Technical Support Engineer,Bucuresti,7,FALSE,FALSE,Feb-16,Fusion  Hcm
