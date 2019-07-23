@@ -1,0 +1,34 @@
+.school-list-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10vw;
+  padding-right: 10vw;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.grid > * {
+  margin: 10px;
+}
+
+.controls {
+  display: inline-flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.load-more-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.load-more-button {
+  width: 75%;
+}

@@ -1,0 +1,8 @@
+.explorer-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 32px;
+  right: 0;
+  padding-top: 64px;
+}

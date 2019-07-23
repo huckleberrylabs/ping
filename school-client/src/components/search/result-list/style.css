@@ -1,0 +1,5 @@
+.result-list {
+  min-width: 25vw;
+  max-height: 30vh;
+  overflow-x: scroll;
+}
