@@ -8,31 +8,31 @@ import { AppLoadedEvent } from "./events";
 
 const INSERT_SCRIPT_ID: string = "turtle-text-insert-script";
 const EVENTS_ENDPOINT = API_URL + "apps/events/";
-// const CONFIG_ENDPOINT = API_URL + "apps/config/";
+const CONFIG_ENDPOINT = API_URL + "apps/config/";
 
-/* type AppConfig = {
+type AppConfig = {
   widget: boolean;
   analytics: boolean;
   fingerPrint: boolean;
-}; */
+};
 
 export class App {
-  // private config: AppConfig | undefined;
+  private config: AppConfig | undefined;
   private widgetService: WidgetService | undefined;
   private analyticsService: AnalyticsService | undefined;
   private fingerPrintService: FingerPrintService | undefined;
   async init() {
-    // const res = await axios.get<AppConfig>(CONFIG_ENDPOINT + this.id);
-    // this.config = res.data;
-    if (true) {
+    const res = await axios.get<AppConfig>(CONFIG_ENDPOINT + this.id);
+    this.config = res.data;
+    if (this.config.widget) {
       this.widgetService = new WidgetService(this.id);
       this.widgetService.init();
     }
-    if (true) {
+    if (this.config.analytics) {
       this.analyticsService = new AnalyticsService(this.id);
       this.analyticsService.init();
     }
-    if (true) {
+    if (this.config.fingerPrint) {
       this.fingerPrintService = new FingerPrintService(this.id);
       this.fingerPrintService.create();
     }
