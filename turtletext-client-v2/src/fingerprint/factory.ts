@@ -241,7 +241,4 @@ export class FingerPrintFactory {
   async detectWebGL(): Promise<string> {
     return "";
   }
-  async detectLocalNetwork(): Promise<string> {
-    return "";
-  }
 }
