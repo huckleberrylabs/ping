@@ -12,7 +12,7 @@
 
         <!-- Stage 1 -->
         <button id="turtle-text-open-button" class="shown" type="button">
-          SMS
+          <img id="turtle-logo" src="./icons/logos/no-H.svg">
         </button>
 
         <!-- Stage 2 -->
@@ -42,10 +42,13 @@
         />
         <button id="turtle-text-send-button" type="button">Send</button>
 
+        <!-- Loading -->
+        <img id="turtle-text-loader-message" src="./icons/loader-dots.svg" alt="loader">
+
         <!-- Messages -->
-        <div id="turtle-text-invalid-message">Input Invalid</div>
-        <div id="turtle-text-success-message">Message Sent</div>
-        <div id="turtle-text-error-message">Please Try Again Later</div>
+        <img id="turtle-text-invalid-message" src="./icons/x-mark.svg" alt="invalid">
+        <img id="turtle-text-success-message" src="./icons/check-mark.svg" alt="success">
+        <img id="turtle-text-error-message" src="./icons/x-mark.svg" alt="error">
       </form>
     </div>`;
 
@@ -58,7 +61,7 @@
       link.id = cssID;
       link.rel = "stylesheet";
       link.type = "text/css";
-      link.href = TURTLE_TEXT_API_URL + "stylesheet?app_id=" + appID;
+      link.href = "./stylesheet.css";
       link.media = "all";
       link.onload = onLoad;
       head.appendChild(link);
@@ -136,6 +139,8 @@
     var nameInput = document.getElementById("turtle-text-name-input");
     var sendButton = document.getElementById("turtle-text-send-button");
 
+    var loaderMessage = document.getElementById("turtle-text-loader-message");
+
     var invalidMessage = document.getElementById("turtle-text-invalid-message");
     var successMessage = document.getElementById("turtle-text-success-message");
     var errorMessage = document.getElementById("turtle-text-error-message");
@@ -199,6 +204,7 @@
         invalidMessage.classList.remove("shown");
         nameInput.classList.remove("shown");
         sendButton.classList.remove("shown");
+        loaderMessage.classList.add("shown");
         container.style.transition =
           "all .4s cubic-bezier(0.47, 0.47, 0.27, 1.20) .4s";
         container.style.width = "";
@@ -215,8 +221,10 @@
         req.onload = function onLoad() {
           console.log("Turtle Text Sent");
           if (req.status >= 200 && req.status < 300) {
+            loaderMessage.classList.remove("shown");
             successMessage.classList.add("shown");
           } else {
+            loaderMessage.classList.remove("shown");
             errorMessage.classList.add("shown");
           }
         };
