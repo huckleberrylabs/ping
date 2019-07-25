@@ -43,14 +43,19 @@
         <button id="turtle-text-send-button" type="button">Send</button>
 
         <!-- Loading -->
-        <img id="turtle-text-loader-message" src="./icons/loader-jump-dots.svg" alt="loader">
-
+        <div>
+          <img id="turtle-text-loader-message" src="./icons/loader-jump-dots.svg" alt="loader">
+        </div>
         <!-- Messages -->
         <img id="turtle-text-invalid-message" src="./icons/invalid.svg" alt="invalid">
-        <img id="turtle-text-success-message" src="./icons/check-mark.svg" alt="success">
-        <img id="turtle-text-error-message" src="./icons/x-mark.svg" alt="error">
+        <div id="successID"></div>
+        <div id="errorID"></div>
+        
       </form>
     </div>`;
+
+  const CHECK_MARK_HTML = `<img id="turtle-text-success-message" src="./icons/check-mark.svg" alt="success">`;
+  const X_MARK_HTML = `<img id="turtle-text-error-message" src="./icons/x-mark.svg" alt="error">`;
 
   function injectCSS(appID, onLoad) {
     console.log("Turtle Text CSS Injected");
@@ -221,11 +226,23 @@
         req.onload = function onLoad() {
           console.log("Turtle Text Sent");
           if (req.status >= 200 && req.status < 300) {
-            loaderMessage.classList.remove("shown");
-            successMessage.classList.add("shown");
+            document.getElementById("successID").innerHTML = CHECK_MARK_HTML;
+            successMessage = document.getElementById(
+              "turtle-text-success-message"
+            );
+            setTimeout(() => {
+              loaderMessage.classList.remove("shown");
+              successMessage.classList.add("shown");
+            }, 100);
           } else {
-            loaderMessage.classList.remove("shown");
-            errorMessage.classList.add("shown");
+            document.getElementById("errorID").innerHTML = X_MARK_HTML;
+            var errorMessage = document.getElementById(
+              "turtle-text-error-message"
+            );
+            setTimeout(() => {
+              loaderMessage.classList.remove("shown");
+              errorMessage.classList.add("shown");
+            }, 100);
           }
         };
       } else {

@@ -63,35 +63,35 @@
 
             @keyframes colorBounce {
             1% {
-                stroke: #2A8FBD;
+                stroke: #0077ae;
             }
             
             24% {
-                stroke: #2A8FBD;
+                stroke: #0077ae;
             }
             
             26% {
-                stroke: #8EBD2A;
+                stroke: #0077ae;
             }
             
             49% {
-                stroke: #8EBD2A;
+                stroke: #0077ae;
             }
             
             51% {
-                stroke: #BF2A2A;
+                stroke: #0077ae;
             }
             
             74% {
-                stroke: #BF2A2A;
+                stroke: #0077ae;
             }
             
             76%{
-                stroke: #ECB43E;
+                stroke: #0077ae;
             }
             
             99% {
-                stroke: #ECB43E;
+                stroke: #0077ae;
             }
         }
 
