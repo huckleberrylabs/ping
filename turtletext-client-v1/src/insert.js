@@ -12,7 +12,7 @@
 
         <!-- Stage 1 -->
         <button id="turtle-text-open-button" class="shown" type="button">
-          <img id="turtle-logo" src="./icons/logos/no-H.svg">
+          <img id="turtle-logo" src="./icons/smartphone-message.svg">
         </button>
 
         <!-- Stage 2 -->
@@ -43,10 +43,10 @@
         <button id="turtle-text-send-button" type="button">Send</button>
 
         <!-- Loading -->
-        <img id="turtle-text-loader-message" src="./icons/loader-dots.svg" alt="loader">
+        <img id="turtle-text-loader-message" src="./icons/loader-jump-dots.svg" alt="loader">
 
         <!-- Messages -->
-        <img id="turtle-text-invalid-message" src="./icons/x-mark.svg" alt="invalid">
+        <img id="turtle-text-invalid-message" src="./icons/invalid.svg" alt="invalid">
         <img id="turtle-text-success-message" src="./icons/check-mark.svg" alt="success">
         <img id="turtle-text-error-message" src="./icons/x-mark.svg" alt="error">
       </form>
