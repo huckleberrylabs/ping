@@ -80,3 +80,8 @@
 #turtle-text-error-message {
   color: var(--turtle-text-fail-color);
 }
+
+.icon-test {
+  width: 64px;
+  height: 64px;
+}
