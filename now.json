@@ -13,7 +13,7 @@
   "routes": [
     {
       "src": "/turtletext/api/**/*",
-      "dest": "/turtletext-api/src**/*"
+      "dest": "/turtletext-api/src/**/*"
     },
     {
       "src": "/turtletext/client",
