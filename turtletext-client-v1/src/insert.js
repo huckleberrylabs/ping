@@ -44,7 +44,7 @@
 
         <!-- Loading -->
         <div>
-          <img id="turtle-text-loader-message" src="./icons/loader-jump-dots.svg" alt="loader">
+          <img id="turtle-text-loader-message" src="./icons/loader-circle.svg" alt="loader">
         </div>
         <!-- Messages -->
         <img id="turtle-text-invalid-message" src="./icons/invalid.svg" alt="invalid">
@@ -222,6 +222,20 @@
         var req = new XMLHttpRequest();
         req.open("POST", TURTLE_TEXT_API_URL + "send", true);
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        //fake code starts (simulate sending message)
+
+        // setTimeout(() => {
+        //   document.getElementById("errorID").innerHTML = X_MARK_HTML;
+        //   errorMessage = document.getElementById("turtle-text-error-message");
+        //   setTimeout(() => {
+        //     loaderMessage.classList.remove("shown");
+        //     errorMessage.classList.add("shownMessage");
+        //   }, 100);
+        // }, 3000);
+
+        //fake code ends
+
         req.send(JSON.stringify(data));
         req.onload = function onLoad() {
           console.log("Turtle Text Sent");
@@ -232,7 +246,7 @@
             );
             setTimeout(() => {
               loaderMessage.classList.remove("shown");
-              successMessage.classList.add("shown");
+              successMessage.classList.add("shownMessage");
             }, 100);
           } else {
             document.getElementById("errorID").innerHTML = X_MARK_HTML;
@@ -241,7 +255,7 @@
             );
             setTimeout(() => {
               loaderMessage.classList.remove("shown");
-              errorMessage.classList.add("shown");
+              errorMessage.classList.add("shownMessage");
             }, 100);
           }
         };

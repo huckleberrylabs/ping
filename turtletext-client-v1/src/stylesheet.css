@@ -64,6 +64,12 @@
   opacity: 1;
 }
 
+#turtle-text-container > #turtle-text-form .shownMessage {
+  transition: opacity 0.4s ease 0.4s;
+  transform: scale(1);
+  opacity: 1;
+}
+
 #turtle-text-form #turtle-text-open-button {
   width: 100%;
 }
