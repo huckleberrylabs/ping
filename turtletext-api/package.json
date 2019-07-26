@@ -1,12 +1,12 @@
 {
   "name": "turtletext-api",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch",
-    "start": "DEBUG=* ts-node src/index.ts",
-    "debug": "DEBUG=* node --inspect -r ts-node/register src/index.ts",
-    "dev": "npx nodemon"
+    "test:watch": "jest --watch"
   },
   "jest": {
     "preset": "ts-jest",
