@@ -1,12 +1,20 @@
-const config = {
-  users: {
-    "8dd52f8a-6061-416b-84b3-ea841a11cd06": {
-      phone: "+16472951647",
-      mainColor: "white",
-      accentColor: "#0077ae",
-      defaultMessage: "Hi, I would like to learn more about TurtleText.",
-    },
-  },
+import { NowRequest, NowResponse } from "@now/node";
+import { apps } from "./apps";
+
+export default async (req: NowRequest, res: NowResponse) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") {
+    // Send response to OPTIONS requests
+    res.setHeader("Access-Control-Allow-Methods", "GET");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Max-Age", "3600");
+    res.status(204).send("");
+  } else {
+    const app = apps.filter(app => app.id === req.body.appID)[0];
+    const stylesheet = generateStyleSheet(app.mainColor, app.accentColor);
+    res.setHeader("Content-Type", "text/css");
+    res.status(200).send(stylesheet);
+  }
 };
 
 function generateStyleSheet(mainColor, accentColor) {
@@ -93,20 +101,3 @@ function generateStyleSheet(mainColor, accentColor) {
   color: var(--turtle-text-fail-color);
 }`;
 }
-
-exports.default = (req, res) => {
-  res.set("Access-Control-Allow-Origin", "*");
-
-  if (req.method === "OPTIONS") {
-    // Send response to OPTIONS requests
-    res.set("Access-Control-Allow-Methods", "GET");
-    res.set("Access-Control-Allow-Headers", "Content-Type");
-    res.set("Access-Control-Max-Age", "3600");
-    res.status(204).send("");
-  } else {
-    const user = config.users[req.query.app_id];
-    const stylesheet = generateStyleSheet(user.mainColor, user.accentColor);
-    res.set("Content-Type", "text/css");
-    res.status(200).send(stylesheet);
-  }
-};
