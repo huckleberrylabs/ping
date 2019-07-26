@@ -13,4 +13,7 @@ export const NAME_INPUT_ID: string = "turtle-text-name-input";
 export const SEND_BUTTON_ID: string = "turtle-text-send-button";
 export const INVALID_MESSAGE_ID: string = "turtle-text-invalid-message";
 export const SUCCESS_MESSAGE_ID: string = "turtle-text-success-message";
+export const LOADER_MESSAGE_ID: string = "turtle-text-loader-message";
 export const ERROR_MESSAGE_ID: string = "turtle-text-error-message";
+export const SUCCESS_MOUNT_ID: string = "turtle-text-success-message-mount";
+export const ERROR_MOUNT_ID: string = "turtle-text-error-message-mount";

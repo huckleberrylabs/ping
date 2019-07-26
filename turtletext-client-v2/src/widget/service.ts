@@ -16,7 +16,10 @@ import {
   SEND_BUTTON_ID,
   INVALID_MESSAGE_ID,
   SUCCESS_MESSAGE_ID,
+  LOADER_MESSAGE_ID,
   ERROR_MESSAGE_ID,
+  SUCCESS_MOUNT_ID,
+  ERROR_MOUNT_ID,
 } from "./constants";
 import { HTML } from "./html";
 import { validatePhone, validateString, normalizePhone } from "./validators";
@@ -30,7 +33,7 @@ import {
 
 // API
 export const EVENTS_ENDPOINT = API_URL + "widgets/events";
-export const STYLESHEET_ENDPOINT = API_URL + "widgets/stylesheets/";
+export const STYLESHEET_ENDPOINT = "./stylesheet";
 
 export class WidgetService {
   private agentID: string = uuid();
@@ -45,6 +48,7 @@ export class WidgetService {
   private invalidMessage!: HTMLElement;
   private successMessage!: HTMLElement;
   private errorMessage!: HTMLElement;
+  private loaderMessage!: HTMLElement;
   constructor(private appID: string) {}
   init() {
     this.loadCSS();
@@ -138,6 +142,8 @@ export class WidgetService {
     const name = this.nameInput.getAttribute("value");
     const message = this.messageInput.getAttribute("value");
     const phone = this.phoneInput.getAttribute("value");
+    const CHECK_MARK_HTML = `<img id="turtle-text-success-message" src="./icons/check-mark.svg" alt="success">`;
+    const X_MARK_HTML = `<img id="turtle-text-error-message" src="./icons/x-mark.svg" alt="error">`;
     if (
       name &&
       validateString(name) &&
@@ -176,8 +182,19 @@ export class WidgetService {
       const res2 = await axios.post(EVENTS_ENDPOINT, sentAction);
       if (res2.status >= 200 && res2.status < 300) {
         log("Sent");
-        this.successMessage.classList.add("shown");
+        getElementById(SUCCESS_MOUNT_ID).innerHTML = CHECK_MARK_HTML;
+        this.successMessage = getElementById(SUCCESS_MESSAGE_ID);
+        setTimeout(() => {
+          this.loaderMessage.classList.remove("shown");
+          this.successMessage.classList.add("shownMessage");
+        }, 100);
       } else {
+        getElementById(ERROR_MOUNT_ID).innerHTML = X_MARK_HTML;
+        this.errorMessage = getElementById(ERROR_MESSAGE_ID);
+        setTimeout(() => {
+          this.loaderMessage.classList.remove("shown");
+          this.errorMessage.classList.add("shownMessage");
+        }, 100);
         this.errorMessage.classList.add("shown");
       }
     } else {
@@ -193,6 +210,7 @@ export class WidgetService {
     this.phoneButton = getElementById(PHONE_BUTTON_ID);
     this.nameInput = getElementById(NAME_INPUT_ID);
     this.sendButton = getElementById(SEND_BUTTON_ID);
+    this.loaderMessage = getElementById(LOADER_MESSAGE_ID);
     this.invalidMessage = getElementById(INVALID_MESSAGE_ID);
     this.successMessage = getElementById(SUCCESS_MESSAGE_ID);
     this.errorMessage = getElementById(ERROR_MESSAGE_ID);

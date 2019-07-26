@@ -8,7 +8,7 @@ export const HTML = `<div id="turtle-text-container">
 
         <!-- Stage 1 -->
         <button id="turtle-text-open-button" class="shown" type="button">
-          SMS
+          <img id="turtle-text-logo" src="./icons/smartphone-message.svg">
         </button>
 
         <!-- Stage 2 -->
@@ -38,9 +38,14 @@ export const HTML = `<div id="turtle-text-container">
         />
         <button id="turtle-text-send-button" type="button">Send</button>
 
+        <!-- Loading -->
+        <div>
+          <img id="turtle-text-loader-message" src="./icons/loader-circle.svg" alt="loader">
+        </div>
+
         <!-- Messages -->
-        <div id="turtle-text-invalid-message">Input Invalid</div>
-        <div id="turtle-text-success-message">Message Sent</div>
-        <div id="turtle-text-error-message">Please Try Again Later</div>
+        <img id="turtle-text-invalid-message" src="./icons/invalid.svg" alt="invalid">
+        <div id="turtle-text-success-message-mount"></div>
+        <div id="turtle-text-error-message-mount"></div>
       </form>
     </div>`;
