@@ -14,13 +14,13 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
-    working_directory: ~/project/turtletext-api
+    working_directory: ~/project/
 
     steps:
       - checkout
 
       # Download and cache dependencies
-      - run: ls -a
+      - run: cd turtletext-api && ls -la
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
