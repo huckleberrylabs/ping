@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "name": "monorepo",
+  "scope": "huckleberryai",
+  "public": false,
+  "builds": [
+    { "src": "turtletext-api/src/*.ts", "use": "@now/node" },
+    {
+      "src": "turtletext-client-v1/src/*",
+      "use": "@now/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/turtletext/api",
+      "dest": "/turtletext-api/src"
+    },
+    {
+      "src": "/turtletext/client",
+      "dest": "/turtletext-client-v1/src"
+    },
+    {
+      "src": "/redirect",
+      "status": 301,
+      "headers": {
+        "Location": "https://huckleberry.app/"
+      }
+    }
+  ],
+  "env": {
+    "TWILIO_ACCOUNT_SID": "@twilio-account-sid",
+    "TWILIO_AUTH_TOKEN": "@twilio-auth-token",
+    "TWILIO_PHONE_NUMBER": "@twilio-phone-number"
+  }
+}
