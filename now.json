@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "name": "monorepo",
+  "builds": [{ "src": "turtletext-api/src/*.ts", "use": "@now/node" }]
+}
