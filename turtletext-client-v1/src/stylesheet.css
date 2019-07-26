@@ -73,7 +73,7 @@
 #turtle-text-form #turtle-text-open-button {
   width: 100%;
 }
-#turtle-logo,
+#turtle-text-logo,
 #turtle-text-loader-message,
 #turtle-text-invalid-message,
 #turtle-text-success-message,
@@ -85,9 +85,4 @@
 #turtle-text-invalid-message,
 #turtle-text-error-message {
   color: var(--turtle-text-fail-color);
-}
-
-.icon-test {
-  width: 64px;
-  height: 64px;
 }

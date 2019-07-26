@@ -12,7 +12,7 @@
 
         <!-- Stage 1 -->
         <button id="turtle-text-open-button" class="shown" type="button">
-          <img id="turtle-logo" src="./icons/smartphone-message.svg">
+          <img id="turtle-text-logo" src="./icons/smartphone-message.svg">
         </button>
 
         <!-- Stage 2 -->
@@ -48,8 +48,8 @@
         </div>
         <!-- Messages -->
         <img id="turtle-text-invalid-message" src="./icons/invalid.svg" alt="invalid">
-        <div id="successID"></div>
-        <div id="errorID"></div>
+        <div id="turtle-text-successID"></div>
+        <div id="turtle-text-errorID"></div>
         
       </form>
     </div>`;
@@ -240,7 +240,9 @@
         req.onload = function onLoad() {
           console.log("Turtle Text Sent");
           if (req.status >= 200 && req.status < 300) {
-            document.getElementById("successID").innerHTML = CHECK_MARK_HTML;
+            document.getElementById(
+              "turtle-text-successID"
+            ).innerHTML = CHECK_MARK_HTML;
             successMessage = document.getElementById(
               "turtle-text-success-message"
             );
@@ -249,7 +251,9 @@
               successMessage.classList.add("shownMessage");
             }, 100);
           } else {
-            document.getElementById("errorID").innerHTML = X_MARK_HTML;
+            document.getElementById(
+              "turtle-text-errorID"
+            ).innerHTML = X_MARK_HTML;
             var errorMessage = document.getElementById(
               "turtle-text-error-message"
             );
