@@ -2,7 +2,7 @@
  <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
  <g>
   <title>background</title>
-  <rect fill="#0077ae" id="canvas_background" height="402" width="404" y="-1" x="-1"/>
+  <rect fill="#338FFA" id="canvas_background" height="402" width="404" y="-1" x="-1"/>
   <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
    <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
   </g>
@@ -14,6 +14,6 @@
   <ellipse transform="rotate(-22 115.00000000000001,160.03750610351562) " ry="25" rx="16" id="svg_6" cy="160.0375" cx="115" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ffffff"/>
   <ellipse transform="rotate(-22 275,300.0375061035157) " ry="25" rx="16" id="svg_7" cy="300.0375" cx="275" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ffffff"/>
   <ellipse transform="rotate(20 285.00000000000006,160.0375061035156) " ry="25" rx="16" id="svg_8" cy="160.0375" cx="285" fill-opacity="null" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ffffff"/>
-  <ellipse stroke="#0077ae" ry="91.999994" rx="75" id="svg_9" cy="218" cx="200" fill-opacity="null" stroke-width="10" fill="#ffffff"/>
+  <ellipse stroke="#338FFA" ry="91.999994" rx="75" id="svg_9" cy="218" cx="200" fill-opacity="null" stroke-width="10" fill="#ffffff"/>
  </g>
 </svg>
