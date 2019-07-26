@@ -63,3 +63,7 @@ typings/
 # MacOS
 
 .DS_Store
+
+# build files
+
+dist/
