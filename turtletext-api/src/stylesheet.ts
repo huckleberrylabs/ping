@@ -17,7 +17,7 @@ export default async (req: NowRequest, res: NowResponse) => {
   }
 };
 
-function generateStyleSheet(mainColor, accentColor) {
+function generateStyleSheet(mainColor: string, accentColor: string) {
   return `:root {
   --turtle-text-main-color: ${mainColor};
   --turtle-text-accent-color: ${accentColor};
