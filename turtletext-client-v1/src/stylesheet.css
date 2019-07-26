@@ -28,6 +28,7 @@
 }
 #turtle-text-form button,
 #turtle-text-form input,
+#turtle-text-loader-message,
 #turtle-text-invalid-message,
 #turtle-text-success-message,
 #turtle-text-error-message {
@@ -63,17 +64,22 @@
   opacity: 1;
 }
 
+#turtle-text-container > #turtle-text-form .shownMessage {
+  transition: opacity 0.4s ease 0.4s;
+  transform: scale(1);
+  opacity: 1;
+}
+
 #turtle-text-form #turtle-text-open-button {
   width: 100%;
 }
+#turtle-text-logo,
+#turtle-text-loader-message,
 #turtle-text-invalid-message,
 #turtle-text-success-message,
 #turtle-text-error-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  color: var(--turtle-text-success-color);
+  width: 64px;
+  height: 64px;
 }
 
 #turtle-text-invalid-message,
