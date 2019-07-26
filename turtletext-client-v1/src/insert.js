@@ -12,7 +12,7 @@
 
         <!-- Stage 1 -->
         <button id="turtle-text-open-button" class="shown" type="button">
-          SMS
+          <img id="turtle-text-logo" src="./icons/smartphone-message.svg">
         </button>
 
         <!-- Stage 2 -->
@@ -42,12 +42,20 @@
         />
         <button id="turtle-text-send-button" type="button">Send</button>
 
+        <!-- Loading -->
+        <div>
+          <img id="turtle-text-loader-message" src="./icons/loader-circle.svg" alt="loader">
+        </div>
         <!-- Messages -->
-        <div id="turtle-text-invalid-message">Input Invalid</div>
-        <div id="turtle-text-success-message">Message Sent</div>
-        <div id="turtle-text-error-message">Please Try Again Later</div>
+        <img id="turtle-text-invalid-message" src="./icons/invalid.svg" alt="invalid">
+        <div id="turtle-text-successID"></div>
+        <div id="turtle-text-errorID"></div>
+        
       </form>
     </div>`;
+
+  const CHECK_MARK_HTML = `<img id="turtle-text-success-message" src="./icons/check-mark.svg" alt="success">`;
+  const X_MARK_HTML = `<img id="turtle-text-error-message" src="./icons/x-mark.svg" alt="error">`;
 
   function injectCSS(appID, onLoad) {
     console.log("Turtle Text CSS Injected");
@@ -58,7 +66,7 @@
       link.id = cssID;
       link.rel = "stylesheet";
       link.type = "text/css";
-      link.href = TURTLE_TEXT_API_URL + "stylesheet?app_id=" + appID;
+      link.href = "./stylesheet.css";
       link.media = "all";
       link.onload = onLoad;
       head.appendChild(link);
@@ -136,6 +144,8 @@
     var nameInput = document.getElementById("turtle-text-name-input");
     var sendButton = document.getElementById("turtle-text-send-button");
 
+    var loaderMessage = document.getElementById("turtle-text-loader-message");
+
     var invalidMessage = document.getElementById("turtle-text-invalid-message");
     var successMessage = document.getElementById("turtle-text-success-message");
     var errorMessage = document.getElementById("turtle-text-error-message");
@@ -199,6 +209,7 @@
         invalidMessage.classList.remove("shown");
         nameInput.classList.remove("shown");
         sendButton.classList.remove("shown");
+        loaderMessage.classList.add("shown");
         container.style.transition =
           "all .4s cubic-bezier(0.47, 0.47, 0.27, 1.20) .4s";
         container.style.width = "";
@@ -211,13 +222,45 @@
         var req = new XMLHttpRequest();
         req.open("POST", TURTLE_TEXT_API_URL + "send", true);
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        //fake code starts (simulate sending message)
+
+        // setTimeout(() => {
+        //   document.getElementById("errorID").innerHTML = X_MARK_HTML;
+        //   errorMessage = document.getElementById("turtle-text-error-message");
+        //   setTimeout(() => {
+        //     loaderMessage.classList.remove("shown");
+        //     errorMessage.classList.add("shownMessage");
+        //   }, 100);
+        // }, 3000);
+
+        //fake code ends
+
         req.send(JSON.stringify(data));
         req.onload = function onLoad() {
           console.log("Turtle Text Sent");
           if (req.status >= 200 && req.status < 300) {
-            successMessage.classList.add("shown");
+            document.getElementById(
+              "turtle-text-successID"
+            ).innerHTML = CHECK_MARK_HTML;
+            successMessage = document.getElementById(
+              "turtle-text-success-message"
+            );
+            setTimeout(() => {
+              loaderMessage.classList.remove("shown");
+              successMessage.classList.add("shownMessage");
+            }, 100);
           } else {
-            errorMessage.classList.add("shown");
+            document.getElementById(
+              "turtle-text-errorID"
+            ).innerHTML = X_MARK_HTML;
+            var errorMessage = document.getElementById(
+              "turtle-text-error-message"
+            );
+            setTimeout(() => {
+              loaderMessage.classList.remove("shown");
+              errorMessage.classList.add("shownMessage");
+            }, 100);
           }
         };
       } else {
