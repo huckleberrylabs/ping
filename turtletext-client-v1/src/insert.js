@@ -1,6 +1,5 @@
 (function() {
-  const TURTLE_TEXT_API_URL =
-    "https://us-central1-experiments-huckleberry.cloudfunctions.net/turtletext-api-";
+  const TURTLE_TEXT_API_URL = "https://huckleberry.app/turtletext/api/";
 
   const TURTLE_TEXT_HTML = `<div id="turtle-text-container">
       <form id="turtle-text-form">
