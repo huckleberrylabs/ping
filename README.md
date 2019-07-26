@@ -1,13 +1,19 @@
-# main
+# Monorepo
 
-https://ddwiki.reso.org/display/DDW17
+## Environment Setup
 
-RETSClient
+- NodeJS
+- Git
+- Visual Studio Code
+- The following Plugins for Visual Studio
 
-Actions
+  - GitLens
+  - Wallaby.js
+  - Quokka.js
+  - Prettier
+  - TSLint
+  - ESLint
+  - StyleLint
+  - GraphQL for VSCode
 
-Update
-Initialize
-
-https://realtyna.com/blog/real-estate-listing-data-explained-mls-idx-rets-reso-vow-ddf/
-https://medium.com/@patpohler/mls-idx-and-rets-c88d60edbad8
+- If you would like a GUI for Git, I recommend GitKraken.
