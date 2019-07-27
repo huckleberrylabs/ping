@@ -4,7 +4,7 @@
   "scope": "huckleberryai",
   "public": false,
   "builds": [
-    { "src": "turtletext-api/src/*.ts", "use": "@now/node" },
+    { "src": "api/src/*.ts", "use": "@now/node" },
     {
       "src": "turtletext-client-v1/src/**/*",
       "use": "@now/static"
@@ -19,8 +19,8 @@
   ],
   "routes": [
     {
-      "src": "/turtletext/api/(.*)",
-      "dest": "/turtletext-api/src/$1"
+      "src": "/api/(.*)",
+      "dest": "/api/src/$1"
     },
     {
       "src": "/turtletext/client/(.*)",
@@ -37,6 +37,8 @@
   "env": {
     "TWILIO_ACCOUNT_SID": "@twilio-account-sid",
     "TWILIO_AUTH_TOKEN": "@twilio-auth-token",
-    "TWILIO_PHONE_NUMBER": "@twilio-phone-number"
+    "TWILIO_PHONE_NUMBER": "@twilio-phone-number",
+    "GOOGLE_API_KEY": "@google-api-key",
+    "LOCAL_LOGIC_API_KEY": "@local-logic-api-key"
   }
 }

@@ -1,0 +1,67 @@
+{
+  "name": "@huckleberry/monorepo",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "prettier": {
+    "trailingComma": "es5"
+  },
+  "tslint": {
+    "defaultSeverity": "error",
+    "extends": [
+      "tslint:recommended",
+      "tslint-jest",
+      "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {},
+    "rulesDirectory": []
+  },
+  "quokka": {},
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/prettyjson": "0.0.29",
+    "@types/node": "^12.6.8",
+    "@types/uuid": "^3.4.4",
+    "lerna": "^3.16.4",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-jest": "^1.0.5",
+    "typescript": "^3.5.3",
+    "jest": "^24.7.1",
+    "prettier": "^1.17.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "inversify": "^5.0.1",
+    "prettyjson": "^1.2.1",
+    "reflect-metadata": "^0.1.13",
+    "moment": "^2.24.0",
+    "uuid": "^3.3.2"
+  }
+}

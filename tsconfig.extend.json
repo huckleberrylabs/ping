@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@huckleberry/utilities": ["utilities/src"],
+      "@huckleberry/*": ["*/src"]
+    }
+  }
+}
