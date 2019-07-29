@@ -222,7 +222,7 @@
         req.open("POST", TURTLE_TEXT_API_URL + "send.ts", true);
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-        //fake code starts (simulate sending message)
+        // fake code starts (simulate sending message)
 
         // setTimeout(() => {
         //   document.getElementById("errorID").innerHTML = X_MARK_HTML;
@@ -233,7 +233,7 @@
         //   }, 100);
         // }, 3000);
 
-        //fake code ends
+        // fake code ends
 
         req.send(JSON.stringify(data));
         req.onload = function onLoad() {
@@ -253,9 +253,7 @@
             document.getElementById(
               "turtle-text-errorID"
             ).innerHTML = X_MARK_HTML;
-            var errorMessage = document.getElementById(
-              "turtle-text-error-message"
-            );
+            errorMessage = document.getElementById("turtle-text-error-message");
             setTimeout(() => {
               loaderMessage.classList.remove("shown");
               errorMessage.classList.add("shownMessage");
