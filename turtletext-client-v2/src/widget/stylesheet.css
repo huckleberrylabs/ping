@@ -16,7 +16,7 @@
   width: 64px;
   max-width: 90vw;
   height: 64px;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   transition: width 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
   background-color: var(--turtle-text-main-color);
@@ -45,7 +45,7 @@
 #turtle-text-form button {
   width: 20%;
   padding: 0;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
   background-color: var(--turtle-text-accent-color);
   color: var(--turtle-text-main-color);
