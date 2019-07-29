@@ -1,6 +1,6 @@
 import React, { ReactChild } from "react";
 import { InfoWindow as OriginalInfoWindow } from "@react-google-maps/api";
-import { Coordinates } from "../../models";
+import { Coordinates } from "@huckleberry/models";
 import "./style.css";
 
 type Props = {
@@ -17,12 +17,12 @@ export const InfoWindow = (props: Props) => (
         height: -44,
         equals: () => {
           return true;
-        }
-      }
+        },
+      },
     }}
     position={{
       lat: props.position.latitude,
-      lng: props.position.longitude
+      lng: props.position.longitude,
     }}
     onCloseClick={props.onCloseClick}
   >

@@ -14,7 +14,6 @@ Initialize
 https://realtyna.com/blog/real-estate-listing-data-explained-mls-idx-rets-reso-vow-ddf/
 https://medium.com/@patpohler/mls-idx-and-rets-c88d60edbad8
 
-
 */
 export class RETSClient {
   auth: request.AuthOptions;

@@ -20,5 +20,8 @@
   },
   "bugs": {
     "url": "https://github.com/askhuckleberry/monorepo/issues"
+  },
+  "dependencies": {
+    "@huckleberry/models": "^0.0.1"
   }
 }

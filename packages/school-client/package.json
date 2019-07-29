@@ -1,7 +1,23 @@
 {
   "name": "@huckleberry/school-client",
   "version": "0.0.1",
-  "private": true,
+  "description": "School Map Web App",
+  "author": "Dragos Rotaru <dragos@rotaru.co>",
+  "homepage": "https://github.com/askhuckleberry/monorepo#readme",
+  "license": "ISC",
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askhuckleberry/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/askhuckleberry/monorepo/issues"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -25,6 +41,7 @@
     ]
   },
   "dependencies": {
+    "@huckleberry/models": "^0.0.1",
     "@react-google-maps/api": "^1.2.3",
     "fuse.js": "^3.4.5",
     "react": "^16.8.6",

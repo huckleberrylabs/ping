@@ -6,10 +6,10 @@ import "@rmwc/circular-progress/circular-progress.css";
 import { CircularProgress } from "@rmwc/circular-progress";
 import { List } from "@rmwc/list";
 
-import { SearchResult, isSchool } from "../../../models";
+import { SearchResult, isSchool } from "@huckleberry/models";
 import {
   AddressSearchResultListItem,
-  SchoolSearchResultListItem
+  SchoolSearchResultListItem,
 } from "../result-list-item";
 import "./style.css";
 

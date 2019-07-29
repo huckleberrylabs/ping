@@ -1,6 +1,8 @@
 import axios from "axios";
 import cheerio from "cheerio";
+// @ts-ignore
 import ObjectsToCsv from "objects-to-csv";
+
 
 type agentData = {
   /*name: string; title: string;*/ email: string /*mobile: string */;
