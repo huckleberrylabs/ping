@@ -1,4 +1,5 @@
-import { School } from "../../models/school";
+import { School } from "@huckleberry/models";
+
 export class SchoolService {
   async getAll(): Promise<School[]> {
     const response = await fetch("/api/schools");
