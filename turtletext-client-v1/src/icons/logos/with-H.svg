@@ -3,7 +3,7 @@
 
  <g>
   <title>background</title>
-  <rect x="-1" y="-1" width="404" height="402" id="canvas_background" fill="#0077ae"/>
+  <rect x="-1" y="-1" width="404" height="402" id="canvas_background" fill="#1E73BE"/>
   <g id="canvasGrid" display="none">
    <rect id="svg_1" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)"/>
   </g>
@@ -15,8 +15,8 @@
   <ellipse fill="#ffffff" stroke="#000" stroke-width="0" stroke-opacity="null" cx="115" cy="160.0375" id="svg_6" rx="16" ry="25" transform="rotate(-22 115.00000000000001,160.03750610351562) "/>
   <ellipse fill="#ffffff" stroke="#000" stroke-width="0" stroke-opacity="null" cx="275" cy="300.0375" id="svg_7" rx="16" ry="25" transform="rotate(-22 275,300.0375061035157) "/>
   <ellipse fill="#ffffff" stroke="#000" stroke-width="0" stroke-opacity="null" cx="285" cy="159.0375" id="svg_8" rx="16" ry="25" transform="rotate(20 285.00000000000006,159.0375061035156) "/>
-  <ellipse fill="#ffffff" stroke-width="10" cx="200" cy="217" id="svg_9" rx="75" ry="91.999994" stroke="#0077ae"/>
+  <ellipse fill="#ffffff" stroke-width="10" cx="200" cy="217" id="svg_9" rx="75" ry="91.999994" stroke="#1E73BE"/>
   <text fill="#ffffff" stroke="#000" stroke-width="0" stroke-opacity="null" x="172.5" y="203.8375" id="svg_14" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve"/>
-  <text fill="#0077ae" stroke-width="0" stroke-opacity="null" x="168.504489" y="210.102205" id="svg_15" font-size="29" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(3.1443419818276652,0,0,3.868216683039094,-376.95890587520455,-561.6999892121312) " stroke="#ffffff" font-weight="bold">H:</text>
+  <text fill="#1E73BE" stroke-width="0" stroke-opacity="null" x="168.504489" y="210.102205" id="svg_15" font-size="29" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(3.1443419818276652,0,0,3.868216683039094,-376.95890587520455,-561.6999892121312) " stroke="#ffffff" font-weight="bold">H:</text>
  </g>
 </svg>

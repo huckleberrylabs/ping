@@ -225,7 +225,9 @@
         // fake code starts (simulate sending message)
 
         // setTimeout(() => {
-        //   document.getElementById("errorID").innerHTML = X_MARK_HTML;
+        //   document.getElementById(
+        //     "turtle-text-errorID"
+        //   ).innerHTML = X_MARK_HTML;
         //   errorMessage = document.getElementById("turtle-text-error-message");
         //   setTimeout(() => {
         //     loaderMessage.classList.remove("shown");

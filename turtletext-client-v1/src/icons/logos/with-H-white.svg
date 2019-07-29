@@ -9,12 +9,12 @@
  </g>
  <g>
   <title>Layer 1</title>
-  <ellipse stroke="#000" ry="36" rx="21" id="svg_4" cy="94.037505" cx="200.000001" stroke-opacity="null" stroke-width="0" fill="#0077ae"/>
-  <ellipse transform="rotate(-160 124.99999999999999,300.0375061035156) " ry="25" rx="16" id="svg_5" cy="300.0375" cx="125" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#0077ae"/>
-  <ellipse transform="rotate(-22 115.00000000000001,160.03750610351562) " ry="25" rx="16" id="svg_6" cy="160.0375" cx="115" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#0077ae"/>
-  <ellipse transform="rotate(-22 275,300.0375061035157) " ry="25" rx="16" id="svg_7" cy="300.0375" cx="275" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#0077ae"/>
-  <ellipse transform="rotate(20 285.00000000000006,159.0375061035156) " ry="25" rx="16" id="svg_8" cy="159.0375" cx="285" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#0077ae"/>
-  <ellipse stroke="#ffffff" ry="91.999994" rx="75" id="svg_9" cy="217" cx="200" stroke-width="10" fill="#0077ae"/>
+  <ellipse stroke="#000" ry="36" rx="21" id="svg_4" cy="94.037505" cx="200.000001" stroke-opacity="null" stroke-width="0" fill="#1E73BE"/>
+  <ellipse transform="rotate(-160 124.99999999999999,300.0375061035156) " ry="25" rx="16" id="svg_5" cy="300.0375" cx="125" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#1E73BE"/>
+  <ellipse transform="rotate(-22 115.00000000000001,160.03750610351562) " ry="25" rx="16" id="svg_6" cy="160.0375" cx="115" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#1E73BE"/>
+  <ellipse transform="rotate(-22 275,300.0375061035157) " ry="25" rx="16" id="svg_7" cy="300.0375" cx="275" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#1E73BE"/>
+  <ellipse transform="rotate(20 285.00000000000006,159.0375061035156) " ry="25" rx="16" id="svg_8" cy="159.0375" cx="285" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#1E73BE"/>
+  <ellipse stroke="#ffffff" ry="91.999994" rx="75" id="svg_9" cy="217" cx="200" stroke-width="10" fill="#1E73BE"/>
   <text xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_14" y="203.8375" x="172.5" stroke-opacity="null" stroke-width="0" stroke="#000" fill="#ffffff"/>
   <text font-weight="bold" stroke="#ffffff" transform="matrix(3.1443419818276652,0,0,3.868216683039094,-376.95890587520455,-561.6999892121312) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="29" id="svg_15" y="210.102205" x="168.504489" stroke-opacity="null" stroke-width="0" fill="#ffffff">H:</text>
  </g>
