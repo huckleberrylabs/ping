@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "tsc": "npx tsc"
+  },
+  "name": "@huckleberry/models",
+  "version": "0.0.1",
+  "description": "Data Models",
+  "author": "Dragos Rotaru <dragos@rotaru.co>",
+  "homepage": "https://github.com/askhuckleberry/monorepo#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askhuckleberry/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/askhuckleberry/monorepo/issues"
+  }
+}
