@@ -6,18 +6,25 @@
   "builds": [
     { "src": "turtletext-api/src/*.ts", "use": "@now/node" },
     {
-      "src": "turtletext-client-v1/src/*",
+      "src": "turtletext-client-v1/src/**/*",
       "use": "@now/static"
+    },
+    {
+      "src": "school-client/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
   ],
   "routes": [
     {
-      "src": "/turtletext/api",
-      "dest": "/turtletext-api/src"
+      "src": "/turtletext/api/(.*)",
+      "dest": "/turtletext-api/src/$1"
     },
     {
-      "src": "/turtletext/client",
-      "dest": "/turtletext-client-v1/src"
+      "src": "/turtletext/client/(.*)",
+      "dest": "/turtletext-client-v1/src/$1"
     },
     {
       "src": "/redirect",

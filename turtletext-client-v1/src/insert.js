@@ -1,5 +1,5 @@
 (function() {
-  const TURTLE_TEXT_API_URL = "https://huckleberry.app/turtletext/api/";
+  const TURTLE_TEXT_API_URL = "/turtletext/api/";
 
   const TURTLE_TEXT_HTML = `<div id="turtle-text-container">
       <form id="turtle-text-form">
@@ -11,7 +11,7 @@
 
         <!-- Stage 1 -->
         <button id="turtle-text-open-button" class="shown" type="button">
-          <img id="turtle-text-logo" src="./icons/smartphone-message.svg">
+          <img id="turtle-text-logo" src="icons/smartphone-message.svg">
         </button>
 
         <!-- Stage 2 -->
@@ -43,18 +43,18 @@
 
         <!-- Loading -->
         <div>
-          <img id="turtle-text-loader-message" src="./icons/loader-circle.svg" alt="loader">
+          <img id="turtle-text-loader-message" src="icons/loader-circle.svg" alt="loader">
         </div>
         <!-- Messages -->
-        <img id="turtle-text-invalid-message" src="./icons/invalid.svg" alt="invalid">
+        <img id="turtle-text-invalid-message" src="icons/invalid.svg" alt="invalid">
         <div id="turtle-text-successID"></div>
         <div id="turtle-text-errorID"></div>
         
       </form>
     </div>`;
 
-  const CHECK_MARK_HTML = `<img id="turtle-text-success-message" src="./icons/check-mark.svg" alt="success">`;
-  const X_MARK_HTML = `<img id="turtle-text-error-message" src="./icons/x-mark.svg" alt="error">`;
+  const CHECK_MARK_HTML = `<img id="turtle-text-success-message" src="icons/check-mark.svg" alt="success">`;
+  const X_MARK_HTML = `<img id="turtle-text-error-message" src="icons/x-mark.svg" alt="error">`;
 
   function injectCSS(appID, onLoad) {
     console.log("Turtle Text CSS Injected");
@@ -65,7 +65,7 @@
       link.id = cssID;
       link.rel = "stylesheet";
       link.type = "text/css";
-      link.href = "./stylesheet.css";
+      link.href = "stylesheet.css";
       link.media = "all";
       link.onload = onLoad;
       head.appendChild(link);
@@ -98,7 +98,7 @@
   function getAppConfig(appID) {
     console.log("Turtle Text Getting App Config");
     var req = new XMLHttpRequest();
-    req.open("GET", TURTLE_TEXT_API_URL + "config?app_id=" + appID, true);
+    req.open("GET", TURTLE_TEXT_API_URL + "config.ts?app_id=" + appID, true);
     req.send();
     req.onload = function onTurtleTextAppConfig() {
       console.log("Turtle Text App Config Loaded");
@@ -219,7 +219,7 @@
           name: nameInput.value.trim()
         };
         var req = new XMLHttpRequest();
-        req.open("POST", TURTLE_TEXT_API_URL + "send", true);
+        req.open("POST", TURTLE_TEXT_API_URL + "send.ts", true);
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
         //fake code starts (simulate sending message)
