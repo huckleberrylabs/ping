@@ -1,4 +1,4 @@
-import { School } from "@huckleberry/models";
+import { School } from "@huckleberry/schools";
 
 export class SchoolService {
   async getAll(): Promise<School[]> {

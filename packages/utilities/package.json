@@ -1,27 +1,29 @@
 {
   "name": "@huckleberry/utilities",
   "version": "0.0.1",
+  "private": true,
   "description": "Data Access Layer, API Wrappers, etc",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "homepage": "https://github.com/askhuckleberry/monorepo#readme",
   "license": "ISC",
-  "directories": {
-    "lib": "src"
-  },
-  "files": [
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/askhuckleberry/monorepo.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "bugs": {
     "url": "https://github.com/askhuckleberry/monorepo/issues"
   },
-  "dependencies": {
-    "@huckleberry/models": "^0.0.1"
-  }
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "tsc": "npx tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {}
 }

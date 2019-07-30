@@ -1,16 +1,11 @@
 {
   "name": "@huckleberry/school-client",
   "version": "0.0.1",
+  "private": true,
   "description": "School Map Web App",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "homepage": "https://github.com/askhuckleberry/monorepo#readme",
   "license": "ISC",
-  "directories": {
-    "lib": "src"
-  },
-  "files": [
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/askhuckleberry/monorepo.git"
@@ -18,6 +13,14 @@
   "bugs": {
     "url": "https://github.com/askhuckleberry/monorepo/issues"
   },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -25,23 +28,8 @@
     "eject": "react-scripts eject",
     "now-build": "npm run build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "dependencies": {
-    "@huckleberry/models": "^0.0.1",
+    "@huckleberry/schools": "^0.0.1",
     "@react-google-maps/api": "^1.2.3",
     "fuse.js": "^3.4.5",
     "react": "^16.8.6",

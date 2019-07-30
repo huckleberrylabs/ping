@@ -6,7 +6,7 @@ import "@rmwc/circular-progress/circular-progress.css";
 import { CircularProgress } from "@rmwc/circular-progress";
 import { List } from "@rmwc/list";
 
-import { SearchResult, isSchool } from "@huckleberry/models";
+import { SearchResult, isSchool } from "@huckleberry/schools";
 import {
   AddressSearchResultListItem,
   SchoolSearchResultListItem,
