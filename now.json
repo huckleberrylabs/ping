@@ -4,10 +4,6 @@
   "scope": "huckleberryai",
   "public": false,
   "builds": [
-    {
-      "src": "text-client-v1/src/**/*",
-      "use": "@now/static"
-    },
     { "src": "packages/api/src/index.ts", "use": "@now/node" },
     {
       "src": "packages/schools-client/package.json",
@@ -22,13 +18,13 @@
       "config": {
         "distDir": "dist"
       }
+    },
+    {
+      "src": "text-client-v1/src/**/*",
+      "use": "@now/static"
     }
   ],
   "routes": [
-    {
-      "src": "/text/client/(.*)",
-      "dest": "/text-client-v1/src/$1"
-    },
     {
       "src": "/api/(.*)",
       "dest": "packages/api/src/index.ts?zeit_now_route=$1"
@@ -40,6 +36,10 @@
     {
       "src": "/text/clientv2/(.*)",
       "dest": "packages/text-client/$1"
+    },
+    {
+      "src": "/text/client/(.*)",
+      "dest": "/text-client-v1/src/$1"
     }
   ],
   "build": {
