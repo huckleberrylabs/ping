@@ -28,7 +28,7 @@
   - StyleLint
   - GraphQL for VSCode
 
-- If you would like a GUI for Git, I recommend GitKraken.
+If you would like a GUI for Git, I recommend GitKraken.
 
 ## Run Project
 
