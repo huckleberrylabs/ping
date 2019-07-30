@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { SchoolMap } from "../../map";
-import { Coordinates, School } from "../../../../models";
+import { Coordinates, School } from "@huckleberry/schools";
 import { SchoolService } from "../../../../services";
 import { SchoolExplorerViewModes } from "../view-selector";
 import { SchoolExplorerBar } from "../bar";
@@ -29,13 +29,13 @@ export class SchoolExplorer extends Component<Props, State> {
     this.state = {
       map: {
         zoom: 6,
-        center: { latitude: 49.5881527, longitude: -86.0781141 }
+        center: { latitude: 49.5881527, longitude: -86.0781141 },
       },
       view: {
-        mode: SchoolExplorerViewModes.MAP
+        mode: SchoolExplorerViewModes.MAP,
       },
       schools: [],
-      filteredSchools: []
+      filteredSchools: [],
     };
   }
   async componentDidMount() {

@@ -3,17 +3,16 @@ import cheerio from "cheerio";
 // @ts-ignore
 import ObjectsToCsv from "objects-to-csv";
 
-
 type agentData = {
   /*name: string; title: string;*/ email: string /*mobile: string */;
 };
 
 async function AgentScraper(/*PAGE_NUMBER: number*/): Promise<agentData[]> {
   const aData: agentData[] = [];
-  const names: any = [];
-  const titles: any = [];
+  //const names: any = [];
+  //const titles: any = [];
   const emails: any = [];
-  const mobiles: any = [];
+  //const mobiles: any = [];
   const URL = `https://ontario.onepercentrealty.com/agents/location/`;
   try {
     const response = await axios.get(URL);

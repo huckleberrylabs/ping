@@ -1,6 +1,6 @@
 import React from "react";
 import { Select } from "@rmwc/select";
-import { School } from "../../../models";
+import { School } from "@huckleberry/schools";
 import { SchoolSummary } from "../summary";
 import { Button } from "@rmwc/button";
 import "@material/select/dist/mdc.select.css";
@@ -12,7 +12,7 @@ const RESULTS_PER_PAGE = 21;
 enum SortOptions {
   RATING_DESC = "High Rating",
   RATING_ASC = "Low Rating",
-  DISTANCE = "Distance"
+  DISTANCE = "Distance",
 }
 
 type Props = {
@@ -28,14 +28,14 @@ export class SchoolList extends React.Component<Props, State> {
     super(props);
     this.state = {
       sort: SortOptions.RATING_DESC,
-      page: 1
+      page: 1,
     };
   }
   onClickLoadMore = () => {
     this.setState(prevState => {
       return {
         ...prevState,
-        page: prevState.page + 1
+        page: prevState.page + 1,
       };
     });
   };
@@ -53,7 +53,7 @@ export class SchoolList extends React.Component<Props, State> {
             options={[
               SortOptions.RATING_DESC,
               SortOptions.RATING_ASC,
-              SortOptions.DISTANCE
+              SortOptions.DISTANCE,
             ]}
             value={this.state.sort}
             // @ts-ignore

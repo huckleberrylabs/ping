@@ -11,7 +11,7 @@ import { TextField } from "@rmwc/textfield";
 import { MenuSurfaceAnchor, MenuSurface } from "@rmwc/menu";
 
 import { GoogleService, SchoolService } from "../../../services";
-import { School, SearchResult } from "../../../models";
+import { School, SearchResult } from "@huckleberry/schools";
 import { SearchResultList } from "../result-list";
 import "./style.css";
 
@@ -22,7 +22,7 @@ const SCHOOL_SEARCH_OPTIONS: Fuse.FuseOptions<School> = {
   matchAllTokens: true,
   maxPatternLength: 32,
   minMatchCharLength: 1,
-  keys: ["name", "address", "status", "type", "province"]
+  keys: ["name", "address", "status", "type", "province"],
 };
 const COMBINED_SEARCH_OPTIONS: Fuse.FuseOptions<SearchResult> = {
   shouldSort: true,
@@ -30,7 +30,7 @@ const COMBINED_SEARCH_OPTIONS: Fuse.FuseOptions<SearchResult> = {
   maxPatternLength: 32,
   minMatchCharLength: 1,
   // @ts-ignore
-  keys: ["name", "address", "description"]
+  keys: ["name", "address", "description"],
 };
 
 type Props = {};
@@ -50,7 +50,7 @@ export class SearchBar extends Component<Props, State> {
       showResults: false,
       results: undefined,
       inputValue: "",
-      schools: []
+      schools: [],
     };
   }
   async componentDidMount() {
@@ -94,7 +94,7 @@ export class SearchBar extends Component<Props, State> {
     }
     const results: SearchResult[] = [
       ...schoolResults.slice(0, 5),
-      ...googleResults.slice(0, 5)
+      ...googleResults.slice(0, 5),
     ];
     const combinedFuse: Fuse<
       SearchResult,
@@ -128,7 +128,7 @@ export class SearchBar extends Component<Props, State> {
             this.state.inputValue.trim() != ""
               ? {
                   icon: "clear",
-                  onClick: this.onClickClear
+                  onClick: this.onClickClear,
                 }
               : { icon: "" }
           }

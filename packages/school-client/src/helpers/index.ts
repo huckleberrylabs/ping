@@ -1,4 +1,4 @@
-import { School, Coordinates } from "../models";
+import { School, Coordinates } from "@huckleberry/schools";
 
 export function sortByDistance(
   location: Coordinates,

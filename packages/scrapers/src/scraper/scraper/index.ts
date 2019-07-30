@@ -1,6 +1,7 @@
 import axios from "axios";
 import cheerio from "cheerio";
-import { GOOGLE_API_KEY } from "../config";
+
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 type schoolAddresses = { address: string; status: string };
 type coordinates = { lat: number; lng: number };
@@ -75,9 +76,9 @@ export async function rankingsData(
         .text();
 
       // scraping rating data (5th column in table)
-      const schoolCity: string = $(currentCell)
+      /* const schoolCity: string = $(currentCell)
         .children("td.tdcell:nth-child(5)")
-        .text();
+        .text(); */
       // scraping rating data (6th column in table)
       const schoolRank: number = Number(
         $(currentCell)

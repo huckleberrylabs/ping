@@ -1,6 +1,6 @@
 import React from "react";
 import { match } from "react-router";
-import { School } from "../../../models";
+import { School } from "@huckleberry/schools";
 import { SchoolService } from "../../../services";
 
 type Props = {
