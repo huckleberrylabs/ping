@@ -2,7 +2,7 @@
   "name": "@huckleberry/monorepo",
   "private": true,
   "scripts": {
-    "bootstrap": "npx lerna bootstrap",
+    "bootstrap": "npx lerna clean -y && npx lerna bootstrap --hoist",
     "clean": "npx lerna clean",
     "start": "npx lerna run start --stream",
     "tsc": "npx lerna run tsc --stream",
@@ -10,8 +10,11 @@
     "test": "npx lerna run jest",
     "test:watch": "npx lerna run jest --watch"
   },
-  "engines": {
-    "node": ">=10"
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"

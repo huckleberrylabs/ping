@@ -5,7 +5,7 @@ import { School, Coordinates } from "@huckleberry/schools";
 import { SchoolSummary } from "../summary";
 import "./style.css";
 
-const GOOGLE_API_KEY = "";
+const GOOGLE_API_KEY = process.env.REACT_APP_PUBLIC_GOOGLE_API_KEY;
 
 type Props = {
   schools: School[];
