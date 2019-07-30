@@ -1,8 +1,8 @@
 {
-  "name": "@huckleberry/scrapers",
+  "name": "@huckleberry/api",
   "version": "0.0.1",
   "private": true,
-  "description": "A Collection of Web Scrapers",
+  "description": "School Map Web App",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "homepage": "https://github.com/askhuckleberry/monorepo#readme",
   "license": "ISC",
@@ -22,14 +22,12 @@
     "lib"
   ],
   "scripts": {
-    "tsc": "npx tsc"
+    "tsc": "tsc"
   },
   "dependencies": {
-    "@huckleberry/schools": "^0.0.1",
-    "cheerio": "^1.0.0-rc.3",
-    "objects-to-csv": "^1.3.3"
+    "twilio": "^3.33.2"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.12"
+    "@now/node": "^0.11.1"
   }
 }

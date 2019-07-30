@@ -1,6 +1,6 @@
 import React, { ReactChild } from "react";
 import { InfoWindow as OriginalInfoWindow } from "@react-google-maps/api";
-import { Coordinates } from "@huckleberry/models";
+import { Coordinates } from "@huckleberry/schools";
 import "./style.css";
 
 type Props = {

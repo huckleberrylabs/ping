@@ -6,7 +6,7 @@ import { AnalyticsService } from "../analytics";
 import { FingerPrintService } from "../fingerprint";
 import { AppLoadedEvent } from "./events";
 
-const INSERT_SCRIPT_ID: string = "turtle-text-insert-script";
+const INSERT_SCRIPT_ID: string = "huckleberry-text-insert-script";
 const EVENTS_ENDPOINT = API_URL + "apps/events/";
 const CONFIG_ENDPOINT = API_URL + "apps/config/";
 
