@@ -2,13 +2,13 @@
   "name": "@huckleberry/monorepo",
   "private": true,
   "scripts": {
-    "bootstrap": "npx lerna clean -y && npx lerna bootstrap --hoist",
-    "clean": "npx lerna clean",
-    "start": "npx lerna run start --stream",
-    "tsc": "npx lerna run tsc --stream",
-    "watch": "npx lerna run watch --stream",
-    "test": "npx lerna run jest",
-    "test:watch": "npx lerna run jest --watch"
+    "bootstrap": "lerna clean -y && lerna bootstrap --hoist",
+    "clean": "lerna clean",
+    "start": "lerna run start --stream",
+    "tsc": "lerna run tsc --stream",
+    "watch": "lerna run watch --stream",
+    "test": "lerna run jest",
+    "test:watch": "lerna run jest --watch"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
