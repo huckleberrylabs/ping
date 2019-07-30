@@ -12,10 +12,10 @@ import {
   CardActionButtons,
   CardActionButton,
   CardActionIcons,
-  CardActionIcon
+  CardActionIcon,
 } from "@rmwc/card";
 import { Typography } from "@rmwc/typography";
-import { School } from "../../../models";
+import { School } from "@huckleberry/schools";
 
 type Props = {
   school: School;
@@ -27,7 +27,7 @@ export const SchoolSummary = (props: Props) => (
       <CardMedia
         sixteenByNine
         style={{
-          backgroundImage: "url(images/backgrounds/mb-bg-fb-16.png)"
+          backgroundImage: "url(images/backgrounds/mb-bg-fb-16.png)",
         }}
       />
       <div style={{ padding: "0 1rem 1rem 1rem" }}>

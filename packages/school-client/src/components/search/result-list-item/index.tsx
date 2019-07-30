@@ -1,7 +1,7 @@
 import React from "react";
 import "@material/list/dist/mdc.list.css";
 import { SimpleListItem } from "@rmwc/list";
-import { School, GoogleAutoCompleteResult } from "../../../models";
+import { School, GoogleAutoCompleteResult } from "@huckleberry/schools";
 import { Link } from "react-router-dom";
 
 export const SchoolSearchResultListItem = (props: { school: School }) => {

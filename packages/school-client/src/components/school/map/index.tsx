@@ -1,10 +1,11 @@
 import React from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { InfoWindow } from "../../info-window";
-import { GOOGLE_API_KEY } from "../../../config";
-import { School, Coordinates } from "../../../models";
+import { School, Coordinates } from "@huckleberry/schools";
 import { SchoolSummary } from "../summary";
 import "./style.css";
+
+const GOOGLE_API_KEY = "";
 
 type Props = {
   schools: School[];
@@ -21,7 +22,7 @@ export class SchoolMap extends React.Component<Props, State> {
     super(props);
     this.state = {
       selected: undefined,
-      center: props.center
+      center: props.center,
     };
   }
   onMapClick = (): void => {
@@ -42,12 +43,12 @@ export class SchoolMap extends React.Component<Props, State> {
             mapContainerStyle={{
               height: "100%",
               width: "100%",
-              overflow: "hidden"
+              overflow: "hidden",
             }}
             zoom={this.props.zoom}
             center={{
               lat: this.state.center.latitude,
-              lng: this.state.center.longitude
+              lng: this.state.center.longitude,
             }}
             onClick={this.onMapClick}
           >
@@ -58,7 +59,7 @@ export class SchoolMap extends React.Component<Props, State> {
                   key={index}
                   position={{
                     lat: school.latitude,
-                    lng: school.longitude
+                    lng: school.longitude,
                   }}
                   onClick={() => this.onMarkerClick(school)}
                 />

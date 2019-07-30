@@ -1,6 +1,5 @@
 import axios from "axios";
-import { GoogleAutoCompleteResult } from "../../../../packages/models/src/google-autocomplete-result";
-import { Coordinates } from "../../../../packages/models/src";
+import { Coordinates, GoogleAutoCompleteResult } from "@huckleberry/schools";
 
 export class GoogleService {
   async autoCompleteAddress(
