@@ -4,13 +4,20 @@
   "scope": "huckleberryai",
   "public": false,
   "builds": [
-    { "src": "api/src/*.ts", "use": "@now/node" },
     {
       "src": "turtletext-client-v1/src/**/*",
       "use": "@now/static"
     },
+    { "src": "packages/api/src/**/*.ts", "use": "@now/node" },
     {
-      "src": "school-client/package.json",
+      "src": "packages/school-client/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    },
+    {
+      "src": "packages/text-client/package.json",
       "use": "@now/static-build",
       "config": {
         "distDir": "build"

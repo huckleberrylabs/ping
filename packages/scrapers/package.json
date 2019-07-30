@@ -1,7 +1,6 @@
 {
   "name": "@huckleberry/scrapers",
   "version": "0.0.1",
-  "private": true,
   "description": "A Collection of Web Scrapers",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "homepage": "https://github.com/askhuckleberry/monorepo#readme",
@@ -22,7 +21,10 @@
     "lib"
   ],
   "scripts": {
-    "tsc": "npx tsc"
+    "tsc": "npx tsc",
+    "watch": "npx tsc --watch",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch"
   },
   "dependencies": {
     "@huckleberry/schools": "^0.0.1",
