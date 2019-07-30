@@ -86,3 +86,58 @@
 #turtle-text-error-message {
   color: var(--turtle-text-fail-color);
 }
+
+/* Loader */
+.loader {
+  display: inline-block;
+  font-size: 4rem; /* Change this to resize the loader */
+  animation: 2s rotate infinite linear;
+  width: 1em;
+  height: 1em;
+}
+
+.loader circle {
+  fill: transparent;
+  stroke: var(--turtle-text-accent-color);
+  stroke-width: 0.064em;
+  stroke-linecap: round;
+  stroke-dasharray: 1.5056em 0.30112em;
+  animation: 1.5s strokeDashArray infinite linear,
+    24s colorBounce infinite linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes strokeDashArray {
+  from {
+    stroke-dasharray: 1.5056em 0.30112em;
+    stroke-dashoffset: 0;
+  }
+
+  10% {
+    stroke-dasharray: 1.5056em 0.30112em;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 0.001em 1.695em;
+    stroke-dashoffset: -1.695em;
+  }
+
+  60% {
+    stroke-dasharray: 0.001em 1.695em;
+  }
+
+  to {
+    stroke-dasharray: 1.5056em 0.30112em;
+    stroke-dashoffset: -1.695em;
+  }
+}

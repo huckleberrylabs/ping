@@ -40,7 +40,8 @@ export const HTML = `<div id="turtle-text-container">
 
         <!-- Loading -->
         <div>
-          <img id="turtle-text-loader-message" src="./icons/loader-circle.svg" alt="loader">
+          <object id="turtle-text-loader-message" data="icons/loader-circle.svg" alt="loader">
+          </object>
         </div>
 
         <!-- Messages -->

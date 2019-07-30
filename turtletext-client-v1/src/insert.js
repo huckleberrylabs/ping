@@ -43,8 +43,10 @@
 
         <!-- Loading -->
         <div>
-          <img id="turtle-text-loader-message" src="icons/loader-circle.svg" alt="loader">
+          <object id="turtle-text-loader-message" data="icons/loader-circle.svg" alt="loader">
+          </object>
         </div>
+
         <!-- Messages -->
         <img id="turtle-text-invalid-message" src="icons/invalid.svg" alt="invalid">
         <div id="turtle-text-successID"></div>

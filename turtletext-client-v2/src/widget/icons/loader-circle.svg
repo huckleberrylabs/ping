@@ -1,106 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" class="loader" style="background:white">
+<?xml-stylesheet type="text/css" href="../stylesheet.css" ?>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" class="loader" style="background:white">
 <!--Created with Method Draw - http://github.com/duopixel/Method-Draw/-->
     <defs>
-        <style type="text/css">
-            <![CDATA[
-            body {
-                padding: 2rem;
-                text-align: center;
-                }
-
-            .loader {
-            display: inline-block;
-            font-size: 4rem; /* Change this to resize the loader */
-            animation: 2s rotate infinite linear;
-            width: 1em;
-            height: 1em;
-            }
-
-            .loader circle {
-            fill: transparent;
-            stroke: #2A8FBD;
-            stroke-width: 0.1em;
-            stroke-linecap: round;
-            stroke-dasharray: 2.3525em 0.4705em;
-            animation: 1.5s strokeDashArray infinite linear, 24s colorBounce infinite linear;
-            }
-
-            @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            
-            to {
-                transform: rotate(360deg);
-            }
-            }
-
-            @keyframes strokeDashArray {
-            from {
-                stroke-dasharray: 2.3525em 0.4705em;
-                stroke-dashoffset: 0;
-            }
-            
-            10% {
-                stroke-dasharray: 2.3525em 0.4705em;
-                stroke-dashoffset: 0;
-            }
-            
-            50% {
-                stroke-dasharray: 0.001em 2.825em;
-                stroke-dashoffset: -2.826em;
-            }
-            
-            60% {
-                stroke-dasharray: 0.001em 2.825em;
-            }
-            
-            to {
-                stroke-dasharray: 2.3525em 0.4705em;
-                stroke-dashoffset: -2.826em;
-            }
-            }
-
-            @keyframes colorBounce {
-            1% {
-                stroke: #338FFA;
-            }
-            
-            24% {
-                stroke: #338FFA;
-            }
-            
-            26% {
-                stroke: #338FFA;
-            }
-            
-            49% {
-                stroke: #338FFA;
-            }
-            
-            51% {
-                stroke: #338FFA;
-            }
-            
-            74% {
-                stroke: #338FFA;
-            }
-            
-            76%{
-                stroke: #338FFA;
-            }
-            
-            99% {
-                stroke: #338FFA;
-            }
-        }
-
-
-		]]>
-        </style>
+        <ref id="paramFill" default="blue" param="accentColor"/>
     </defs>
 <!--<g> <title> background </title> <rect id="canvas_background" width="100" height="100" x="-1" y="-1" fill="#ffffff"/> <g id="canvasGrid" display="none"> <rect id="svg_1" width="100%" height="100%" x="0" y="0" fill="url(#gridpattern)" stroke-width="0"/> </g> </g>-->
     <g>
-        <circle cx="50" cy="50" r="35" fill="#338FFA"/>
+        <circle cx="32" cy="32" r="22.4" stroke="param(accentColor)"/>
     </g>
 </svg>

@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="114.751" height="114.751">
+    <defs>
+        <ref id="paramFill" default="blue" param="accentColor"/>
+    </defs>
     <g>
         <title>
             background
         </title>
-        <rect id="canvas_background" width="116.751" height="116.751" x="-1" y="-1" fill="#338FFA"/>
+        <rect id="canvas_background" width="116.751" height="116.751" x="-1" y="-1" fill="url(#paramFill)"/>
     </g>
     <g>
         <title>
