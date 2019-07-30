@@ -45,7 +45,8 @@
   "build": {
     "env": {
       "REACT_APP_PUBLIC_GOOGLE_API_KEY": "@public-google-api-key",
-      "PUBLIC_URL": "@schools-public-url"
+      "PUBLIC_URL": "@schools-client-public-url",
+      "TEXT_TEST_APP_ID": "@text-test-app-id"
     }
   },
   "env": {

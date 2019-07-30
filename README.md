@@ -32,6 +32,6 @@
 
 ## Run Project
 
-Option 1: `npm start` at project root. Variables are loaded from .env file
-Option 2: `now dev` at project root. Variables are loaded from .env file
-Option 3: `npm start` inside a specific package. Variables are loaded from .env file
+- Option 1: `npm start` at project root. Variables are loaded from .env file
+- Option 2: `now dev` at project root. Variables are loaded from .env file
+- Option 3: `npm start` inside a specific package. Variables are loaded from .env file
