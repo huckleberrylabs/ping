@@ -42,7 +42,9 @@ export class App {
   get id(): string {
     const urlString = getAttributeById(INSERT_SCRIPT_ID, "src");
     if (urlString) {
-      const url = new URL(urlString);
+      const a = document.createElement("a");
+      a.href = urlString;
+      const url = new URL(a.href);
       const id = url.searchParams.get("app_id");
       if (id) {
         return id;

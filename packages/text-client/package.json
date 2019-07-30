@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Text Client App",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
-  "homepage": "https://github.com/askhuckleberry/monorepo#readme",
   "license": "ISC",
   "repository": {
     "type": "git",

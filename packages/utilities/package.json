@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Data Access Layer, API Wrappers, etc",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
-  "homepage": "https://github.com/askhuckleberry/monorepo#readme",
   "license": "ISC",
   "repository": {
     "type": "git",
