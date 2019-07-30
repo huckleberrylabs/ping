@@ -1,7 +1,6 @@
 {
   "name": "@huckleberry/text-client",
   "version": "0.0.1",
-  "private": true,
   "description": "Text Client App",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "homepage": "https://github.com/askhuckleberry/monorepo#readme",
@@ -13,16 +12,11 @@
   "bugs": {
     "url": "https://github.com/askhuckleberry/monorepo/issues"
   },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
-  "files": [
-    "lib"
-  ],
   "scripts": {
-    "tsc": "npx tsc"
+    "now-build": "npm run build",
+    "build": "npx webpack --config webpack.config.js",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch"
   },
   "devDependencies": {
     "ts-loader": "^6.0.4",

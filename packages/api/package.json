@@ -1,7 +1,6 @@
 {
   "name": "@huckleberry/api",
   "version": "0.0.1",
-  "private": true,
   "description": "School Map Web App",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "homepage": "https://github.com/askhuckleberry/monorepo#readme",
@@ -22,12 +21,14 @@
     "lib"
   ],
   "scripts": {
-    "tsc": "tsc"
+    "tsc": "npx tsc",
+    "watch": "npx tsc --watch",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch"
   },
   "dependencies": {
+    "@now/node": "^0.12.1",
     "twilio": "^3.33.2"
   },
-  "devDependencies": {
-    "@now/node": "^0.11.1"
-  }
+  "devDependencies": {}
 }
