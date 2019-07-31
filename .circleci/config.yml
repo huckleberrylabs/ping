@@ -19,9 +19,9 @@ jobs:
     steps:
       - checkout:
           path: ~/project/
-        
 
       # Download and cache dependencies
+      - run: npm install -g npx
       - run: ls -la
       - restore_cache:
           keys:
