@@ -1,4 +1,4 @@
-import { App } from "./app";
+import { TextApp } from "./app";
 
-const app = new App();
+const app = new TextApp();
 app.init();

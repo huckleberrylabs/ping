@@ -47,6 +47,17 @@
     "test": "npx jest",
     "test:watch": "npx jest --watch"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "moment": "^2.24.0",
+    "typescript": "^3.5.3",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.16",
+    "@types/node": "^12.6.8",
+    "@types/uuid": "^3.4.5",
+    "jest": "^24.8.0",
+    "now": "^15.8.7",
+    "ts-jest": "^24.0.2"
+  }
 }

@@ -1,9 +1,3 @@
-export function staticImplements<T>() {
-  return <U extends T>(constructor: U) => {
-    constructor;
-  };
-}
-
 export function log(input: any): void {
   console.log("Turtle Text: ", input);
 }

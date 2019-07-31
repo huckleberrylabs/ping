@@ -20,6 +20,5 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": ["src"],
-  "exclude": ["src/**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

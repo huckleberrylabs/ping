@@ -51,7 +51,9 @@
     "test:watch": "npx jest --watch"
   },
   "dependencies": {
+    "@google/maps": "^0.5.5",
     "@now/node": "^0.12.1",
+    "@types/google__maps": "^0.5.5",
     "twilio": "^3.33.2"
   },
   "devDependencies": {}
