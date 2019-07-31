@@ -2,53 +2,18 @@
   "name": "@huckleberry/monorepo",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna clean -y && lerna bootstrap --hoist",
+    "bootstrap": "lerna clean -y && lerna bootstrap",
     "clean": "lerna clean",
     "start": "lerna run start --stream",
     "tsc": "lerna run tsc --stream",
-    "watch": "lerna run watch --stream",
-    "test": "lerna run jest",
-    "test:watch": "lerna run jest --watch"
+    "tsc:watch": "lerna run tsc:watch --stream",
+    "test": "lerna run test  --stream",
+    "test:watch": "lerna run test:watch  --stream"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --single-quote --write",
+      "prettier --write",
       "git add"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not ie <= 11",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
     ]
   },
   "prettier": {
