@@ -1,4 +1,5 @@
 import moment from "moment";
+// @ts-ignore
 import { retrieverFactory } from "../../../index";
 import CanadianLawList from "../index";
 import Company from "../Company";
@@ -15,8 +16,10 @@ import {
   Place,
   Tag,
   Twitter,
-  Website,
+  Website
+  // @ts-ignore
 } from "../../../Entities";
+import { any } from "bluebird";
 
 const SOURCE = "canadianlawlist:contact";
 
@@ -44,12 +47,24 @@ async function index(): Promise<Array<string>> {
   return [].concat.apply([], pagePartitions);
 }
 
-async function extract(url) {
+async function extract(url: any) {
   const $ = await retriever.getStaticCheerio(url);
-  const data = {};
+  const data = {
+    name: String,
+    titles: String,
+    calledToBar: any,
+    companies: any,
+    description: String,
+    career: String,
+    tags: String,
+    awards: String,
+    education: String,
+    memberships: String,
+    personalWebPage: String
+  };
   data.name = $("span[itemprop = 'name']").text();
   data.titles = $("span[itemprop = 'jobTitle']")
-    .map((i, tr) =>
+    .map((i: any, tr: any) =>
       $(tr)
         .text()
         .replace(":", "")
@@ -65,19 +80,31 @@ async function extract(url) {
       .replace(/.*Called to the bar:/, "")
       .trim()
       .split(";")
-      .map(string => ({
+      .map((string: any) => ({
         date: string.match(/\d{4}/)[0],
-        jurisdiction: string.match(/\(([^)]+)\)/)[0].slice(1, -1),
+        jurisdiction: string.match(/\(([^)]+)\)/)[0].slice(1, -1)
       }));
   }
   // Companies
   data.companies = await Promise.all(
     $(".comany-item")
-      .map(async (i, c) => {
-        const company = {};
+      .map(async (i: any, c: any) => {
+        const company = {
+          name: String,
+          address: String,
+          locality: String,
+          region: String,
+          postalCode: String,
+          phone: any,
+          email: String,
+          website: String,
+          linkedin: String,
+          twitter: String,
+          facebook: String
+        };
         company.name = $("a[title = 'companylink']", c).text();
         company.address = $("span[itemprop = 'streetAddress'] div", c)
-          .map((j, div) => $(div).text())
+          .map((j: any, div: any) => $(div).text())
           .get()
           .join(", ");
         company.locality = $("span[itemprop = 'addressLocality']", c).text();
@@ -89,6 +116,7 @@ async function extract(url) {
           .split("Ext:");
         company.phone = {
           number: phone[0],
+          extension: Number
         };
         if (phone.length > 1) {
           company.phone.extension = phone[1];
@@ -104,23 +132,25 @@ async function extract(url) {
   );
 
   const trArray = $(".listingdetail_enhanceddata tr")
-    .map((i, tr) => $(tr).text())
+    .map((i: any, tr: any) => $(tr).text())
     .get();
 
   // Description
-  const description = trArray.filter(text => text.startsWith("Profile"));
+  const description = trArray.filter((text: any) => text.startsWith("Profile"));
   if (description.length > 0) {
     data.description = description[0].replace("Profile", "");
   }
 
   // Career history
-  const career = trArray.filter(text => text.startsWith("Career"));
+  const career = trArray.filter((text: any) => text.startsWith("Career"));
   if (career.length > 0) {
     data.career = career[0].replace("Career History", "");
   }
 
   // Tags
-  const tags = trArray.filter(text => text.startsWith("Areas of Practice"));
+  const tags = trArray.filter((text: any) =>
+    text.startsWith("Areas of Practice")
+  );
   if (tags.length > 0) {
     data.tags = tags[0]
       .replace("Areas of Practice", "")
@@ -129,7 +159,7 @@ async function extract(url) {
   }
 
   // Honours / Awards
-  const awards = trArray.filter(text => text.startsWith("Honour"));
+  const awards = trArray.filter((text: any) => text.startsWith("Honour"));
   if (awards.length > 0) {
     data.awards = awards[0]
       .replace("Honour/Awards", "")
@@ -138,7 +168,7 @@ async function extract(url) {
   }
 
   // Education
-  const education = trArray.filter(text => text.startsWith("Education"));
+  const education = trArray.filter((text: any) => text.startsWith("Education"));
   if (education.length > 0) {
     data.education = education[0]
       .replace("Education", "")
@@ -147,7 +177,9 @@ async function extract(url) {
   }
 
   // Memberships
-  const memberships = trArray.filter(text => text.startsWith("Memberships"));
+  const memberships = trArray.filter((text: any) =>
+    text.startsWith("Memberships")
+  );
   if (memberships.length > 0) {
     data.memberships = memberships[0]
       .replace("Memberships", "")
@@ -156,14 +188,16 @@ async function extract(url) {
   }
 
   // Personal Company Website Page
-  const personalWebPage = trArray.filter(text => text.startsWith("Website"));
+  const personalWebPage = trArray.filter((text: any) =>
+    text.startsWith("Website")
+  );
   if (personalWebPage.length > 0) {
     data.personalWebPage = personalWebPage[0].replace("Website Link", "");
   }
   return data;
 }
 
-async function process(params: { url: string }): void {
+async function process(params: { url: string }) {
   const data = await extract(params.url);
   const collection = new Collection(SOURCE, params.url);
 
@@ -182,5 +216,5 @@ export default {
   validateURL,
   index,
   extract,
-  process,
+  process
 };
