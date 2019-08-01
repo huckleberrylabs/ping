@@ -94,7 +94,7 @@ export default class Email
     this.email = input.email;
     this.isValidated = input.isValidated;
     this.validationError = input.validationError;
-    this.isGenericAccount = input.isGenericAccount;
+    this.isGenericAccount = input.isGenericAccount; //from missing folder
     this.isGenericDomain = input.isGenericDomain;
     this.isDisposableDomain = input.isDisposableDomain;
   }
