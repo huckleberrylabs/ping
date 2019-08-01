@@ -2,10 +2,10 @@ import { promisify } from "util";
 import { EnhancedCacheClient } from "../CacheFactory";
 
 export interface ICache {
-  namespace: string;
+  readonly namespace: string;
   client: EnhancedCacheClient;
   constructor(withNameSpace: string, client: EnhancedCacheClient): void;
-  getIndex(): Promise<Array<string | any>>;
+  getIndex(): Promise<Array<string>>;
   getData(...args: Array<string>): Promise<Array<string | void>>;
   save(...args: Array<string>): Promise<void>;
   clear(...args: Array<string>): Promise<void>;
@@ -15,6 +15,7 @@ export default class Cache implements ICache {
   namespace: string;
   client: EnhancedCacheClient;
   constructor(withNameSpace: string, client: EnhancedCacheClient) {
+    //waiting for completion of CacheFactory
     if (!withNameSpace) {
       throw new Error("Cache namespace must be provided");
     }
@@ -25,7 +26,7 @@ export default class Cache implements ICache {
   nameSpaceKey(key: string) {
     this.namespace ? `${this.namespace}:${key}` : key;
   }
-  async getIndex(): Promise<Array<string | any>> {
+  async getIndex(): Promise<Array<string>> {
     return this.client.async.smembers();
   }
   async getData(...args: Array<string>): Promise<Array<string | void>> {

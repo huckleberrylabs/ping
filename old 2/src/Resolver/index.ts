@@ -1,7 +1,9 @@
 import { graphql, GraphQLSchema, GraphQLObjectType } from "graphql";
 import graphQLHTTP from "express-graphql";
-import Framework from "../../Framework";
-import { HTTPHandle } from "../../DataAccessLayer/HTTPServerFactory"; 
+//@ts-ignore
+import Framework from "../../Framework";//missing folder
+//@ts-ignore
+import { HTTPHandle } from "../../DataAccessLayer/HTTPServerFactory"; //missing folder
 import { AMQPHandle } from "../MessageBroker";
 
 export type ResolverConfig = {

@@ -2,8 +2,9 @@ import "babel-polyfill";
 import { URL } from "url";
 import cheerio from "cheerio";
 import Debug from "debug";
-import { norm, scrapePageHTML, sliceBySubStrings } from "./lib";
-
+//@ts-ignore
+import { norm, scrapePageHTML, sliceBySubStrings } from "./lib"; //missing folder
+//@ts-ignore
 const INBOUND_QUEUE = process.env.INBOUND_QUEUE || "service-scrape:waiting";
 
 const NAMESPACE = "lawyers:manitoba";
