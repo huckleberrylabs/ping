@@ -30,7 +30,7 @@ print('Data Extraction and Cleaning Started:')
 cma = pd.DataFrame(columns=colum_names)
 for xlsx_file in range(file_numbers):
     print('  - ' + file_names[xlsx_file] + ' --> ' + file_names[xlsx_file].split(
-        '.')[0] + ' ... (' + str(xlsx_file+1) + '/' + str(file_numbers) + ')'),
+        '.')[0] + '.csv ... (' + str(xlsx_file+1) + '/' + str(file_numbers) + ')'),
     # set local vars
     file_path = './CMA-csv/xlsx/' + file_names[xlsx_file]
     full_pages = file_lines[xlsx_file][0]
@@ -48,7 +48,7 @@ for xlsx_file in range(file_numbers):
         df = df.rename(
             columns={'CMA 1 - Line': '# Bed', 'Unnamed: 5': '# Bth'})
 
-    df.index = range(33)
+    df.index = range(30)
 
     # body
     for i in range(2, full_pages+1):
@@ -84,7 +84,7 @@ for xlsx_file in range(file_numbers):
     output_path = './CMA-csv/csv/' + \
         file_names[xlsx_file].split('.')[0] + '.csv'
     df = df.rename(columns=dic)
-    df.drop(columns=['delete'])
+    df = df.drop(columns=['delete'])
     df.to_csv(output_path)
     cma = cma.append(df, ignore_index=True, sort=False)
     print(' completed')
