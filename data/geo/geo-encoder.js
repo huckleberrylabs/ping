@@ -1,3 +1,5 @@
+// https://mapshaper.org/
+
 const fs = require("fs");
 var geohash = require("ngeohash");
 
