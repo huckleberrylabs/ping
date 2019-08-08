@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ngeohash": "^0.6.3"
+    "ngeohash": "^0.6.3",
+    "proj4": "^2.5.0"
   }
 }

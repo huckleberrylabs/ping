@@ -1,6 +1,7 @@
 // https://mapshaper.org/
 
 const fs = require("fs");
+const proj4 = require("proj4");
 var geohash = require("ngeohash");
 
 const year_list = [
@@ -15,19 +16,23 @@ const year_list = [
   "lcsd000a18a_e.json"
 ];
 
+const NAD83Projection =
+  'PROJCS["NAD83 / Massachusetts Mainland",GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.01745329251994328,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4269"]],UNIT["metre",1,AUTHORITY["EPSG","9001"]],PROJECTION["Lambert_Conformal_Conic_2SP"],PARAMETER["standard_parallel_1",49],PARAMETER["standard_parallel_2",77],PARAMETER["latitude_of_origin",63.390675],PARAMETER["central_meridian",-91.866667],PARAMETER["false_easting",6200000],PARAMETER["false_northing",3000000],AUTHORITY["EPSG","26986"],AXIS["X",EAST],AXIS["Y",NORTH]]';
+
 function geohashConverterGCS(coord) {
   return geohash.encode(coord[0], coord[1], (precision = 4));
 }
 function geohashConverterLCS(coord) {
-  return geohash.encode(coord[0] / 100000, coord[1] / 100000, (precision = 4));
+  return geohash.encode(
+    proj4(NAD83Projection).inverse(coord)[0],
+    proj4(NAD83Projection).inverse(coord)[1],
+    (precision = 4)
+  );
 }
 
-function check_rep(hash, list) {
-  for (let i = 0; i < list.length; i++) {
-    if (hash == list[i]) return false;
-  }
-  // console.log("write: " + hash);
-  return true;
+function removeDuplicateUsingSet(arr) {
+  let unique_array = Array.from(new Set(arr));
+  return unique_array;
 }
 
 function list_to_string(list) {
@@ -55,14 +60,23 @@ function converter(year_name) {
       coords_count = geo_data.features[i].geometry.coordinates[0].length;
       // console.log(coords_count);
       for (let j = 0; j < coords_count; j++) {
-        coord = geohashConverterGCS(
-          geo_data.features[i].geometry.coordinates[0][j]
-        );
-        if (check_rep(coord, coord_list)) coord_list.push(coord);
+        temp_coords = geo_data.features[i].geometry.coordinates[0][j];
+        if (typeof temp_coords[0] != "object") {
+          // console.log(temp_coords);
+          coord = geohashConverterGCS(temp_coords);
+          coord_list.push(coord);
+        } else {
+          for (let x = 0; x < temp_coords.length - 1; x++) {
+            // console.log(temp_coords[x]);
+            coord = geohashConverterGCS(temp_coords[x]);
+            coord_list.push(coord);
+          }
+        }
       }
     }
     txt_path = "./data/result/" + year_name.split(".")[0] + ".txt";
-    fs.writeFile(txt_path, list_to_string(coord_list), err => {
+    cleaned_coords = list_to_string(removeDuplicateUsingSet(coord_list));
+    fs.writeFile(txt_path, cleaned_coords, err => {
       if (err) throw err;
     });
   });
@@ -76,6 +90,7 @@ function converter(year_name) {
 //   };
 // }
 
-//0-8
-// year_name = year_list[];
-// converter(year_name);
+//0-2 gcs
+//3-8 lcs
+year_name = year_list[0];
+converter(year_name);
