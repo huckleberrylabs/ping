@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "name": "monorepo",
+  "scope": "huckleberryai",
+  "public": false,
+  "builds": [
+    { "src": "packages/api/src/index.ts", "use": "@now/node" },
+    {
+      "src": "packages/schools-client/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    },
+    {
+      "src": "packages/text-client/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    },
+    {
+      "src": "text-client-v1/src/**/*",
+      "use": "@now/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "packages/api/src/index.ts?zeit_now_route=$1"
+    },
+    {
+      "src": "/schools/client/(.*)",
+      "dest": "packages/schools-client/$1"
+    },
+    {
+      "src": "/text/clientv2/(.*)",
+      "dest": "packages/text-client/$1"
+    },
+    {
+      "src": "/text/client/(.*)",
+      "dest": "/text-client-v1/src/$1"
+    }
+  ],
+  "build": {
+    "env": {
+      "REACT_APP_PUBLIC_GOOGLE_API_KEY": "@public-google-api-key",
+      "PUBLIC_URL": "@schools-client-public-url",
+      "TEXT_TEST_APP_ID": "@text-test-app-id"
+    }
+  },
+  "env": {
+    "TWILIO_ACCOUNT_SID": "@twilio-account-sid",
+    "TWILIO_AUTH_TOKEN": "@twilio-auth-token",
+    "TWILIO_PHONE_NUMBER": "@twilio-phone-number",
+    "GOOGLE_API_KEY": "@google-api-key",
+    "LOCAL_LOGIC_API_KEY": "@local-logic-api-key"
+  }
+}

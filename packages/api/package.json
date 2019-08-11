@@ -1,0 +1,90 @@
+{
+  "name": "@huckleberry/api",
+  "version": "0.0.1",
+  "description": "Huckleberry API",
+  "author": "Dragos Rotaru <dragos@rotaru.co>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askhuckleberry/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/askhuckleberry/monorepo/issues"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "prettier": {
+    "trailingComma": "es5"
+  },
+  "tslint": {
+    "defaultSeverity": "error",
+    "extends": [
+      "tslint:recommended",
+      "tslint-jest",
+      "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {},
+    "rulesDirectory": []
+  },
+  "scripts": {
+    "tsc": "npx tsc",
+    "tsc:watch": "npx tsc --watch",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch"
+  },
+  "dependencies": {
+    "@google-cloud/datastore": "^4.1.4",
+    "@google/maps": "^0.5.5",
+    "@huckleberry/core": "*",
+    "@huckleberry/text": "*",
+    "@now/node": "^0.12.1",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13",
+    "twilio": "^3.33.2"
+  },
+  "devDependencies": {
+    "@types/google__maps": "^0.5.5",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3",
+    "now": "^16.1.1",
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.6.8",
+    "prettier": "^1.17.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-jest": "^1.0.5"
+  }
+}
