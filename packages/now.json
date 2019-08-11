@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "name": "@huckleberry/api",
+  "alias": ["api.huckleberry.app"],
+  "scope": "huckleberryai",
+  "public": false,
+  "builds": [{ "src": "api/src/index.ts", "use": "@now/node" }],
+  "routes": [
+    {
+      "src": "(.*)",
+      "dest": "api/src/index.ts"
+    }
+  ],
+  "env": {
+    "TWILIO_ACCOUNT_SID": "@twilio-account-sid",
+    "TWILIO_AUTH_TOKEN": "@twilio-auth-token",
+    "TWILIO_PHONE_NUMBER": "@twilio-phone-number",
+    "GOOGLE_API_KEY": "@google-api-key",
+    "LOCAL_LOGIC_API_KEY": "@local-logic-api-key"
+  }
+}

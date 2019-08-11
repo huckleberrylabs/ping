@@ -1,6 +1,7 @@
 import uuid from "uuid/v4";
+import { WithSerialize } from "../interfaces";
 
-export class ID {
+export class ID implements WithSerialize {
   private MIN_LENGTH: number = 32;
   private _id: string;
   constructor(value?: string) {
@@ -19,5 +20,8 @@ export class ID {
   }
   toString(): string {
     return this._id;
+  }
+  toJSON() {
+    return this.toString();
   }
 }

@@ -1,29 +1,31 @@
 import { Container } from "inversify";
-import { IEvent, IEventHandler, IEventHandlerStatic } from "@huckleberry/core";
-import { IoCContainer } from "../ioc-container";
+import {
+  IEvent,
+  IEventHandler,
+  IResult,
+  isEvent,
+  isResult,
+} from "@huckleberry/core";
+import { IoCContainer, HANDLER_NAME } from "../ioc-container";
 
-export interface IEventBus {
-  register(handler: IEventHandlerStatic): void;
-  emit(event: IEvent): Promise<void>;
+class EventBus {
+  public constructor(private container: Container) {}
+  public async emit<Event extends IEvent>(
+    event: Event
+  ): Promise<IResult | void> {
+    const handler = this.container.getNamed<IEventHandler>(
+      event.type.toSymbol(),
+      HANDLER_NAME
+    );
+    const output = await handler.handle(event);
+    if (output instanceof Array) {
+      output.map(event => this.emit(event));
+    } else if (isEvent(output)) {
+      this.emit(output);
+    } else if (isResult(output)) {
+      return output;
+    }
+  }
 }
 
-export class EventBus implements IEventBus {
-  private container: Container;
-  public constructor() {
-    this.container = IoCContainer;
-  }
-  public register(handler: IEventHandlerStatic): void {
-    this.container.bind<IEventHandler>(handler.type).to(handler);
-  }
-  public async emit(event: IEvent): Promise<void> {
-    const handlers = this.container.getAll<IEventHandler>(event.type);
-    handlers.map(async handler => {
-      const output = await handler.handle(event);
-      if (Array.isArray(output)) {
-        output.map(event => this.emit(event));
-      } else if (output) {
-        this.emit(output);
-      }
-    });
-  }
-}
+export const bus = new EventBus(IoCContainer);

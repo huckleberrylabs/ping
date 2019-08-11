@@ -1,34 +1,110 @@
-import { ID } from "../id";
+import { Type } from "../type";
 import { TimeStamp } from "../timestamp";
+import { ID } from "../id";
 
 export interface Newable<T> {
   new (...args: any[]): T;
 }
 
+export interface WithTypeStamp {
+  timestamp: TimeStamp;
+}
+
 export interface WithType {
-  type: symbol;
+  type: Type;
 }
 
 export interface WithID {
   id: ID;
 }
 
-export interface IEvent extends WithType, WithID {
-  timestamp: TimeStamp;
+export interface WithContextID {
   contextID: ID;
-  nodeID: ID;
+}
+
+export interface WithOriginID {
+  originID: ID;
+}
+
+export interface WithCorrID {
   corrID: ID;
+}
+
+export interface WithParentID {
   parentID?: ID;
 }
 
-export interface IEventStatic extends Newable<IEvent>, WithType {
-  contextID: ID;
+export interface WithSerialize {
+  toJSON: () => string | object;
 }
 
-export interface IEventHandler<Event> extends WithType {
-  handle(event: Event): Promise<IEvent[] | IEvent | void>;
-  contextID: ID;
-  nodeID: ID;
+export interface WithDeserialize<Type> {
+  fromJSON: (input: string) => Type;
+}
+
+export interface IEventStatic
+  extends Newable<IEvent>,
+    WithType,
+    WithDeserialize<IEvent> {}
+export interface IEvent
+  extends WithType,
+    WithTypeStamp,
+    WithID,
+    WithContextID,
+    WithOriginID,
+    WithCorrID,
+    WithParentID,
+    WithSerialize {}
+
+export function isEvent(object: any): object is IEvent {
+  return (
+    "type" in object &&
+    "timestamp" in object &&
+    "id" in object &&
+    "contextID" in object &&
+    "originID" in object &&
+    "corrID" in object
+  );
+}
+
+export interface IEventHandlerStatic extends Newable<IEventHandler>, WithType {}
+export interface IEventHandler extends WithID {
+  handle(event: IEvent): Promise<IResult | IEvent | IEvent[] | void>;
+}
+/* 
+export interface IEventHandler<Event> {
+  id: ID;
+  type: Type;
+  get: () => (event: Event) => Promise<IResult | IEvent | IEvent[] | void>;
+} */
+
+export interface IResultStatic
+  extends Newable<IResult>,
+    WithDeserialize<IResult> {}
+export interface IResult
+  extends WithType,
+    WithTypeStamp,
+    WithID,
+    WithContextID,
+    WithOriginID,
+    WithCorrID,
+    WithParentID,
+    WithSerialize {
+  parentID: ID;
+  data: any;
+}
+
+export function isResult(object: any): object is IResult {
+  return (
+    "type" in object &&
+    "timestamp" in object &&
+    "id" in object &&
+    "contextID" in object &&
+    "originID" in object &&
+    "corrID" in object &&
+    "parentID" in object &&
+    "data" in object
+  );
 }
 
 export interface IPolicy extends WithID {}
