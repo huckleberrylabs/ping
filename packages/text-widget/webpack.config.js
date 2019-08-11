@@ -1,10 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const APP_ID = process.env.TEXT_TEST_APP_ID;
+const WIDGET_ID = process.env.DEMO_WIDGET_ID;
 
-if (!APP_ID) {
-  throw new Error("App ID must be provided via TEXT_TEST_APP_ID env var");
+if (!WIDGET_ID) {
+  throw new Error("WIDGET ID must be provided via DEMO_WIDGET_ID env var");
 }
 
 module.exports = {
@@ -29,7 +29,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Text, By Huckleberry Demo",
-      app_id: APP_ID,
+      widget_id: WIDGET_ID,
       template: "index.html",
     }),
   ],

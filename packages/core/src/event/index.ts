@@ -37,7 +37,15 @@ export class Event implements IEvent {
     this._contextID = id;
   }
   public toJSON() {
-    return this;
+    return {
+      id: this.id,
+      timestamp: this.timestamp,
+      originID: this.originID,
+      corrID: this.corrID,
+      parentID: this.parentID,
+      contextID: this.contextID,
+      type: this.type,
+    };
   }
   public static fromJSON(json: any): Event {
     const event = new Event(

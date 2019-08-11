@@ -6,20 +6,20 @@ import { DataStore } from "../datastore";
 @injectable()
 export class TextWidgetSettingsRepository {
   constructor(private dataStore: DataStore) {}
-  async add(app: TextWidgetSettings): Promise<void> {
+  async add(widget: TextWidgetSettings): Promise<void> {
     const { store } = this.dataStore;
-    const appKey = store.key(["TextWidgetSettings", app.id.toString()]);
-    const json = JSON.parse(JSON.stringify(app.toJSON));
+    const widgetKey = store.key(["TextWidgetSettings", widget.id.toString()]);
+    const json = JSON.parse(JSON.stringify(widget.toJSON));
     const savedEvent = {
-      key: appKey,
+      key: widgetKey,
       ...json,
     };
     await store.save(savedEvent);
   }
   async getByID(id: ID): Promise<TextWidgetSettings> {
     const { store } = this.dataStore;
-    const appKey = store.key(["TextWidgetSettings", id.toString()]);
-    const json = await store.get(appKey);
+    const widgetKey = store.key(["TextWidgetSettings", id.toString()]);
+    const json = await store.get(widgetKey);
     return TextWidgetSettings.fromJSON(json);
   }
 }

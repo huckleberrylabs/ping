@@ -1,10 +1,10 @@
 import { ID, Type, Event, TimeStamp } from "@huckleberry/core";
 
 export class TextWidgetLoadedEvent extends Event {
-  public appID: ID;
-  constructor(appID: ID, originID: ID, corrID?: ID, parentID?: ID) {
+  public widgetID: ID;
+  constructor(widgetID: ID, originID: ID, corrID?: ID, parentID?: ID) {
     super(originID, corrID, parentID);
-    this.appID = appID;
+    this.widgetID = widgetID;
   }
   public get type() {
     return TextWidgetLoadedEvent.type;
@@ -14,7 +14,7 @@ export class TextWidgetLoadedEvent extends Event {
   }
   public static fromJSON(json: any): TextWidgetLoadedEvent {
     const event = new TextWidgetLoadedEvent(
-      new ID(json.appID),
+      new ID(json.widgetID),
       new ID(json.originID),
       json.corrID ? new ID(json.corrID) : undefined,
       json.parentID ? new ID(json.parentID) : undefined

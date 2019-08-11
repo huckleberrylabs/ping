@@ -7,7 +7,7 @@ import {
 } from "@huckleberry/core";
 import { TextWidgetSettingsQuery } from "@huckleberry/text";
 import { EventRepository } from "../event-repository";
-import { TextWidgetSettingsRepository } from "../app-repository";
+import { TextWidgetSettingsRepository } from "../widget-repository";
 import { injectable } from "inversify";
 
 @injectable()
@@ -20,9 +20,15 @@ export class TextWidgetSettingsQueryHandler implements IEventHandler {
     private eventRepo: EventRepository
   ) {}
   async handle(event: TextWidgetSettingsQuery) {
-    const appID = event.appID;
-    const appSettings = await this.settingsRepo.getByID(appID);
+    const widgetID = event.widgetID;
+    const widgetSettings = await this.settingsRepo.getByID(widgetID);
     await this.eventRepo.add(event);
-    return new Result(appSettings, this.id, event.corrID, event.id, event.type);
+    return new Result(
+      widgetSettings,
+      this.id,
+      event.corrID,
+      event.id,
+      event.type
+    );
   }
 }

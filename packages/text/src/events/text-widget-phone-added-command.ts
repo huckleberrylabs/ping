@@ -2,10 +2,10 @@ import { ID, Type, Command, TimeStamp } from "@huckleberry/core";
 
 export class TextWidgetPhoneAddedCommand extends Command {
   public phone: string;
-  public appID: ID;
+  public widgetID: ID;
   constructor(
     phone: string,
-    appID: ID,
+    widgetID: ID,
     agentID: ID,
     originID: ID,
     corrID?: ID,
@@ -13,7 +13,7 @@ export class TextWidgetPhoneAddedCommand extends Command {
   ) {
     super(agentID, originID, corrID, parentID);
     this.phone = phone;
-    this.appID = appID;
+    this.widgetID = widgetID;
   }
   public get type() {
     return TextWidgetPhoneAddedCommand.type;
@@ -24,7 +24,7 @@ export class TextWidgetPhoneAddedCommand extends Command {
   public static fromJSON(json: any): TextWidgetPhoneAddedCommand {
     const command = new TextWidgetPhoneAddedCommand(
       json.phone,
-      new ID(json.appID),
+      new ID(json.widgetID),
       new ID(json.agentID),
       new ID(json.originID),
       json.corrID ? new ID(json.corrID) : undefined,

@@ -4,7 +4,7 @@ import { IEventHandler, IEventStatic } from "@huckleberry/core";
 
 // Structural
 import { DataStore } from "../datastore";
-import { TextWidgetSettingsRepository } from "../app-repository";
+import { TextWidgetSettingsRepository } from "../widget-repository";
 import { EventRepository } from "../event-repository";
 
 // Handlers

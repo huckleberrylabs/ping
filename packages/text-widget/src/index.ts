@@ -39,8 +39,8 @@ async function HuckleberryTextWidget() {
   const AGENT_ID = new ID();
   const CORR_ID = new ID();
 
-  // GET APP ID
-  const APP_ID = ((): ID => {
+  // GET WIDGET ID
+  const WIDGET_ID = ((): ID => {
     const script = getElementById(INSERT_SCRIPT_ID);
     const urlString = script.getAttribute("src");
     if (!urlString) {
@@ -49,29 +49,30 @@ async function HuckleberryTextWidget() {
     const a = document.createElement("a");
     a.href = urlString;
     const url = new URL(a.href);
-    const id = url.searchParams.get("app_id");
+    const id = url.searchParams.get("widget_id");
     if (!id) {
       throw new Error("Widget ID Must Be Provided");
     }
     return new ID(id);
   })();
-  log(`APP ID Retrieved: ${APP_ID} `);
+  log(`WIDGET ID Retrieved: ${WIDGET_ID} `);
 
-  // POST APP LOADED EVENT
+  // POST WIDGET LOADED EVENT
   const textWidgetLoadedEvent = new TextWidgetLoadedEvent(
-    APP_ID,
+    WIDGET_ID,
     ORIGIN_ID,
     CORR_ID
   );
   postEvent(textWidgetLoadedEvent);
   log(`TextWidgetLoadedEvent Posted`);
 
-  // GET APP SETTINGS
+  // GET WIDGET SETTINGS
   const textWidgetSettings = await (async (): Promise<TextWidgetSettings> => {
     const textWidgetSettingsQuery = new TextWidgetSettingsQuery(
-      APP_ID,
+      WIDGET_ID,
       AGENT_ID,
       ORIGIN_ID,
+      CORR_ID,
       textWidgetLoadedEvent.id
     );
     const result = await postEvent(textWidgetSettingsQuery);
@@ -80,9 +81,9 @@ async function HuckleberryTextWidget() {
     }
     return TextWidgetSettings.fromJSON(result.data);
   })();
-  log(`Widget Settings Retrieved`);
+  log(`Settings Retrieved`);
 
-  // CHECK IF APP IS ENABLED
+  // CHECK IF WIDGET IS ENABLED
   if (!textWidgetSettings.enabled) {
     log("Widget Disabled");
     return;
@@ -136,7 +137,7 @@ async function HuckleberryTextWidget() {
     messageInput.classList.add("shown");
     messageInput.focus();
     const command = new TextWidgetOpenedCommand(
-      APP_ID,
+      WIDGET_ID,
       AGENT_ID,
       ORIGIN_ID,
       CORR_ID,
@@ -160,7 +161,7 @@ async function HuckleberryTextWidget() {
       const message = messageString.trim();
       const command = new TextWidgetMessageAddedCommand(
         message.trim(),
-        APP_ID,
+        WIDGET_ID,
         AGENT_ID,
         ORIGIN_ID,
         CORR_ID,
@@ -188,7 +189,7 @@ async function HuckleberryTextWidget() {
       if (phone) {
         const command = new TextWidgetPhoneAddedCommand(
           phone,
-          APP_ID,
+          WIDGET_ID,
           AGENT_ID,
           ORIGIN_ID,
           CORR_ID,
@@ -222,14 +223,14 @@ async function HuckleberryTextWidget() {
       container.style.width = "";
       const nameAddedCommand = new TextWidgetNameAddedCommand(
         name.trim(),
-        APP_ID,
+        WIDGET_ID,
         AGENT_ID,
         ORIGIN_ID,
         CORR_ID,
         textWidgetLoadedEvent.id
       );
       const sentCommand = new TextWidgetSentCommand(
-        APP_ID,
+        WIDGET_ID,
         AGENT_ID,
         ORIGIN_ID,
         CORR_ID,
@@ -274,7 +275,7 @@ async function HuckleberryTextWidget() {
   });
 
   log(`Event Listeners Loaded`);
-  log(`Widget Initialized Successfully`);
+  log(`Initialized Successfully`);
 }
 
 window.addEventListener("load", HuckleberryTextWidget, false);

@@ -8,7 +8,7 @@ import {
 import { TextWidgetSentCommand } from "@huckleberry/text";
 import { injectable } from "inversify";
 import { EventRepository } from "../event-repository";
-import { TextWidgetSettingsRepository } from "../app-repository";
+import { TextWidgetSettingsRepository } from "../widget-repository";
 import { MessageAggregator } from "../message-aggregator";
 
 const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -26,13 +26,13 @@ export class TextWidgetSentCommandHandler implements IEventHandler {
     private eventRepo: EventRepository
   ) {}
   async handle(event: TextWidgetSentCommand) {
-    const app = await this.settingsRepo.getByID(event.appID);
+    const widget = await this.settingsRepo.getByID(event.widgetID);
     const events = await this.eventRepo.getByCorrID(event.corrID);
     const { name, message, phone } = MessageAggregator(events);
     await client.messages.create({
       body: `New Message from ${name}: ${message}
 		\n Reply to them at ${phone}`,
-      to: app.phone,
+      to: widget.phone,
       from: twilioPhoneNumber,
     });
     await this.eventRepo.add(event);
