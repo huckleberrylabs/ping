@@ -70,7 +70,7 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@google-cloud/datastore": "^4.1.4",
+    "@google-cloud/firestore": "^2.2.6",
     "@google/maps": "^0.5.5",
     "@huckleberryai/core": "^0.1.6",
     "@huckleberryai/text": "^0.1.6",

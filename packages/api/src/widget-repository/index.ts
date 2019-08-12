@@ -1,25 +1,21 @@
 import { injectable } from "inversify";
 import { ID } from "@huckleberryai/core";
 import { TextWidgetSettings } from "@huckleberryai/text";
-import { DataStore } from "../datastore";
+import { FireStore } from "../firestore";
 
 @injectable()
 export class TextWidgetSettingsRepository {
-  constructor(private dataStore: DataStore) {}
+  constructor(private dataStore: FireStore) {}
   async add(widget: TextWidgetSettings): Promise<void> {
-    const { store } = this.dataStore;
-    const widgetKey = store.key(["TextWidgetSettings", widget.id.toString()]);
-    const json = JSON.parse(JSON.stringify(widget.toJSON));
-    const savedEvent = {
-      key: widgetKey,
-      ...json,
-    };
-    await store.save(savedEvent);
+    const collection = this.dataStore.store.collection("text-widget-settings");
+    const docRef = collection.doc(widget.id.toString());
+    const json = JSON.parse(JSON.stringify(widget));
+    await docRef.set(json);
   }
   async getByID(id: ID): Promise<TextWidgetSettings> {
-    const { store } = this.dataStore;
-    const widgetKey = store.key(["TextWidgetSettings", id.toString()]);
-    const json = await store.get(widgetKey);
-    return TextWidgetSettings.fromJSON(json);
+    const collection = this.dataStore.store.collection("text-widget-settings");
+    const docRef = collection.doc(id.toString());
+    const doc = await docRef.get();
+    return TextWidgetSettings.fromJSON(doc.data());
   }
 }

@@ -1,13 +1,15 @@
 import "reflect-metadata";
 import { Container, ContainerModule } from "inversify";
-import { IEventHandler, IEventStatic } from "@huckleberryai/core";
-
-// Structural
-import { DataStore } from "../datastore";
+import {
+  IEventHandler,
+  IEventStatic,
+  Event,
+  Query,
+  Command,
+} from "@huckleberryai/core";
+import { FireStore } from "../firestore";
 import { TextWidgetSettingsRepository } from "../widget-repository";
 import { EventRepository } from "../event-repository";
-
-// Handlers
 import {
   HTTPAccessEventHandler,
   TextWidgetLoadedEventHandler,
@@ -18,8 +20,6 @@ import {
   TextWidgetSentCommandHandler,
   TextWidgetSettingsQueryHandler,
 } from "../handlers";
-
-// Events
 import { HTTPAccessEvent } from "../events";
 import {
   TextWidgetLoadedEvent,
@@ -39,12 +39,23 @@ const domainModule = new ContainerModule(bind => {
 });
 
 const utilityModule = new ContainerModule(bind => {
-  bind<DataStore>(DataStore)
+  bind<FireStore>(FireStore)
     .toSelf()
     .inSingletonScope();
 });
 
 const eventModule = new ContainerModule(bind => {
+  // Core Events
+  bind<IEventStatic>(Event.type.toSymbol())
+    .toConstantValue(Event)
+    .whenTargetNamed(EVENT_NAME);
+  bind<IEventStatic>(Command.type.toSymbol())
+    .toConstantValue(Command)
+    .whenTargetNamed(EVENT_NAME);
+  bind<IEventStatic>(Query.type.toSymbol())
+    .toConstantValue(Query)
+    .whenTargetNamed(EVENT_NAME);
+
   // HTTPAccessEvent
   bind<IEventStatic>(HTTPAccessEvent.type.toSymbol())
     .toConstantValue(HTTPAccessEvent)

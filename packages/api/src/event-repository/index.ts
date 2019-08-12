@@ -1,36 +1,34 @@
 import { injectable } from "inversify";
-import { DataStore } from "../datastore";
+import { FireStore } from "../firestore";
 import { ID, IEvent } from "@huckleberryai/core";
-import { deserializer } from "../event-deserializer";
+import { deserialize } from "../event-deserializer";
 
 @injectable()
 export class EventRepository {
-  constructor(private dataStore: DataStore) {}
+  constructor(private dataStore: FireStore) {}
   async add(event: IEvent): Promise<void> {
-    const { store } = this.dataStore;
-    const eventKey = store.key(["Event", event.id.toString()]);
+    const collection = this.dataStore.store.collection("events");
+    const docRef = collection.doc(event.id.toString());
     const json = JSON.parse(JSON.stringify(event));
-    const savedEvent = {
-      key: eventKey,
-      ...json,
-    };
-    await store.save(savedEvent);
+    await docRef.set(json);
   }
   async getByID(id: ID): Promise<IEvent> {
-    const { store } = this.dataStore;
-    const eventKey = store.key(["Event", id.toString()]);
-    const data = await store.get(eventKey);
-    const event = deserializer.deserialize(data);
+    const collection = this.dataStore.store.collection("events");
+    const docRef = collection.doc(id.toString());
+    const doc = await docRef.get();
+    const event = deserialize(doc.data());
     return event;
   }
   async getByCorrID(corrID: ID): Promise<IEvent[]> {
-    const { store } = this.dataStore;
-    const query = store
-      .createQuery("Event")
-      .filter("corrID", corrID.toString())
-      .order("timestamp");
-    const [eventData] = await store.runQuery(query);
-    const events = eventData.map(data => deserializer.deserialize(data));
-    return events;
+    const collection = this.dataStore.store.collection("events");
+    const query = collection
+      .where("corrID", "==", corrID.toString())
+      .orderBy("timestamp");
+    const queryRef = await query.get();
+    if (queryRef.empty) {
+      return [];
+    } else {
+      return queryRef.docs.map(doc => deserialize(doc.data()));
+    }
   }
 }

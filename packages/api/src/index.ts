@@ -2,7 +2,7 @@ import { NowRequest, NowResponse } from "@now/node";
 import { ID, isResult } from "@huckleberryai/core";
 import { EVENTS_ENDPOINT } from "@huckleberryai/text";
 import { HTTPAccessEvent } from "./events";
-import { deserializer } from "./event-deserializer";
+import { deserialize } from "./event-deserializer";
 import { bus } from "./event-bus";
 
 export default async (req: NowRequest, res: NowResponse) => {
@@ -28,7 +28,7 @@ export default async (req: NowRequest, res: NowResponse) => {
   try {
     const { pathname } = new URL(req.url);
     if (pathname === EVENTS_ENDPOINT) {
-      const event = deserializer.deserialize(req.body);
+      const event = deserialize(req.body);
       const result = bus.emit(event);
       if (isResult(result)) {
         res.status(200).send(result);
