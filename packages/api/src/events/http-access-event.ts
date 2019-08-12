@@ -1,12 +1,11 @@
 import { NowRequest } from "@now/node";
 import { Event, ID, Type, TimeStamp } from "@huckleberryai/core";
+import { IncomingHttpHeaders } from "http2";
 
 export class HTTPAccessEvent extends Event {
   method?: string;
   url?: string;
-  headers: {
-    [key: string]: string;
-  };
+  headers: IncomingHttpHeaders;
   constructor(req: NowRequest, originID: ID) {
     const corrIDString = req.query["corr_id"];
     let corrID = undefined;
@@ -21,10 +20,7 @@ export class HTTPAccessEvent extends Event {
     super(originID, corrID, parentID);
     this.method = req.method;
     this.url = req.url;
-    this.headers = {};
-    for (let index = 0; index < req.rawHeaders.length - 1; index++) {
-      this.headers[req.rawHeaders[index]] = req.rawHeaders[index + 1];
-    }
+    this.headers = req.headers;
   }
   public get type() {
     return HTTPAccessEvent.type;

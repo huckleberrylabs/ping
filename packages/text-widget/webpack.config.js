@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const JavaScriptObfuscator = require("webpack-obfuscator");
 
 const WIDGET_ID = process.env.DEMO_WIDGET_ID;
 
@@ -27,6 +28,9 @@ module.exports = {
       title: "Text, By Huckleberry Demo",
       widget_id: WIDGET_ID,
       template: "index.html",
+    }),
+    new JavaScriptObfuscator({
+      rotateUnicodeArray: true,
     }),
   ],
 };

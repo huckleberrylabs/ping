@@ -13,13 +13,11 @@ class EventBus {
   public async emit<Event extends IEvent>(
     event: Event
   ): Promise<IResult | null> {
-    console.log("EVENT BUS INPUT: ", event);
     const handler = this.container.getNamed<IEventHandler>(
       event.type.toSymbol(),
       HANDLER_NAME
     );
     const output = await handler.handle(event);
-    console.log("EVENT BUS OUTPUT: ", output);
     if (output instanceof Array) {
       output.map(event => this.emit(event));
       // The Order of these branches matters, because IResult extends IEvent
