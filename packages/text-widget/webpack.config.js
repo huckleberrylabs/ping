@@ -3,10 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const WIDGET_ID = process.env.DEMO_WIDGET_ID;
 
-if (!WIDGET_ID) {
-  throw new Error("WIDGET ID must be provided via DEMO_WIDGET_ID env var");
-}
-
 module.exports = {
   mode: "production",
   entry: "./src/index.ts",
