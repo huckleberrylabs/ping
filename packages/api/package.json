@@ -1,5 +1,6 @@
 {
   "name": "@huckleberry/api",
+  "private": true,
   "version": "0.0.1",
   "description": "Huckleberry API",
   "author": "Dragos Rotaru <dragos@rotaru.co>",

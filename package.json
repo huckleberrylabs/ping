@@ -1,5 +1,5 @@
 {
-  "name": "@huckleberry/monorepo",
+  "name": "@huckleberryai/monorepo",
   "private": true,
   "scripts": {
     "bootstrap": "lerna clean -y && lerna bootstrap",

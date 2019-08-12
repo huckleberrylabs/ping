@@ -1,5 +1,6 @@
 {
-  "name": "@huckleberry/text",
+  "name": "@huckleberryai/text",
+  "private": true,
   "version": "0.0.1",
   "description": "Texting, By Huckleberry",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
