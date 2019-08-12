@@ -1,6 +1,8 @@
 {
   "name": "@huckleberryai/text",
-  "private": true,
+  "publishConfig": {
+    "access": "restricted"
+  },
   "version": "0.1.0",
   "description": "Texting, By Huckleberry",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
