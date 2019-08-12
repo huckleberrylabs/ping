@@ -70,8 +70,8 @@
   "dependencies": {
     "@google-cloud/datastore": "^4.1.4",
     "@google/maps": "^0.5.5",
-    "@huckleberry/core": "^0.1.0",
-    "@huckleberry/text": "*",
+    "@huckleberryai/core": "^0.1.1",
+    "@huckleberryai/text": "^0.1.1",
     "@now/node": "^0.12.1",
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13",

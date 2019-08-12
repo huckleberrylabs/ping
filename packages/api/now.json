@@ -4,13 +4,18 @@
   "alias": ["api.huckleberry.app"],
   "scope": "huckleberryai",
   "public": false,
-  "builds": [{ "src": "api/src/index.ts", "use": "@now/node" }],
+  "builds": [{ "src": "src/index.ts", "use": "@now/node" }],
   "routes": [
     {
       "src": "(.*)",
-      "dest": "api/src/index.ts"
+      "dest": "src/index.ts"
     }
   ],
+  "build": {
+    "env": {
+      "NPM_TOKEN": "@npm-token"
+    }
+  },
   "env": {
     "TWILIO_ACCOUNT_SID": "@twilio-account-sid",
     "TWILIO_AUTH_TOKEN": "@twilio-auth-token",
