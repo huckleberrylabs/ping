@@ -11,7 +11,7 @@ export default async (req: NowRequest, res: NowResponse) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") {
     // Send response to OPTIONS requests
-    res.setHeader("Access-Control-Allow-Methods", "GET");
+    res.setHeader("Access-Control-Allow-Methods", "*");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.setHeader("Access-Control-Max-Age", "3600");
     res.status(204).send("");
@@ -27,10 +27,10 @@ export default async (req: NowRequest, res: NowResponse) => {
   // Routing Request
   try {
     const path = req.url;
-    console.log(path, EVENTS_ENDPOINT);
     if (path === EVENTS_ENDPOINT) {
       const event = deserialize(req.body);
-      const result = bus.emit(event);
+      console.log("DESERIALIZED: ", event);
+      const result = await bus.emit(event);
       if (isResult(result)) {
         res.status(200).send(result);
       }

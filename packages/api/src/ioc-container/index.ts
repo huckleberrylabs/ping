@@ -28,6 +28,7 @@ import {
   TextWidgetPhoneAddedCommand,
   TextWidgetSentCommand,
   TextWidgetOpenedCommand,
+  TextWidgetSettingsQuery,
 } from "@huckleberryai/text";
 
 export const EVENT_NAME = Symbol.for("EVENT");
@@ -88,6 +89,9 @@ const eventModule = new ContainerModule(bind => {
     .toConstantValue(TextWidgetSentCommand)
     .whenTargetNamed(EVENT_NAME);
   // SettingsQuery
+  bind<IEventStatic>(TextWidgetSettingsQuery.type.toSymbol())
+    .toConstantValue(TextWidgetSettingsQuery)
+    .whenTargetNamed(EVENT_NAME);
 });
 
 const handlerModule = new ContainerModule(bind => {
