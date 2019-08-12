@@ -1,3 +1,2 @@
-import { API_ENDPOINT } from "@huckleberryai/core";
-
+export const API_ENDPOINT = "https://api.huckleberry.app";
 export const EVENTS_ENDPOINT = API_ENDPOINT + "/events";
