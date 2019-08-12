@@ -27,6 +27,7 @@ export default async (req: NowRequest, res: NowResponse) => {
   // Routing Request
   try {
     const path = req.url;
+    console.log(path, EVENTS_ENDPOINT);
     if (path === EVENTS_ENDPOINT) {
       const event = deserialize(req.body);
       const result = bus.emit(event);

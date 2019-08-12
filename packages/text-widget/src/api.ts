@@ -1,12 +1,13 @@
 import axios from "axios";
 import { IEvent, IResult, Result, Query, ID } from "@huckleberryai/core";
 import {
+  API_ENDPOINT,
   EVENTS_ENDPOINT,
   TextWidgetSettings,
   TextWidgetSettingsQuery,
 } from "@huckleberryai/text";
 
-const IS_DEVELOPMENT = true;
+const IS_DEVELOPMENT = false;
 
 export async function postEvent(event: IEvent): Promise<IResult | void> {
   if (IS_DEVELOPMENT) {
@@ -23,7 +24,7 @@ export async function postEvent(event: IEvent): Promise<IResult | void> {
     }
   } else {
     const res = await axios.post(
-      EVENTS_ENDPOINT,
+      API_ENDPOINT + EVENTS_ENDPOINT,
       JSON.parse(JSON.stringify(event))
     );
     if (res.status >= 200 && res.status < 300) {
