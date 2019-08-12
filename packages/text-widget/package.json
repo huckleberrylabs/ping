@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Texting, By Huckleberry Widget",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -70,8 +70,8 @@
     "prepublish": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.1.3",
-    "@huckleberryai/text": "^0.1.3",
+    "@huckleberryai/core": "^0.1.4",
+    "@huckleberryai/text": "^0.1.4",
     "axios": "^0.19.0"
   },
   "devDependencies": {
