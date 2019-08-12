@@ -67,7 +67,7 @@
     "build": "npx webpack --config webpack.config.js",
     "test": "npx jest",
     "test:watch": "npx jest --watch",
-    "prepublish": "npm run test && npm run build"
+    "prepare": "npm run test && npm run build"
   },
   "dependencies": {
     "@huckleberryai/core": "^0.1.5",

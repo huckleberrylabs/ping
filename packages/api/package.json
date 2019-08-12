@@ -67,7 +67,7 @@
     "build:watch": "npx tsc --watch",
     "test": "npx jest",
     "test:watch": "npx jest --watch",
-    "prepublish": "npm run test && npm run build"
+    "prepare": "npm run test && npm run build"
   },
   "dependencies": {
     "@google-cloud/datastore": "^4.1.4",

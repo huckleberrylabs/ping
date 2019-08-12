@@ -34,7 +34,7 @@ export default async (req: NowRequest, res: NowResponse) => {
         res.status(200).send(result);
       }
     } else {
-      throw new Error("Invalid API Endpoint");
+      res.status(200).send("ok");
     }
   } catch (error) {
     res.status(400).send(error.toString());
