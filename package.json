@@ -5,8 +5,8 @@
     "bootstrap": "lerna clean -y && lerna bootstrap",
     "clean": "lerna clean",
     "start": "lerna run start --stream",
-    "tsc": "lerna run tsc --stream",
-    "tsc:watch": "lerna run tsc:watch --stream",
+    "build": "lerna run build --stream",
+    "build:watch": "lerna run build:watch --stream",
     "test": "lerna run test  --stream",
     "test:watch": "lerna run test:watch  --stream"
   },

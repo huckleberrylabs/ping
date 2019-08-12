@@ -20,7 +20,8 @@
     "lib": "lib"
   },
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "jest": {
     "preset": "ts-jest",
@@ -59,10 +60,11 @@
     "rulesDirectory": []
   },
   "scripts": {
-    "tsc": "npx tsc",
-    "tsc:watch": "npx tsc --watch",
+    "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
     "test": "npx jest",
-    "test:watch": "npx jest --watch"
+    "test:watch": "npx jest --watch",
+    "prepublish": "npm run test && npm run build"
   },
   "dependencies": {
     "moment": "^2.24.0",
