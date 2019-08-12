@@ -7,7 +7,13 @@ describe("ID Class", () => {
     expect(new ID(validIDString)).toBeTruthy();
   });
   it("should not construct with an invalid input string", () => {
-    expect(new ID(invalidIDString)).toThrowError();
+    let errorFlag = false;
+    try {
+      new ID(invalidIDString);
+    } catch (error) {
+      errorFlag = true;
+    }
+    expect(errorFlag).toBeTruthy();
   });
   it("should construct without an input string", () => {
     expect(new ID()).toBeTruthy();
