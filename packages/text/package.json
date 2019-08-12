@@ -1,7 +1,7 @@
 {
   "name": "@huckleberryai/text",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Texting, By Huckleberry",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -63,19 +63,19 @@
     "test:watch": "npx jest --watch"
   },
   "dependencies": {
-    "@huckleberry/core": "*",
+    "@huckleberry/core": "^0.1.0",
     "fp-ts": "^2.0.4",
     "io-ts": "^2.0.1"
   },
   "devDependencies": {
-    "jest": "^24.8.0",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3",
     "@types/jest": "^24.0.17",
     "@types/node": "^12.6.8",
+    "jest": "^24.8.0",
     "prettier": "^1.17.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-jest": "^1.0.5"
+    "tslint-jest": "^1.0.5",
+    "typescript": "^3.5.3"
   }
 }

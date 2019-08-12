@@ -1,7 +1,7 @@
 {
   "name": "@huckleberry/text-widget",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Texting, By Huckleberry Widget",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -58,24 +58,24 @@
     "test:watch": "npx jest --watch"
   },
   "dependencies": {
-    "@huckleberry/core": "*",
+    "@huckleberry/core": "^0.1.0",
     "@huckleberry/text": "*",
     "axios": "^0.19.0"
   },
   "devDependencies": {
-    "html-webpack-plugin": "^3.2.0",
-    "jest": "^24.8.0",
-    "ts-jest": "^24.0.2",
-    "ts-loader": "^6.0.4",
-    "typescript": "^3.5.3",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5",
-    "now": "^16.1.1",
     "@types/jest": "^24.0.17",
     "@types/node": "^12.6.8",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.8.0",
+    "now": "^16.1.1",
     "prettier": "^1.17.0",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.0.4",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-jest": "^1.0.5"
+    "tslint-jest": "^1.0.5",
+    "typescript": "^3.5.3",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
   }
 }

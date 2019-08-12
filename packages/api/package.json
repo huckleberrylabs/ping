@@ -1,7 +1,7 @@
 {
   "name": "@huckleberry/api",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Huckleberry API",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -68,7 +68,7 @@
   "dependencies": {
     "@google-cloud/datastore": "^4.1.4",
     "@google/maps": "^0.5.5",
-    "@huckleberry/core": "*",
+    "@huckleberry/core": "^0.1.0",
     "@huckleberry/text": "*",
     "@now/node": "^0.12.1",
     "inversify": "^5.0.1",
@@ -77,15 +77,15 @@
   },
   "devDependencies": {
     "@types/google__maps": "^0.5.5",
-    "jest": "^24.8.0",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.3",
-    "now": "^16.1.1",
     "@types/jest": "^24.0.17",
     "@types/node": "^12.6.8",
+    "jest": "^24.8.0",
+    "now": "^16.1.1",
     "prettier": "^1.17.0",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-jest": "^1.0.5"
+    "tslint-jest": "^1.0.5",
+    "typescript": "^3.5.3"
   }
 }
