@@ -32,15 +32,19 @@ export class TextWidgetSentCommandHandler implements IEventHandler {
     this.client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
   }
   async handle(event: TextWidgetSentCommand) {
-    const widget = await this.settingsRepo.getByID(event.widgetID);
-    const events = await this.eventRepo.getByCorrID(event.corrID);
-    const { name, message, phone } = MessageAggregator(events);
-    await this.client.messages.create({
-      body: `New Message from ${name}: ${message}
+    const widgetSettings = await this.settingsRepo.getByID(event.widgetID);
+    if (widgetSettings) {
+      const events = await this.eventRepo.getByCorrID(event.corrID);
+      if (events) {
+        const { name, message, phone } = MessageAggregator(events);
+        await this.client.messages.create({
+          body: `New Message from ${name}: ${message}
 		\n Reply to them at ${phone}`,
-      to: widget.phone,
-      from: this.twilioPhoneNumber,
-    });
+          to: widgetSettings.phone,
+          from: this.twilioPhoneNumber,
+        });
+      }
+    }
     await this.eventRepo.add(event);
   }
 }

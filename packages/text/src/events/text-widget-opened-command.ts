@@ -18,6 +18,18 @@ export class TextWidgetOpenedCommand extends Command {
   public static get type() {
     return new Type("TextWidgetOpenedCommand");
   }
+  public toJSON() {
+    return {
+      timestamp: this.timestamp,
+      id: this.id,
+      originID: this.originID,
+      corrID: this.corrID,
+      parentID: this.parentID,
+      contextID: this.contextID,
+      type: this.type,
+      widgetID: this.widgetID,
+    };
+  }
   public static fromJSON(json: any): TextWidgetOpenedCommand {
     const command = new TextWidgetOpenedCommand(
       new ID(json.widgetID),

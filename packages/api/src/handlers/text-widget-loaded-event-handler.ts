@@ -15,6 +15,6 @@ export class TextWidgetLoadedEventHandler implements IEventHandler {
   public static type = TextWidgetLoadedEvent.type;
   constructor(private eventRepo: EventRepository) {}
   async handle(event: TextWidgetLoadedEvent) {
-    return this.eventRepo.add(event);
+    return await this.eventRepo.add(event);
   }
 }

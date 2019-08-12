@@ -4,8 +4,9 @@ import { Event, ID, Type, TimeStamp } from "@huckleberryai/core";
 export class HTTPAccessEvent extends Event {
   method?: string;
   url?: string;
-  headers: string[];
-  body: any;
+  headers: {
+    [key: string]: string;
+  };
   constructor(req: NowRequest, originID: ID) {
     const corrIDString = req.query["corr_id"];
     let corrID = undefined;
@@ -20,14 +21,30 @@ export class HTTPAccessEvent extends Event {
     super(originID, corrID, parentID);
     this.method = req.method;
     this.url = req.url;
-    this.headers = req.rawHeaders;
-    this.body = req.body;
+    this.headers = {};
+    for (let index = 0; index < req.rawHeaders.length - 1; index++) {
+      this.headers[req.rawHeaders[index]] = req.rawHeaders[index + 1];
+    }
   }
   public get type() {
     return HTTPAccessEvent.type;
   }
   public static get type() {
     return new Type("HTTPAccessEvent");
+  }
+  public toJSON() {
+    return {
+      timestamp: this.timestamp,
+      id: this.id,
+      originID: this.originID,
+      corrID: this.corrID,
+      parentID: this.parentID,
+      contextID: this.contextID,
+      type: this.type,
+      method: this.method,
+      url: this.url,
+      headers: this.headers,
+    };
   }
   public static fromJSON(json: any): HTTPAccessEvent {
     const emulatedReq = json;

@@ -15,6 +15,18 @@ export class Query extends Event {
   public static get type() {
     return new Type("Query");
   }
+  public toJSON() {
+    return {
+      timestamp: this.timestamp,
+      id: this.id,
+      originID: this.originID,
+      corrID: this.corrID,
+      parentID: this.parentID,
+      contextID: this.contextID,
+      type: this.type,
+      agentID: this.agentID,
+    };
+  }
   public static fromJSON(json: any): Query {
     const query = new Query(
       new ID(json.agentID),

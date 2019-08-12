@@ -7,15 +7,15 @@ import { staticImplements } from "../helpers";
 
 @staticImplements<IEventStatic>()
 export class Event implements IEvent {
-  public id: ID;
   public timestamp: TimeStamp;
+  public id: ID;
   public originID: ID;
   public corrID: ID;
   public parentID?: ID;
   private _contextID: ID = CONTEXT_ID;
   constructor(originID: ID, corrID?: ID, parentID?: ID) {
-    this.id = new ID();
     this.timestamp = new TimeStamp();
+    this.id = new ID();
     this.originID = originID;
     if (corrID) {
       this.corrID = corrID;

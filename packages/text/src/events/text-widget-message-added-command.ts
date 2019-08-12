@@ -21,6 +21,19 @@ export class TextWidgetMessageAddedCommand extends Command {
   public static get type() {
     return new Type("TextWidgetMessageAddedCommand");
   }
+  public toJSON() {
+    return {
+      timestamp: this.timestamp,
+      id: this.id,
+      originID: this.originID,
+      corrID: this.corrID,
+      parentID: this.parentID,
+      contextID: this.contextID,
+      type: this.type,
+      widgetID: this.widgetID,
+      message: this.message,
+    };
+  }
   public static fromJSON(json: any): TextWidgetMessageAddedCommand {
     const command = new TextWidgetMessageAddedCommand(
       json.message,

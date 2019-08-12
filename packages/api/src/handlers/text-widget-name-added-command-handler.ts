@@ -15,6 +15,6 @@ export class TextWidgetNameAddedCommandHandler implements IEventHandler {
   public static type = TextWidgetNameAddedCommand.type;
   constructor(private eventRepo: EventRepository) {}
   async handle(event: TextWidgetNameAddedCommand) {
-    return this.eventRepo.add(event);
+    return await this.eventRepo.add(event);
   }
 }

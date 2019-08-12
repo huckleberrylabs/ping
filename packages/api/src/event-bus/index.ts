@@ -12,20 +12,23 @@ class EventBus {
   public constructor(private container: Container) {}
   public async emit<Event extends IEvent>(
     event: Event
-  ): Promise<IResult | void> {
+  ): Promise<IResult | null> {
+    console.log("EVENT BUS INPUT: ", event);
     const handler = this.container.getNamed<IEventHandler>(
       event.type.toSymbol(),
       HANDLER_NAME
     );
     const output = await handler.handle(event);
-    console.log("RETRIEVED:", output);
+    console.log("EVENT BUS OUTPUT: ", output);
     if (output instanceof Array) {
       output.map(event => this.emit(event));
-    } else if (isEvent(output)) {
-      this.emit(output);
+      // The Order of these branches matters, because IResult extends IEvent
     } else if (isResult(output)) {
       return output;
+    } else if (isEvent(output)) {
+      this.emit(output);
     }
+    return null;
   }
 }
 

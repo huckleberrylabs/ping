@@ -15,6 +15,6 @@ export class TextWidgetOpenedCommandHandler implements IEventHandler {
   public static type = TextWidgetOpenedCommand.type;
   constructor(private eventRepo: EventRepository) {}
   async handle(event: TextWidgetOpenedCommand) {
-    return this.eventRepo.add(event);
+    return await this.eventRepo.add(event);
   }
 }

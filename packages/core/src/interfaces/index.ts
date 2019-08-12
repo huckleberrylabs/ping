@@ -74,12 +74,6 @@ export interface IEventHandlerStatic extends Newable<IEventHandler>, WithType {}
 export interface IEventHandler extends WithID {
   handle(event: IEvent): Promise<IResult | IEvent | IEvent[] | void>;
 }
-/* 
-export interface IEventHandler<Event> {
-  id: ID;
-  type: Type;
-  get: () => (event: Event) => Promise<IResult | IEvent | IEvent[] | void>;
-} */
 
 export interface IResultStatic
   extends Newable<IResult>,

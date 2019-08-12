@@ -1,5 +1,5 @@
 import { NowRequest, NowResponse } from "@now/node";
-import { ID, isResult } from "@huckleberryai/core";
+import { ID } from "@huckleberryai/core";
 import { EVENTS_ENDPOINT } from "@huckleberryai/text";
 import { HTTPAccessEvent } from "./events";
 import { deserialize } from "./event-deserializer";
@@ -30,9 +30,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     if (path === EVENTS_ENDPOINT) {
       const event = deserialize(req.body);
       const result = await bus.emit(event);
-      if (isResult(result)) {
-        res.status(200).send(result);
-      }
+      res.status(200).send(result);
     } else {
       res.status(200).send("ok");
     }

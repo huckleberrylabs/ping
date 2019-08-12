@@ -10,7 +10,11 @@ describe("FireStore", () => {
       const event = new Event(ORIGIN_ID);
       await repo.add(event);
       const event2 = await repo.getByID(event.id);
-      expect(event.id.equals(event2.id)).toBeTruthy();
+      if (event2) {
+        expect(event.id.equals(event2.id)).toBeTruthy();
+      } else {
+        throw new Error("Event not Saved");
+      }
     } else {
       expect(true).toBeTruthy();
     }

@@ -41,7 +41,16 @@ export class Result implements IResult {
     this._contextID = id;
   }
   public toJSON() {
-    return this;
+    return {
+      timestamp: this.timestamp,
+      id: this.id,
+      originID: this.originID,
+      corrID: this.corrID,
+      parentID: this.parentID,
+      contextID: this.contextID,
+      type: this.type,
+      data: this.data,
+    };
   }
   public static fromJSON(json: any): Result {
     const result = new Result(

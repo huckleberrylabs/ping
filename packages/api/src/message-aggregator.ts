@@ -5,33 +5,24 @@ import {
   TextWidgetPhoneAddedCommand,
 } from "@huckleberryai/text";
 
-export const MessageAggregator = (events: IEvent[]) => {
+export function MessageAggregator(events: IEvent[]) {
   // Name
-  const nameCommand = events.filter(
-    event => event instanceof TextWidgetNameAddedCommand
-  )[0];
-  let name = null;
-  if (nameCommand instanceof TextWidgetNameAddedCommand) {
-    name = nameCommand.name;
-  }
+  const nameCommand = <TextWidgetNameAddedCommand | undefined>(
+    events.filter(event => event instanceof TextWidgetNameAddedCommand)[0]
+  );
+  const name = nameCommand ? nameCommand.name : null;
 
   // Message
-  const messageCommand = events.filter(
-    event => event instanceof TextWidgetMessageAddedCommand
-  )[0];
-  let message = null;
-  if (messageCommand instanceof TextWidgetMessageAddedCommand) {
-    message = messageCommand.message;
-  }
+  const messageCommand = <TextWidgetMessageAddedCommand | undefined>(
+    events.filter(event => event instanceof TextWidgetMessageAddedCommand)[0]
+  );
+  const message = messageCommand ? messageCommand.message : null;
 
   // Phone
-  const phoneCommand = events.filter(
-    event => event instanceof TextWidgetPhoneAddedCommand
-  )[0];
-  let phone = null;
-  if (phoneCommand instanceof TextWidgetPhoneAddedCommand) {
-    phone = phoneCommand.phone;
-  }
+  const phoneCommand = <TextWidgetPhoneAddedCommand | undefined>(
+    events.filter(event => event instanceof TextWidgetPhoneAddedCommand)[0]
+  );
+  const phone = phoneCommand ? phoneCommand.phone : null;
 
   if (name === null || message === null || phone === null) {
     throw new Error("Events Missing");
@@ -41,4 +32,4 @@ export const MessageAggregator = (events: IEvent[]) => {
     message,
     phone,
   };
-};
+}

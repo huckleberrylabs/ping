@@ -12,10 +12,14 @@ export class TextWidgetSettingsRepository {
     const json = JSON.parse(JSON.stringify(widget));
     await docRef.set(json);
   }
-  async getByID(id: ID): Promise<TextWidgetSettings> {
+  async getByID(id: ID): Promise<TextWidgetSettings | null> {
     const collection = this.dataStore.store.collection("text-widget-settings");
     const docRef = collection.doc(id.toString());
     const doc = await docRef.get();
-    return TextWidgetSettings.fromJSON(doc.data());
+    const json = doc.data();
+    if (json) {
+      return TextWidgetSettings.fromJSON(json);
+    }
+    return null;
   }
 }

@@ -15,6 +15,6 @@ export class HTTPAccessEventHandler implements IEventHandler {
   public static type = HTTPAccessEvent.type;
   constructor(private eventRepo: EventRepository) {}
   async handle(event: HTTPAccessEvent) {
-    return this.eventRepo.add(event);
+    return await this.eventRepo.add(event);
   }
 }

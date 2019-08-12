@@ -12,6 +12,18 @@ export class TextWidgetLoadedEvent extends Event {
   public static get type() {
     return new Type("TextWidgetLoadedEvent");
   }
+  public toJSON() {
+    return {
+      timestamp: this.timestamp,
+      id: this.id,
+      originID: this.originID,
+      corrID: this.corrID,
+      parentID: this.parentID,
+      contextID: this.contextID,
+      type: this.type,
+      widgetID: this.widgetID,
+    };
+  }
   public static fromJSON(json: any): TextWidgetLoadedEvent {
     const event = new TextWidgetLoadedEvent(
       new ID(json.widgetID),

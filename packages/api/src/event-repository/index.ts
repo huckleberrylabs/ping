@@ -12,21 +12,24 @@ export class EventRepository {
     const json = JSON.parse(JSON.stringify(event));
     await docRef.set(json);
   }
-  async getByID(id: ID): Promise<IEvent> {
+  async getByID(id: ID): Promise<IEvent | null> {
     const collection = this.dataStore.store.collection("events");
     const docRef = collection.doc(id.toString());
     const doc = await docRef.get();
-    const event = deserialize(doc.data());
-    return event;
+    const json = doc.data();
+    if (json) {
+      return deserialize(json);
+    }
+    return null;
   }
-  async getByCorrID(corrID: ID): Promise<IEvent[]> {
+  async getByCorrID(corrID: ID): Promise<IEvent[] | null> {
     const collection = this.dataStore.store.collection("events");
     const query = collection
       .where("corrID", "==", corrID.toString())
       .orderBy("timestamp");
     const queryRef = await query.get();
     if (queryRef.empty) {
-      return [];
+      return null;
     } else {
       return queryRef.docs.map(doc => deserialize(doc.data()));
     }
