@@ -27,6 +27,7 @@ export class TextWidgetOpenedCommand extends Command {
       parentID: this.parentID,
       contextID: this.contextID,
       type: this.type,
+      agentID: this.agentID,
       widgetID: this.widgetID,
     };
   }
