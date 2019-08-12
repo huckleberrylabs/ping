@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Core Abstractions",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
