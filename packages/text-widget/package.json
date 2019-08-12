@@ -90,5 +90,5 @@
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
   },
-  "gitHead": "5eb5c794928d89141339db9655613bee34fad311"
+  "gitHead": "bb8db7845711028c7d5a81b09b28d65440ff3eef"
 }

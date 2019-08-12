@@ -1,6 +1,6 @@
 import { ID } from "../id";
 
-let CONTEXT_ID;
+let CONTEXT_ID: ID;
 
 if (process && process.env && process.env.CONTEXT_ID) {
   // API
