@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import { Type, IEvent, IEventStatic } from "@huckleberry/core";
+import { Type, IEvent, IEventStatic } from "@huckleberryai/core";
 import { EVENT_NAME, IoCContainer } from "../ioc-container";
 
 class EventDeserializer {

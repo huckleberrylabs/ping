@@ -5,7 +5,7 @@ import {
   IResult,
   isEvent,
   isResult,
-} from "@huckleberry/core";
+} from "@huckleberryai/core";
 import { IoCContainer, HANDLER_NAME } from "../ioc-container";
 
 class EventBus {

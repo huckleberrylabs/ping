@@ -1,4 +1,4 @@
-import { ID, Type, Event, TimeStamp } from "@huckleberry/core";
+import { ID, Type, Event, TimeStamp } from "@huckleberryai/core";
 
 export class TextWidgetLoadedEvent extends Event {
   public widgetID: ID;

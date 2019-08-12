@@ -1,4 +1,4 @@
-import { ID, Type, Command, TimeStamp } from "@huckleberry/core";
+import { ID, Type, Command, TimeStamp } from "@huckleberryai/core";
 
 export class TextWidgetMessageAddedCommand extends Command {
   public message: string;

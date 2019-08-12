@@ -4,7 +4,7 @@ import {
   WithSerialize,
   staticImplements,
   WithDeserialize,
-} from "@huckleberry/core";
+} from "@huckleberryai/core";
 
 @staticImplements<WithDeserialize<TextWidgetSettings>>()
 export class TextWidgetSettings implements WithID, WithSerialize {

@@ -3,8 +3,8 @@ import {
   IEventHandler,
   IEventHandlerStatic,
   staticImplements,
-} from "@huckleberry/core";
-import { TextWidgetMessageAddedCommand } from "@huckleberry/text";
+} from "@huckleberryai/core";
+import { TextWidgetMessageAddedCommand } from "@huckleberryai/text";
 import { EventRepository } from "../event-repository";
 import { injectable } from "inversify";
 

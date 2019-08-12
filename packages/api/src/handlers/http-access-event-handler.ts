@@ -3,7 +3,7 @@ import {
   IEventHandler,
   IEventHandlerStatic,
   staticImplements,
-} from "@huckleberry/core";
+} from "@huckleberryai/core";
 import { HTTPAccessEvent } from "../events";
 import { EventRepository } from "../event-repository";
 import { injectable } from "inversify";

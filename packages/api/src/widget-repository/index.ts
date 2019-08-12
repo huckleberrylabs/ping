@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import { ID } from "@huckleberry/core";
-import { TextWidgetSettings } from "@huckleberry/text";
+import { ID } from "@huckleberryai/core";
+import { TextWidgetSettings } from "@huckleberryai/text";
 import { DataStore } from "../datastore";
 
 @injectable()

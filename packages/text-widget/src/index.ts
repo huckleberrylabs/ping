@@ -1,4 +1,4 @@
-import { ID } from "@huckleberry/core";
+import { ID } from "@huckleberryai/core";
 import {
   TextWidgetSettingsQuery,
   TextWidgetLoadedEvent,
@@ -11,7 +11,7 @@ import {
   validateString,
   normalizePhone,
   validatePhone,
-} from "@huckleberry/text";
+} from "@huckleberryai/text";
 import {
   CSS_ID,
   INSERT_SCRIPT_ID,

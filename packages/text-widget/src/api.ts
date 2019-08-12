@@ -1,10 +1,10 @@
 import axios from "axios";
-import { IEvent, IResult, Result, Query, ID } from "@huckleberry/core";
+import { IEvent, IResult, Result, Query, ID } from "@huckleberryai/core";
 import {
   EVENTS_ENDPOINT,
   TextWidgetSettings,
   TextWidgetSettingsQuery,
-} from "@huckleberry/text";
+} from "@huckleberryai/text";
 
 const IS_DEVELOPMENT = true;
 

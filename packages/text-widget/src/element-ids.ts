@@ -1,4 +1,4 @@
-import { ID } from "@huckleberry/core";
+import { ID } from "@huckleberryai/core";
 
 export const INSERT_SCRIPT_ID: string = "huckleberry-text-insert-script";
 export const CSS_ID: string = `css-${new ID().toString()}`;

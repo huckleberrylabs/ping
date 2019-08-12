@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { DataStore } from "../datastore";
-import { ID, IEvent } from "@huckleberry/core";
+import { ID, IEvent } from "@huckleberryai/core";
 import { deserializer } from "../event-deserializer";
 
 @injectable()

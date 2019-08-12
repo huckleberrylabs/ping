@@ -1,9 +1,9 @@
-import { IEvent } from "@huckleberry/core";
+import { IEvent } from "@huckleberryai/core";
 import {
   TextWidgetMessageAddedCommand,
   TextWidgetNameAddedCommand,
   TextWidgetPhoneAddedCommand,
-} from "@huckleberry/text";
+} from "@huckleberryai/text";
 
 export const MessageAggregator = (events: IEvent[]) => {
   // Name

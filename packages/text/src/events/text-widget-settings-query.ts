@@ -1,4 +1,4 @@
-import { ID, Type, Query, TimeStamp } from "@huckleberry/core";
+import { ID, Type, Query, TimeStamp } from "@huckleberryai/core";
 
 export class TextWidgetSettingsQuery extends Query {
   public widgetID: ID;

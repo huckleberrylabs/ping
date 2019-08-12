@@ -1,6 +1,6 @@
 import { NowRequest, NowResponse } from "@now/node";
-import { ID, isResult } from "@huckleberry/core";
-import { EVENTS_ENDPOINT } from "@huckleberry/text";
+import { ID, isResult } from "@huckleberryai/core";
+import { EVENTS_ENDPOINT } from "@huckleberryai/text";
 import { HTTPAccessEvent } from "./events";
 import { deserializer } from "./event-deserializer";
 import { bus } from "./event-bus";

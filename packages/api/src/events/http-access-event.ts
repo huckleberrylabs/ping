@@ -1,5 +1,5 @@
 import { NowRequest } from "@now/node";
-import { Event, ID, Type, TimeStamp } from "@huckleberry/core";
+import { Event, ID, Type, TimeStamp } from "@huckleberryai/core";
 
 export class HTTPAccessEvent extends Event {
   method?: string;

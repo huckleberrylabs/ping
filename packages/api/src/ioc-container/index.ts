@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { Container, ContainerModule } from "inversify";
-import { IEventHandler, IEventStatic } from "@huckleberry/core";
+import { IEventHandler, IEventStatic } from "@huckleberryai/core";
 
 // Structural
 import { DataStore } from "../datastore";
@@ -28,7 +28,7 @@ import {
   TextWidgetPhoneAddedCommand,
   TextWidgetSentCommand,
   TextWidgetOpenedCommand,
-} from "@huckleberry/text";
+} from "@huckleberryai/text";
 
 const domainModule = new ContainerModule(bind => {
   bind<TextWidgetSettingsRepository>(TextWidgetSettingsRepository).toSelf();
