@@ -18,7 +18,7 @@ class EventBus {
       HANDLER_NAME
     );
     const output = await handler.handle(event);
-    console.log("OUTPUT: ", output);
+    console.log("RETRIEVED:", output);
     if (output instanceof Array) {
       output.map(event => this.emit(event));
     } else if (isEvent(output)) {

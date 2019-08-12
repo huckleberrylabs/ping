@@ -57,14 +57,17 @@ export interface IEvent
     WithSerialize {}
 
 export function isEvent(object: any): object is IEvent {
-  return (
-    "type" in object &&
-    "timestamp" in object &&
-    "id" in object &&
-    "contextID" in object &&
-    "originID" in object &&
-    "corrID" in object
-  );
+  if (object) {
+    return (
+      "type" in object &&
+      "timestamp" in object &&
+      "id" in object &&
+      "contextID" in object &&
+      "originID" in object &&
+      "corrID" in object
+    );
+  }
+  return false;
 }
 
 export interface IEventHandlerStatic extends Newable<IEventHandler>, WithType {}
@@ -95,16 +98,19 @@ export interface IResult
 }
 
 export function isResult(object: any): object is IResult {
-  return (
-    "type" in object &&
-    "timestamp" in object &&
-    "id" in object &&
-    "contextID" in object &&
-    "originID" in object &&
-    "corrID" in object &&
-    "parentID" in object &&
-    "data" in object
-  );
+  if (object) {
+    return (
+      "type" in object &&
+      "timestamp" in object &&
+      "id" in object &&
+      "contextID" in object &&
+      "originID" in object &&
+      "corrID" in object &&
+      "parentID" in object &&
+      "data" in object
+    );
+  }
+  return false;
 }
 
 export interface IPolicy extends WithID {}

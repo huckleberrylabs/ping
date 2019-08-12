@@ -29,7 +29,6 @@ export default async (req: NowRequest, res: NowResponse) => {
     const path = req.url;
     if (path === EVENTS_ENDPOINT) {
       const event = deserialize(req.body);
-      console.log("DESERIALIZED: ", event);
       const result = await bus.emit(event);
       if (isResult(result)) {
         res.status(200).send(result);

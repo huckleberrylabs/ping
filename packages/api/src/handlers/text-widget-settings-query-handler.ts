@@ -22,6 +22,7 @@ export class TextWidgetSettingsQueryHandler implements IEventHandler {
   async handle(event: TextWidgetSettingsQuery) {
     const widgetID = event.widgetID;
     const widgetSettings = await this.settingsRepo.getByID(widgetID);
+    console.log("RETRIEVED:", widgetSettings);
     await this.eventRepo.add(event);
     return new Result(
       widgetSettings,
