@@ -6,7 +6,7 @@ import { deserializer } from "./event-deserializer";
 import { bus } from "./event-bus";
 
 export default async (req: NowRequest, res: NowResponse) => {
-  const NODE_ID = new ID("c7e384c3-697f-4ccf-a514-d54a452acfac");
+  const ORIGIN_ID = new ID("c7e384c3-697f-4ccf-a514-d54a452acfac");
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") {
@@ -21,7 +21,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     throw new Error("Request Not Possible");
   }
   // Access Event
-  const accessEvent = new HTTPAccessEvent(req, NODE_ID);
+  const accessEvent = new HTTPAccessEvent(req, ORIGIN_ID);
   bus.emit(accessEvent);
 
   // Routing Request

@@ -30,6 +30,9 @@ import {
   TextWidgetOpenedCommand,
 } from "@huckleberryai/text";
 
+export const EVENT_NAME = Symbol.for("EVENT");
+export const HANDLER_NAME = Symbol.for("HANDLER");
+
 const domainModule = new ContainerModule(bind => {
   bind<TextWidgetSettingsRepository>(TextWidgetSettingsRepository).toSelf();
   bind<EventRepository>(EventRepository).toSelf();
@@ -40,9 +43,6 @@ const utilityModule = new ContainerModule(bind => {
     .toSelf()
     .inSingletonScope();
 });
-
-export const EVENT_NAME = "EventClass";
-export const HANDLER_NAME = "EventClass";
 
 const eventModule = new ContainerModule(bind => {
   // HTTPAccessEvent

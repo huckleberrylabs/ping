@@ -1,7 +1,8 @@
 {
   "version": 2,
-  "name": "@huckleberry/text-client",
+  "name": "@huckleberryai/text-widget",
   "scope": "huckleberryai",
+  "alias": ["static.huckleberry.app"],
   "public": false,
   "builds": [
     {

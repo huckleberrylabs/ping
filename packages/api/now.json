@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "name": "@huckleberry/api",
-  "alias": ["api.huckleberry.app"],
+  "name": "@huckleberryai/api",
   "scope": "huckleberryai",
+  "alias": ["api.huckleberry.app"],
   "public": false,
   "builds": [{ "src": "src/index.ts", "use": "@now/node" }],
   "routes": [
