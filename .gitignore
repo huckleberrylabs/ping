@@ -73,3 +73,5 @@ dist/
 build/
 
 packages/*/lib
+
+package-lock.json
