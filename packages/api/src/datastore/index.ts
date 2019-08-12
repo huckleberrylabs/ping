@@ -9,13 +9,12 @@ export class DataStore {
     if (!gCloudCredentialString) {
       throw new Error("Google Cloud Service Account Key is required");
     }
-    const gcloudCredentials = JSON.parse(atob(gCloudCredentialString));
+    const GCLOUD_CREDENTIALS = JSON.parse(
+      Buffer.from(gCloudCredentialString, "base64").toString()
+    );
     this.store = new Datastore({
-      projectId: gcloudCredentials.project_id,
-      credentials: {
-        client_email: gcloudCredentials.client_email,
-        private_key: gcloudCredentials.private_key,
-      },
+      projectId: GCLOUD_CREDENTIALS.project_id,
+      credentials: GCLOUD_CREDENTIALS,
     });
   }
 }

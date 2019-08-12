@@ -17,6 +17,7 @@
     }
   },
   "env": {
+    "GCLOUD_CREDENTIALS": "@gcloud-credentials",
     "TWILIO_ACCOUNT_SID": "@twilio-account-sid",
     "TWILIO_AUTH_TOKEN": "@twilio-auth-token",
     "TWILIO_PHONE_NUMBER": "@twilio-phone-number",
