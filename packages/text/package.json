@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Texting, By Huckleberry",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -67,7 +67,7 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.1.16",
+    "@huckleberryai/core": "^0.1.17",
     "fp-ts": "^2.0.4",
     "io-ts": "^2.0.1"
   },
