@@ -30,7 +30,9 @@ export default async (req: NowRequest, res: NowResponse) => {
     if (path === EVENTS_ENDPOINT) {
       const event = deserialize(req.body);
       const result = await bus.emit(event);
-      res.status(200).send(result);
+      if (result) {
+        res.status(result.status).send(result);
+      }
     } else {
       res.status(200).send("ok");
     }

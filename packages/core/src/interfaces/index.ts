@@ -1,6 +1,13 @@
+import HTTPStatusCodes from "http-status-codes";
 import { Type } from "../type";
 import { TimeStamp } from "../timestamp";
 import { ID } from "../id";
+
+type HTTPStatusCodesMap = typeof HTTPStatusCodes;
+export type HttpStatusCode = Extract<
+  HTTPStatusCodesMap[keyof HTTPStatusCodesMap],
+  number
+>;
 
 export interface Newable<T> {
   new (...args: any[]): T;
@@ -88,6 +95,7 @@ export interface IResult
     WithParentID,
     WithSerialize {
   parentID: ID;
+  status: HttpStatusCode;
   data: any;
 }
 

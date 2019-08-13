@@ -1,7 +1,7 @@
 import { ID } from "../id";
 import { Type } from "../type";
 import { TimeStamp } from "../timestamp";
-import { IResult, IResultStatic } from "../interfaces";
+import { IResult, IResultStatic, HttpStatusCode } from "../interfaces";
 import { CONTEXT_ID } from "../context";
 import { staticImplements } from "../helpers";
 
@@ -13,21 +13,31 @@ export class Result implements IResult {
   public corrID: ID;
   public parentID: ID;
   public type: Type;
+  public status: HttpStatusCode;
   public data: any;
   private _contextID: ID = CONTEXT_ID;
-  constructor(data: any, originID: ID, corrID: ID, parentID: ID, type: Type) {
+  constructor(
+    data: any,
+    status: HttpStatusCode,
+    originID: ID,
+    corrID: ID,
+    parentID: ID,
+    type: Type
+  ) {
     this.timestamp = new TimeStamp();
     this.id = new ID();
     this.originID = originID;
     this.corrID = corrID;
     this.parentID = parentID;
     this.type = type;
+    this.status = status;
     this.data = data;
   }
   public static deserialize(input: string): Result {
     const result = JSON.parse(input);
     return new Result(
       result.data,
+      result.status,
       new ID(result.originID),
       new ID(result.corrID),
       new ID(result.parentID),
@@ -55,6 +65,7 @@ export class Result implements IResult {
   public static fromJSON(json: any): Result {
     const result = new Result(
       json.data,
+      json.status,
       new ID(json.originID),
       new ID(json.corrID),
       new ID(json.parentID),

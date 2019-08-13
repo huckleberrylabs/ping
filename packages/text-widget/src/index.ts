@@ -1,7 +1,8 @@
-import { ID } from "@huckleberryai/core";
+import { ID, Log } from "@huckleberryai/core";
 import {
   TextWidgetSettingsQuery,
   TextWidgetLoadedEvent,
+  TextWidgetUnloadedEvent,
   TextWidgetSettings,
   TextWidgetOpenedCommand,
   TextWidgetMessageAddedCommand,
@@ -11,6 +12,8 @@ import {
   validateString,
   normalizePhone,
   validatePhone,
+  API_ENDPOINT,
+  EVENTS_ENDPOINT,
 } from "@huckleberryai/text";
 import {
   CSS_ID,
@@ -27,46 +30,89 @@ import {
   ERROR_ID,
   LOADER_ID,
 } from "./element-ids";
-import { log, getElementById } from "./helpers";
-import { postEvent } from "./api";
+import { getElementById } from "./helpers";
+import { postEvent, beaconEvent } from "./api";
 import { generateCSS } from "./css";
 import { generateHTML } from "./html";
 
 async function HuckleberryTextWidget() {
-  log(`Script Loaded`);
-  // SET CONSTANTS
+  // Send Log on page close
+  async function onUnloadEvent() {
+    const ORIGIN_ID = new ID("28d540c0-a781-47db-870c-fac3ad9a3d6b");
+    let widgetID = undefined;
+    try {
+      // WIDGET_ID might not be defined, giving a Reference Error;
+      widgetID = WIDGET_ID;
+    } catch (error) {
+      // ignore, this is already logged in Retrieve Widget ID section;
+    }
+    beaconEvent(new TextWidgetUnloadedEvent(log, widgetID, ORIGIN_ID, CORR_ID));
+  }
+  window.addEventListener("unload", onUnloadEvent);
+
   const ORIGIN_ID = new ID("02553494-2ee2-43fb-b7e5-826ea0281883");
   const AGENT_ID = new ID();
   const CORR_ID = new ID();
+  const log = new Log();
 
-  // GET WIDGET ID
-  const WIDGET_ID = ((): ID => {
-    const script = getElementById(INSERT_SCRIPT_ID);
-    const urlString = script.getAttribute("src");
-    if (!urlString) {
-      throw new Error("script src attribute missing");
-    }
-    const a = document.createElement("a");
-    a.href = urlString;
-    const url = new URL(a.href);
-    const id = url.searchParams.get("widget_id");
-    if (!id) {
-      throw new Error("Widget ID Must Be Provided");
-    }
-    return new ID(id);
-  })();
-  log(`WIDGET ID Retrieved: ${WIDGET_ID} `);
-
-  // POST WIDGET LOADED EVENT
   const textWidgetLoadedEvent = new TextWidgetLoadedEvent(
-    WIDGET_ID,
+    new ID(), // Chicken and Egg Problem between PARENT_ID and WIDGET_ID
     ORIGIN_ID,
     CORR_ID
   );
-  postEvent(textWidgetLoadedEvent);
-  log(`TextWidgetLoadedEvent Posted`);
+  const PARENT_ID = textWidgetLoadedEvent.id;
+  log.add(
+    `TextWidget loaded successfully`,
+    ["info"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 
-  // GET WIDGET SETTINGS
+  // Retrieve Widget ID
+  const WIDGET_ID = ((): ID => {
+    try {
+      const script = getElementById(INSERT_SCRIPT_ID);
+      const urlString = script.getAttribute("src");
+      if (!urlString) {
+        throw new Error("script src attribute missing");
+      }
+      const a = document.createElement("a");
+      a.href = urlString;
+      const url = new URL(a.href);
+      const idString = url.searchParams.get("widget_id");
+      if (!idString) {
+        throw new Error("Widget ID Must Be Provided");
+      }
+      const id = new ID(idString);
+      log.add(
+        `widgetID retrieved successfully: ${id} `,
+        ["info"],
+        ORIGIN_ID,
+        CORR_ID,
+        PARENT_ID
+      );
+      return id;
+    } catch (error) {
+      const message = "widgetID could not be retrieved";
+      log.add(message, ["error"], ORIGIN_ID, CORR_ID, PARENT_ID);
+      throw new Error(message);
+    }
+  })();
+
+  // Widget Loaded Event
+  textWidgetLoadedEvent.widgetID = WIDGET_ID;
+  await postEvent(textWidgetLoadedEvent);
+  log.add(
+    `TextWidgetLoadedEvent posted to ${API_ENDPOINT +
+      EVENTS_ENDPOINT} successfully`,
+    ["info"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
+
+  // Retrieve Widget Settings
   const textWidgetSettings = await (async (): Promise<TextWidgetSettings> => {
     const textWidgetSettingsQuery = new TextWidgetSettingsQuery(
       WIDGET_ID,
@@ -81,11 +127,11 @@ async function HuckleberryTextWidget() {
     }
     return TextWidgetSettings.fromJSON(result.data);
   })();
-  log(`Settings Retrieved`);
+  log.add(`settings retrieved`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
 
   // CHECK IF WIDGET IS ENABLED
   if (!textWidgetSettings.enabled) {
-    log("Widget Disabled");
+    log.add(`widget disabled`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
     return;
   }
 
@@ -103,7 +149,7 @@ async function HuckleberryTextWidget() {
       head.appendChild(style);
     }
   })();
-  log(`CSS inserted`);
+  log.add(`css inserted`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
 
   // INSERT HTML
   (() => {
@@ -111,9 +157,9 @@ async function HuckleberryTextWidget() {
     div.innerHTML = generateHTML();
     document.getElementsByTagName("body")[0].appendChild(div);
   })();
-  log(`HTML inserted`);
+  log.add(`html inserted`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
 
-  // SET ELEMENTS
+  // Load Elements
   const container = <HTMLDivElement>getElementById(CONTAINER_ID);
   const openButton = <HTMLButtonElement>getElementById(OPEN_BUTON_ID);
   const messageInput = <HTMLInputElement>getElementById(MESSAGE_INPUT_ID);
@@ -127,7 +173,7 @@ async function HuckleberryTextWidget() {
   const successMessage = <HTMLImageElement>getElementById(SUCCESS_ID);
   const errorMessage = <HTMLImageElement>getElementById(ERROR_ID);
 
-  log(`Elements Found`);
+  log.add(`elements loaded`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
 
   async function onOpenedEvent(): Promise<void> {
     const ORIGIN_ID = new ID("066548fe-cc82-475c-82d9-9bacfbf39104");
@@ -253,26 +299,20 @@ async function HuckleberryTextWidget() {
   }
   sendButton.addEventListener("click", onNameAddedAndSentEvent);
 
-  messageInput.addEventListener("keyup", function(event) {
+  function nextOnEnter(event: KeyboardEvent, button: HTMLButtonElement) {
     event.preventDefault();
     if (event.keyCode === 13) {
-      messageButton.click();
+      button.click();
     }
-  });
+  }
 
-  phoneInput.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-      phoneButton.click();
-    }
-  });
-
-  nameInput.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-      sendButton.click();
-    }
-  });
+  messageInput.addEventListener("keyup", event =>
+    nextOnEnter(event, messageButton)
+  );
+  phoneInput.addEventListener("keyup", event =>
+    nextOnEnter(event, phoneButton)
+  );
+  nameInput.addEventListener("keyup", event => nextOnEnter(event, sendButton));
 
   log(`Event Listeners Loaded`);
   log(`Initialized Successfully`);

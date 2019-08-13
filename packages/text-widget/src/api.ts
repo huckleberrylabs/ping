@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IEvent, IResult, Result, Query, ID } from "@huckleberryai/core";
+import { IEvent, IResult, Result, Query, ID, ENV } from "@huckleberryai/core";
 import {
   API_ENDPOINT,
   EVENTS_ENDPOINT,
@@ -7,20 +7,24 @@ import {
   TextWidgetSettingsQuery,
 } from "@huckleberryai/text";
 
-const IS_DEVELOPMENT = false;
-
-export async function postEvent(event: IEvent): Promise<IResult | void> {
-  if (IS_DEVELOPMENT) {
+export async function postEvent(event: IEvent): Promise<IResult> {
+  if (ENV === "development") {
     if (event instanceof Query) {
       return new Result(
-        new TextWidgetSettings("+16472951647"),
+        new TextWidgetSettings(""),
         new ID(),
         new ID(),
         new ID(),
         TextWidgetSettingsQuery.type
       );
     } else {
-      return;
+      return new Result(
+        undefined,
+        event.originID,
+        event.corrID,
+        event.id,
+        event.type
+      );
     }
   } else {
     const res = await axios.post(
@@ -31,8 +35,22 @@ export async function postEvent(event: IEvent): Promise<IResult | void> {
       if (res.data) {
         return Result.fromJSON(res.data);
       }
-    } else {
-      throw new Error(res.data);
     }
+    return new Result(
+      undefined,
+      event.originID,
+      event.corrID,
+      event.id,
+      event.type
+    );
+  }
+}
+
+export async function beaconEvent(event: IEvent): Promise<void> {
+  if (ENV === "production") {
+    navigator.sendBeacon(
+      API_ENDPOINT + EVENTS_ENDPOINT,
+      JSON.parse(JSON.stringify(event))
+    );
   }
 }
