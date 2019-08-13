@@ -5,7 +5,7 @@ import { Type } from "../type";
 
 export type LOG_LEVELS = "critical" | "error" | "debug" | "info";
 
-export type LOG_LABELS = LOG_LEVELS;
+export type LOG_LABELS = LOG_LEVELS | "text-widget";
 
 export class LogEvent extends Event {
   public labels: LOG_LABELS[];

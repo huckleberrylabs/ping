@@ -11,3 +11,4 @@ export * from "./query";
 export * from "./result";
 export * from "./timestamp";
 export * from "./type";
+export * from "./status-codes";

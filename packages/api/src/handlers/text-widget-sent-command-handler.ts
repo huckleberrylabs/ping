@@ -4,6 +4,9 @@ import {
   IEventHandler,
   IEventHandlerStatic,
   staticImplements,
+  Result,
+  OK,
+  INTERNAL_SERVER_ERROR,
 } from "@huckleberryai/core";
 import { TextWidgetSentCommand } from "@huckleberryai/text";
 import { injectable } from "inversify";
@@ -33,18 +36,40 @@ export class TextWidgetSentCommandHandler implements IEventHandler {
   }
   async handle(event: TextWidgetSentCommand) {
     const widgetSettings = await this.settingsRepo.getByID(event.widgetID);
-    if (widgetSettings) {
-      const events = await this.eventRepo.getByCorrID(event.corrID);
-      if (events) {
-        const { name, message, phone } = MessageAggregator(events);
-        await this.client.messages.create({
-          body: `New Message from ${name}: ${message}
-		\n Reply to them at ${phone}`,
-          to: widgetSettings.phone,
-          from: this.twilioPhoneNumber,
-        });
-      }
+    if (!widgetSettings) {
+      return new Result(
+        `Could not retrieve WidgetSettings for ID ${event.widgetID}`,
+        INTERNAL_SERVER_ERROR,
+        event.type,
+        this.id,
+        event.corrID,
+        event.id
+      );
     }
+
+    const events = await this.eventRepo.getByCorrID(event.corrID);
+    if (!events) {
+      return new Result(
+        `Could not retrieve Events for CorrID ${event.corrID}`,
+        INTERNAL_SERVER_ERROR,
+        event.type,
+        this.id,
+        event.corrID,
+        event.id
+      );
+    }
+
+    const { name, message, phone } = MessageAggregator(events);
+
+    await this.client.messages.create({
+      body: `New Message from ${name}: ${message}
+		\n Reply to them at ${phone}`,
+      to: widgetSettings.phone,
+      from: this.twilioPhoneNumber,
+    });
+
     await this.eventRepo.add(event);
+
+    return new Result(null, OK, event.type, this.id, event.corrID, event.id);
   }
 }

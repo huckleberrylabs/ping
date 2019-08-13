@@ -1,13 +1,7 @@
-import HTTPStatusCodes from "http-status-codes";
 import { Type } from "../type";
 import { TimeStamp } from "../timestamp";
 import { ID } from "../id";
-
-type HTTPStatusCodesMap = typeof HTTPStatusCodes;
-export type HttpStatusCode = Extract<
-  HTTPStatusCodesMap[keyof HTTPStatusCodesMap],
-  number
->;
+import { StatusCode } from "../status-codes";
 
 export interface Newable<T> {
   new (...args: any[]): T;
@@ -46,7 +40,7 @@ export interface WithSerialize {
 }
 
 export interface WithDeserialize<Type> {
-  fromJSON: (input: string) => Type;
+  fromJSON: (json: any) => Type;
 }
 
 export interface IEventStatic
@@ -79,7 +73,7 @@ export function isEvent(object: any): object is IEvent {
 
 export interface IEventHandlerStatic extends Newable<IEventHandler>, WithType {}
 export interface IEventHandler extends WithID {
-  handle(event: IEvent): Promise<IResult | IEvent | IEvent[] | void>;
+  handle(event: IEvent): Promise<IResult>;
 }
 
 export interface IResultStatic
@@ -94,8 +88,8 @@ export interface IResult
     WithCorrID,
     WithParentID,
     WithSerialize {
-  parentID: ID;
-  status: HttpStatusCode;
+  status: StatusCode;
+  isError: boolean;
   data: any;
 }
 
@@ -108,7 +102,8 @@ export function isResult(object: any): object is IResult {
       "contextID" in object &&
       "originID" in object &&
       "corrID" in object &&
-      "parentID" in object &&
+      "status" in object &&
+      "isError" in object &&
       "data" in object
     );
   }

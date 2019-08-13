@@ -62,8 +62,8 @@ async function HuckleberryTextWidget() {
   );
   const PARENT_ID = textWidgetLoadedEvent.id;
   log.add(
-    `TextWidget loaded successfully`,
-    ["info"],
+    `loaded successfully`,
+    ["info", "text-widget"],
     ORIGIN_ID,
     CORR_ID,
     PARENT_ID
@@ -86,31 +86,40 @@ async function HuckleberryTextWidget() {
       }
       const id = new ID(idString);
       log.add(
-        `widgetID retrieved successfully: ${id} `,
-        ["info"],
+        `widget_id retrieved successfully: ${id} `,
+        ["info", "text-widget"],
         ORIGIN_ID,
         CORR_ID,
         PARENT_ID
       );
       return id;
     } catch (error) {
-      const message = "widgetID could not be retrieved";
-      log.add(message, ["error"], ORIGIN_ID, CORR_ID, PARENT_ID);
+      const message = "widget_id could not be retrieved";
+      log.add(message, ["error", "text-widget"], ORIGIN_ID, CORR_ID, PARENT_ID);
       throw new Error(message);
     }
   })();
 
   // Widget Loaded Event
   textWidgetLoadedEvent.widgetID = WIDGET_ID;
-  await postEvent(textWidgetLoadedEvent);
-  log.add(
-    `TextWidgetLoadedEvent posted to ${API_ENDPOINT +
-      EVENTS_ENDPOINT} successfully`,
-    ["info"],
-    ORIGIN_ID,
-    CORR_ID,
-    PARENT_ID
-  );
+  try {
+    await postEvent(textWidgetLoadedEvent);
+    log.add(
+      `api posted to successfully: ${API_ENDPOINT + EVENTS_ENDPOINT}`,
+      ["info", "text-widget"],
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID
+    );
+  } catch (error) {
+    log.add(
+      `could not post to api: ${API_ENDPOINT + EVENTS_ENDPOINT}`,
+      ["error", "text-widget"],
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID
+    );
+  }
 
   // Retrieve Widget Settings
   const textWidgetSettings = await (async (): Promise<TextWidgetSettings> => {
@@ -127,11 +136,23 @@ async function HuckleberryTextWidget() {
     }
     return TextWidgetSettings.fromJSON(result.data);
   })();
-  log.add(`settings retrieved`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
+  log.add(
+    `settings retrieved`,
+    ["info", "text-widget"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 
   // CHECK IF WIDGET IS ENABLED
   if (!textWidgetSettings.enabled) {
-    log.add(`widget disabled`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
+    log.add(
+      `widget disabled`,
+      ["info", "text-widget"],
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID
+    );
     return;
   }
 
@@ -149,7 +170,13 @@ async function HuckleberryTextWidget() {
       head.appendChild(style);
     }
   })();
-  log.add(`css inserted`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
+  log.add(
+    `css inserted`,
+    ["info", "text-widget"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 
   // INSERT HTML
   (() => {
@@ -157,7 +184,13 @@ async function HuckleberryTextWidget() {
     div.innerHTML = generateHTML();
     document.getElementsByTagName("body")[0].appendChild(div);
   })();
-  log.add(`html inserted`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
+  log.add(
+    `html inserted`,
+    ["info", "text-widget"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 
   // Load Elements
   const container = <HTMLDivElement>getElementById(CONTAINER_ID);
@@ -173,7 +206,13 @@ async function HuckleberryTextWidget() {
   const successMessage = <HTMLImageElement>getElementById(SUCCESS_ID);
   const errorMessage = <HTMLImageElement>getElementById(ERROR_ID);
 
-  log.add(`elements loaded`, ["info"], ORIGIN_ID, CORR_ID, PARENT_ID);
+  log.add(
+    `elements loaded`,
+    ["info", "text-widget"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 
   async function onOpenedEvent(): Promise<void> {
     const ORIGIN_ID = new ID("066548fe-cc82-475c-82d9-9bacfbf39104");
@@ -190,7 +229,6 @@ async function HuckleberryTextWidget() {
       textWidgetLoadedEvent.id
     );
     await postEvent(command);
-    log("Open Event Posted");
   }
   openButton.addEventListener("click", onOpenedEvent);
 
@@ -214,7 +252,6 @@ async function HuckleberryTextWidget() {
         textWidgetLoadedEvent.id
       );
       await postEvent(command);
-      log("Message Added Event Posted");
     } else {
       messageInput.setCustomValidity("Invalid");
     }
@@ -242,7 +279,6 @@ async function HuckleberryTextWidget() {
           textWidgetLoadedEvent.id
         );
         await postEvent(command);
-        log("Phone Added Event Posted");
       }
     } else {
       phoneInput.setCustomValidity("Invalid");
@@ -286,7 +322,6 @@ async function HuckleberryTextWidget() {
       try {
         await postEvent(nameAddedCommand);
         await postEvent(sentCommand);
-        log("Name Added and Sent Events Posted");
         loaderMessage.classList.remove("shown");
         successMessage.classList.add("shown");
       } catch (error) {
@@ -314,8 +349,20 @@ async function HuckleberryTextWidget() {
   );
   nameInput.addEventListener("keyup", event => nextOnEnter(event, sendButton));
 
-  log(`Event Listeners Loaded`);
-  log(`Initialized Successfully`);
+  log.add(
+    `event listeners loaded`,
+    ["info", "text-widget"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
+  log.add(
+    `initialized successfully`,
+    ["info", "text-widget"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 }
 
 window.addEventListener("load", HuckleberryTextWidget, false);

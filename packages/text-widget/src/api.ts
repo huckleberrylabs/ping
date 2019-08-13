@@ -1,5 +1,15 @@
 import axios from "axios";
-import { IEvent, IResult, Result, Query, ID, ENV } from "@huckleberryai/core";
+import {
+  IEvent,
+  IResult,
+  Result,
+  Query,
+  ID,
+  ENV,
+  isResult,
+  StatusCode,
+  OK,
+} from "@huckleberryai/core";
 import {
   API_ENDPOINT,
   EVENTS_ENDPOINT,
@@ -12,18 +22,20 @@ export async function postEvent(event: IEvent): Promise<IResult> {
     if (event instanceof Query) {
       return new Result(
         new TextWidgetSettings(""),
+        OK,
+        TextWidgetSettingsQuery.type,
         new ID(),
         new ID(),
-        new ID(),
-        TextWidgetSettingsQuery.type
+        new ID()
       );
     } else {
       return new Result(
         undefined,
+        OK,
+        event.type,
         event.originID,
         event.corrID,
-        event.id,
-        event.type
+        event.id
       );
     }
   } else {
@@ -31,18 +43,22 @@ export async function postEvent(event: IEvent): Promise<IResult> {
       API_ENDPOINT + EVENTS_ENDPOINT,
       JSON.parse(JSON.stringify(event))
     );
-    if (res.status >= 200 && res.status < 300) {
-      if (res.data) {
+    try {
+      if (isResult(res.data)) {
         return Result.fromJSON(res.data);
+      } else {
+        throw new Error("Not a Result");
       }
+    } catch (error) {
+      return new Result(
+        res.data,
+        <StatusCode>res.status,
+        event.type,
+        event.originID,
+        event.corrID,
+        event.id
+      );
     }
-    return new Result(
-      undefined,
-      event.originID,
-      event.corrID,
-      event.id,
-      event.type
-    );
   }
 }
 

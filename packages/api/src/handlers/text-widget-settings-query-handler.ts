@@ -4,6 +4,7 @@ import {
   IEventHandler,
   IEventHandlerStatic,
   staticImplements,
+  OK,
 } from "@huckleberryai/core";
 import { TextWidgetSettingsQuery } from "@huckleberryai/text";
 import { EventRepository } from "../event-repository";
@@ -25,10 +26,11 @@ export class TextWidgetSettingsQueryHandler implements IEventHandler {
     const widgetSettings = await this.settingsRepo.getByID(widgetID);
     const result = new Result(
       widgetSettings,
+      OK,
+      event.type,
       this.id,
       event.corrID,
-      event.id,
-      event.type
+      event.id
     );
     return result;
   }

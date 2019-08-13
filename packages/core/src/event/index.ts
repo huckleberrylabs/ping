@@ -12,17 +12,14 @@ export class Event implements IEvent {
   public originID: ID;
   public corrID: ID;
   public parentID?: ID;
-  private _contextID: ID = CONTEXT_ID;
+  protected _contextID: ID;
   constructor(originID: ID, corrID?: ID, parentID?: ID) {
     this.timestamp = new TimeStamp();
     this.id = new ID();
     this.originID = originID;
-    if (corrID) {
-      this.corrID = corrID;
-    } else {
-      this.corrID = new ID();
-    }
+    this.corrID = corrID ? corrID : new ID();
     this.parentID = parentID;
+    this._contextID = CONTEXT_ID;
   }
   public get type() {
     return Event.type;

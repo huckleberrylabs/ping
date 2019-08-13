@@ -3,6 +3,10 @@ import {
   IEventHandler,
   IEventHandlerStatic,
   staticImplements,
+  Result,
+  StatusCode,
+  OK,
+  INTERNAL_SERVER_ERROR,
 } from "@huckleberryai/core";
 import { TextWidgetOpenedCommand } from "@huckleberryai/text";
 import { EventRepository } from "../event-repository";
@@ -15,6 +19,21 @@ export class TextWidgetOpenedCommandHandler implements IEventHandler {
   public static type = TextWidgetOpenedCommand.type;
   constructor(private eventRepo: EventRepository) {}
   async handle(event: TextWidgetOpenedCommand) {
-    return await this.eventRepo.add(event);
+    let status: StatusCode = OK;
+    let data;
+    try {
+      await this.eventRepo.add(event);
+    } catch (error) {
+      data = error.toString();
+      status = INTERNAL_SERVER_ERROR;
+    }
+    return new Result(
+      data,
+      status,
+      event.type,
+      this.id,
+      event.corrID,
+      event.id
+    );
   }
 }

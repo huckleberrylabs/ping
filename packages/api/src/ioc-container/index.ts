@@ -31,7 +31,7 @@ import {
   TextWidgetSettingsQuery,
 } from "@huckleberryai/text";
 
-export const EVENT_NAME = Symbol.for("EVENT");
+export const DESERIALIZER_NAME = Symbol.for("DESERIALIZER");
 export const HANDLER_NAME = Symbol.for("HANDLER");
 
 const domainModule = new ContainerModule(bind => {
@@ -49,49 +49,49 @@ const eventModule = new ContainerModule(bind => {
   // Core Events
   bind<IEventStatic>(Event.type.toSymbol())
     .toConstantValue(Event)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
   bind<IEventStatic>(Command.type.toSymbol())
     .toConstantValue(Command)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
   bind<IEventStatic>(Query.type.toSymbol())
     .toConstantValue(Query)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
 
   // HTTPAccessEvent
   bind<IEventStatic>(HTTPAccessEvent.type.toSymbol())
     .toConstantValue(HTTPAccessEvent)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
 
   // TextWidget Events
 
   // LoadedEvent
   bind<IEventStatic>(TextWidgetLoadedEvent.type.toSymbol())
     .toConstantValue(TextWidgetLoadedEvent)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
   // OpenedCommand
   bind<IEventStatic>(TextWidgetOpenedCommand.type.toSymbol())
     .toConstantValue(TextWidgetOpenedCommand)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
   // MessageAddedCommand
   bind<IEventStatic>(TextWidgetMessageAddedCommand.type.toSymbol())
     .toConstantValue(TextWidgetMessageAddedCommand)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
   // NameAddedCommand
   bind<IEventStatic>(TextWidgetNameAddedCommand.type.toSymbol())
     .toConstantValue(TextWidgetNameAddedCommand)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
   // PhoneAddedCommand
   bind<IEventStatic>(TextWidgetPhoneAddedCommand.type.toSymbol())
     .toConstantValue(TextWidgetPhoneAddedCommand)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
   // SentCommand
   bind<IEventStatic>(TextWidgetSentCommand.type.toSymbol())
     .toConstantValue(TextWidgetSentCommand)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
   // SettingsQuery
   bind<IEventStatic>(TextWidgetSettingsQuery.type.toSymbol())
     .toConstantValue(TextWidgetSettingsQuery)
-    .whenTargetNamed(EVENT_NAME);
+    .whenTargetNamed(DESERIALIZER_NAME);
 });
 
 const handlerModule = new ContainerModule(bind => {

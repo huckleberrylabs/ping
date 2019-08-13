@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { FireStore } from "../firestore";
 import { ID, IEvent } from "@huckleberryai/core";
-import { deserialize } from "../event-deserializer";
+import { deserialize } from "../deserializer";
 
 @injectable()
 export class EventRepository {
