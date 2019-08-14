@@ -1,0 +1,95 @@
+{
+  "name": "@huckleberryai/text-widget",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "version": "0.1.18",
+  "description": "Texting, By Huckleberry Widget",
+  "author": "Dragos Rotaru <dragos@rotaru.co>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askhuckleberry/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/askhuckleberry/monorepo/issues"
+  },
+  "main": "dist/text.min.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib",
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "prettier": {
+    "trailingComma": "es5"
+  },
+  "tslint": {
+    "defaultSeverity": "error",
+    "extends": [
+      "tslint:recommended",
+      "tslint-jest",
+      "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {},
+    "rulesDirectory": []
+  },
+  "scripts": {
+    "now-build": "npm run build",
+    "build": "npx webpack --config webpack.config.js",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch",
+    "prepare": "npm run test && npm run build"
+  },
+  "dependencies": {
+    "@huckleberryai/core": "^0.1.18",
+    "@huckleberryai/text": "^0.1.18",
+    "axios": "^0.19.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.6.8",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.8.0",
+    "now": "^16.1.1",
+    "prettier": "^1.17.0",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.0.4",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-jest": "^1.0.5",
+    "typescript": "^3.5.3",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
+    "webpack-obfuscator": "^0.18.3"
+  },
+  "gitHead": "39cb196896db86f9a69a4594acb7dbb7bcfe2bad"
+}

@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "name": "@huckleberry/schools-client",
+  "scope": "huckleberryai",
+  "public": false,
+  "build": {
+    "env": {
+      "REACT_APP_PUBLIC_GOOGLE_API_KEY": "@public-google-api-key",
+      "PUBLIC_URL": "@schools-client-public-url",
+      "TEXT_TEST_APP_ID": "@text-test-app-id"
+    }
+  },
+  "env": {
+    "TWILIO_ACCOUNT_SID": "@twilio-account-sid",
+    "TWILIO_AUTH_TOKEN": "@twilio-auth-token",
+    "TWILIO_PHONE_NUMBER": "@twilio-phone-number",
+    "GOOGLE_API_KEY": "@google-api-key",
+    "LOCAL_LOGIC_API_KEY": "@local-logic-api-key"
+  }
+}

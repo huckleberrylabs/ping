@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+lerna-debug.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -55,7 +56,9 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+
 .env
+.env.build
 
 # next.js build output
 .next
@@ -68,3 +71,7 @@ typings/
 
 dist/
 build/
+
+packages/*/lib
+
+package-lock.json
