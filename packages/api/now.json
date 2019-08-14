@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "@huckleberryai/api",
+  "scope": "huckleberryai",
+  "alias": ["api.huckleberry.app"],
+  "public": false,
+  "builds": [{ "src": "src/index.ts", "use": "@now/node" }],
+  "routes": [
+    {
+      "src": "(.*)",
+      "dest": "src/index.ts"
+    }
+  ],
+  "build": {
+    "env": {
+      "NPM_TOKEN": "@npm-token"
+    }
+  },
+  "env": {
+    "GCLOUD_CREDENTIALS": "@gcloud-credentials",
+    "TWILIO_ACCOUNT_SID": "@twilio-account-sid",
+    "TWILIO_AUTH_TOKEN": "@twilio-auth-token",
+    "TWILIO_PHONE_NUMBER": "@twilio-phone-number",
+    "GOOGLE_API_KEY": "@google-api-key",
+    "LOCAL_LOGIC_API_KEY": "@local-logic-api-key",
+    "CONTEXT_ID": "@api-context-id"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "@huckleberry/schools",
+  "version": "0.0.1",
+  "description": "Schools By Huckleberry",
+  "author": "Dragos Rotaru <dragos@rotaru.co>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askhuckleberry/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/askhuckleberry/monorepo/issues"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "scripts": {
+    "tsc": "npx tsc",
+    "tsc:watch": "npx tsc --watch",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

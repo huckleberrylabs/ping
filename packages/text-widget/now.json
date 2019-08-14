@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "@huckleberryai/text-widget",
+  "scope": "huckleberryai",
+  "alias": ["static.huckleberry.app"],
+  "public": false,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "build": {
+    "env": {
+      "NPM_TOKEN": "@npm-token",
+      "DEMO_WIDGET_ID": "@demo-widget-id"
+    }
+  }
+}
