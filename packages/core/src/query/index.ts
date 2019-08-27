@@ -1,5 +1,5 @@
 import { ID } from "../id";
-import { Type } from "../type";
+import { TypeName } from "../type-name";
 import { Event } from "../event";
 import { TimeStamp } from "../timestamp";
 
@@ -13,7 +13,7 @@ export class Query extends Event {
     return Query.type;
   }
   public static get type() {
-    return new Type("Query");
+    return new TypeName("Query");
   }
   public toJSON() {
     return {

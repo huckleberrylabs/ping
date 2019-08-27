@@ -1,7 +1,7 @@
 import { ID } from "../id";
 import { Event } from "../event";
 import { TimeStamp } from "../timestamp";
-import { Type } from "../type";
+import { TypeName } from "../type-name";
 
 export type LOG_LEVELS = "critical" | "error" | "debug" | "info";
 
@@ -25,7 +25,7 @@ export class LogEvent extends Event {
     return LogEvent.type;
   }
   public static get type() {
-    return new Type("LogEvent");
+    return new TypeName("LogEvent");
   }
   public toJSON() {
     return {

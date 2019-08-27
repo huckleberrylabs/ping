@@ -1,5 +1,5 @@
 import { ID } from "../id";
-import { Type } from "../type";
+import { TypeName } from "../type-name";
 import { TimeStamp } from "../timestamp";
 import { Event } from "../event";
 import { IResult, IResultStatic } from "../interfaces";
@@ -9,13 +9,13 @@ import { StatusCode } from "../status-codes";
 @staticImplements<IResultStatic>()
 export class Result extends Event implements IResult {
   public parentID?: ID;
-  public type: Type;
+  public type: TypeName;
   public status: StatusCode;
   public data: any;
   constructor(
     data: any,
     status: StatusCode,
-    type: Type,
+    type: TypeName,
     originID: ID,
     corrID?: ID,
     parentID?: ID
@@ -52,7 +52,7 @@ export class Result extends Event implements IResult {
     const result = new Result(
       json.data,
       json.status,
-      new Type(json.type),
+      new TypeName(json.type),
       new ID(json.originID),
       new ID(json.corrID),
       new ID(json.parentID)

@@ -1,5 +1,5 @@
 import { ID } from "../id";
-import { Type } from "../type";
+import { TypeName } from "../type-name";
 import { TimeStamp } from "../timestamp";
 import { CONTEXT_ID } from "../context";
 import { IEvent, IEventStatic } from "../interfaces";
@@ -25,7 +25,7 @@ export class Event implements IEvent {
     return Event.type;
   }
   public static get type() {
-    return new Type("Event");
+    return new TypeName("Event");
   }
   public get contextID() {
     return this._contextID;

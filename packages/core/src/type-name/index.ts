@@ -1,6 +1,6 @@
 import { WithSerialize } from "../interfaces";
 
-export class Type implements WithSerialize {
+export class TypeName implements WithSerialize {
   private _type: symbol;
   constructor(name: string) {
     if (name.length == 0) {
@@ -8,7 +8,7 @@ export class Type implements WithSerialize {
     }
     this._type = Symbol.for(name);
   }
-  equals(type: Type) {
+  equals(type: TypeName) {
     return type._type === this._type;
   }
   toString(): string {

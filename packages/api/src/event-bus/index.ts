@@ -11,7 +11,7 @@ import { IoCContainer, HANDLER_NAME } from "../ioc-container";
 
 class EventBus {
   public constructor(private container: Container) {}
-  public async emit<Event extends IEvent>(event: Event): Promise<IResult> {
+  public async emit(event: IEvent): Promise<IResult> {
     const ORIGIN_ID = new ID("81e59010-9e0b-41b2-b621-7f98248db456");
     let handler: IEventHandler;
     try {

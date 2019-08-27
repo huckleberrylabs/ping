@@ -9,7 +9,7 @@ import {
 } from "@huckleberryai/core";
 import { DESERIALIZER_NAME, IoCContainer } from "../ioc-container";
 
-export function deserialize<Type>(json: any): Type | IResult {
+export function deserialize(json: any): IResult {
   const ORIGIN_ID = new ID("6b511d57-99b6-4264-b901-f184b851f378");
   const ResultType = new Type("DeserializeResult");
   const typeString = json.type;

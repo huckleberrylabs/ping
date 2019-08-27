@@ -40,7 +40,7 @@ export default async (req: NowRequest, res: NowResponse) => {
 
   const path = req.url;
 
-  if (path === "/health") {
+  if (path === "/ping") {
     res.status(OK).send(null);
     return;
   }

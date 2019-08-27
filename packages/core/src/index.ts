@@ -10,5 +10,5 @@ export * from "./log-event";
 export * from "./query";
 export * from "./result";
 export * from "./timestamp";
-export * from "./type";
+export * from "./type-name";
 export * from "./status-codes";

@@ -133,7 +133,7 @@ export function generateCSS(mainColor: string, accentColor: string) {
   stroke-miterlimit: 10;
   stroke-width: 6;
   stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;s
+  stroke-dashoffset: 1000;
 }
 
 #${CONTAINER_ID} > #${FORM_ID} #${ERROR_ID}.shown line {

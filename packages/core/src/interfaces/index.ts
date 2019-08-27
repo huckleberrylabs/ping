@@ -1,4 +1,4 @@
-import { Type } from "../type";
+import { TypeName } from "../type-name";
 import { TimeStamp } from "../timestamp";
 import { ID } from "../id";
 import { StatusCode } from "../status-codes";
@@ -7,12 +7,12 @@ export interface Newable<T> {
   new (...args: any[]): T;
 }
 
-export interface WithTypeStamp {
+export interface WithTimeStamp {
   timestamp: TimeStamp;
 }
 
 export interface WithType {
-  type: Type;
+  type: TypeName;
 }
 
 export interface WithID {
@@ -40,7 +40,7 @@ export interface WithSerialize {
 }
 
 export interface WithDeserialize<Type> {
-  fromJSON: (json: any) => Type;
+  fromJSON: (json: any) => IResult;
 }
 
 export interface IEventStatic
@@ -49,7 +49,7 @@ export interface IEventStatic
     WithDeserialize<IEvent> {}
 export interface IEvent
   extends WithType,
-    WithTypeStamp,
+    WithTimeStamp,
     WithID,
     WithContextID,
     WithOriginID,
@@ -79,9 +79,10 @@ export interface IEventHandler extends WithID {
 export interface IResultStatic
   extends Newable<IResult>,
     WithDeserialize<IResult> {}
+
 export interface IResult
   extends WithType,
-    WithTypeStamp,
+    WithTimeStamp,
     WithID,
     WithContextID,
     WithOriginID,
