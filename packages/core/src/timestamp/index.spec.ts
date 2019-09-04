@@ -1,10 +1,10 @@
-import {
+/* import {
   TimeStamp,
   IsTimeStamp,
   IsSerializedTimeStamp,
   TimeStampSerializer,
   TimeStampDeserializer,
-} from ".";
+} from "."; */
 
 describe("TimeStamp", () => {
   describe("Constructor", () => {

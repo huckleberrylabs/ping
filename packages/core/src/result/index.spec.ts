@@ -1,11 +1,11 @@
-import {
+/* import {
   IsResult,
   IsSerializedResult,
   ResultName,
   Result,
   ResultSerializer,
   ResultDeserializer,
-} from ".";
+} from "."; */
 
 describe("Result", () => {
   describe("IsResult", () => {

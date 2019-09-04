@@ -1,10 +1,10 @@
-import {
+/* import {
   IsEvent,
   IsSerializedEvent,
   Event,
   EventSerializer,
   EventDeserializer,
-} from ".";
+} from "."; */
 
 describe("Event", () => {
   describe("IsEvent", () => {

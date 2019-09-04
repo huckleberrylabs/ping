@@ -71,7 +71,7 @@ describe("UUID", () => {
     });
     expect(true).toBeTruthy();
   });
-  describe("IsSerializedUUID", async () => {
+  describe("IsSerializedUUID", () => {
     test("correctly identifies UUIDs", () => {
       for (let i = 0; i < 100; i++) {
         const id = UUID();
@@ -98,7 +98,7 @@ describe("UUID", () => {
     });
     expect(true).toBeTruthy();
   });
-  describe("UUIDSerializer", async () => {
+  describe("UUIDSerializer", () => {
     test("correctly serializes UUIDs", () => {
       for (let i = 0; i < 100; i++) {
         const id = UUID();
@@ -119,7 +119,7 @@ describe("UUID", () => {
       expect(() => UUIDSerializer(str)).toThrow();
     });
   });
-  describe("UUIDDeserializer", async () => {
+  describe("UUIDDeserializer", () => {
     test("correctly de-serializes UUIDs", () => {
       for (let i = 0; i < 100; i++) {
         const id = UUID();

@@ -1,11 +1,11 @@
-import {
+/* import {
   IsLogEvent,
   IsSerializedLogEvent,
   LogEventName,
   LogEvent,
   LogEventSerializer,
   LogEventDeserializer,
-} from ".";
+} from "."; */
 
 describe("LogEvent", () => {
   describe("IsLogEvent", () => {
