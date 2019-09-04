@@ -1,34 +1,69 @@
 import {
-  ID,
-  WithID,
-  WithSerialize,
-  staticImplements,
-  WithDeserialize,
+  UUID,
+  IUUID,
+  ISerializedUUID,
+  TypeName,
+  ITypeName,
+  ISerializedTypeName,
+  IsNonNullObject,
 } from "@huckleberryai/core";
 
-@staticImplements<WithDeserialize<TextWidgetSettings>>()
-export class TextWidgetSettings implements WithID, WithSerialize {
-  public id: ID;
-  public enabled: boolean;
-  public phone: string;
-  public mainColor: string;
-  public accentColor: string;
-  constructor(phone: string) {
-    this.id = new ID();
-    this.enabled = true;
-    this.phone = phone;
-    this.mainColor = "white";
-    this.accentColor = "#1e73be";
-  }
-  public toJSON() {
-    return this;
-  }
-  public static fromJSON(json: any): TextWidgetSettings {
-    const textWidgetSettings = new TextWidgetSettings(json.phone);
-    textWidgetSettings.id = new ID(json.id);
-    textWidgetSettings.enabled = json.enabled;
-    textWidgetSettings.mainColor = json.mainColor;
-    textWidgetSettings.accentColor = json.accentColor;
-    return textWidgetSettings;
-  }
+export interface ITextWidgetSettings {
+  type: ITypeName;
+  id: IUUID;
+  enabled: boolean;
+  phone: string;
+  mainColor: string;
+  accentColor: string;
 }
+
+export interface ISerializedTextWidgetSettings {
+  type: ISerializedTypeName;
+  id: ISerializedUUID;
+  enabled: boolean;
+  phone: string;
+  mainColor: string;
+  accentColor: string;
+}
+
+export const IsTextWidgetSettings = (
+  input: unknown
+): input is ITextWidgetSettings => {
+  // Must be Object
+  if (typeof input !== "object") {
+    return false;
+  }
+  // Must be non-null
+  if (!input) {
+    return false;
+  }
+};
+
+export const IsSerializedTextWidgetSettings = (
+  input: unknown
+): input is ISerializedTextWidgetSettings => {
+  // Must be Object
+  if (!IsNonNullObject(input)) {
+    return false;
+  }
+};
+
+export const TextWidgetSettingsName = TypeName("TextWidgetSettings");
+
+export const TextWidgetSettings = (phone: string): ITextWidgetSettings => {
+  const textWidgetSettings = {
+    id: UUID(),
+    enabled: true,
+    phone: phone,
+    mainColor: "white",
+    accentColor: "#1e73be",
+  };
+  return textWidgetSettings;
+};
+
+export const TextWidgetSettingsSerializer = (
+  input: ITextWidgetSettings
+): ISerializedTextWidgetSettings => {};
+export const TextWidgetSettingsDeserializer = (
+  input: unknown
+): ITextWidgetSettings => {};
