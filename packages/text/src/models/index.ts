@@ -1,42 +1,86 @@
 import {
-  UUID,
+  IsNonNullObject,
+
+  // UUID
   IUUID,
   ISerializedUUID,
-  TypeName,
+  UUID,
+  UUIDSerializer,
+  UUIDDeserializer,
+
+  // TypeName
   ITypeName,
   ISerializedTypeName,
-  IsNonNullObject,
+  TypeName,
+  TypeNameSerializer,
+  TypeNameDeserializer,
+
+  // Phone
+  IPhone,
+  ISerializedPhone,
+  PhoneSerializer,
+  PhoneDeserializer
+
+  // Color
+  IColor,
+  ISerializedColor,
+  Color,
+  ColorSerializer,
+  ColorDeserializer
 } from "@huckleberryai/core";
+
+const DEFAULT_MAIN_COLOR = "white";
+const DEFAULT_ACCENT_COLOR = "#1e73be";
 
 export interface ITextWidgetSettings {
   type: ITypeName;
   id: IUUID;
+  phone: IPhone;
+  mainColor: IColor;
+  accentColor: IColor;
   enabled: boolean;
-  phone: string;
-  mainColor: string;
-  accentColor: string;
 }
 
 export interface ISerializedTextWidgetSettings {
   type: ISerializedTypeName;
   id: ISerializedUUID;
+  phone: ISerializedPhone;
+  mainColor: ISerializedColor;
+  accentColor: ISerializedColor;
   enabled: boolean;
-  phone: string;
-  mainColor: string;
-  accentColor: string;
 }
+
+const hasAllProperties = (input: object): boolean => {
+  const hasType = "type" in input;
+  const hasID = "id" in input;
+  const hasPhone = "phone" in input;
+  const hasMainColor = "mainColor" in input;
+  const hasAccentColor = "accentColor" in input;
+  const hasEnabled = "enabled" in input;
+  if (
+    !hasType ||
+    !hasID ||
+    !hasPhone ||
+    !hasMainColor ||
+    !hasAccentColor ||
+    !hasEnabled
+  ) {
+    return false;
+  }
+  return true;
+};
 
 export const IsTextWidgetSettings = (
   input: unknown
 ): input is ITextWidgetSettings => {
   // Must be Object
-  if (typeof input !== "object") {
+  if (!IsNonNullObject(input)) {
     return false;
   }
-  // Must be non-null
-  if (!input) {
+  if (!hasAllProperties(input)) {
     return false;
   }
+  return true;
 };
 
 export const IsSerializedTextWidgetSettings = (
@@ -46,24 +90,53 @@ export const IsSerializedTextWidgetSettings = (
   if (!IsNonNullObject(input)) {
     return false;
   }
+  if (!hasAllProperties(input)) {
+    return false;
+  }
 };
 
 export const TextWidgetSettingsName = TypeName("TextWidgetSettings");
 
-export const TextWidgetSettings = (phone: string): ITextWidgetSettings => {
+export const TextWidgetSettings = (phone: IPhone): ITextWidgetSettings => {
   const textWidgetSettings = {
+    type: TextWidgetSettingsName,
     id: UUID(),
-    enabled: true,
     phone: phone,
-    mainColor: "white",
-    accentColor: "#1e73be",
+    mainColor: Color(DEFAULT_MAIN_COLOR),
+    accentColor: Color(DEFAULT_ACCENT_COLOR),
+    enabled: true,
   };
   return textWidgetSettings;
 };
 
 export const TextWidgetSettingsSerializer = (
   input: ITextWidgetSettings
-): ISerializedTextWidgetSettings => {};
+): ISerializedTextWidgetSettings => {
+  if (!IsTextWidgetSettings(input)) {
+    throw new Error("TextWidgetSettingsSerializer: invalid input");
+  }
+  return {
+    type: TypeNameSerializer(input.type),
+    id: UUIDSerializer(input.id),
+    phone: PhoneSerializer(input.phone),
+    mainColor: ColorSerializer(input.mainColor),
+    accentColor: ColorSerializer(input.accentColor),
+    enabled: input.enabled,
+  };
+};
+
 export const TextWidgetSettingsDeserializer = (
   input: unknown
-): ITextWidgetSettings => {};
+): ITextWidgetSettings => {
+    if (!IsSerializedTextWidgetSettings(input)) {
+    throw new Error("TextWidgetSettingsDeserializer: invalid input");
+  }
+  return {
+    type: TypeNameDeserializer(input.type),
+    id: UUIDDeserializer(input.id),
+    phone: PhoneDeserializer(input.phone),
+    mainColor: ColorDeserializer(input.mainColor),
+    accentColor: ColorDeserializer(input.accentColor),
+    enabled: input.enabled,
+  };
+};

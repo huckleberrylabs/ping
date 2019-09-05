@@ -1,47 +1,85 @@
-import { ID, Type, Command, TimeStamp } from "@huckleberryai/core";
+import {
+  ITextWidgetEvent,
+  ISerializedTextWidgetEvent,
+  IsTextWidgetEvent,
+  IsSerializedTextWidgetEvent,
+  TextWidgetEvent,
+  TextWidgetEventSerializer,
+  TextWidgetEventDeserializer,
+} from "./text-widget-event";
+import { TypeName, TypeNameDeserializer, IUUID } from "@huckleberryai/core";
 
-export class TextWidgetSentCommand extends Command {
-  public widgetID: ID;
-  constructor(
-    widgetID: ID,
-    agentID: ID,
-    originID: ID,
-    corrID?: ID,
-    parentID?: ID
-  ) {
-    super(agentID, originID, corrID, parentID);
-    this.widgetID = widgetID;
+export interface ITextWidgetSentCommand extends ITextWidgetEvent {}
+
+export interface ISerializedTextWidgetSentCommand
+  extends ISerializedTextWidgetEvent {}
+
+export const TextWidgetSentCommandName = TypeName("TextWidgetSentCommand");
+
+export const IsTextWidgetSentCommand = (
+  input: unknown
+): input is ITextWidgetSentCommand => {
+  if (!IsTextWidgetEvent(input)) {
+    return false;
   }
-  public get type() {
-    return TextWidgetSentCommand.type;
+  // Must have correct TypeName
+  const { type } = <ITextWidgetSentCommand>input;
+  if (type !== TextWidgetSentCommandName) {
+    return false;
   }
-  public static get type() {
-    return new Type("TextWidgetSentCommand");
+  return true;
+};
+
+export const IsSerializedTextWidgetSentCommand = (
+  input: unknown
+): input is ISerializedTextWidgetSentCommand => {
+  if (!IsSerializedTextWidgetEvent(input)) {
+    return false;
   }
-  public toJSON() {
-    return {
-      timestamp: this.timestamp,
-      id: this.id,
-      originID: this.originID,
-      corrID: this.corrID,
-      parentID: this.parentID,
-      contextID: this.contextID,
-      type: this.type,
-      agentID: this.agentID,
-      widgetID: this.widgetID,
-    };
+
+  // Must have correct TypeName
+  const { type } = <ISerializedTextWidgetSentCommand>input;
+  if (TypeNameDeserializer(type) !== TextWidgetSentCommandName) {
+    return false;
   }
-  public static fromJSON(json: any): TextWidgetSentCommand {
-    const command = new TextWidgetSentCommand(
-      new ID(json.widgetID),
-      new ID(json.agentID),
-      new ID(json.originID),
-      json.corrID ? new ID(json.corrID) : undefined,
-      json.parentID ? new ID(json.parentID) : undefined
+  return true;
+};
+
+export const TextWidgetSentCommand = (
+  widget: IUUID,
+  origin: IUUID,
+  corr?: IUUID,
+  parent?: IUUID,
+  agent?: IUUID
+): ITextWidgetSentCommand => {
+  return TextWidgetEvent(
+    widget,
+    TextWidgetSentCommandName,
+    origin,
+    corr,
+    parent,
+    agent
+  );
+};
+
+export const TextWidgetSentCommandSerializer = (
+  input: ITextWidgetSentCommand
+): ISerializedTextWidgetSentCommand => {
+  if (!IsTextWidgetSentCommand(input)) {
+    throw new Error(
+      "TextWidgetSentCommandSerializer: not a valid TextWidgetSentCommand"
     );
-    command.id = new ID(json.id);
-    command.timestamp = new TimeStamp(json.timestamp);
-    command.contextID = new ID(json.contextID);
-    return command;
   }
-}
+  return TextWidgetEventSerializer(input);
+};
+
+export const TextWidgetSentCommandDeserializer = (
+  input: unknown
+): ITextWidgetSentCommand => {
+  if (!IsSerializedTextWidgetSentCommand(input)) {
+    throw new Error(
+      "TextWidgetSentCommandDeserializer: not a valid TextWidgetSentCommand"
+    );
+  }
+  return TextWidgetEventDeserializer(input);
+};

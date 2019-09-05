@@ -1,4 +1,4 @@
-import { IUUID, UUID } from "../uuid";
+import { IUUID, UUID } from "../value-objects/uuid";
 
 let CONTEXT_ID: IUUID;
 

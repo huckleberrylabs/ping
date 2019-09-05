@@ -1,39 +1,85 @@
-import { ID, Type, Event, TimeStamp } from "@huckleberryai/core";
+import {
+  ITextWidgetEvent,
+  ISerializedTextWidgetEvent,
+  IsTextWidgetEvent,
+  IsSerializedTextWidgetEvent,
+  TextWidgetEvent,
+  TextWidgetEventSerializer,
+  TextWidgetEventDeserializer,
+} from "./text-widget-event";
+import { TypeName, TypeNameDeserializer, IUUID } from "@huckleberryai/core";
 
-export class TextWidgetLoadedEvent extends Event {
-  public widgetID: ID;
-  constructor(widgetID: ID, originID: ID, corrID?: ID, parentID?: ID) {
-    super(originID, corrID, parentID);
-    this.widgetID = widgetID;
+export interface ITextWidgetLoadedEvent extends ITextWidgetEvent {}
+
+export interface ISerializedTextWidgetLoadedEvent
+  extends ISerializedTextWidgetEvent {}
+
+export const TextWidgetLoadedEventName = TypeName("TextWidgetLoadedEvent");
+
+export const IsTextWidgetLoadedEvent = (
+  input: unknown
+): input is ITextWidgetLoadedEvent => {
+  if (!IsTextWidgetEvent(input)) {
+    return false;
   }
-  public get type() {
-    return TextWidgetLoadedEvent.type;
+  // Must have correct TypeName
+  const { type } = <ITextWidgetLoadedEvent>input;
+  if (type !== TextWidgetLoadedEventName) {
+    return false;
   }
-  public static get type() {
-    return new Type("TextWidgetLoadedEvent");
+  return true;
+};
+
+export const IsSerializedTextWidgetLoadedEvent = (
+  input: unknown
+): input is ISerializedTextWidgetLoadedEvent => {
+  if (!IsSerializedTextWidgetEvent(input)) {
+    return false;
   }
-  public toJSON() {
-    return {
-      timestamp: this.timestamp,
-      id: this.id,
-      originID: this.originID,
-      corrID: this.corrID,
-      parentID: this.parentID,
-      contextID: this.contextID,
-      type: this.type,
-      widgetID: this.widgetID,
-    };
+
+  // Must have correct TypeName
+  const { type } = <ISerializedTextWidgetLoadedEvent>input;
+  if (TypeNameDeserializer(type) !== TextWidgetLoadedEventName) {
+    return false;
   }
-  public static fromJSON(json: any): TextWidgetLoadedEvent {
-    const event = new TextWidgetLoadedEvent(
-      new ID(json.widgetID),
-      new ID(json.originID),
-      json.corrID ? new ID(json.corrID) : undefined,
-      json.parentID ? new ID(json.parentID) : undefined
+  return true;
+};
+
+export const TextWidgetLoadedEvent = (
+  widget: IUUID,
+  origin: IUUID,
+  corr?: IUUID,
+  parent?: IUUID,
+  agent?: IUUID
+): ITextWidgetLoadedEvent => {
+  return TextWidgetEvent(
+    widget,
+    TextWidgetLoadedEventName,
+    origin,
+    corr,
+    parent,
+    agent
+  );
+};
+
+export const TextWidgetLoadedEventSerializer = (
+  input: ITextWidgetLoadedEvent
+): ISerializedTextWidgetLoadedEvent => {
+  if (!IsTextWidgetLoadedEvent(input)) {
+    throw new Error(
+      "TextWidgetLoadedEventSerializer: not a valid TextWidgetLoadedEvent"
     );
-    event.id = new ID(json.id);
-    event.timestamp = new TimeStamp(json.timestamp);
-    event.contextID = new ID(json.contextID);
-    return event;
   }
-}
+  return TextWidgetEventSerializer(input);
+};
+
+export const TextWidgetLoadedEventDeserializer = (
+  input: unknown
+): ITextWidgetLoadedEvent => {
+  if (!IsSerializedTextWidgetLoadedEvent(input)) {
+    throw new Error(
+      "TextWidgetLoadedEventDeserializer: not a valid TextWidgetLoadedEvent"
+    );
+  }
+  return TextWidgetEventDeserializer(input);
+};

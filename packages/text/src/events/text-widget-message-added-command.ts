@@ -1,52 +1,109 @@
-import { ID, Type, Command, TimeStamp } from "@huckleberryai/core";
+import {
+  ITextWidgetEvent,
+  ISerializedTextWidgetEvent,
+  IsTextWidgetEvent,
+  IsSerializedTextWidgetEvent,
+  TextWidgetEvent,
+  TextWidgetEventSerializer,
+  TextWidgetEventDeserializer,
+} from "./text-widget-event";
+import { TypeName, TypeNameDeserializer, IUUID } from "@huckleberryai/core";
 
-export class TextWidgetMessageAddedCommand extends Command {
-  public message: string;
-  public widgetID: ID;
-  constructor(
-    message: string,
-    widgetID: ID,
-    agentID: ID,
-    originID: ID,
-    corrID?: ID,
-    parentID?: ID
-  ) {
-    super(agentID, originID, corrID, parentID);
-    this.message = message;
-    this.widgetID = widgetID;
-  }
-  public get type() {
-    return TextWidgetMessageAddedCommand.type;
-  }
-  public static get type() {
-    return new Type("TextWidgetMessageAddedCommand");
-  }
-  public toJSON() {
-    return {
-      timestamp: this.timestamp,
-      id: this.id,
-      originID: this.originID,
-      corrID: this.corrID,
-      parentID: this.parentID,
-      contextID: this.contextID,
-      type: this.type,
-      agentID: this.agentID,
-      widgetID: this.widgetID,
-      message: this.message,
-    };
-  }
-  public static fromJSON(json: any): TextWidgetMessageAddedCommand {
-    const command = new TextWidgetMessageAddedCommand(
-      json.message,
-      new ID(json.widgetID),
-      new ID(json.agentID),
-      new ID(json.originID),
-      json.corrID ? new ID(json.corrID) : undefined,
-      json.parentID ? new ID(json.parentID) : undefined
-    );
-    command.id = new ID(json.id);
-    command.timestamp = new TimeStamp(json.timestamp);
-    command.contextID = new ID(json.contextID);
-    return command;
-  }
+export interface ITextWidgetMessageAddedCommand extends ITextWidgetEvent {
+  message: Message;
 }
+
+export interface ISerializedTextWidgetMessageAddedCommand
+  extends ISerializedTextWidgetEvent {
+  message: Message;
+}
+
+export const TextWidgetMessageAddedCommandName = TypeName(
+  "TextWidgetMessageAddedCommand"
+);
+
+type Message = string;
+
+const IsMessage = (input: unknown): input is Message => {
+  return typeof input === "string" && input.trim().length > 2;
+};
+
+export const IsTextWidgetMessageAddedCommand = (
+  input: unknown
+): input is ITextWidgetMessageAddedCommand => {
+  if (!IsTextWidgetEvent(input)) {
+    return false;
+  }
+  // Must have correct TypeName
+  const { type, message } = <ITextWidgetMessageAddedCommand>input;
+  if (type !== TextWidgetMessageAddedCommandName) {
+    return false;
+  }
+  // Must have valid message
+  if (!("message" in input) || !IsMessage(message)) {
+    return false;
+  }
+  return true;
+};
+
+export const IsSerializedTextWidgetMessageAddedCommand = (
+  input: unknown
+): input is ISerializedTextWidgetMessageAddedCommand => {
+  if (!IsSerializedTextWidgetEvent(input)) {
+    return false;
+  }
+
+  // Must have correct TypeName
+  const { type, message } = <ISerializedTextWidgetMessageAddedCommand>input;
+  if (TypeNameDeserializer(type) !== TextWidgetMessageAddedCommandName) {
+    return false;
+  }
+  // Must have valid message
+  if (!("message" in input) || !IsMessage(message)) {
+    return false;
+  }
+  return true;
+};
+
+export const TextWidgetMessageAddedCommand = (
+  message: string,
+  widget: IUUID,
+  origin: IUUID,
+  corr?: IUUID,
+  parent?: IUUID,
+  agent?: IUUID
+): ITextWidgetMessageAddedCommand => {
+  const event = TextWidgetEvent(
+    widget,
+    TextWidgetMessageAddedCommandName,
+    origin,
+    corr,
+    parent,
+    agent
+  );
+  return { ...event, message };
+};
+
+export const TextWidgetMessageAddedCommandSerializer = (
+  input: ITextWidgetMessageAddedCommand
+): ISerializedTextWidgetMessageAddedCommand => {
+  if (!IsTextWidgetMessageAddedCommand(input)) {
+    throw new Error(
+      "TextWidgetMessageAddedCommandSerializer: not a valid TextWidgetMessageAddedCommand"
+    );
+  }
+  const event = TextWidgetEventSerializer(input);
+  return { ...event, message: input.message };
+};
+
+export const TextWidgetMessageAddedCommandDeserializer = (
+  input: unknown
+): ITextWidgetMessageAddedCommand => {
+  if (!IsSerializedTextWidgetMessageAddedCommand(input)) {
+    throw new Error(
+      "TextWidgetMessageAddedCommandDeserializer: not a valid TextWidgetMessageAddedCommand"
+    );
+  }
+  const event = TextWidgetEventDeserializer(input);
+  return { ...event, message: input.message };
+};

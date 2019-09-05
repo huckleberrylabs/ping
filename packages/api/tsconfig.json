@@ -22,7 +22,6 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "lib": ["esnext", "dom"],
-    "types": ["jest", "reflect-metadata"]
-  },
-  "exclude": ["node_modules", "**/*.spec.ts", "./lib"]
+    "types": ["reflect-metadata"]
+  }
 }

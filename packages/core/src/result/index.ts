@@ -1,12 +1,12 @@
 import { IData, ISerializedData } from "../interfaces";
-import { IUUID } from "../uuid";
-import { TypeName } from "../type-name";
+import { IUUID } from "../value-objects/uuid";
+import { TypeName } from "../value-objects/type-name";
 import {
   IStatusCode,
   ISerializedStatusCode,
   IsStatus,
   IsSerializedStatus,
-} from "../status-code";
+} from "../value-objects/status-code";
 import {
   IEvent,
   ISerializedEvent,

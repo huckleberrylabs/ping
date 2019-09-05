@@ -1,47 +1,85 @@
-import { ID, Type, Command, TimeStamp } from "@huckleberryai/core";
+import {
+  ITextWidgetEvent,
+  ISerializedTextWidgetEvent,
+  IsTextWidgetEvent,
+  IsSerializedTextWidgetEvent,
+  TextWidgetEvent,
+  TextWidgetEventSerializer,
+  TextWidgetEventDeserializer,
+} from "./text-widget-event";
+import { TypeName, TypeNameDeserializer, IUUID } from "@huckleberryai/core";
 
-export class TextWidgetOpenedCommand extends Command {
-  public widgetID: ID;
-  constructor(
-    widgetID: ID,
-    agentID: ID,
-    originID: ID,
-    corrID?: ID,
-    parentID?: ID
-  ) {
-    super(agentID, originID, corrID, parentID);
-    this.widgetID = widgetID;
+export interface ITextWidgetOpenedCommand extends ITextWidgetEvent {}
+
+export interface ISerializedTextWidgetOpenedCommand
+  extends ISerializedTextWidgetEvent {}
+
+export const TextWidgetOpenedCommandName = TypeName("TextWidgetOpenedCommand");
+
+export const IsTextWidgetOpenedCommand = (
+  input: unknown
+): input is ITextWidgetOpenedCommand => {
+  if (!IsTextWidgetEvent(input)) {
+    return false;
   }
-  public get type() {
-    return TextWidgetOpenedCommand.type;
+  // Must have correct TypeName
+  const { type } = <ITextWidgetOpenedCommand>input;
+  if (type !== TextWidgetOpenedCommandName) {
+    return false;
   }
-  public static get type() {
-    return new Type("TextWidgetOpenedCommand");
+  return true;
+};
+
+export const IsSerializedTextWidgetOpenedCommand = (
+  input: unknown
+): input is ISerializedTextWidgetOpenedCommand => {
+  if (!IsSerializedTextWidgetEvent(input)) {
+    return false;
   }
-  public toJSON() {
-    return {
-      timestamp: this.timestamp,
-      id: this.id,
-      originID: this.originID,
-      corrID: this.corrID,
-      parentID: this.parentID,
-      contextID: this.contextID,
-      type: this.type,
-      agentID: this.agentID,
-      widgetID: this.widgetID,
-    };
+
+  // Must have correct TypeName
+  const { type } = <ISerializedTextWidgetOpenedCommand>input;
+  if (TypeNameDeserializer(type) !== TextWidgetOpenedCommandName) {
+    return false;
   }
-  public static fromJSON(json: any): TextWidgetOpenedCommand {
-    const command = new TextWidgetOpenedCommand(
-      new ID(json.widgetID),
-      new ID(json.agentID),
-      new ID(json.originID),
-      json.corrID ? new ID(json.corrID) : undefined,
-      json.parentID ? new ID(json.parentID) : undefined
+  return true;
+};
+
+export const TextWidgetOpenedCommand = (
+  widget: IUUID,
+  origin: IUUID,
+  corr?: IUUID,
+  parent?: IUUID,
+  agent?: IUUID
+): ITextWidgetOpenedCommand => {
+  return TextWidgetEvent(
+    widget,
+    TextWidgetOpenedCommandName,
+    origin,
+    corr,
+    parent,
+    agent
+  );
+};
+
+export const TextWidgetOpenedCommandSerializer = (
+  input: ITextWidgetOpenedCommand
+): ISerializedTextWidgetOpenedCommand => {
+  if (!IsTextWidgetOpenedCommand(input)) {
+    throw new Error(
+      "TextWidgetOpenedCommandSerializer: not a valid TextWidgetOpenedCommand"
     );
-    command.id = new ID(json.id);
-    command.timestamp = new TimeStamp(json.timestamp);
-    command.contextID = new ID(json.contextID);
-    return command;
   }
-}
+  return TextWidgetEventSerializer(input);
+};
+
+export const TextWidgetOpenedCommandDeserializer = (
+  input: unknown
+): ITextWidgetOpenedCommand => {
+  if (!IsSerializedTextWidgetOpenedCommand(input)) {
+    throw new Error(
+      "TextWidgetOpenedCommandDeserializer: not a valid TextWidgetOpenedCommand"
+    );
+  }
+  return TextWidgetEventDeserializer(input);
+};

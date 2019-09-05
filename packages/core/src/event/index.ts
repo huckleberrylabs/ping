@@ -9,7 +9,7 @@ import {
   IsSerializedUUID,
   UUIDSerializer,
   UUIDDeserializer,
-} from "../uuid";
+} from "../value-objects/uuid";
 import {
   ITypeName,
   ISerializedTypeName,
@@ -17,7 +17,7 @@ import {
   IsSerializedTypeName,
   TypeNameSerializer,
   TypeNameDeserializer,
-} from "../type-name";
+} from "../value-objects/type-name";
 import {
   ITimeStamp,
   ISerializedTimeStamp,
@@ -26,7 +26,7 @@ import {
   IsSerializedTimeStamp,
   TimeStampSerializer,
   TimeStampDeserializer,
-} from "../timestamp";
+} from "../value-objects/timestamp";
 import { IsNonNullObject } from "../helpers";
 
 export interface IEvent {

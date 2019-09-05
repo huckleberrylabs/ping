@@ -9,14 +9,14 @@ import {
   LogEventDeserializer,
 } from "../log-event";
 import { ENV } from "../env";
-import { IUUID } from "../uuid";
+import { IUUID } from "../value-objects/uuid";
 import {
   ITypeName,
   ISerializedTypeName,
   TypeName,
   TypeNameSerializer,
   TypeNameDeserializer,
-} from "../type-name";
+} from "../value-objects/type-name";
 import { IsNonNullObject } from "../helpers";
 
 export interface ILog {

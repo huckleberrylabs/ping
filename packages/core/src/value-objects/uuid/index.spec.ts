@@ -69,7 +69,6 @@ describe("UUID", () => {
       // symbol
       expect(IsUUID(Symbol("howdy"))).toBeFalsy();
     });
-    expect(true).toBeTruthy();
   });
   describe("IsSerializedUUID", () => {
     test("correctly identifies UUIDs", () => {
@@ -96,7 +95,6 @@ describe("UUID", () => {
       // symbol
       expect(IsSerializedUUID(Symbol("howdy"))).toBeFalsy();
     });
-    expect(true).toBeTruthy();
   });
   describe("UUIDSerializer", () => {
     test("correctly serializes UUIDs", () => {

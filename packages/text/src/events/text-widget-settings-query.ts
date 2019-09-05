@@ -1,47 +1,85 @@
-import { ID, Type, Query, TimeStamp } from "@huckleberryai/core";
+import {
+  ITextWidgetEvent,
+  ISerializedTextWidgetEvent,
+  IsTextWidgetEvent,
+  IsSerializedTextWidgetEvent,
+  TextWidgetEvent,
+  TextWidgetEventSerializer,
+  TextWidgetEventDeserializer,
+} from "./text-widget-event";
+import { TypeName, TypeNameDeserializer, IUUID } from "@huckleberryai/core";
 
-export class TextWidgetSettingsQuery extends Query {
-  public widgetID: ID;
-  constructor(
-    widgetID: ID,
-    agentID: ID,
-    originID: ID,
-    corrID?: ID,
-    parentID?: ID
-  ) {
-    super(agentID, originID, corrID, parentID);
-    this.widgetID = widgetID;
+export interface ITextWidgetSettingsQuery extends ITextWidgetEvent {}
+
+export interface ISerializedTextWidgetSettingsQuery
+  extends ISerializedTextWidgetEvent {}
+
+export const TextWidgetSettingsQueryName = TypeName("TextWidgetSettingsQuery");
+
+export const IsTextWidgetSettingsQuery = (
+  input: unknown
+): input is ITextWidgetSettingsQuery => {
+  if (!IsTextWidgetEvent(input)) {
+    return false;
   }
-  public get type() {
-    return TextWidgetSettingsQuery.type;
+  // Must have correct TypeName
+  const { type } = <ITextWidgetSettingsQuery>input;
+  if (type !== TextWidgetSettingsQueryName) {
+    return false;
   }
-  public static get type() {
-    return new Type("TextWidgetSettingsQuery");
+  return true;
+};
+
+export const IsSerializedTextWidgetSettingsQuery = (
+  input: unknown
+): input is ISerializedTextWidgetSettingsQuery => {
+  if (!IsSerializedTextWidgetEvent(input)) {
+    return false;
   }
-  public toJSON() {
-    return {
-      timestamp: this.timestamp,
-      id: this.id,
-      originID: this.originID,
-      corrID: this.corrID,
-      parentID: this.parentID,
-      contextID: this.contextID,
-      type: this.type,
-      agentID: this.agentID,
-      widgetID: this.widgetID,
-    };
+
+  // Must have correct TypeName
+  const { type } = <ISerializedTextWidgetSettingsQuery>input;
+  if (TypeNameDeserializer(type) !== TextWidgetSettingsQueryName) {
+    return false;
   }
-  public static fromJSON(json: any): TextWidgetSettingsQuery {
-    const query = new TextWidgetSettingsQuery(
-      new ID(json.widgetID),
-      new ID(json.agentID),
-      new ID(json.originID),
-      json.corrID ? new ID(json.corrID) : undefined,
-      json.parentID ? new ID(json.parentID) : undefined
+  return true;
+};
+
+export const TextWidgetSettingsQuery = (
+  widget: IUUID,
+  origin: IUUID,
+  corr?: IUUID,
+  parent?: IUUID,
+  agent?: IUUID
+): ITextWidgetSettingsQuery => {
+  return TextWidgetEvent(
+    widget,
+    TextWidgetSettingsQueryName,
+    origin,
+    corr,
+    parent,
+    agent
+  );
+};
+
+export const TextWidgetSettingsQuerySerializer = (
+  input: ITextWidgetSettingsQuery
+): ISerializedTextWidgetSettingsQuery => {
+  if (!IsTextWidgetSettingsQuery(input)) {
+    throw new Error(
+      "TextWidgetSettingsQuerySerializer: not a valid TextWidgetSettingsQuery"
     );
-    query.id = new ID(json.id);
-    query.timestamp = new TimeStamp(json.timestamp);
-    query.contextID = new ID(json.contextID);
-    return query;
   }
-}
+  return TextWidgetEventSerializer(input);
+};
+
+export const TextWidgetSettingsQueryDeserializer = (
+  input: unknown
+): ITextWidgetSettingsQuery => {
+  if (!IsSerializedTextWidgetSettingsQuery(input)) {
+    throw new Error(
+      "TextWidgetSettingsQueryDeserializer: not a valid TextWidgetSettingsQuery"
+    );
+  }
+  return TextWidgetEventDeserializer(input);
+};

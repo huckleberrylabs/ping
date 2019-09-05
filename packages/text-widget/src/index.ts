@@ -9,7 +9,6 @@ import {
   TextWidgetPhoneAddedCommand,
   TextWidgetNameAddedCommand,
   TextWidgetSentCommand,
-  validateString,
   normalizePhone,
   validatePhone,
   API_ENDPOINT,
@@ -35,6 +34,12 @@ import { postEvent, beaconEvent } from "./api";
 import { generateCSS } from "./css";
 import { generateHTML } from "./html";
 
+function validateString(input: any): boolean {
+  if (input) {
+    return typeof input === "string" && input.trim().length > 0;
+  }
+  return false;
+}
 async function HuckleberryTextWidget() {
   // Send Log on page close
   async function onUnloadEvent() {
