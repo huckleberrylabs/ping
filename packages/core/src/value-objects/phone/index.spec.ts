@@ -1,4 +1,4 @@
-import { getExampleNumber } from "libphonenumber-js";
+import { getExampleNumber, parsePhoneNumber } from "libphonenumber-js";
 import {
   Phone,
   IsPhone,
@@ -6,7 +6,6 @@ import {
   PhoneSerializer,
   PhoneDeserializer,
 } from ".";
-import { parsePhoneNumber } from "libphonenumber-js/min";
 
 const examples = require("libphonenumber-js/examples.mobile.json");
 

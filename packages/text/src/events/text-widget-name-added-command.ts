@@ -15,17 +15,17 @@ import {
   ISerializedPersonName,
   IsPersonName,
   IsSerializedPersonName,
-  PersonNameSerializer
+  PersonNameSerializer,
   PersonNameDeserializer,
 } from "@huckleberryai/core";
 
 export interface ITextWidgetNameAddedCommand extends ITextWidgetEvent {
-  name: string;
+  name: IPersonName;
 }
 
 export interface ISerializedTextWidgetNameAddedCommand
   extends ISerializedTextWidgetEvent {
-  name: string;
+  name: ISerializedPersonName;
 }
 
 export const TextWidgetNameAddedCommandName = TypeName(

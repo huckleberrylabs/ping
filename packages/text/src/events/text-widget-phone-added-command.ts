@@ -15,7 +15,7 @@ import {
   ISerializedPhone,
   IsPhone,
   IsSerializedPhone,
-  PhoneSerializer
+  PhoneSerializer,
   PhoneDeserializer,
 } from "@huckleberryai/core";
 

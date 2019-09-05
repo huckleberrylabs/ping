@@ -19,14 +19,14 @@ import {
   IPhone,
   ISerializedPhone,
   PhoneSerializer,
-  PhoneDeserializer
+  PhoneDeserializer,
 
   // Color
   IColor,
   ISerializedColor,
   Color,
   ColorSerializer,
-  ColorDeserializer
+  ColorDeserializer,
 } from "@huckleberryai/core";
 
 const DEFAULT_MAIN_COLOR = "white";
@@ -93,6 +93,7 @@ export const IsSerializedTextWidgetSettings = (
   if (!hasAllProperties(input)) {
     return false;
   }
+  return true;
 };
 
 export const TextWidgetSettingsName = TypeName("TextWidgetSettings");
@@ -128,7 +129,7 @@ export const TextWidgetSettingsSerializer = (
 export const TextWidgetSettingsDeserializer = (
   input: unknown
 ): ITextWidgetSettings => {
-    if (!IsSerializedTextWidgetSettings(input)) {
+  if (!IsSerializedTextWidgetSettings(input)) {
     throw new Error("TextWidgetSettingsDeserializer: invalid input");
   }
   return {
