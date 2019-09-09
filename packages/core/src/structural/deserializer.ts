@@ -1,4 +1,4 @@
-import { Container } from "inversify";
+import { interfaces } from "inversify";
 import { IResult, Result } from "../entities/result";
 import { UUID } from "../value-objects/uuid";
 import {
@@ -25,7 +25,7 @@ export type IDeserializer<Type> = (input: unknown) => Type;
 
 export const DeserializerName = TypeName("Deserializer");
 
-export const Deserializer = (ioc: Container) => <Type extends IData>(
+export const Deserializer = (ioc: interfaces.Container) => <Type extends IData>(
   serialized: ISerializedData,
   type: ITypeName | ISerializedTypeName
 ): IResult<IData> => {

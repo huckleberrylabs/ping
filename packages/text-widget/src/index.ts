@@ -8,7 +8,7 @@ import {
   PersonName,
 } from "@huckleberryai/core/src/value-objects/person-name";
 import { ColorSerializer } from "@huckleberryai/core/src/value-objects/color";
-import { Log } from "@huckleberryai/core/src/entities/log";
+import { Log } from "@huckleberryai/core/src/structural/log";
 import {
   TextWidgetSettingsQuery,
   TextWidgetLoadedEvent,

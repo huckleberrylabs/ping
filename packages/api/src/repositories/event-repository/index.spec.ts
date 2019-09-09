@@ -1,4 +1,4 @@
-import { IoC } from "../../structural/ioc";
+import { IoC } from "../../structural";
 import { EventRepository } from ".";
 import { Event, UUID, TypeName } from "@huckleberryai/core";
 

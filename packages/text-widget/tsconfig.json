@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./lib",
     "target": "es5",
     "module": "commonjs",
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,

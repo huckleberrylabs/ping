@@ -14,6 +14,7 @@ import {
   EVENTS_ENDPOINT,
 } from "@huckleberryai/text/src/singletons";
 import { serializer } from "./structural";
+import { ErrorName } from "@huckleberryai/core/src/helpers";
 
 export async function postEvent(
   event: IEvent
@@ -29,6 +30,7 @@ export async function postEvent(
     if (!IsResult(res.data)) {
       return Result(
         res.data,
+        ErrorName,
         <IStatusCode>res.status,
         event.origin,
         event.corr,
