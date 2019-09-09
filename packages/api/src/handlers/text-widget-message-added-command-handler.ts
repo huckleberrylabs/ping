@@ -1,25 +1,21 @@
 import {
-  ID,
+  UUID,
   IEventHandler,
-  IEventHandlerStatic,
-  staticImplements,
   Result,
-  StatusCode,
+  IStatusCode,
   INTERNAL_SERVER_ERROR,
   OK,
 } from "@huckleberryai/core";
-import { TextWidgetMessageAddedCommand } from "@huckleberryai/text";
-import { EventRepository } from "../event-repository";
+import { ITextWidgetMessageAddedCommand } from "@huckleberryai/text";
+import { EventRepository } from "../repositories/event-repository";
 import { injectable } from "inversify";
 
 @injectable()
-@staticImplements<IEventHandlerStatic>()
 export class TextWidgetMessageAddedCommandHandler implements IEventHandler {
-  public id = new ID("b23c3273-8629-4f69-9cd3-31b0303b3b5e");
-  public static type = TextWidgetMessageAddedCommand.type;
+  public id = UUID("b23c3273-8629-4f69-9cd3-31b0303b3b5e");
   constructor(private eventRepo: EventRepository) {}
-  async handle(event: TextWidgetMessageAddedCommand) {
-    let status: StatusCode = OK;
+  async handle(event: ITextWidgetMessageAddedCommand) {
+    let status: IStatusCode = OK;
     let data;
     try {
       await this.eventRepo.add(event);
@@ -27,13 +23,6 @@ export class TextWidgetMessageAddedCommandHandler implements IEventHandler {
       data = error.toString();
       status = INTERNAL_SERVER_ERROR;
     }
-    return new Result(
-      data,
-      status,
-      event.type,
-      this.id,
-      event.corrID,
-      event.id
-    );
+    return Result(data, data.type, status, this.id, event.corr, event.id);
   }
 }

@@ -1,57 +1,117 @@
 import { NowRequest } from "@now/node";
-import { Event, ID, Type, TimeStamp } from "@huckleberryai/core";
+import {
+  IEvent,
+  ISerializedEvent,
+  TypeName,
+  IUUID,
+  UUID,
+  Event,
+  IsSerializedUUID,
+  EventSerializer,
+  EventDeserializer,
+  IsEvent,
+  IsSerializedEvent,
+} from "@huckleberryai/core";
 import { IncomingHttpHeaders } from "http2";
 
-export class HTTPAccessEvent extends Event {
-  method?: string;
-  url?: string;
+export interface IHTTPAccessEvent extends IEvent {
+  method: string | null;
+  url: string | null;
   headers: IncomingHttpHeaders;
-  constructor(req: NowRequest, originID: ID) {
-    const corrIDString = req.query["corr_id"];
-    let corrID = undefined;
-    if (typeof corrIDString === "string") {
-      corrID = new ID(corrIDString);
-    }
-    const parentIDString = req.query["parent_id"];
-    let parentID = undefined;
-    if (typeof parentIDString === "string") {
-      parentID = new ID(parentIDString);
-    }
-    super(originID, corrID, parentID);
-    this.method = req.method;
-    this.url = req.url;
-    this.headers = req.headers;
-  }
-  public get type() {
-    return HTTPAccessEvent.type;
-  }
-  public static get type() {
-    return new Type("HTTPAccessEvent");
-  }
-  public toJSON() {
-    return {
-      timestamp: this.timestamp,
-      id: this.id,
-      originID: this.originID,
-      corrID: this.corrID,
-      parentID: this.parentID,
-      contextID: this.contextID,
-      type: this.type,
-      method: this.method,
-      url: this.url,
-      headers: this.headers,
-    };
-  }
-  public static fromJSON(json: any): HTTPAccessEvent {
-    const emulatedReq = json;
-    emulatedReq.query = {
-      corr_id: json.corrID,
-      parent_id: json.parentID,
-    };
-    const event = new HTTPAccessEvent(emulatedReq, new ID(json.originID));
-    event.id = new ID(json.id);
-    event.timestamp = new TimeStamp(json.timestamp);
-    event.contextID = new ID(json.contextID);
-    return event;
-  }
 }
+
+export interface ISerializedHTTPAccessEvent extends ISerializedEvent {
+  method: string | null;
+  url: string | null;
+  headers: IncomingHttpHeaders;
+}
+
+export const HTTPAccessEventName = TypeName("HTTPAccessEvent");
+
+const hasAllProperties = (input: object): boolean => {
+  const hasMethod = "method" in input;
+  const hasURL = "url" in input;
+  const hasHeaders = "headers" in input;
+  return hasMethod && hasURL && hasHeaders;
+};
+
+export const IsHTTPAccessEvent = (
+  input: unknown
+): input is IHTTPAccessEvent => {
+  if (!IsEvent(input)) {
+    return false;
+  }
+  if (!hasAllProperties(input)) {
+    return false;
+  }
+  // TODO: check for correct structure of method, url, headers
+  return true;
+};
+
+export const IsSerializedHTTPAccessEvent = (
+  input: unknown
+): input is ISerializedHTTPAccessEvent => {
+  if (!IsSerializedEvent(input)) {
+    return false;
+  }
+  if (!hasAllProperties(input)) {
+    return false;
+  }
+  // TODO: check for correct structure of method, url, headers
+  return true;
+};
+
+export const HTTPAccessEvent = (
+  req: NowRequest,
+  origin: IUUID
+): IHTTPAccessEvent => {
+  const corrIDString = req.query["corr_id"];
+  let corr = undefined;
+  if (IsSerializedUUID(corrIDString)) {
+    corr = UUID(corrIDString);
+  }
+  const parentIDString = req.query["parent_id"];
+  let parent = undefined;
+  if (IsSerializedUUID(parentIDString)) {
+    parent = UUID(parentIDString);
+  }
+  const event = Event(HTTPAccessEventName, origin, corr, parent);
+  return {
+    ...event,
+    method: req.method ? req.method : null,
+    url: req.url ? req.url : null,
+    headers: req.headers,
+  };
+};
+
+export const HTTPAccessEventSerializer = (
+  input: IHTTPAccessEvent
+): ISerializedHTTPAccessEvent => {
+  if (!IsHTTPAccessEvent(input)) {
+    throw new Error("HTTPAccessEventSerializer: input is not HTTPAccessEvent");
+  }
+  const event = EventSerializer(input);
+  return {
+    ...event,
+    method: input.method,
+    url: input.url,
+    headers: input.headers,
+  };
+};
+
+export const HTTPAccessEventDeserializer = (
+  input: unknown
+): IHTTPAccessEvent => {
+  if (!IsSerializedHTTPAccessEvent(input)) {
+    throw new Error(
+      "HTTPAccessEventDeserializer: input is not SerializedHTTPAccessEvent"
+    );
+  }
+  const event = EventDeserializer(input);
+  return {
+    ...event,
+    method: input.method,
+    url: input.url,
+    headers: input.headers,
+  };
+};

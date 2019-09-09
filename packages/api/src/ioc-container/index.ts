@@ -1,138 +1,76 @@
 import "reflect-metadata";
 import { Container, ContainerModule } from "inversify";
 import {
+  SerializerName,
+  DeserializerName,
+  HandlerName,
+  ISerializer,
+  IDeserializer,
   IEventHandler,
-  IEventStatic,
-  Event,
-  Query,
-  Command,
 } from "@huckleberryai/core";
-import { FireStore } from "../firestore";
-import { TextWidgetSettingsRepository } from "../widget-repository";
-import { EventRepository } from "../event-repository";
+
+// Utilities
+import { FireStore } from "../utilities/firestore";
+
+// Repositories
+import { EventRepository, TextWidgetSettingsRepository } from "../repositories";
+
+// Serializers / Deserializers
 import {
-  HTTPAccessEventHandler,
-  TextWidgetLoadedEventHandler,
-  TextWidgetOpenedCommandHandler,
-  TextWidgetMessageAddedCommandHandler,
-  TextWidgetNameAddedCommandHandler,
-  TextWidgetPhoneAddedCommandHandler,
-  TextWidgetSentCommandHandler,
-  TextWidgetSettingsQueryHandler,
-} from "../handlers";
-import { HTTPAccessEvent } from "../events";
+  IHTTPAccessEvent,
+  ISerializedHTTPAccessEvent,
+  HTTPAccessEventName,
+  HTTPAccessEventSerializer,
+  HTTPAccessEventDeserializer,
+} from "../events";
 import {
-  TextWidgetLoadedEvent,
-  TextWidgetMessageAddedCommand,
-  TextWidgetNameAddedCommand,
-  TextWidgetPhoneAddedCommand,
-  TextWidgetSentCommand,
-  TextWidgetOpenedCommand,
-  TextWidgetSettingsQuery,
+  TextSerializerModule,
+  TextDeserializerModule,
 } from "@huckleberryai/text";
 
-export const DESERIALIZER_NAME = Symbol.for("DESERIALIZER");
-export const HANDLER_NAME = Symbol.for("HANDLER");
+// Handlers
+import { HTTPAccessEventHandler } from "../handlers";
 
-const domainModule = new ContainerModule(bind => {
-  bind<TextWidgetSettingsRepository>(TextWidgetSettingsRepository).toSelf();
-  bind<EventRepository>(EventRepository).toSelf();
-});
-
-const utilityModule = new ContainerModule(bind => {
+const APIUtilitiesModule = new ContainerModule(bind => {
   bind<FireStore>(FireStore)
     .toSelf()
     .inSingletonScope();
 });
 
-const eventModule = new ContainerModule(bind => {
-  // Core Events
-  bind<IEventStatic>(Event.type.toSymbol())
-    .toConstantValue(Event)
-    .whenTargetNamed(DESERIALIZER_NAME);
-  bind<IEventStatic>(Command.type.toSymbol())
-    .toConstantValue(Command)
-    .whenTargetNamed(DESERIALIZER_NAME);
-  bind<IEventStatic>(Query.type.toSymbol())
-    .toConstantValue(Query)
-    .whenTargetNamed(DESERIALIZER_NAME);
-
-  // HTTPAccessEvent
-  bind<IEventStatic>(HTTPAccessEvent.type.toSymbol())
-    .toConstantValue(HTTPAccessEvent)
-    .whenTargetNamed(DESERIALIZER_NAME);
-
-  // TextWidget Events
-
-  // LoadedEvent
-  bind<IEventStatic>(TextWidgetLoadedEvent.type.toSymbol())
-    .toConstantValue(TextWidgetLoadedEvent)
-    .whenTargetNamed(DESERIALIZER_NAME);
-  // OpenedCommand
-  bind<IEventStatic>(TextWidgetOpenedCommand.type.toSymbol())
-    .toConstantValue(TextWidgetOpenedCommand)
-    .whenTargetNamed(DESERIALIZER_NAME);
-  // MessageAddedCommand
-  bind<IEventStatic>(TextWidgetMessageAddedCommand.type.toSymbol())
-    .toConstantValue(TextWidgetMessageAddedCommand)
-    .whenTargetNamed(DESERIALIZER_NAME);
-  // NameAddedCommand
-  bind<IEventStatic>(TextWidgetNameAddedCommand.type.toSymbol())
-    .toConstantValue(TextWidgetNameAddedCommand)
-    .whenTargetNamed(DESERIALIZER_NAME);
-  // PhoneAddedCommand
-  bind<IEventStatic>(TextWidgetPhoneAddedCommand.type.toSymbol())
-    .toConstantValue(TextWidgetPhoneAddedCommand)
-    .whenTargetNamed(DESERIALIZER_NAME);
-  // SentCommand
-  bind<IEventStatic>(TextWidgetSentCommand.type.toSymbol())
-    .toConstantValue(TextWidgetSentCommand)
-    .whenTargetNamed(DESERIALIZER_NAME);
-  // SettingsQuery
-  bind<IEventStatic>(TextWidgetSettingsQuery.type.toSymbol())
-    .toConstantValue(TextWidgetSettingsQuery)
-    .whenTargetNamed(DESERIALIZER_NAME);
+const APIRepositoryModule = new ContainerModule(bind => {
+  bind<TextWidgetSettingsRepository>(TextWidgetSettingsRepository).toSelf();
+  bind<EventRepository>(EventRepository).toSelf();
 });
 
-const handlerModule = new ContainerModule(bind => {
-  // HTTPAccessEvent
-  bind<IEventHandler>(HTTPAccessEventHandler.type.toSymbol())
+const APISerializerModule = new ContainerModule(bind => {
+  bind<ISerializer<IHTTPAccessEvent, ISerializedHTTPAccessEvent>>(
+    HTTPAccessEventName
+  )
+    .toFunction(HTTPAccessEventSerializer)
+    .whenTargetNamed(SerializerName);
+});
+
+const APIDeserializerModule = new ContainerModule(bind => {
+  bind<IDeserializer<IHTTPAccessEvent>>(HTTPAccessEventName)
+    .toFunction(HTTPAccessEventDeserializer)
+    .whenTargetNamed(DeserializerName);
+});
+
+const APIHandlerModule = new ContainerModule(bind => {
+  bind<IEventHandler>(HTTPAccessEventName)
     .to(HTTPAccessEventHandler)
-    .whenTargetNamed(HANDLER_NAME);
-
-  // TextWidget Events
-
-  // LoadedEvent
-  bind<IEventHandler>(TextWidgetLoadedEventHandler.type.toSymbol())
-    .to(TextWidgetLoadedEventHandler)
-    .whenTargetNamed(HANDLER_NAME);
-  // OpenedCommand
-  bind<IEventHandler>(TextWidgetOpenedCommandHandler.type.toSymbol())
-    .to(TextWidgetOpenedCommandHandler)
-    .whenTargetNamed(HANDLER_NAME);
-  // MessageAddedCommand
-  bind<IEventHandler>(TextWidgetMessageAddedCommandHandler.type.toSymbol())
-    .to(TextWidgetMessageAddedCommandHandler)
-    .whenTargetNamed(HANDLER_NAME);
-  // NameAddedCommand
-  bind<IEventHandler>(TextWidgetNameAddedCommandHandler.type.toSymbol())
-    .to(TextWidgetNameAddedCommandHandler)
-    .whenTargetNamed(HANDLER_NAME);
-  // PhoneAddedCommand
-  bind<IEventHandler>(TextWidgetPhoneAddedCommandHandler.type.toSymbol())
-    .to(TextWidgetPhoneAddedCommandHandler)
-    .whenTargetNamed(HANDLER_NAME);
-  // SentCommand
-  bind<IEventHandler>(TextWidgetSentCommandHandler.type.toSymbol())
-    .to(TextWidgetSentCommandHandler)
-    .whenTargetNamed(HANDLER_NAME);
-  // SettingsQuery
-  bind<IEventHandler>(TextWidgetSettingsQueryHandler.type.toSymbol())
-    .to(TextWidgetSettingsQueryHandler)
-    .whenTargetNamed(HANDLER_NAME);
+    .whenTargetNamed(HandlerName);
 });
 
 const IoCContainer = new Container();
-IoCContainer.load(domainModule, utilityModule, eventModule, handlerModule);
+IoCContainer.load(
+  APIRepositoryModule,
+  APIUtilitiesModule,
+  APISerializerModule,
+  APIDeserializerModule,
+  APIHandlerModule,
+  TextSerializerModule,
+  TextDeserializerModule
+);
 
 export { IoCContainer };

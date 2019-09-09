@@ -1,37 +1,37 @@
 import {
-  ID,
+  UUID,
   Result,
   IEventHandler,
-  IEventHandlerStatic,
-  staticImplements,
   OK,
+  NOT_FOUND,
+  ErrorName,
 } from "@huckleberryai/core";
-import { TextWidgetSettingsQuery } from "@huckleberryai/text";
-import { EventRepository } from "../event-repository";
-import { TextWidgetSettingsRepository } from "../widget-repository";
+import { ITextWidgetSettingsQuery } from "@huckleberryai/text";
+import { EventRepository } from "../repositories/event-repository";
+import { TextWidgetSettingsRepository } from "../repositories/widget-repository";
 import { injectable } from "inversify";
 
 @injectable()
-@staticImplements<IEventHandlerStatic>()
 export class TextWidgetSettingsQueryHandler implements IEventHandler {
-  public id = new ID("1aa5921c-68e8-4e30-86ac-40d0ce279796");
-  public static type = TextWidgetSettingsQuery.type;
+  public id = UUID("1aa5921c-68e8-4e30-86ac-40d0ce279796");
   constructor(
     private settingsRepo: TextWidgetSettingsRepository,
     private eventRepo: EventRepository
   ) {}
-  async handle(event: TextWidgetSettingsQuery) {
-    const widgetID = event.widgetID;
+  async handle(event: ITextWidgetSettingsQuery) {
     await this.eventRepo.add(event);
-    const widgetSettings = await this.settingsRepo.getByID(widgetID);
-    const result = new Result(
-      widgetSettings,
-      OK,
-      event.type,
-      this.id,
-      event.corrID,
-      event.id
-    );
-    return result;
+    const widgetSettings = await this.settingsRepo.getByID(event.widget);
+    if (widgetSettings) {
+      return Result(
+        widgetSettings,
+        widgetSettings.type,
+        OK,
+        this.id,
+        event.corr,
+        event.id
+      );
+    } else {
+      return Result(null, ErrorName, NOT_FOUND, this.id, event.corr, event.id);
+    }
   }
 }

@@ -1,64 +1,38 @@
 import axios from "axios";
 import {
+  Serializer,
   IEvent,
   IResult,
   Result,
-  Query,
-  ID,
   ENV,
-  isResult,
-  StatusCode,
-  OK,
+  IsResult,
+  IStatusCode,
+  ResultDeserializer,
+  ISerializedData,
 } from "@huckleberryai/core";
-import {
-  API_ENDPOINT,
-  EVENTS_ENDPOINT,
-  TextWidgetSettings,
-  TextWidgetSettingsQuery,
-} from "@huckleberryai/text";
+import { API_ENDPOINT, EVENTS_ENDPOINT } from "@huckleberryai/text";
 
-export async function postEvent(event: IEvent): Promise<IResult> {
+export async function postEvent(
+  event: IEvent
+): Promise<IResult<ISerializedData>> {
   if (ENV === "development") {
-    if (event instanceof Query) {
-      return new Result(
-        new TextWidgetSettings(""),
-        OK,
-        TextWidgetSettingsQuery.type,
-        new ID(),
-        new ID(),
-        new ID()
-      );
-    } else {
-      return new Result(
-        undefined,
-        OK,
-        event.type,
-        event.originID,
-        event.corrID,
-        event.id
-      );
-    }
+    // TODO: handle Development Mode
+    throw new Error("Not Implemented Yet");
   } else {
     const res = await axios.post(
       API_ENDPOINT + EVENTS_ENDPOINT,
-      JSON.parse(JSON.stringify(event))
+      Serializer(event, event.type)
     );
-    try {
-      if (isResult(res.data)) {
-        return Result.fromJSON(res.data);
-      } else {
-        throw new Error("Not a Result");
-      }
-    } catch (error) {
-      return new Result(
+    if (!IsResult(res.data)) {
+      return Result(
         res.data,
-        <StatusCode>res.status,
-        event.type,
-        event.originID,
-        event.corrID,
+        <IStatusCode>res.status,
+        event.origin,
+        event.corr,
         event.id
       );
     }
+    return ResultDeserializer(res.data);
   }
 }
 

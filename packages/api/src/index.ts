@@ -1,20 +1,24 @@
 import { NowRequest, NowResponse } from "@now/node";
 import {
-  ID,
+  UUID,
   Result,
+  ResultSerializer,
   IEvent,
-  isEvent,
+  IsEvent,
   OK,
   NOT_FOUND,
   INTERNAL_SERVER_ERROR,
+  ErrorName,
+  IsError,
 } from "@huckleberryai/core";
 import { EVENTS_ENDPOINT } from "@huckleberryai/text";
 import { HTTPAccessEvent } from "./events";
-import { deserialize } from "./deserializer";
-import { bus } from "./event-bus";
+import { Serializer } from "./serializer";
+import { Deserializer } from "./deserializer";
+import { EventBus } from "./event-bus";
 
 export default async (req: NowRequest, res: NowResponse) => {
-  const ORIGIN_ID = new ID("c7e384c3-697f-4ccf-a514-d54a452acfac");
+  const ORIGIN_ID = UUID("c7e384c3-697f-4ccf-a514-d54a452acfac");
 
   // Options
 
@@ -29,10 +33,11 @@ export default async (req: NowRequest, res: NowResponse) => {
 
   // HTTP Access Filtering
 
-  const accessEvent = new HTTPAccessEvent(req, ORIGIN_ID);
-  const result = await bus.emit(accessEvent);
-  if (result.isError) {
-    res.status(result.status).send(result);
+  const accessEvent = HTTPAccessEvent(req, ORIGIN_ID);
+  const result = await EventBus(accessEvent);
+  result.data = Serializer(result.data, result.dataType);
+  if (IsError(result.status)) {
+    res.status(result.status).send(ResultSerializer(result));
     return;
   }
 
@@ -48,21 +53,24 @@ export default async (req: NowRequest, res: NowResponse) => {
   if (path === EVENTS_ENDPOINT) {
     let event: IEvent | undefined;
     try {
-      event = deserialize<IEvent>(req.body);
-      const result = await bus.emit(event);
-      res.status(result.status).send(result);
+      event = Deserializer<IEvent>(req.body, req.body.type);
+      const result = await EventBus(event);
+      result.data = Serializer(result.data, result.dataType);
+      res.status(result.status).send(ResultSerializer(result));
     } catch (error) {
-      if (isEvent(event)) {
+      if (IsEvent(event)) {
         res
           .status(INTERNAL_SERVER_ERROR)
           .send(
-            new Result(
-              error.toString,
-              INTERNAL_SERVER_ERROR,
-              event.type,
-              ORIGIN_ID,
-              event.corrID,
-              event.id
+            ResultSerializer(
+              Result(
+                error.toString,
+                ErrorName,
+                INTERNAL_SERVER_ERROR,
+                ORIGIN_ID,
+                event.corr,
+                event.id
+              )
             )
           );
       }

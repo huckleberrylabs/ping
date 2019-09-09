@@ -1,6 +1,4 @@
-import { IResult } from "../result";
 import { CONTEXT_ID } from "../context";
-import { INewable, IData } from "../interfaces";
 import {
   IUUID,
   UUID,
@@ -50,14 +48,6 @@ export interface ISerializedEvent {
   corr: ISerializedUUID;
   parent: ISerializedUUID | null;
   agent: ISerializedUUID | null;
-}
-
-export interface IEventHandlerStatic extends INewable<IEventHandler> {
-  type: ITypeName;
-}
-export interface IEventHandler {
-  id: IUUID;
-  handle(event: IEvent): Promise<IResult<IData>>;
 }
 
 export const IsEvent = (input: unknown): input is IEvent => {

@@ -1,6 +1,14 @@
 import { IData, ISerializedData } from "../interfaces";
 import { IUUID } from "../value-objects/uuid";
-import { TypeName } from "../value-objects/type-name";
+import {
+  TypeName,
+  ITypeName,
+  ISerializedTypeName,
+  IsTypeName,
+  IsSerializedTypeName,
+  TypeNameSerializer,
+  TypeNameDeserializer,
+} from "../value-objects/type-name";
 import {
   IStatusCode,
   ISerializedStatusCode,
@@ -20,16 +28,25 @@ import { IsData, IsSerializedData } from "../helpers";
 
 export interface IResult<Type extends IData> extends IEvent {
   data: Type;
+  dataType: ITypeName;
   status: IStatusCode;
 }
 
 export interface ISerializedResult<Type extends ISerializedData>
   extends ISerializedEvent {
   data: Type;
+  dataType: ISerializedTypeName;
   status: ISerializedStatusCode;
 }
 
 export const ResultName = TypeName("Result");
+
+const hasAllProperties = (input: object): boolean => {
+  const hasData = "data" in input;
+  const hasDataType = "dataType" in input;
+  const hasStatus = "status" in input;
+  return hasData && hasDataType && hasStatus;
+};
 
 export const IsResult = (input: unknown): input is IResult<IData> => {
   // Must be an Event
@@ -40,15 +57,16 @@ export const IsResult = (input: unknown): input is IResult<IData> => {
   if (input.type !== ResultName) {
     return false;
   }
-  // Must have all properties
-  const hasData = "data" in input;
-  const hasStatus = "status" in input;
-  if (!hasData || !hasStatus) {
+  if (!hasAllProperties(input)) {
     return false;
   }
-  const { data, status } = <IResult<IData>>input;
+  const { data, dataType, status } = <IResult<IData>>input;
   // Must have Data
   if (!IsData(data)) {
+    return false;
+  }
+  // Must have Data Type
+  if (!IsTypeName(dataType)) {
     return false;
   }
   // Must have valid Status Code
@@ -69,15 +87,16 @@ export const IsSerializedResult = (
   if (TypeName(input.type) !== ResultName) {
     return false;
   }
-  // Must have all properties
-  const hasData = "data" in input;
-  const hasStatus = "status" in input;
-  if (!hasData || !hasStatus) {
+  if (!hasAllProperties(input)) {
     return false;
   }
-  const { data, status } = <ISerializedResult<ISerializedData>>input;
+  const { data, dataType, status } = <ISerializedResult<ISerializedData>>input;
   // Must have Serialized Data
   if (!IsSerializedData(data)) {
+    return false;
+  }
+  // Must have Data Type
+  if (!IsSerializedTypeName(dataType)) {
     return false;
   }
   // Must have valid Status Code
@@ -89,6 +108,7 @@ export const IsSerializedResult = (
 
 export const Result = <Type extends IData>(
   data: Type,
+  dataType: ITypeName,
   status: IStatusCode,
   origin: IUUID,
   corr?: IUUID,
@@ -98,12 +118,16 @@ export const Result = <Type extends IData>(
   if (!IsData(data)) {
     throw new Error("Invalid Data");
   }
+  if (!IsTypeName(dataType)) {
+    throw new Error("Invalid Data TypeName");
+  }
   if (!IsStatus(status)) {
     throw new Error("Invalid Status");
   }
   const result = {
     ...event,
     data,
+    dataType,
     status,
   };
   return result;
@@ -119,6 +143,7 @@ export const ResultSerializer = <Type extends ISerializedData>(
   const result = {
     ...event,
     data: input.data,
+    dataType: TypeNameSerializer(input.dataType),
     status: input.status,
   };
   return result;
@@ -134,6 +159,7 @@ export const ResultDeserializer = (
   const result = {
     ...event,
     data: input.data,
+    dataType: TypeNameDeserializer(input.dataType),
     status: input.status,
   };
   return result;

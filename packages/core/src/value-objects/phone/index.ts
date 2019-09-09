@@ -17,7 +17,7 @@ Enrich
 import { parsePhoneNumberFromString, PhoneNumber } from "libphonenumber-js/max";
 import { IsNonNullObject } from "../../helpers";
 
-export type IPhone = PhoneNumber;
+export interface IPhone extends PhoneNumber {}
 
 export type ISerializedPhone = string;
 
@@ -59,7 +59,7 @@ export const IsPhone = (input: unknown): input is IPhone => {
   ) {
     return false;
   }
-  if (!(<PhoneNumber>input).isPossible()) {
+  if (!(<IPhone>input).isPossible()) {
     return false;
   }
   return true;

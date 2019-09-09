@@ -21,7 +21,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
-    "lib": ["esnext", "dom"],
-    "types": ["reflect-metadata"]
+    "lib": ["esnext", "dom"]
   }
 }

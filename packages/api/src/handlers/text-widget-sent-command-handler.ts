@@ -1,26 +1,24 @@
 import twilio, { Twilio } from "twilio";
 import {
-  ID,
+  UUID,
   IEventHandler,
-  IEventHandlerStatic,
-  staticImplements,
   Result,
+  ErrorName,
   OK,
   INTERNAL_SERVER_ERROR,
+  PhoneSerializer,
 } from "@huckleberryai/core";
-import { TextWidgetSentCommand } from "@huckleberryai/text";
+import { ITextWidgetSentCommand } from "@huckleberryai/text";
 import { injectable } from "inversify";
-import { EventRepository } from "../event-repository";
-import { TextWidgetSettingsRepository } from "../widget-repository";
-import { MessageAggregator } from "../message-aggregator";
+import { EventRepository } from "../repositories/event-repository";
+import { TextWidgetSettingsRepository } from "../repositories/widget-repository";
+import { TextMessageAggregator } from "@huckleberryai/text";
 
 @injectable()
-@staticImplements<IEventHandlerStatic>()
 export class TextWidgetSentCommandHandler implements IEventHandler {
-  public id = new ID("48b5a544-1f33-48dd-badd-d0c523210004");
+  public id = UUID("48b5a544-1f33-48dd-badd-d0c523210004");
   private twilioPhoneNumber: string;
   private client: Twilio;
-  public static type = TextWidgetSentCommand.type;
   constructor(
     private settingsRepo: TextWidgetSettingsRepository,
     private eventRepo: EventRepository
@@ -34,42 +32,42 @@ export class TextWidgetSentCommandHandler implements IEventHandler {
     this.twilioPhoneNumber = TWILIO_PHONE_NUMBER;
     this.client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
   }
-  async handle(event: TextWidgetSentCommand) {
-    const widgetSettings = await this.settingsRepo.getByID(event.widgetID);
+  async handle(event: ITextWidgetSentCommand) {
+    const widgetSettings = await this.settingsRepo.getByID(event.widget);
     if (!widgetSettings) {
-      return new Result(
-        `Could not retrieve WidgetSettings for ID ${event.widgetID}`,
+      return Result(
+        `Could not retrieve WidgetSettings for ID ${event.widget}`,
+        ErrorName,
         INTERNAL_SERVER_ERROR,
-        event.type,
         this.id,
-        event.corrID,
+        event.corr,
         event.id
       );
     }
 
-    const events = await this.eventRepo.getByCorrID(event.corrID);
+    const events = await this.eventRepo.getByCorrID(event.corr);
     if (!events) {
-      return new Result(
-        `Could not retrieve Events for CorrID ${event.corrID}`,
+      return Result(
+        `Could not retrieve Events for CorrID ${event.corr}`,
+        ErrorName,
         INTERNAL_SERVER_ERROR,
-        event.type,
         this.id,
-        event.corrID,
+        event.corr,
         event.id
       );
     }
 
-    const { name, message, phone } = MessageAggregator(events);
+    const { name, message, phone } = TextMessageAggregator(events);
 
     await this.client.messages.create({
       body: `New Message from ${name}: ${message}
 		\n Reply to them at ${phone}`,
-      to: widgetSettings.phone,
+      to: PhoneSerializer(widgetSettings.phone),
       from: this.twilioPhoneNumber,
     });
 
     await this.eventRepo.add(event);
 
-    return new Result(null, OK, event.type, this.id, event.corrID, event.id);
+    return Result(null, ErrorName, OK, this.id, event.corr, event.id);
   }
 }
