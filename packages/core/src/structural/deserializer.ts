@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import { IResult, Result } from "../result";
+import { IResult, Result } from "../entities/result";
 import { UUID } from "../value-objects/uuid";
 import {
   OK,

@@ -1,5 +1,5 @@
 import { Container } from "inversify";
-import { IResult, Result } from "../result";
+import { IResult, Result } from "../entities/result";
 import { UUID, TypeName, INTERNAL_SERVER_ERROR, IData } from "../value-objects";
 import { IEvent, IEventHandler } from "../entities/event";
 

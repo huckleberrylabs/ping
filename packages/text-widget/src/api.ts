@@ -4,15 +4,16 @@ import {
   Result,
   IsResult,
   ResultDeserializer,
-} from "@huckleberryai/core/src/result";
-import { IEvent } from "@huckleberryai/core/src/event";
+} from "@huckleberryai/core/src/entities/result";
+import { IEvent } from "@huckleberryai/core/src/entities/event";
 import { ISerializedData } from "@huckleberryai/core/src/value-objects/data";
 import { IStatusCode } from "@huckleberryai/core/src/value-objects/status-code";
-import { ENV } from "@huckleberryai/core/src/env";
+import { ENV } from "@huckleberryai/core/src/singletons/env";
 import {
   API_ENDPOINT,
   EVENTS_ENDPOINT,
 } from "@huckleberryai/text/src/singletons";
+import { serializer } from "./structural";
 
 export async function postEvent(
   event: IEvent

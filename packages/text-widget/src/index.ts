@@ -8,7 +8,7 @@ import {
   PersonName,
 } from "@huckleberryai/core/src/value-objects/person-name";
 import { ColorSerializer } from "@huckleberryai/core/src/value-objects/color";
-import { Log } from "@huckleberryai/core/src/log";
+import { Log } from "@huckleberryai/core/src/entities/log";
 import {
   TextWidgetSettingsQuery,
   TextWidgetLoadedEvent,
@@ -22,7 +22,7 @@ import {
 import {
   API_ENDPOINT,
   EVENTS_ENDPOINT,
-} from "@huckleberryai/text/src/endpoints";
+} from "@huckleberryai/text/src/singletons";
 import {
   ITextWidgetSettings,
   TextWidgetSettingsDeserializer,
