@@ -1,4 +1,9 @@
 import {
+  TypeName,
+  TypeNameDeserializer,
+} from "@huckleberryai/core/src/value-objects/type-name";
+import { IUUID } from "@huckleberryai/core/src/value-objects/uuid";
+import {
   ITextWidgetEvent,
   ISerializedTextWidgetEvent,
   IsTextWidgetEvent,
@@ -7,7 +12,6 @@ import {
   TextWidgetEventSerializer,
   TextWidgetEventDeserializer,
 } from "./text-widget-event";
-import { TypeName, TypeNameDeserializer, IUUID } from "@huckleberryai/core";
 
 export interface ITextWidgetMessageAddedCommand extends ITextWidgetEvent {
   message: Message;

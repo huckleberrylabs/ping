@@ -1,5 +1,10 @@
-import { IData, ISerializedData } from "../interfaces";
-import { IUUID } from "../value-objects/uuid";
+import {
+  IData,
+  ISerializedData,
+  IsData,
+  IsSerializedData,
+} from "../../value-objects/data";
+import { IUUID } from "../../value-objects/uuid";
 import {
   TypeName,
   ITypeName,
@@ -8,13 +13,13 @@ import {
   IsSerializedTypeName,
   TypeNameSerializer,
   TypeNameDeserializer,
-} from "../value-objects/type-name";
+} from "../../value-objects/type-name";
 import {
   IStatusCode,
   ISerializedStatusCode,
   IsStatus,
   IsSerializedStatus,
-} from "../value-objects/status-code";
+} from "../../value-objects/status-code";
 import {
   IEvent,
   ISerializedEvent,
@@ -24,7 +29,6 @@ import {
   EventSerializer,
   EventDeserializer,
 } from "../event";
-import { IsData, IsSerializedData } from "../helpers";
 
 export interface IResult<Type extends IData> extends IEvent {
   data: Type;

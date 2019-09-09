@@ -1,16 +1,18 @@
 import axios from "axios";
 import {
-  Serializer,
-  IEvent,
   IResult,
   Result,
-  ENV,
   IsResult,
-  IStatusCode,
   ResultDeserializer,
-  ISerializedData,
-} from "@huckleberryai/core";
-import { API_ENDPOINT, EVENTS_ENDPOINT } from "@huckleberryai/text";
+} from "@huckleberryai/core/src/result";
+import { IEvent } from "@huckleberryai/core/src/event";
+import { ISerializedData } from "@huckleberryai/core/src/value-objects/data";
+import { IStatusCode } from "@huckleberryai/core/src/value-objects/status-code";
+import { ENV } from "@huckleberryai/core/src/env";
+import {
+  API_ENDPOINT,
+  EVENTS_ENDPOINT,
+} from "@huckleberryai/text/src/singletons";
 
 export async function postEvent(
   event: IEvent
@@ -21,7 +23,7 @@ export async function postEvent(
   } else {
     const res = await axios.post(
       API_ENDPOINT + EVENTS_ENDPOINT,
-      Serializer(event, event.type)
+      serializer(event, event.type)
     );
     if (!IsResult(res.data)) {
       return Result(

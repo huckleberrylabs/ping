@@ -7,17 +7,17 @@ import {
   IsSerializedLogEvent,
   LogEventSerializer,
   LogEventDeserializer,
-} from "../log-event";
-import { ENV } from "../env";
-import { IUUID } from "../value-objects/uuid";
+} from "../../entities/log-event";
+import { ENV } from "../../singletons/env";
+import { IUUID } from "../../value-objects/uuid";
 import {
   ITypeName,
   ISerializedTypeName,
   TypeName,
   TypeNameSerializer,
   TypeNameDeserializer,
-} from "../value-objects/type-name";
-import { IsNonNullObject } from "../helpers";
+} from "../../value-objects/type-name";
+import { IsNonNullObject } from "../../helpers";
 
 export interface ILog {
   type: ITypeName;

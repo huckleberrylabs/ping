@@ -1,24 +1,30 @@
 import {
   TypeName,
   TypeNameDeserializer,
+} from "@huckleberryai/core/src/value-objects/type-name";
+import {
   IUUID,
-  ILog,
-  ISerializedLog,
   ISerializedUUID,
+  IsUUID,
+  IsSerializedUUID,
+  UUIDSerializer,
+  UUIDDeserializer,
+} from "@huckleberryai/core/src/value-objects/uuid";
+import {
   IEvent,
   ISerializedEvent,
   IsEvent,
-  IsUUID,
   IsSerializedEvent,
-  IsSerializedUUID,
   Event,
   EventSerializer,
-  UUIDSerializer,
-  LogSerializer,
   EventDeserializer,
-  UUIDDeserializer,
+} from "@huckleberryai/core/src/entities/event";
+import {
+  ILog,
+  ISerializedLog,
+  LogSerializer,
   LogDeserializer,
-} from "@huckleberryai/core";
+} from "@huckleberryai/core/src/structural/log";
 
 export interface ITextWidgetUnloadedEvent extends IEvent {
   log: ILog;

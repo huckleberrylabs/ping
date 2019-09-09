@@ -1,4 +1,5 @@
-import { CONTEXT_ID } from "../context";
+import { IsNonNullObject } from "../../helpers";
+import { CONTEXT_ID } from "../../singletons";
 import {
   IUUID,
   UUID,
@@ -7,7 +8,7 @@ import {
   IsSerializedUUID,
   UUIDSerializer,
   UUIDDeserializer,
-} from "../value-objects/uuid";
+} from "../../value-objects/uuid";
 import {
   ITypeName,
   ISerializedTypeName,
@@ -15,7 +16,7 @@ import {
   IsSerializedTypeName,
   TypeNameSerializer,
   TypeNameDeserializer,
-} from "../value-objects/type-name";
+} from "../../value-objects/type-name";
 import {
   ITimeStamp,
   ISerializedTimeStamp,
@@ -24,8 +25,9 @@ import {
   IsSerializedTimeStamp,
   TimeStampSerializer,
   TimeStampDeserializer,
-} from "../value-objects/timestamp";
-import { IsNonNullObject } from "../helpers";
+} from "../../value-objects/timestamp";
+import { IData } from "../../value-objects/data";
+import { IResult } from "../result";
 
 export interface IEvent {
   type: ITypeName;
@@ -48,6 +50,11 @@ export interface ISerializedEvent {
   corr: ISerializedUUID;
   parent: ISerializedUUID | null;
   agent: ISerializedUUID | null;
+}
+
+export interface IEventHandler {
+  id: IUUID;
+  handle(event: IEvent): Promise<IResult<IData>>;
 }
 
 export const IsEvent = (input: unknown): input is IEvent => {

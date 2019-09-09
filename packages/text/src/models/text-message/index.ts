@@ -1,4 +1,5 @@
-import { IPersonName, IPhone } from "@huckleberryai/core";
+import { IPersonName } from "@huckleberryai/core/src/value-objects/person-name";
+import { IPhone } from "@huckleberryai/core/src/value-objects/phone";
 import {
   IsTextWidgetMessageAddedCommand,
   IsTextWidgetNameAddedCommand,

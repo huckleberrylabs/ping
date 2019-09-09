@@ -1,4 +1,17 @@
 import {
+  TypeName,
+  TypeNameDeserializer,
+} from "@huckleberryai/core/src/value-objects/type-name";
+import { IUUID } from "@huckleberryai/core/src/value-objects/uuid";
+import {
+  IPhone,
+  ISerializedPhone,
+  IsPhone,
+  IsSerializedPhone,
+  PhoneSerializer,
+  PhoneDeserializer,
+} from "@huckleberryai/core/src/value-objects/phone";
+import {
   ITextWidgetEvent,
   ISerializedTextWidgetEvent,
   IsTextWidgetEvent,
@@ -7,17 +20,6 @@ import {
   TextWidgetEventSerializer,
   TextWidgetEventDeserializer,
 } from "./text-widget-event";
-import {
-  TypeName,
-  TypeNameDeserializer,
-  IUUID,
-  IPhone,
-  ISerializedPhone,
-  IsPhone,
-  IsSerializedPhone,
-  PhoneSerializer,
-  PhoneDeserializer,
-} from "@huckleberryai/core";
 
 export interface ITextWidgetPhoneAddedCommand extends ITextWidgetEvent {
   phone: IPhone;

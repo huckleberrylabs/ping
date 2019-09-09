@@ -1,12 +1,11 @@
 import { Container } from "inversify";
 import { IResult, Result } from "../result";
-import { IData, IEventHandler } from "../interfaces";
-import { UUID, TypeName, INTERNAL_SERVER_ERROR } from "../value-objects";
-import { IEvent } from "../event";
+import { UUID, TypeName, INTERNAL_SERVER_ERROR, IData } from "../value-objects";
+import { IEvent, IEventHandler } from "../entities/event";
 
 export const HandlerName = TypeName("Handler");
 
-export const EventBusFactory = (ioc: Container) => async (
+export const Bus = (ioc: Container) => async (
   event: IEvent
 ): Promise<IResult<IData>> => {
   const ORIGIN_ID = UUID("81e59010-9e0b-41b2-b621-7f98248db456");

@@ -1,4 +1,4 @@
-import { IUUID } from "../value-objects/uuid";
+import { IUUID } from "../../value-objects/uuid";
 import {
   Event,
   IsEvent,
@@ -8,7 +8,7 @@ import {
   EventSerializer,
   EventDeserializer,
 } from "../event";
-import { TypeName, TypeNameDeserializer } from "../value-objects/type-name";
+import { TypeName, TypeNameDeserializer } from "../../value-objects/type-name";
 
 export type LOG_LEVELS = "critical" | "error" | "debug" | "info";
 

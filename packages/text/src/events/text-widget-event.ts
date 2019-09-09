@@ -1,3 +1,12 @@
+import { ITypeName } from "@huckleberryai/core/src/value-objects/type-name";
+import {
+  IUUID,
+  ISerializedUUID,
+  IsUUID,
+  IsSerializedUUID,
+  UUIDDeserializer,
+  UUIDSerializer,
+} from "@huckleberryai/core/src/value-objects/uuid";
 import {
   IEvent,
   ISerializedEvent,
@@ -6,14 +15,7 @@ import {
   IsSerializedEvent,
   EventSerializer,
   EventDeserializer,
-  IUUID,
-  ISerializedUUID,
-  IsUUID,
-  IsSerializedUUID,
-  UUIDSerializer,
-  UUIDDeserializer,
-  ITypeName,
-} from "@huckleberryai/core";
+} from "@huckleberryai/core/src/entities/event";
 
 export interface ITextWidgetEvent extends IEvent {
   widget: IUUID;

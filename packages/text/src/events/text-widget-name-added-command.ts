@@ -1,4 +1,17 @@
 import {
+  TypeName,
+  TypeNameDeserializer,
+} from "@huckleberryai/core/src/value-objects/type-name";
+import { IUUID } from "@huckleberryai/core/src/value-objects/uuid";
+import {
+  IPersonName,
+  ISerializedPersonName,
+  IsPersonName,
+  IsSerializedPersonName,
+  PersonNameSerializer,
+  PersonNameDeserializer,
+} from "@huckleberryai/core/src/value-objects/person-name";
+import {
   ITextWidgetEvent,
   ISerializedTextWidgetEvent,
   IsTextWidgetEvent,
@@ -7,17 +20,6 @@ import {
   TextWidgetEventSerializer,
   TextWidgetEventDeserializer,
 } from "./text-widget-event";
-import {
-  TypeName,
-  TypeNameDeserializer,
-  IUUID,
-  IPersonName,
-  ISerializedPersonName,
-  IsPersonName,
-  IsSerializedPersonName,
-  PersonNameSerializer,
-  PersonNameDeserializer,
-} from "@huckleberryai/core";
 
 export interface ITextWidgetNameAddedCommand extends ITextWidgetEvent {
   name: IPersonName;

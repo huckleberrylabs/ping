@@ -62,8 +62,8 @@ const APIHandlerModule = new ContainerModule(bind => {
     .whenTargetNamed(HandlerName);
 });
 
-const IoCContainer = new Container();
-IoCContainer.load(
+const IoC = new Container();
+IoC.load(
   APIRepositoryModule,
   APIUtilitiesModule,
   APISerializerModule,
@@ -73,4 +73,4 @@ IoCContainer.load(
   TextDeserializerModule
 );
 
-export { IoCContainer };
+export { IoC };

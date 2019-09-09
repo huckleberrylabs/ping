@@ -1,13 +1,14 @@
+import { IUUID, UUID } from "@huckleberryai/core/src/value-objects/uuid";
 import {
-  Log,
-  IUUID,
-  UUID,
   IsSerializedPhone,
   Phone,
+} from "@huckleberryai/core/src/value-objects/phone";
+import {
   IsSerializedPersonName,
   PersonName,
-  ColorSerializer,
-} from "@huckleberryai/core";
+} from "@huckleberryai/core/src/value-objects/person-name";
+import { ColorSerializer } from "@huckleberryai/core/src/value-objects/color";
+import { Log } from "@huckleberryai/core/src/log";
 import {
   TextWidgetSettingsQuery,
   TextWidgetLoadedEvent,
@@ -17,11 +18,15 @@ import {
   TextWidgetPhoneAddedCommand,
   TextWidgetNameAddedCommand,
   TextWidgetSentCommand,
+} from "@huckleberryai/text/src/events";
+import {
   API_ENDPOINT,
   EVENTS_ENDPOINT,
+} from "@huckleberryai/text/src/endpoints";
+import {
   ITextWidgetSettings,
   TextWidgetSettingsDeserializer,
-} from "@huckleberryai/text";
+} from "@huckleberryai/text/src/models/text-widget-settings";
 import {
   CSS_ID,
   INSERT_SCRIPT_ID,
@@ -37,17 +42,11 @@ import {
   ERROR_ID,
   LOADER_ID,
 } from "./element-ids";
-import { getElementById } from "./helpers";
+import { getElementById, validateString } from "./helpers";
 import { postEvent, beaconEvent } from "./api";
 import { generateCSS } from "./css";
 import { generateHTML } from "./html";
 
-function validateString(input: any): boolean {
-  if (input) {
-    return typeof input === "string" && input.trim().length > 0;
-  }
-  return false;
-}
 async function HuckleberryTextWidget() {
   // Send Log on page close
   async function onUnloadEvent() {

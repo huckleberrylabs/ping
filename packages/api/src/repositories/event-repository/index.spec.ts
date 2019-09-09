@@ -1,11 +1,11 @@
-import { IoCContainer } from "../../ioc-container";
+import { IoC } from "../../structural/ioc";
 import { EventRepository } from ".";
 import { Event, UUID, TypeName } from "@huckleberryai/core";
 
 describe("FireStore", () => {
   test("it initializes correctly", async () => {
     if (process.env.GCLOUD_CREDENTIALS) {
-      const repo = IoCContainer.get(EventRepository);
+      const repo = IoC.get(EventRepository);
       const ORIGIN_ID = UUID();
       const event = Event(TypeName("TestEvent"), ORIGIN_ID);
       await repo.add(event);

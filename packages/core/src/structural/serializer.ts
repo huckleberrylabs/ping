@@ -1,6 +1,5 @@
 import { Container } from "inversify";
-import { ISerializer, IData, ISerializedData } from "../interfaces";
-import { IResult, Result } from "../result";
+import { IData, ISerializedData, IsData } from "../value-objects/data";
 import { UUID } from "../value-objects/uuid";
 import {
   OK,
@@ -8,11 +7,13 @@ import {
   INTERNAL_SERVER_ERROR,
 } from "../value-objects/status-code";
 import { TypeName, ITypeName, IsTypeName } from "../value-objects/type-name";
-import { IsData } from "../helpers";
+import { IResult, Result } from "../entities/result";
+
+export type ISerializer<Type, SerializedType> = (input: Type) => SerializedType;
 
 export const SerializerName = TypeName("Serializer");
 
-export const SerializerFactory = (ioc: Container) => <Type extends IData>(
+export const Serializer = (ioc: Container) => <Type extends IData>(
   data: Type,
   type: ITypeName
 ): IResult<ISerializedData> => {

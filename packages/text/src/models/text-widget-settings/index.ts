@@ -1,34 +1,32 @@
+import "@huckleberryai/core/node_modules/libphonenumber-js/types";
+import { IsNonNullObject } from "@huckleberryai/core/src/helpers";
 import {
-  IsNonNullObject,
-
-  // UUID
   IUUID,
   ISerializedUUID,
   UUID,
   UUIDSerializer,
   UUIDDeserializer,
-
-  // TypeName
+} from "@huckleberryai/core/src/value-objects/uuid";
+import {
   ITypeName,
   ISerializedTypeName,
   TypeName,
   TypeNameSerializer,
   TypeNameDeserializer,
-
-  // Phone
+} from "@huckleberryai/core/src/value-objects/type-name";
+import {
   IPhone,
   ISerializedPhone,
   PhoneSerializer,
   PhoneDeserializer,
-
-  // Color
+} from "@huckleberryai/core/src/value-objects/phone";
+import {
   IColor,
   ISerializedColor,
   Color,
   ColorSerializer,
   ColorDeserializer,
-} from "@huckleberryai/core";
-import "@huckleberryai/core/node_modules/libphonenumber-js/types";
+} from "@huckleberryai/core/src/value-objects/color";
 
 const DEFAULT_MAIN_COLOR = "white";
 const DEFAULT_ACCENT_COLOR = "#1e73be";

@@ -1,10 +1,13 @@
 import { ContainerModule } from "inversify";
 import {
-  SerializerName,
-  DeserializerName,
   ISerializer,
+  SerializerName,
+} from "@huckleberryai/core/src/structural/serializer";
+
+import {
   IDeserializer,
-} from "@huckleberryai/core";
+  DeserializerName,
+} from "@huckleberryai/core/src/structural/deserializer";
 
 import {
   ITextWidgetLoadedEvent,

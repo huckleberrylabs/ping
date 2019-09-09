@@ -13,9 +13,7 @@ import {
 } from "@huckleberryai/core";
 import { EVENTS_ENDPOINT } from "@huckleberryai/text";
 import { HTTPAccessEvent } from "./events";
-import { Serializer } from "./serializer";
-import { Deserializer } from "./deserializer";
-import { EventBus } from "./event-bus";
+import { serializer, deserializer, bus } from "./structural";
 
 export default async (req: NowRequest, res: NowResponse) => {
   const ORIGIN_ID = UUID("c7e384c3-697f-4ccf-a514-d54a452acfac");
@@ -34,8 +32,8 @@ export default async (req: NowRequest, res: NowResponse) => {
   // HTTP Access Filtering
 
   const accessEvent = HTTPAccessEvent(req, ORIGIN_ID);
-  const result = await EventBus(accessEvent);
-  result.data = Serializer(result.data, result.dataType);
+  const result = await bus(accessEvent);
+  result.data = serializer(result.data, result.dataType);
   if (IsError(result.status)) {
     res.status(result.status).send(ResultSerializer(result));
     return;
@@ -53,9 +51,9 @@ export default async (req: NowRequest, res: NowResponse) => {
   if (path === EVENTS_ENDPOINT) {
     let event: IEvent | undefined;
     try {
-      event = Deserializer<IEvent>(req.body, req.body.type);
-      const result = await EventBus(event);
-      result.data = Serializer(result.data, result.dataType);
+      event = deserializer<IEvent>(req.body, req.body.type);
+      const result = await bus(event);
+      result.data = serializer(result.data, result.dataType);
       res.status(result.status).send(ResultSerializer(result));
     } catch (error) {
       if (IsEvent(event)) {

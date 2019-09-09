@@ -1,8 +1,7 @@
 import { injectable } from "inversify";
 import { FireStore } from "../../utilities/firestore";
 import { IUUID, UUIDSerializer, IEvent } from "@huckleberryai/core";
-import { Serializer } from "../../serializer";
-import { Deserializer } from "../../deserializer";
+import { serializer, deserializer } from "../../structural";
 
 @injectable()
 export class EventRepository {
@@ -10,7 +9,7 @@ export class EventRepository {
   async add(event: IEvent): Promise<void> {
     const collection = this.dataStore.store.collection("events");
     const docRef = collection.doc(UUIDSerializer(event.id));
-    const json = Serializer(event, event.type);
+    const json = serializer(event, event.type);
     await docRef.set(json);
   }
   async getByID(id: IUUID): Promise<IEvent | null> {
@@ -19,7 +18,7 @@ export class EventRepository {
     const doc = await docRef.get();
     const json = doc.data();
     if (json) {
-      return Deserializer(json, json.type);
+      return deserializer(json, json.type);
     }
     return null;
   }
@@ -33,7 +32,7 @@ export class EventRepository {
       return null;
     } else {
       return queryRef.docs.map(doc =>
-        Deserializer(doc.data(), doc.data().type)
+        deserializer(doc.data(), doc.data().type)
       );
     }
   }
