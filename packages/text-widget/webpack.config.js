@@ -2,8 +2,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const JavaScriptObfuscator = require("webpack-obfuscator");
 
-console.log(process.env.NODE_ENV);
-
 const WIDGET_ID = process.env.WIDGET_ID;
 const BROWSER_ENV = process.env.NODE_ENV;
 

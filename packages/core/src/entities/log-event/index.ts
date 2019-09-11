@@ -13,7 +13,7 @@ import { TypeName, TypeNameDeserializer } from "../../value-objects/type-name";
 
 export type LOG_LEVELS = "critical" | "error" | "debug" | "info";
 
-export type LOG_LABELS = LOG_LEVELS | "text";
+export type LOG_LABELS = LOG_LEVELS | "text" | "core";
 
 const LogLabels = ["critical", "error", "debug", "info", "text"];
 

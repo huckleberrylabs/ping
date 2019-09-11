@@ -8,7 +8,7 @@ import {
   LogEventSerializer,
   LogEventDeserializer,
 } from "../../entities/log-event";
-import { ENV } from "../../singletons/env";
+import { ENV } from "../env";
 import { IUUID } from "../../value-objects/uuid";
 import { IMessage } from "../../value-objects/message";
 import {
@@ -124,7 +124,7 @@ export const Log = (): ILog => {
       parent?: IUUID
     ): void {
       const event = LogEvent(message, labels, origin, corr, parent);
-      if (ENV === "development") {
+      if (ENV === "development" || ENV === "staging") {
         console.log(event.timestamp.toString(), event.labels, event.message);
       }
       this.log.push(event);
@@ -152,3 +152,5 @@ export const LogDeserializer = (input: unknown): ILog => {
   log.log = input.log.map(logEvent => LogEventDeserializer(logEvent));
   return log;
 };
+
+export const log = Log();

@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script
+      src="staging_fake_file.js?env=<%= htmlWebpackPlugin.options.env %>"
+      id="huckleberry-core-env-script"
+    ></script>
+    <script
       src="staging_fake_file.js?widget_id=<%= htmlWebpackPlugin.options.widget_id %>"
       id="huckleberry-text-insert-script"
     ></script>

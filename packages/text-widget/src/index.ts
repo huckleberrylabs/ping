@@ -7,8 +7,8 @@ import {
   IsSerializedPersonName,
   PersonName,
   ColorSerializer,
-  Log,
   IsError,
+  log,
 } from "@huckleberryai/core";
 import {
   TextWidgetSettingsQuery,
@@ -62,7 +62,6 @@ async function HuckleberryTextWidget() {
   const ORIGIN_ID = UUID("02553494-2ee2-43fb-b7e5-826ea0281883");
   const AGENT_ID = UUID();
   const CORR_ID = UUID();
-  const log = Log();
 
   const textWidgetLoadedEvent = TextWidgetLoadedEvent(
     UUID(), // chicken and egg problem between PARENT_ID and WIDGET_ID
