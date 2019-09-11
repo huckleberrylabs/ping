@@ -2,7 +2,7 @@ import { RUNTIME } from "../runtime";
 import { log } from "../log";
 import { UUID } from "../../value-objects";
 
-type IENV = "development" | "staging" | "production";
+type IENV = "development" | "test" | "staging" | "production";
 
 // default to development
 let ENV: IENV = "development";

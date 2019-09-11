@@ -124,7 +124,7 @@ export const Log = (): ILog => {
       parent?: IUUID
     ): void {
       const event = LogEvent(message, labels, origin, corr, parent);
-      if (ENV === "development" || ENV === "staging") {
+      if (ENV === "development" || ENV === "test" || ENV === "staging") {
         console.log(event.timestamp.toString(), event.labels, event.message);
       }
       this.log.push(event);
