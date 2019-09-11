@@ -1,3 +1,13 @@
 type IENV = "production" | "development";
 
-export const ENV: IENV = "development";
+let ENV: IENV = "development";
+
+if (process && process.env && process.env.NODE_ENV) {
+  // API
+  ENV = <IENV>process.env.NODE_ENV;
+} else {
+  // Browser
+  ENV = "production";
+}
+
+export { ENV };

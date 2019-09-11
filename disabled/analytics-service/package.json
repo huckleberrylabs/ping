@@ -49,8 +49,8 @@
   },
   "dependencies": {
     "typescript": "^3.5.3",
-    "@huckleberry/core": "file:../core",
-    "@huckleberry/analytics": "file:../analytics"
+    "@huckleberry/core": "@huckleberryai/core",
+    "@huckleberry/analytics": "@huckleberryai/analytics"
   },
   "devDependencies": {
     "@types/jest": "^24.0.16",
