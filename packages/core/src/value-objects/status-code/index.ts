@@ -27,11 +27,6 @@ export const IsStatus = (input: unknown): input is IStatusCode => {
 
 export const IsSerializedStatus = IsStatus;
 
-export const IsSuccess = (input: IStatusCode): boolean =>
-  input <= 299 && input >= 200;
-
-export const IsError = (input: IStatusCode): boolean => !IsSuccess(input);
-
 /*
 type HTTPStatusCodesMap = typeof HTTPStatusCodes;
 export type HttpStatusCode = Extract<

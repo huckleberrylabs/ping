@@ -6,15 +6,6 @@ export interface WithType {
   type: ITypeName;
 }
 
-export const TypeName = (name: string): ITypeName => {
-  if (!IsSerializedTypeName(name)) {
-    throw new Error("TypeName Constructor: non-empty string must be provided");
-  }
-  return Symbol.for(name);
-};
-
-export const TypeNameName = TypeName("Type");
-
 export const IsTypeName = (input: unknown): input is ITypeName => {
   // Must be symbol
   if (typeof input !== "symbol") {
@@ -40,6 +31,15 @@ export const IsSerializedTypeName = (
   }
   return true;
 };
+
+export const TypeName = (name: string): ITypeName => {
+  if (!IsSerializedTypeName(name)) {
+    throw new Error("TypeName Constructor: non-empty string must be provided");
+  }
+  return Symbol.for(name);
+};
+
+export const TypeNameName = TypeName("Type");
 
 export const TypeNameSerializer = (input: ITypeName): ISerializedTypeName => {
   if (IsTypeName(input)) {
