@@ -1,13 +1,15 @@
-type IENV = "production" | "development";
+import { RUNTIME } from "../runtime";
 
+type IENV = "development" | "staging" | "production";
+
+// default to development
 let ENV: IENV = "development";
 
-if (process && process.env && process.env.NODE_ENV) {
-  // API
+if (RUNTIME === "node") {
   ENV = <IENV>process.env.NODE_ENV;
+} else if (RUNTIME === "browser") {
 } else {
-  // Browser
-  ENV = "production";
+  throw new Error("runtime is unknown");
 }
 
 export { ENV };

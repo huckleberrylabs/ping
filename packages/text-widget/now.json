@@ -16,7 +16,7 @@
   "build": {
     "env": {
       "NPM_TOKEN": "@npm-token",
-      "DEMO_WIDGET_ID": "@demo-widget-id"
+      "WIDGET_ID": "@widget-id"
     }
   }
 }

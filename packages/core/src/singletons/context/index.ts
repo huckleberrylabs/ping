@@ -1,13 +1,16 @@
 import { IUUID, UUID } from "../../value-objects/uuid";
+import { ENV } from "../env";
 
 let CONTEXT_ID: IUUID;
 
-if (process && process.env && process.env.CONTEXT_ID) {
-  // API
-  CONTEXT_ID = UUID(process.env.CONTEXT_ID);
+if (ENV === "development") {
+  CONTEXT_ID = UUID("64b265e6-f69a-4dea-8cab-693a06a5c554");
+} else if (ENV === "staging") {
+  CONTEXT_ID = UUID("645d5709-2b56-4764-88c5-62bc41e01a27");
+} else if (ENV === "production") {
+  CONTEXT_ID = UUID("57bc81af-49d6-409a-9aaa-a64e10dea4c5");
 } else {
-  // Browser
-  CONTEXT_ID = UUID("28953194-88b1-4d25-b921-7168538d759f");
+  throw new Error("environment is unknown");
 }
 
 export { CONTEXT_ID };

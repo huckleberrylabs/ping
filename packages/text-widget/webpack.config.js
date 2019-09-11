@@ -2,7 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const JavaScriptObfuscator = require("webpack-obfuscator");
 
-const WIDGET_ID = process.env.DEMO_WIDGET_ID;
+console.log(process.env.NODE_ENV);
+
+const WIDGET_ID = process.env.WIDGET_ID;
+const BROWSER_ENV = process.env.NODE_ENV;
 
 module.exports = {
   mode: "production",
@@ -25,8 +28,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Text, By Huckleberry Demo",
+      title: "Text, By Huckleberry (Staging)",
       widget_id: WIDGET_ID,
+      env: BROWSER_ENV,
       template: "index.html",
     }),
     new JavaScriptObfuscator({
