@@ -6,16 +6,18 @@ import {
   NullName,
   IPhone,
   Phone,
+  PhoneSerializer,
   OK,
   INTERNAL_SERVER_ERROR,
-  PhoneSerializer,
+  MessageName,
 } from "@huckleberryai/core";
-import { ITextWidgetSentCommand } from "@huckleberryai/text";
+import {
+  ITextWidgetSentCommand,
+  TextMessageAggregator,
+} from "@huckleberryai/text";
 import { injectable } from "inversify";
 import { EventRepository } from "../repositories/event-repository";
 import { TextWidgetSettingsRepository } from "../repositories/widget-repository";
-import { TextMessageAggregator } from "@huckleberryai/text";
-import { MessageName } from "@huckleberryai/core/src/value-objects/message";
 
 @injectable()
 export class TextWidgetSentCommandHandler implements IEventHandler {

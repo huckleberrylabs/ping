@@ -1,4 +1,4 @@
-import { Deserializer } from "@huckleberryai/core/src/structural/deserializer";
+import { Deserializer } from "@huckleberryai/core";
 import { IoC } from "./ioc";
 
 export const deserializer = Deserializer(IoC);

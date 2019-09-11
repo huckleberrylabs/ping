@@ -4,21 +4,17 @@ import {
   NOT_FOUND,
   INTERNAL_SERVER_ERROR,
   BAD_REQUEST,
-} from "@huckleberryai/core/src/value-objects/status-code";
-import { MessageName } from "@huckleberryai/core/src/value-objects/message";
-import { EVENTS_ENDPOINT } from "@huckleberryai/text";
-import { HTTPAccessEvent } from "./events";
-import { serializer, deserializer, bus } from "./structural";
-import {
+  MessageName,
   IEvent,
   IsSerializedEvent,
-} from "@huckleberryai/core/src/entities/event";
-import {
   ResultName,
   Result,
   IsError,
-} from "@huckleberryai/core/src/entities/result";
-import { UUID } from "@huckleberryai/core/src/value-objects";
+  UUID,
+} from "@huckleberryai/core";
+import { EVENTS_ENDPOINT } from "@huckleberryai/text";
+import { HTTPAccessEvent } from "./events";
+import { serializer, deserializer, bus } from "./structural";
 
 export default async (req: NowRequest, res: NowResponse) => {
   const ORIGIN_ID = UUID("c7e384c3-697f-4ccf-a514-d54a452acfac");

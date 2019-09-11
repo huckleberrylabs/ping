@@ -1,16 +1,14 @@
 import {
   TypeName,
   TypeNameDeserializer,
-} from "@huckleberryai/core/src/value-objects/type-name";
-import { IUUID } from "@huckleberryai/core/src/value-objects/uuid";
-import {
+  IUUID,
   IPersonName,
   ISerializedPersonName,
   IsPersonName,
   IsSerializedPersonName,
   PersonNameSerializer,
   PersonNameDeserializer,
-} from "@huckleberryai/core/src/value-objects/person-name";
+} from "@huckleberryai/core";
 import {
   ITextWidgetEvent,
   ISerializedTextWidgetEvent,

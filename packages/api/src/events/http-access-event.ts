@@ -1,5 +1,9 @@
 import { NowRequest } from "@now/node";
 import {
+  TypeName,
+  IUUID,
+  UUID,
+  IsSerializedUUID,
   IEvent,
   ISerializedEvent,
   Event,
@@ -7,13 +11,7 @@ import {
   EventDeserializer,
   IsEvent,
   IsSerializedEvent,
-} from "@huckleberryai/core/src/entities/event";
-import { TypeName } from "@huckleberryai/core/src/value-objects/type-name";
-import {
-  IUUID,
-  UUID,
-  IsSerializedUUID,
-} from "@huckleberryai/core/src/value-objects/uuid";
+} from "@huckleberryai/core";
 import { IncomingHttpHeaders } from "http2";
 
 export interface IHTTPAccessEvent extends IEvent {

@@ -1,8 +1,12 @@
 import { injectable } from "inversify";
 import { FireStore } from "../../utilities/firestore";
-import { IUUID, UUIDSerializer, IEvent } from "@huckleberryai/core";
+import {
+  IUUID,
+  UUIDSerializer,
+  IEvent,
+  IsNonNullObject,
+} from "@huckleberryai/core";
 import { serializer, deserializer } from "../../structural";
-import { IsNonNullObject } from "@huckleberryai/core/src/value-objects/non-null-object";
 
 @injectable()
 export class EventRepository {
