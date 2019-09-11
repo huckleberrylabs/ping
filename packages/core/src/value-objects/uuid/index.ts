@@ -1,10 +1,13 @@
 import uuid from "uuid/v4";
+import { TypeName } from "../type-name";
 
 export type IUUID = string;
 
 export type ISerializedUUID = IUUID;
 
 export const LENGTH: number = 36;
+
+export const UUIDName = TypeName("UUID");
 
 /** Accepts 36 character UUID string as input. If no input, generates new UUID. */
 export const UUID = (input?: string): IUUID => {

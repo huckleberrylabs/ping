@@ -1,11 +1,4 @@
 import { interfaces } from "inversify";
-import { IResult, Result } from "../entities/result";
-import { UUID } from "../value-objects/uuid";
-import {
-  OK,
-  BAD_REQUEST,
-  INTERNAL_SERVER_ERROR,
-} from "../value-objects/status-code";
 import {
   TypeName,
   TypeNameDeserializer,
@@ -13,7 +6,6 @@ import {
   IsSerializedTypeName,
   ITypeName,
   ISerializedTypeName,
-  TypeNameSerializer,
 } from "../value-objects/type-name";
 import {
   IData,
@@ -21,38 +13,25 @@ import {
   IsSerializedData,
 } from "../value-objects/data";
 
-export type IDeserializer<Type> = (input: unknown) => Type;
+export type IDeserializer<Type> = (
+  input: unknown,
+  ioc?: interfaces.Container
+) => Type;
 
 export const DeserializerName = TypeName("Deserializer");
 
 export const Deserializer = (ioc: interfaces.Container) => <Type extends IData>(
   serialized: ISerializedData,
   type: ITypeName | ISerializedTypeName
-): IResult<IData> => {
-  const ORIGIN_ID = UUID("6b511d57-99b6-4264-b901-f184b851f378");
-
+): Type => {
   // Invalid TypeName
   if (!IsTypeName(type) || !IsSerializedTypeName(type)) {
-    return Result(
-      `Deserializer: invalid TypeName: ${
-        IsTypeName(type) ? TypeNameSerializer(type) : type
-      }`,
-      DeserializerName,
-      BAD_REQUEST,
-      ORIGIN_ID
-    );
+    throw new Error("cannot deserialize, data type provided is not valid");
   }
-
   // Invalid Data (Not Serialized)
   if (!IsSerializedData(serialized)) {
-    return Result(
-      `Deserializer: invalid data`,
-      DeserializerName,
-      BAD_REQUEST,
-      ORIGIN_ID
-    );
+    throw new Error("cannot deserialize, data provided is not serialized");
   }
-
   try {
     const typeName = IsSerializedTypeName(type)
       ? TypeNameDeserializer(type)
@@ -61,13 +40,10 @@ export const Deserializer = (ioc: interfaces.Container) => <Type extends IData>(
       typeName,
       DeserializerName
     );
-    return Result(deserializer(serialized), typeName, OK, ORIGIN_ID);
+    return deserializer(serialized, ioc);
   } catch (error) {
-    return Result(
-      `Deserializer: ${error.toString()}`,
-      DeserializerName,
-      INTERNAL_SERVER_ERROR,
-      ORIGIN_ID
+    throw new Error(
+      `cannot deserialize, data type provided is not valid in this context`
     );
   }
 };

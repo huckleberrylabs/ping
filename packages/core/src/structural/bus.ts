@@ -14,7 +14,7 @@ export const Bus = (ioc: Container) => async (
     handler = ioc.getNamed<IEventHandler>(event.type, HandlerName);
   } catch (error) {
     return Result(
-      `Handler with type ${event.type.toString()} could not be resolved by IoC Container: ${error.toString()}`,
+      `handler for type ${event.type.toString()} could not be resolved`,
       HandlerName,
       INTERNAL_SERVER_ERROR,
       ORIGIN_ID,

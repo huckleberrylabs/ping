@@ -1,4 +1,5 @@
 import { IUUID } from "../../value-objects/uuid";
+import { IMessage } from "../../value-objects/message";
 import {
   Event,
   IsEvent,
@@ -18,12 +19,12 @@ const LogLabels = ["critical", "error", "debug", "info", "text"];
 
 export interface ILogEvent extends IEvent {
   labels: LOG_LABELS[];
-  message: string;
+  message: IMessage;
 }
 
 export interface ISerializedLogEvent extends ISerializedEvent {
   labels: LOG_LABELS[];
-  message: string;
+  message: IMessage;
 }
 
 export const LogEventName = TypeName("LogEvent");
@@ -114,7 +115,7 @@ export const IsSerializedLogEvent = (
 };
 
 export const LogEvent = (
-  message: string,
+  message: IMessage,
   labels: LOG_LABELS[],
   origin: IUUID,
   corr?: IUUID,

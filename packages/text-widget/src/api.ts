@@ -1,51 +1,105 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import {
   IResult,
   Result,
-  IsResult,
-  ResultDeserializer,
+  ResultName,
 } from "@huckleberryai/core/src/entities/result";
 import { IEvent } from "@huckleberryai/core/src/entities/event";
-import { ISerializedData } from "@huckleberryai/core/src/value-objects/data";
-import { IStatusCode } from "@huckleberryai/core/src/value-objects/status-code";
-import { ENV } from "@huckleberryai/core/src/singletons/env";
+import {
+  IData,
+  ISerializedData,
+} from "@huckleberryai/core/src/value-objects/data";
+import { MessageName } from "@huckleberryai/core/src/value-objects/message";
+import {
+  IStatusCode,
+  BAD_REQUEST,
+  INTERNAL_SERVER_ERROR,
+} from "@huckleberryai/core/src/value-objects/status-code";
+import { ENV } from "@huckleberryai/core/src/singletons";
 import {
   API_ENDPOINT,
   EVENTS_ENDPOINT,
 } from "@huckleberryai/text/src/singletons";
-import { serializer } from "./structural";
-import { ErrorName } from "@huckleberryai/core/src/helpers";
+import { serializer, deserializer } from "./structural";
 
-export async function postEvent(
+/** will never throw an error */
+export async function postEvent<ReturnType extends IData>(
   event: IEvent
-): Promise<IResult<ISerializedData>> {
+): Promise<IResult<ReturnType | string>> {
   if (ENV === "development") {
-    // TODO: handle Development Mode
-    throw new Error("Not Implemented Yet");
+    // TODO: handle development mode
+    throw new Error("not implemented yet");
   } else {
-    const res = await axios.post(
-      API_ENDPOINT + EVENTS_ENDPOINT,
-      serializer(event, event.type)
-    );
-    if (!IsResult(res.data)) {
+    // serialize the event
+    let serializedEvent: ISerializedData;
+    try {
+      serializedEvent = serializer(event, event.type);
+    } catch (error) {
+      // the event cannot be serialized during runtime, probably because the correct serializer is missing in the ioc container
       return Result(
-        res.data,
-        ErrorName,
+        error.toString(),
+        MessageName,
+        BAD_REQUEST,
+        event.origin,
+        event.corr,
+        event.id
+      );
+    }
+    // send the event
+    let res: AxiosResponse<any>;
+    try {
+      res = await axios.post(API_ENDPOINT + EVENTS_ENDPOINT, serializedEvent, {
+        validateStatus: () => true,
+      });
+    } catch (error) {
+      if (error.response) {
+        // the request was made and the server responded with a status code that falls out of the range of validateStatus
+        return Result(
+          "this should never happen. validateStatus should return true.",
+          MessageName,
+          INTERNAL_SERVER_ERROR,
+          event.origin,
+          event.corr,
+          event.id
+        );
+      } else {
+        // the request was made but no response was received or something happened in setting up the request that triggered an error
+        return Result(
+          error.toString(),
+          MessageName,
+          INTERNAL_SERVER_ERROR,
+          event.origin,
+          event.corr,
+          event.id
+        );
+      }
+    }
+    // deserialize the response
+    try {
+      return deserializer<IResult<ReturnType>>(res.data, ResultName);
+    } catch (error) {
+      // the response received cannot be deserialized by the client, probably because the correct deserializer is missing in the ioc container
+      return Result(
+        error.toString(),
+        MessageName,
         <IStatusCode>res.status,
         event.origin,
         event.corr,
         event.id
       );
     }
-    return ResultDeserializer(res.data);
   }
 }
 
+/** will throw an error if the event is not serializable during runtime */
 export async function beaconEvent(event: IEvent): Promise<void> {
-  if (ENV === "production") {
+  if (ENV === "development") {
+    // TODO: handle development mode
+    throw new Error("not implemented yet");
+  } else {
     navigator.sendBeacon(
       API_ENDPOINT + EVENTS_ENDPOINT,
-      JSON.parse(JSON.stringify(event))
+      JSON.stringify(serializer(event, event.type))
     );
   }
 }

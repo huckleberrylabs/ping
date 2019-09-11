@@ -1,5 +1,6 @@
-import { IsNonNullObject } from "../../helpers";
+import { IsNonNullObject } from "../non-null-object";
 import { parseName } from "humanparser";
+import { TypeName } from "../type-name";
 // Try parse-full-name as well if not working well
 
 export interface IPersonName {
@@ -11,6 +12,8 @@ export interface IPersonName {
   prefix: string | null;
   suffix: string | null;
 }
+
+export const PersonNameName = TypeName("PersonName");
 
 export type ISerializedPersonName = IPersonName;
 

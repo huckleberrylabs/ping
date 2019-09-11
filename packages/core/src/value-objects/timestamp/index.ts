@@ -1,8 +1,11 @@
 import moment, { Moment } from "moment";
+import { TypeName } from "../type-name";
 
 export type ITimeStamp = Moment;
 
 export type ISerializedTimeStamp = string;
+
+export const TimeStampName = TypeName("TimeStamp");
 
 /** Accepts ISO 8601 string as input. If no input, takes the time right now. */
 export const TimeStamp = (input?: string): ITimeStamp => {

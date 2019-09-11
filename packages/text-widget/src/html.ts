@@ -14,6 +14,7 @@ import {
   LOADER_ID,
 } from "./element-ids";
 
+/** will not throw an error */
 export function generateHTML() {
   return `<div id="${CONTAINER_ID}">
       <form id="${FORM_ID}">

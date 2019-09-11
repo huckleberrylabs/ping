@@ -13,6 +13,8 @@ export const TypeName = (name: string): ITypeName => {
   return Symbol.for(name);
 };
 
+export const TypeNameName = TypeName("Type");
+
 export const IsTypeName = (input: unknown): input is ITypeName => {
   // Must be symbol
   if (typeof input !== "symbol") {

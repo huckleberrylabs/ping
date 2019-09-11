@@ -10,6 +10,7 @@ import {
 } from "../../entities/log-event";
 import { ENV } from "../../singletons/env";
 import { IUUID } from "../../value-objects/uuid";
+import { IMessage } from "../../value-objects/message";
 import {
   ITypeName,
   ISerializedTypeName,
@@ -17,13 +18,13 @@ import {
   TypeNameSerializer,
   TypeNameDeserializer,
 } from "../../value-objects/type-name";
-import { IsNonNullObject } from "../../helpers";
+import { IsNonNullObject } from "../../value-objects/non-null-object";
 
 export interface ILog {
   type: ITypeName;
   log: ILogEvent[];
   add: (
-    message: string,
+    message: IMessage,
     labels: LOG_LABELS[],
     origin: IUUID,
     corr?: IUUID,
@@ -116,7 +117,7 @@ export const Log = (): ILog => {
     type: LogName,
     log: [],
     add(
-      message: string,
+      message: IMessage,
       labels: LOG_LABELS[],
       origin: IUUID,
       corr?: IUUID,

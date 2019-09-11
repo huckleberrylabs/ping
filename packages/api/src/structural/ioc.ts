@@ -24,6 +24,10 @@ import {
   HTTPAccessEventDeserializer,
 } from "../events";
 import {
+  CoreSerializerModule,
+  CoreDeserializerModule,
+} from "@huckleberryai/core";
+import {
   TextSerializerModule,
   TextDeserializerModule,
 } from "@huckleberryai/text";
@@ -69,6 +73,8 @@ IoC.load(
   APISerializerModule,
   APIDeserializerModule,
   APIHandlerModule,
+  CoreSerializerModule,
+  CoreDeserializerModule,
   TextSerializerModule,
   TextDeserializerModule
 );

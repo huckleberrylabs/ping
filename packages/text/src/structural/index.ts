@@ -79,7 +79,7 @@ import {
   TextWidgetSettingsName,
   TextWidgetSettingsSerializer,
   TextWidgetSettingsDeserializer,
-} from "../models/text-widget-settings";
+} from "../entities/text-widget-settings";
 
 export const TextSerializerModule = new ContainerModule(bind => {
   // TextWidgetLoadedEvent

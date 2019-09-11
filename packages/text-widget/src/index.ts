@@ -3,6 +3,7 @@ import {
   IsSerializedPhone,
   Phone,
 } from "@huckleberryai/core/src/value-objects/phone";
+import { IsMessage } from "@huckleberryai/core/src/value-objects/message";
 import {
   IsSerializedPersonName,
   PersonName,
@@ -25,8 +26,8 @@ import {
 } from "@huckleberryai/text/src/singletons";
 import {
   ITextWidgetSettings,
-  TextWidgetSettingsDeserializer,
-} from "@huckleberryai/text/src/models/text-widget-settings";
+  IsTextWidgetSettings,
+} from "@huckleberryai/text/src/entities/text-widget-settings";
 import {
   CSS_ID,
   INSERT_SCRIPT_ID,
@@ -42,21 +43,22 @@ import {
   ERROR_ID,
   LOADER_ID,
 } from "./element-ids";
-import { getElementById, validateString } from "./helpers";
+import { getElementById } from "./helpers";
 import { postEvent, beaconEvent } from "./api";
 import { generateCSS } from "./css";
 import { generateHTML } from "./html";
+import { IsError } from "@huckleberryai/core/src/entities/result";
 
 async function HuckleberryTextWidget() {
-  // Send Log on page close
+  // send log on page close
   async function onUnloadEvent() {
     const ORIGIN_ID = UUID("28d540c0-a781-47db-870c-fac3ad9a3d6b");
     let widgetID = null;
     try {
-      // WIDGET_ID might not be defined, giving a Reference Error;
+      // WIDGET_ID might not be defined, giving a reference error;
       widgetID = WIDGET_ID;
     } catch (error) {
-      // ignore, this is already logged in Retrieve Widget ID section;
+      // ignore, this is already logged in retrieve widget id section;
     }
     beaconEvent(TextWidgetUnloadedEvent(log, widgetID, ORIGIN_ID, CORR_ID));
   }
@@ -68,7 +70,7 @@ async function HuckleberryTextWidget() {
   const log = Log();
 
   const textWidgetLoadedEvent = TextWidgetLoadedEvent(
-    UUID(), // Chicken and Egg Problem between PARENT_ID and WIDGET_ID
+    UUID(), // chicken and egg problem between PARENT_ID and WIDGET_ID
     ORIGIN_ID,
     CORR_ID
   );
@@ -81,7 +83,7 @@ async function HuckleberryTextWidget() {
     PARENT_ID
   );
 
-  // Retrieve Widget ID
+  // retrieve widget id
   const WIDGET_ID = ((): IUUID => {
     try {
       const script = getElementById(INSERT_SCRIPT_ID);
@@ -94,7 +96,7 @@ async function HuckleberryTextWidget() {
       const url = new URL(a.href);
       const idString = url.searchParams.get("widget_id");
       if (!idString) {
-        throw new Error("Widget ID Must Be Provided");
+        throw new Error("widget id must be provided");
       }
       const id = UUID(idString);
       log.add(
@@ -112,18 +114,10 @@ async function HuckleberryTextWidget() {
     }
   })();
 
-  // Widget Loaded Event
+  // widget loaded event
   textWidgetLoadedEvent.widget = WIDGET_ID;
-  try {
-    await postEvent(textWidgetLoadedEvent);
-    log.add(
-      `api posted to successfully: ${API_ENDPOINT + EVENTS_ENDPOINT}`,
-      ["info", "text"],
-      ORIGIN_ID,
-      CORR_ID,
-      PARENT_ID
-    );
-  } catch (error) {
+  const loadedResult = await postEvent(textWidgetLoadedEvent);
+  if (IsError(loadedResult)) {
     log.add(
       `could not post to api: ${API_ENDPOINT + EVENTS_ENDPOINT}`,
       ["error", "text"],
@@ -131,30 +125,47 @@ async function HuckleberryTextWidget() {
       CORR_ID,
       PARENT_ID
     );
+    // if the api is not reposnsive the button wont show. conversely, all other api calls will work so no need to check response
+    return;
+  } else {
+    log.add(
+      `api posted to successfully: ${API_ENDPOINT + EVENTS_ENDPOINT}`,
+      ["info", "text"],
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID
+    );
   }
 
   // Retrieve Widget Settings
-  const textWidgetSettings = await (async (): Promise<ITextWidgetSettings> => {
-    const textWidgetSettingsQuery = TextWidgetSettingsQuery(
-      WIDGET_ID,
-      AGENT_ID,
+  const textWidgetSettingsQuery = TextWidgetSettingsQuery(
+    WIDGET_ID,
+    AGENT_ID,
+    ORIGIN_ID,
+    CORR_ID,
+    textWidgetLoadedEvent.id
+  );
+  const settingsResult = await postEvent<ITextWidgetSettings>(
+    textWidgetSettingsQuery
+  );
+  if (!IsTextWidgetSettings(settingsResult.data)) {
+    log.add(
+      settingsResult.data,
+      ["error", "text"],
       ORIGIN_ID,
       CORR_ID,
-      textWidgetLoadedEvent.id
+      PARENT_ID
     );
-    const result = await postEvent(textWidgetSettingsQuery);
-    if (!result) {
-      throw new Error(`No Result provided`);
-    }
-    return TextWidgetSettingsDeserializer(result.data);
-  })();
+    return;
+  }
   log.add(
-    `settings retrieved`,
-    ["info", "text"],
+    `settings retrieved successfully`,
+    ["error", "text"],
     ORIGIN_ID,
     CORR_ID,
     PARENT_ID
   );
+  const textWidgetSettings = settingsResult.data;
 
   // CHECK IF WIDGET IS ENABLED
   if (!textWidgetSettings.enabled) {
@@ -216,14 +227,14 @@ async function HuckleberryTextWidget() {
       CORR_ID,
       textWidgetLoadedEvent.id
     );
-    await postEvent(command);
+    postEvent(command);
   }
   openButton.addEventListener("click", onOpenedEvent);
 
   async function onMessageAddedEvent() {
     const ORIGIN_ID = UUID("ccaeae68-b431-4fd0-95c5-d13abeb12cb7");
     const messageString = messageInput.value;
-    if (messageString && validateString(messageString)) {
+    if (IsMessage(messageString)) {
       container.style.width = "23rem";
       messageButton.classList.remove("shown");
       messageInput.classList.remove("shown");
@@ -239,7 +250,7 @@ async function HuckleberryTextWidget() {
         CORR_ID,
         textWidgetLoadedEvent.id
       );
-      await postEvent(command);
+      postEvent(command);
     } else {
       messageInput.setCustomValidity("Invalid");
     }
@@ -267,7 +278,7 @@ async function HuckleberryTextWidget() {
       CORR_ID,
       textWidgetLoadedEvent.id
     );
-    await postEvent(command);
+    postEvent(command);
   }
   phoneButton.addEventListener("click", onPhoneAddedEvent);
 

@@ -1,6 +1,6 @@
 // import { IsNonNullObject } from ".";
 
-describe("Helpers", () => {
+describe("NonNullObject", () => {
   describe("IsNonNullObject", () => {
     test("", () => {});
     test("", () => {});

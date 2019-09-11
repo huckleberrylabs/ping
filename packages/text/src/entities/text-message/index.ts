@@ -1,24 +1,32 @@
 import { IPersonName } from "@huckleberryai/core/src/value-objects/person-name";
 import { IPhone } from "@huckleberryai/core/src/value-objects/phone";
+import { IUUID } from "@huckleberryai/core/src/value-objects/uuid";
+import { IMessage } from "@huckleberryai/core/src/value-objects/message";
 import {
   IsTextWidgetMessageAddedCommand,
   IsTextWidgetNameAddedCommand,
   IsTextWidgetPhoneAddedCommand,
 } from "../../events";
 
-type TextMessage = { message?: string; name?: IPersonName; phone?: IPhone };
+type TextMessage = {
+  id?: IUUID;
+  message?: IMessage;
+  name?: IPersonName;
+  phone?: IPhone;
+};
 
 export function TextMessageAggregator(events: unknown[]): TextMessage {
-  return events.reduce<TextMessage>((textMessage, curr) => {
+  return events.reduce<TextMessage>((message, curr) => {
     if (IsTextWidgetMessageAddedCommand(curr)) {
-      textMessage.message = curr.message;
+      message.message = curr.message;
+      message.id = curr.id;
     }
     if (IsTextWidgetNameAddedCommand(curr)) {
-      textMessage.name = curr.name;
+      message.name = curr.name;
     }
     if (IsTextWidgetPhoneAddedCommand(curr)) {
-      textMessage.phone = curr.phone;
+      message.phone = curr.phone;
     }
-    return textMessage;
+    return message;
   }, {});
 }

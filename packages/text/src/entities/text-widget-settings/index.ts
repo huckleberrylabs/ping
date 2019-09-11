@@ -1,4 +1,4 @@
-import { IsNonNullObject } from "@huckleberryai/core/src/helpers";
+import { IsNonNullObject } from "@huckleberryai/core/src/value-objects/non-null-object";
 import {
   IUUID,
   ISerializedUUID,

@@ -4,7 +4,7 @@ import {
   IEventHandler,
   OK,
   NOT_FOUND,
-  ErrorName,
+  MessageName,
 } from "@huckleberryai/core";
 import { ITextWidgetSettingsQuery } from "@huckleberryai/text";
 import { EventRepository } from "../repositories/event-repository";
@@ -31,7 +31,14 @@ export class TextWidgetSettingsQueryHandler implements IEventHandler {
         event.id
       );
     } else {
-      return Result(null, ErrorName, NOT_FOUND, this.id, event.corr, event.id);
+      return Result(
+        "widget not found",
+        MessageName,
+        NOT_FOUND,
+        this.id,
+        event.corr,
+        event.id
+      );
     }
   }
 }

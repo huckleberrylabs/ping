@@ -8,6 +8,7 @@ import {
   ERROR_ID,
 } from "./element-ids";
 
+/** will never throw error */
 export function generateCSS(mainColor: string, accentColor: string) {
   return `:root {
   --huckleberry-text-main-color: ${mainColor};

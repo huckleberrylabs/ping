@@ -1,4 +1,3 @@
-import { IsNonNullObject } from "../../helpers";
 import { CONTEXT_ID } from "../../singletons";
 import {
   IUUID,
@@ -26,6 +25,7 @@ import {
   TimeStampSerializer,
   TimeStampDeserializer,
 } from "../../value-objects/timestamp";
+import { IsNonNullObject } from "../../value-objects/non-null-object";
 import { IData } from "../../value-objects/data";
 import { IResult } from "../result";
 

@@ -1,3 +1,4 @@
+import { interfaces } from "inversify";
 import {
   IData,
   ISerializedData,
@@ -29,6 +30,7 @@ import {
   EventSerializer,
   EventDeserializer,
 } from "../event";
+import { IDeserializer, ISerializer, SerializerName } from "../../structural";
 
 export interface IResult<Type extends IData> extends IEvent {
   data: Type;
@@ -110,6 +112,11 @@ export const IsSerializedResult = (
   return true;
 };
 
+export const IsSuccess = (input: IResult<any>): boolean =>
+  input.status <= 299 && input.status >= 200;
+
+export const IsError = (input: IResult<any>): boolean => !IsSuccess(input);
+
 export const Result = <Type extends IData>(
   data: Type,
   dataType: ITypeName,
@@ -137,33 +144,48 @@ export const Result = <Type extends IData>(
   return result;
 };
 
-export const ResultSerializer = <Type extends ISerializedData>(
-  input: IResult<Type>
-): ISerializedResult<Type> => {
+export const ResultSerializer = <
+  Type extends IData,
+  SerializedType extends ISerializedData
+>(
+  input: IResult<Type>,
+  ioc: interfaces.Container
+): ISerializedResult<SerializedType> => {
   if (!IsResult(input)) {
     throw new Error("ResultSerializer: not a valid Result");
   }
   const event = EventSerializer(input);
+  const dataType = TypeNameSerializer(input.dataType);
+  const serializer = ioc.getNamed<ISerializer<Type, SerializedType>>(
+    dataType,
+    SerializerName
+  );
   const result = {
     ...event,
-    data: input.data,
-    dataType: TypeNameSerializer(input.dataType),
+    data: serializer(input.data),
+    dataType,
     status: input.status,
   };
   return result;
 };
 
-export const ResultDeserializer = (
-  input: unknown
-): IResult<ISerializedData> => {
+export const ResultDeserializer = <Type extends IData>(
+  input: unknown,
+  ioc: interfaces.Container
+): IResult<Type> => {
   if (!IsSerializedResult(input)) {
     throw new Error("ResultDeserializer: not a valid Result");
   }
   const event = EventDeserializer(input);
+  const dataType = TypeNameDeserializer(input.dataType);
+  const deserializer = ioc.getNamed<IDeserializer<Type>>(
+    dataType,
+    SerializerName
+  );
   const result = {
     ...event,
-    data: input.data,
-    dataType: TypeNameDeserializer(input.dataType),
+    data: deserializer(input.data),
+    dataType,
     status: input.status,
   };
   return result;

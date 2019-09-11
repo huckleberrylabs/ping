@@ -1,7 +1,10 @@
 import ColorLib from "color";
+import { TypeName } from "../type-name";
 
 export type IColor = ColorLib;
 export type ISerializedColor = string;
+
+export const ColorName = TypeName("Color");
 
 export const Color = (input: string) => ColorLib(input, "hex");
 

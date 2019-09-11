@@ -15,11 +15,14 @@ Enrich
 */
 
 import { parsePhoneNumberFromString, PhoneNumber } from "libphonenumber-js/max";
-import { IsNonNullObject } from "../../helpers";
+import { IsNonNullObject } from "../non-null-object";
+import { TypeName } from "../type-name";
 
 export interface IPhone extends PhoneNumber {}
 
 export type ISerializedPhone = string;
+
+export const PhoneName = TypeName("Phone");
 
 /** Accepts phone string as input. */
 export const Phone = (input: string): IPhone => {

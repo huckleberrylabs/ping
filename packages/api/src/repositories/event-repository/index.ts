@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 import { FireStore } from "../../utilities/firestore";
 import { IUUID, UUIDSerializer, IEvent } from "@huckleberryai/core";
 import { serializer, deserializer } from "../../structural";
+import { IsNonNullObject } from "@huckleberryai/core/src/value-objects/non-null-object";
 
 @injectable()
 export class EventRepository {
@@ -10,7 +11,9 @@ export class EventRepository {
     const collection = this.dataStore.store.collection("events");
     const docRef = collection.doc(UUIDSerializer(event.id));
     const json = serializer(event, event.type);
-    await docRef.set(json);
+    if (IsNonNullObject(json)) {
+      await docRef.set(json);
+    }
   }
   async getByID(id: IUUID): Promise<IEvent | null> {
     const collection = this.dataStore.store.collection("events");

@@ -1,3 +1,3 @@
-type ENV = "production" | "development";
+type IENV = "production" | "development";
 
-export const ENV: ENV = "development";
+export const ENV: IENV = "development";

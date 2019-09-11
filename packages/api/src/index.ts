@@ -1,19 +1,24 @@
 import { NowRequest, NowResponse } from "@now/node";
 import {
-  UUID,
-  Result,
-  ResultSerializer,
-  IEvent,
-  IsEvent,
   OK,
   NOT_FOUND,
   INTERNAL_SERVER_ERROR,
-  ErrorName,
-  IsError,
-} from "@huckleberryai/core";
+  BAD_REQUEST,
+} from "@huckleberryai/core/src/value-objects/status-code";
+import { MessageName } from "@huckleberryai/core/src/value-objects/message";
 import { EVENTS_ENDPOINT } from "@huckleberryai/text";
 import { HTTPAccessEvent } from "./events";
 import { serializer, deserializer, bus } from "./structural";
+import {
+  IEvent,
+  IsSerializedEvent,
+} from "@huckleberryai/core/src/entities/event";
+import {
+  ResultName,
+  Result,
+  IsError,
+} from "@huckleberryai/core/src/entities/result";
+import { UUID } from "@huckleberryai/core/src/value-objects";
 
 export default async (req: NowRequest, res: NowResponse) => {
   const ORIGIN_ID = UUID("c7e384c3-697f-4ccf-a514-d54a452acfac");
@@ -33,9 +38,8 @@ export default async (req: NowRequest, res: NowResponse) => {
 
   const accessEvent = HTTPAccessEvent(req, ORIGIN_ID);
   const result = await bus(accessEvent);
-  result.data = serializer(result.data, result.dataType);
-  if (IsError(result.status)) {
-    res.status(result.status).send(ResultSerializer(result));
+  if (IsError(result)) {
+    res.status(result.status).send(serializer(result, ResultName));
     return;
   }
 
@@ -49,31 +53,69 @@ export default async (req: NowRequest, res: NowResponse) => {
   }
 
   if (path === EVENTS_ENDPOINT) {
+    const serializedEvent = req.body;
+
+    // is not a serialized event
+    if (!IsSerializedEvent(serializedEvent)) {
+      res
+        .status(BAD_REQUEST)
+        .send(
+          serializer(
+            Result(
+              "data provided is not an event",
+              MessageName,
+              BAD_REQUEST,
+              ORIGIN_ID
+            ),
+            ResultName
+          )
+        );
+      return;
+    }
     let event: IEvent | undefined;
     try {
-      event = deserializer<IEvent>(req.body, req.body.type);
-      const result = await bus(event);
-      result.data = serializer(result.data, result.dataType);
-      res.status(result.status).send(ResultSerializer(result));
+      event = deserializer<IEvent>(serializedEvent, serializedEvent.type);
     } catch (error) {
-      if (IsEvent(event)) {
-        res
-          .status(INTERNAL_SERVER_ERROR)
-          .send(
-            ResultSerializer(
-              Result(
-                error.toString,
-                ErrorName,
-                INTERNAL_SERVER_ERROR,
-                ORIGIN_ID,
-                event.corr,
-                event.id
-              )
-            )
-          );
-      }
+      // is a serialized event, but not recognized by deserializer
+      res
+        .status(BAD_REQUEST)
+        .send(
+          serializer(
+            Result(
+              error.toString(),
+              MessageName,
+              BAD_REQUEST,
+              ORIGIN_ID,
+              serializedEvent.corr,
+              serializedEvent.parent ? serializedEvent.parent : undefined
+            ),
+            ResultName
+          )
+        );
+      return;
+    }
+    try {
+      const result = await bus(event);
+      res.status(result.status).send(serializer(result, ResultName));
+    } catch (error) {
+      // is a serialized event recognized by deserializer, but the bus failed to process it
+      res
+        .status(INTERNAL_SERVER_ERROR)
+        .send(
+          serializer(
+            Result(
+              error.toString(),
+              MessageName,
+              INTERNAL_SERVER_ERROR,
+              ORIGIN_ID,
+              serializedEvent.corr,
+              serializedEvent.parent ? serializedEvent.parent : undefined
+            ),
+            ResultName
+          )
+        );
+      return;
     }
   }
-
   res.status(NOT_FOUND).send(null);
 };
