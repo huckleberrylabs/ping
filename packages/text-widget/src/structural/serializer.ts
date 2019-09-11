@@ -1,4 +1,4 @@
-import { Serializer } from "@huckleberryai/core/src/structural/serializer";
+import { Serializer } from "@huckleberryai/core";
 import { IoC } from "./ioc";
 
 export const serializer = Serializer(IoC);

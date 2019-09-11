@@ -1,15 +1,15 @@
-import { IUUID, UUID } from "@huckleberryai/core/src/value-objects/uuid";
 import {
+  IUUID,
+  UUID,
   IsSerializedPhone,
   Phone,
-} from "@huckleberryai/core/src/value-objects/phone";
-import { IsMessage } from "@huckleberryai/core/src/value-objects/message";
-import {
+  IsMessage,
   IsSerializedPersonName,
   PersonName,
-} from "@huckleberryai/core/src/value-objects/person-name";
-import { ColorSerializer } from "@huckleberryai/core/src/value-objects/color";
-import { Log } from "@huckleberryai/core/src/structural/log";
+  ColorSerializer,
+  Log,
+  IsError,
+} from "@huckleberryai/core";
 import {
   TextWidgetSettingsQuery,
   TextWidgetLoadedEvent,
@@ -19,15 +19,11 @@ import {
   TextWidgetPhoneAddedCommand,
   TextWidgetNameAddedCommand,
   TextWidgetSentCommand,
-} from "@huckleberryai/text/src/events";
-import {
   API_ENDPOINT,
   EVENTS_ENDPOINT,
-} from "@huckleberryai/text/src/singletons";
-import {
   ITextWidgetSettings,
   IsTextWidgetSettings,
-} from "@huckleberryai/text/src/entities/text-widget-settings";
+} from "@huckleberryai/text";
 import {
   CSS_ID,
   INSERT_SCRIPT_ID,
@@ -47,7 +43,6 @@ import { getElementById } from "./helpers";
 import { postEvent, beaconEvent } from "./api";
 import { generateCSS } from "./css";
 import { generateHTML } from "./html";
-import { IsError } from "@huckleberryai/core/src/entities/result";
 
 async function HuckleberryTextWidget() {
   // send log on page close

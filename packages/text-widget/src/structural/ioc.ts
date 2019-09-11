@@ -3,11 +3,11 @@ import { Container } from "inversify";
 import {
   TextSerializerModule,
   TextDeserializerModule,
-} from "@huckleberryai/text/src/structural";
+} from "@huckleberryai/text";
 import {
   CoreSerializerModule,
   CoreDeserializerModule,
-} from "@huckleberryai/core/src/structural";
+} from "@huckleberryai/core";
 
 const IoC = new Container();
 IoC.load(

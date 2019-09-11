@@ -3,23 +3,16 @@ import {
   IResult,
   Result,
   ResultName,
-} from "@huckleberryai/core/src/entities/result";
-import { IEvent } from "@huckleberryai/core/src/entities/event";
-import {
+  IEvent,
   IData,
   ISerializedData,
-} from "@huckleberryai/core/src/value-objects/data";
-import { MessageName } from "@huckleberryai/core/src/value-objects/message";
-import {
+  MessageName,
   IStatusCode,
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
-} from "@huckleberryai/core/src/value-objects/status-code";
-import { ENV } from "@huckleberryai/core/src/singletons";
-import {
-  API_ENDPOINT,
-  EVENTS_ENDPOINT,
-} from "@huckleberryai/text/src/singletons";
+  ENV,
+} from "@huckleberryai/core";
+import { API_ENDPOINT, EVENTS_ENDPOINT } from "@huckleberryai/text";
 import { serializer, deserializer } from "./structural";
 
 /** will never throw an error */

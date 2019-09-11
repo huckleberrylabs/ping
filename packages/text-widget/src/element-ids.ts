@@ -1,4 +1,4 @@
-import { UUID, IUUID } from "@huckleberryai/core/src/value-objects/uuid";
+import { UUID, IUUID } from "@huckleberryai/core";
 
 export const INSERT_SCRIPT_ID: IUUID = "huckleberry-text-insert-script";
 export const CSS_ID: IUUID = `css-${UUID()}`;
