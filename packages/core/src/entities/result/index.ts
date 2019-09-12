@@ -127,13 +127,13 @@ export const Result = <Type extends IData>(
 ): IResult<Type> => {
   const event = Event(ResultName, origin, corr, parent);
   if (!IsData(data)) {
-    throw new Error("Invalid Data");
+    throw new Error(`Invalid Data: ${data}`);
   }
   if (!IsTypeName(dataType)) {
-    throw new Error("Invalid Data TypeName");
+    throw new Error(`Invalid Data TypeName: ${dataType} `);
   }
   if (!IsStatus(status)) {
-    throw new Error("Invalid Status");
+    throw new Error(`Invalid Status: ${status}`);
   }
   const result = {
     ...event,

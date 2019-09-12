@@ -1,6 +1,7 @@
 import { RUNTIME } from "../runtime";
 import { log } from "../log";
 import { UUID } from "../../value-objects";
+import { GLOBAL } from "../global";
 
 type IENV = "development" | "test" | "staging" | "production";
 
@@ -43,7 +44,9 @@ if (RUNTIME === "node") {
     }
   })();
 } else {
-  throw new Error("runtime is unknown");
+  throw new Error(`unknown runtime: ${RUNTIME}`);
 }
+
+GLOBAL.ENV = ENV;
 
 export { ENV };

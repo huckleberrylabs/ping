@@ -19,6 +19,7 @@ import {
   TypeNameDeserializer,
 } from "../../value-objects/type-name";
 import { IsNonNullObject } from "../../value-objects/non-null-object";
+import { GLOBAL } from "../global";
 
 export interface ILog {
   type: ITypeName;
@@ -154,3 +155,5 @@ export const LogDeserializer = (input: unknown): ILog => {
 };
 
 export const log = Log();
+
+GLOBAL.log = log;

@@ -1,5 +1,6 @@
 import { IUUID, UUID } from "../../value-objects/uuid";
 import { ENV } from "../env";
+import { GLOBAL } from "../global";
 
 let CONTEXT_ID: IUUID;
 
@@ -12,7 +13,9 @@ if (ENV === "development") {
 } else if (ENV === "test") {
   CONTEXT_ID = UUID("364f9e4e-766a-44ac-9f44-2599e1eaa036");
 } else {
-  throw new Error("environment is unknown");
+  throw new Error(`unknown environment: ${ENV}`);
 }
+
+GLOBAL.CONTEXT_ID = CONTEXT_ID;
 
 export { CONTEXT_ID };
