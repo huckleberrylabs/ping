@@ -1,44 +1,16 @@
 import ColorLib from "color";
-import { TypeName } from "../type-name";
+import { IsNonEmptyString } from "../non-empty-string";
 
-export type IColor = ColorLib;
-export type ISerializedColor = string;
+export type Color = string;
 
-export const ColorName = TypeName("Color");
-
-export const Color = (input: string) => ColorLib(input, "hex");
-
-export const IsColor = (input: unknown): input is IColor => {
-  if (input instanceof ColorLib) {
-    return true;
-  }
-  return false;
-};
-
-export const IsSerializedColor = (
-  input: unknown
-): input is ISerializedColor => {
-  if (typeof input !== "string") {
-    return false;
-  }
+export const IsValidColor = (input: string): input is Color => {
   try {
-    Color(input);
+    ColorLib(input, "hex");
     return true;
   } catch (error) {
     return false;
   }
 };
 
-export const ColorSerializer = (input: IColor): ISerializedColor => {
-  if (IsColor(input)) {
-    return input.toString();
-  }
-  throw new Error("ColorSerializer: not a Color");
-};
-
-export const ColorDeserializer = (input: unknown): IColor => {
-  if (IsSerializedColor(input)) {
-    return Color(input);
-  }
-  throw new Error("ColorDeserializer: not a ISerializedColor");
-};
+export const IsColor = (input: unknown): input is Color =>
+  IsNonEmptyString(input) && IsValidColor(input);

@@ -63,6 +63,9 @@
     "rulesDirectory": []
   },
   "scripts": {
+    "deploy:prod": "now --target production --env NODE_ENV=production",
+    "deploy:staging": "now --target staging --env NODE_ENV=staging",
+    "deploy:dev": "now dev --env NODE_ENV=development",
     "now-build": "npm run build",
     "build": "npx webpack --config webpack.config.js",
     "test": "npx jest",
@@ -92,5 +95,5 @@
     "webpack-cli": "^3.3.5",
     "webpack-obfuscator": "^0.18.3"
   },
-  "gitHead": "164490429994738242d7929327ceb03ce73570c3"
+  "gitHead": "3fc7e71603b1fc2a24853bfd7d30050cfed921e2"
 }

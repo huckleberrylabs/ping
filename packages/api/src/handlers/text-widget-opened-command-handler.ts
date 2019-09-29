@@ -23,6 +23,7 @@ export class TextWidgetOpenedCommandHandler implements IEventHandler {
       data = error.toString();
       status = INTERNAL_SERVER_ERROR;
     }
+    // TODO data.type broken
     return Result(data, data.type, status, this.id, event.corr, event.id);
   }
 }

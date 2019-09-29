@@ -1,163 +1,45 @@
-import { IUUID } from "../../value-objects/uuid";
-import { IMessage } from "../../value-objects/message";
 import {
-  Event,
-  IsEvent,
-  IEvent,
-  ISerializedEvent,
-  IsSerializedEvent,
-  EventSerializer,
-  EventDeserializer,
-} from "../event";
-import { TypeName, TypeNameDeserializer } from "../../value-objects/type-name";
+  UUID,
+  NonEmptyString,
+  IsNonEmptyString,
+  IsKebabCaseString,
+  IsNonNullObject,
+} from "../../value-objects";
+import { Event, IsEvent, IEvent } from "../event";
 
 export type LOG_LEVELS = "critical" | "error" | "debug" | "info";
-
-export type LOG_LABELS = LOG_LEVELS | "text" | "core";
-
-const LogLabels = ["critical", "error", "debug", "info", "text"];
+export type LOG_LABELS = LOG_LEVELS | string;
 
 export interface ILogEvent extends IEvent {
   labels: LOG_LABELS[];
-  message: IMessage;
+  message: NonEmptyString;
 }
 
-export interface ISerializedLogEvent extends ISerializedEvent {
-  labels: LOG_LABELS[];
-  message: IMessage;
-}
-
-export const LogEventName = TypeName("LogEvent");
-
-const IsLogLabelArray = (input: unknown): input is LOG_LABELS[] => {
-  // Must be Array
-  if (!Array.isArray(input)) {
-    return false;
-  }
-  // Must be Array of valid strings
-  for (const elem of input) {
-    if (typeof elem !== "string") {
-      return false;
-    }
-    if (!LogLabels.includes(elem)) {
-      return false;
-    }
-  }
-  return true;
-};
-
-const IsLogMessage = (input: unknown): input is string => {
-  // Must be a string
-  if (typeof input !== "string") {
-    return false;
-  }
-  // must be non-empty
-  if (input.trim().length > 0) {
-    return false;
-  }
-  return true;
-};
-
-export const IsLogEvent = (input: unknown): input is ILogEvent => {
-  // Must be an Event
-  if (!IsEvent(input)) {
-    return false;
-  }
-  // Must have LogEvent Type
-  if (input.type !== LogEventName) {
-    return false;
-  }
-  // Must have all properties
-  const hasLabels = "labels" in input;
-  const hasMessage = "message" in input;
-  if (!hasLabels || !hasMessage) {
-    return false;
-  }
-  const { labels, message } = <ILogEvent>input;
-  // Must valid log labels
-  if (!IsLogLabelArray(labels)) {
-    return false;
-  }
-  // Must have valid message
-  if (!IsLogMessage(message)) {
-    return false;
-  }
-  return true;
-};
-
-export const IsSerializedLogEvent = (
-  input: unknown
-): input is ISerializedLogEvent => {
-  // Must be an Event
-  if (!IsSerializedEvent(input)) {
-    return false;
-  }
-  // Must have LogEvent Type
-  if (TypeNameDeserializer(input.type) !== LogEventName) {
-    return false;
-  }
-  // Must have all properties
-  const hasLabels = "labels" in input;
-  const hasMessage = "message" in input;
-  if (!hasLabels || !hasMessage) {
-    return false;
-  }
-  const { labels, message } = <ISerializedLogEvent>input;
-  // Must valid log labels
-  if (!IsLogLabelArray(labels)) {
-    return false;
-  }
-  // Must have valid message
-  if (!IsLogMessage(message)) {
-    return false;
-  }
-  return true;
-};
+export const LogEventType = "log-event";
 
 export const LogEvent = (
-  message: IMessage,
+  message: NonEmptyString,
   labels: LOG_LABELS[],
-  origin: IUUID,
-  corr?: IUUID,
-  parent?: IUUID
+  origin: UUID,
+  corr?: UUID,
+  parent?: UUID
 ): ILogEvent => {
-  const event = Event(LogEventName, origin, corr, parent);
-  if (!IsLogLabelArray(labels)) {
-    throw new Error("Invalid Log Labels");
-  }
-  if (!IsLogMessage(status)) {
-    throw new Error("Invalid Message");
-  }
-  const logEvent = {
+  if (!IsNonEmptyString(message)) throw new Error("Invalid Message");
+  if (!IsLogLabelArray(labels)) throw new Error("Invalid Log Labels");
+  const event = Event(LogEventType, origin, corr, parent);
+  return {
     ...event,
     labels,
     message,
   };
-  return logEvent;
 };
 
-export const LogEventSerializer = (input: ILogEvent): ISerializedLogEvent => {
-  if (!IsLogEvent(input)) {
-    throw new Error("LogEventSerializer: not a valid LogEvent");
-  }
-  const event = EventSerializer(input);
-  const logEvent = {
-    ...event,
-    labels: input.labels,
-    message: input.message,
-  };
-  return logEvent;
-};
+export const IsLogLabelArray = (input: unknown): input is LOG_LABELS[] =>
+  Array.isArray(input) && input.every(IsKebabCaseString);
 
-export const LogEventDeserializer = (input: unknown): ILogEvent => {
-  if (!IsSerializedLogEvent(input)) {
-    throw new Error("LogEventDeserializer: not a valid LogEvent");
-  }
-  const event = EventDeserializer(input);
-  const logEvent = {
-    ...event,
-    labels: input.labels,
-    message: input.message,
-  };
-  return logEvent;
-};
+export const IsLogEvent = (input: unknown): input is ILogEvent =>
+  IsNonNullObject(input) &&
+  IsEvent(input) &&
+  input.type === LogEventType &&
+  IsLogLabelArray(input.labels) &&
+  IsNonEmptyString(input.message);
