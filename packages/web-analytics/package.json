@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "Web Analytics",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -67,7 +67,7 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.1.27"
+    "@huckleberryai/core": "^0.1.28"
   },
   "devDependencies": {
     "@types/color": "^3.0.0",
