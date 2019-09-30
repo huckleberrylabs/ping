@@ -1,21 +1,21 @@
+import { injectable } from "inversify";
 import {
   IEventHandler,
   Result,
   StatusCode,
   OK,
   INTERNAL_SERVER_ERROR,
-  IRepository
+  IEventRepository
 } from "@huckleberryai/core";
-import { IClientLoadedEvent } from "@huckleberryai/widget";
-import { injectable } from "inversify";
+import { IClientUnloadedEvent } from "./event";
 
 @injectable()
 export class ClientLoadedEventHandler implements IEventHandler {
-  public id = "043329cb-bb3f-4912-be84-0c58b2b1a895";
-  constructor(private repository: IRepository) {}
-  async handle(event: IClientLoadedEvent) {
+  public origin = "043329cb-bb3f-4912-be84-0c58b2b1a895";
+  constructor(private repository: IEventRepository) {}
+  async handle(event: IClientUnloadedEvent) {
     let status: StatusCode = OK;
-    let data;
+    let data = null;
     try {
       await this.repository.add(event);
     } catch (error) {
