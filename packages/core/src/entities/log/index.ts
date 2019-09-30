@@ -1,4 +1,4 @@
-import { Type, IsNonNullObject } from "../../value-objects";
+import { Type, IsNonNullObject } from "../../values";
 import { ILogEvent, IsLogEvent } from "../log-event";
 
 export const LogType = "log";

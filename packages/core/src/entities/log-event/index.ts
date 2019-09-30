@@ -4,7 +4,7 @@ import {
   IsNonEmptyString,
   IsKebabCaseString,
   IsNonNullObject,
-} from "../../value-objects";
+} from "../../values";
 import { Event, IsEvent, IEvent } from "../event";
 
 export type LOG_LEVELS = "critical" | "error" | "debug" | "info";

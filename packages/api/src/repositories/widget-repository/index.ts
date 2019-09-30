@@ -1,31 +1,25 @@
 import { injectable } from "inversify";
-import { IUUID, UUIDSerializer, IsNonNullObject } from "@huckleberryai/core";
+import { UUID } from "@huckleberryai/core";
 import {
-  ITextWidgetSettings,
-  TextWidgetSettingsName,
-} from "@huckleberryai/text";
-import { FireStore } from "../../utilities/firestore";
-import { serializer, deserializer } from "../../structural";
+  IWidgetSettings,
+  IsWidgetSettings,
+  IWidgetSettingsRepository,
+} from "@huckleberryai/widget";
+import { FireStore } from "../../utilities";
 
 @injectable()
-export class TextWidgetSettingsRepository {
+export class WidgetSettingsRepository implements IWidgetSettingsRepository {
   constructor(private dataStore: FireStore) {}
-  async add(widget: ITextWidgetSettings): Promise<void> {
+  async add(widget: IWidgetSettings): Promise<void> {
     const collection = this.dataStore.store.collection("text-widget-settings");
-    const docRef = collection.doc(UUIDSerializer(widget.id));
-    const json = serializer(widget, TextWidgetSettingsName);
-    if (IsNonNullObject(json)) {
-      await docRef.set(json);
-    }
+    const docRef = collection.doc(widget.id);
+    await docRef.set(widget);
   }
-  async getByID(id: IUUID): Promise<ITextWidgetSettings | null> {
+  async getByID(id: UUID): Promise<IWidgetSettings | null> {
     const collection = this.dataStore.store.collection("text-widget-settings");
-    const docRef = collection.doc(UUIDSerializer(id));
+    const docRef = collection.doc(id);
     const doc = await docRef.get();
     const json = doc.data();
-    if (json) {
-      return deserializer(json, TextWidgetSettingsName);
-    }
-    return null;
+    return IsWidgetSettings(json) ? json : null;
   }
 }

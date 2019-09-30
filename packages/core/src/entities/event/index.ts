@@ -6,10 +6,8 @@ import {
   IsTimeStamp,
   Type,
   IsType,
-  Data,
   IsNonNullObject,
-} from "../../value-objects";
-import { IResult } from "../result";
+} from "../../values";
 
 export interface IEvent {
   type: Type;
@@ -20,11 +18,6 @@ export interface IEvent {
   corr: UUID;
   parent: UUID | null;
   agent: UUID | null;
-}
-
-export interface IEventHandler {
-  id: UUID;
-  handle(event: IEvent): Promise<IResult<Data>>;
 }
 
 export const Event = (

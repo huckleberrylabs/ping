@@ -1,39 +1,17 @@
 import "reflect-metadata";
 import { Container, ContainerModule } from "inversify";
 import {
-  SerializerName,
-  DeserializerName,
-  HandlerName,
-  ISerializer,
-  IDeserializer,
+  HandlerType,
   IEventHandler,
+  IEventRepository,
 } from "@huckleberryai/core";
-
-// Utilities
-import { FireStore } from "../utilities/firestore";
-
-// Repositories
-import { EventRepository, TextWidgetSettingsRepository } from "../repositories";
-
-// Serializers / Deserializers
+import { IWidgetSettingsRepository } from "@huckleberryai/widget";
 import {
-  IHTTPAccessEvent,
-  ISerializedHTTPAccessEvent,
-  HTTPAccessEventName,
-  HTTPAccessEventSerializer,
-  HTTPAccessEventDeserializer,
-} from "../events";
-import {
-  CoreSerializerModule,
-  CoreDeserializerModule,
-} from "@huckleberryai/core";
-import {
-  TextSerializerModule,
-  TextDeserializerModule,
-} from "@huckleberryai/text";
-
-// Handlers
-import { HTTPAccessEventHandler } from "../handlers";
+  HTTPAccessEventType,
+  HTTPAccessEventHandler,
+} from "@huckleberryai/web-analytics";
+import { FireStore } from "../utilities";
+import { EventRepository, WidgetSettingsRepository } from "../repositories";
 
 const APIUtilitiesModule = new ContainerModule(bind => {
   bind<FireStore>(FireStore)
@@ -42,41 +20,17 @@ const APIUtilitiesModule = new ContainerModule(bind => {
 });
 
 const APIRepositoryModule = new ContainerModule(bind => {
-  bind<TextWidgetSettingsRepository>(TextWidgetSettingsRepository).toSelf();
-  bind<EventRepository>(EventRepository).toSelf();
-});
-
-const APISerializerModule = new ContainerModule(bind => {
-  bind<ISerializer<IHTTPAccessEvent, ISerializedHTTPAccessEvent>>(
-    HTTPAccessEventName
-  )
-    .toFunction(HTTPAccessEventSerializer)
-    .whenTargetNamed(SerializerName);
-});
-
-const APIDeserializerModule = new ContainerModule(bind => {
-  bind<IDeserializer<IHTTPAccessEvent>>(HTTPAccessEventName)
-    .toFunction(HTTPAccessEventDeserializer)
-    .whenTargetNamed(DeserializerName);
+  bind<IWidgetSettingsRepository>(WidgetSettingsRepository).toSelf();
+  bind<IEventRepository>(EventRepository).toSelf();
 });
 
 const APIHandlerModule = new ContainerModule(bind => {
-  bind<IEventHandler>(HTTPAccessEventName)
+  bind<IEventHandler>(HTTPAccessEventType)
     .to(HTTPAccessEventHandler)
-    .whenTargetNamed(HandlerName);
+    .whenTargetNamed(HandlerType);
 });
 
 const IoC = new Container();
-IoC.load(
-  APIRepositoryModule,
-  APIUtilitiesModule,
-  APISerializerModule,
-  APIDeserializerModule,
-  APIHandlerModule,
-  CoreSerializerModule,
-  CoreDeserializerModule,
-  TextSerializerModule,
-  TextDeserializerModule
-);
+IoC.load(APIRepositoryModule, APIUtilitiesModule, APIHandlerModule);
 
 export { IoC };

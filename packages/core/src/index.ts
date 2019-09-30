@@ -1,5 +1,4 @@
 export * from "./entities";
+export * from "./interfaces";
 export * from "./singletons";
-export * from "./structural";
-export * from "./value-objects";
 export * from "./values";

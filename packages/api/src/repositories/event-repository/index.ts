@@ -1,46 +1,28 @@
 import { injectable } from "inversify";
-import { FireStore } from "../../utilities/firestore";
-import {
-  IUUID,
-  UUIDSerializer,
-  IEvent,
-  IsNonNullObject,
-} from "@huckleberryai/core";
-import { serializer, deserializer } from "../../structural";
+import { FireStore } from "../../utilities";
+import { UUID, IEvent, IsEvent, IEventRepository } from "@huckleberryai/core";
 
 @injectable()
-export class EventRepository {
+export class EventRepository implements IEventRepository {
   constructor(private dataStore: FireStore) {}
   async add(event: IEvent): Promise<void> {
     const collection = this.dataStore.store.collection("events");
-    const docRef = collection.doc(UUIDSerializer(event.id));
-    const json = serializer(event, event.type);
-    if (IsNonNullObject(json)) {
-      await docRef.set(json);
-    }
+    const docRef = collection.doc(event.id);
+    await docRef.set(event);
   }
-  async getByID(id: IUUID): Promise<IEvent | null> {
+  async getByID(id: UUID): Promise<IEvent | null> {
     const collection = this.dataStore.store.collection("events");
-    const docRef = collection.doc(UUIDSerializer(id));
+    const docRef = collection.doc(id);
     const doc = await docRef.get();
     const json = doc.data();
-    if (json) {
-      return deserializer(json, json.type);
-    }
-    return null;
+    return IsEvent(json) ? json : null;
   }
-  async getByCorrID(corrID: IUUID): Promise<IEvent[] | null> {
+  async getByCorrID(corrID: UUID): Promise<IEvent[] | null> {
     const collection = this.dataStore.store.collection("events");
-    const query = collection
-      .where("corrID", "==", UUIDSerializer(corrID))
-      .orderBy("timestamp");
+    const query = collection.where("corrID", "==", corrID).orderBy("timestamp");
     const queryRef = await query.get();
-    if (queryRef.empty) {
-      return null;
-    } else {
-      return queryRef.docs.map(doc =>
-        deserializer(doc.data(), doc.data().type)
-      );
-    }
+    return queryRef.empty
+      ? null
+      : queryRef.docs.map(doc => doc.data()).filter(IsEvent);
   }
 }
