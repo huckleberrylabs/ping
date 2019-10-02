@@ -1,1 +1,1 @@
-export * from "./firestore";
+export * from "./document-store";

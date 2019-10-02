@@ -7,11 +7,11 @@ import {
   IsUUID,
 } from "@huckleberryai/core";
 
+export const ClientLoadedEventType = "client-loaded-event";
+
 export interface IClientLoadedEvent extends IEvent {
   widget: UUID | null;
 }
-
-export const ClientLoadedEventType = "client-loaded-event";
 
 export const ClientLoadedEvent = (
   widget: UUID | null,
@@ -33,4 +33,4 @@ export const IsClientLoadedEvent = (
   IsNonNullObject(input) &&
   IsEvent(input) &&
   input.type === ClientLoadedEventType &&
-  IsUUID(input.widget);
+  (IsUUID(input.widget) || input.widget === null);

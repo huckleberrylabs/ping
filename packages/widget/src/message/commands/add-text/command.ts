@@ -14,16 +14,15 @@ export interface IAddTextToWidgetMessageCommand extends IWidgetEvent {
 }
 
 export const AddTextToWidgetMessageCommand = (
-  message: string,
+  message: NonEmptyString,
   widget: UUID,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
 ): IAddTextToWidgetMessageCommand => {
-  const event = WidgetEvent(
+  const event = WidgetEvent(AddTextToWidgetMessageCommandType)(
     widget,
-    AddTextToWidgetMessageCommandType,
     origin,
     corr,
     parent,

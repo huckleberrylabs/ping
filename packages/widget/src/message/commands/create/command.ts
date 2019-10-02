@@ -5,22 +5,13 @@ export const CreateWidgetMessageCommandType = "create-widget-message-command";
 
 export interface ICreateWidgetMessageCommand extends IWidgetEvent {}
 
-export const CreateWidgetMessageCommand = (
+export const CreateWidgetMessageCommand: (
   widget: UUID,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): ICreateWidgetMessageCommand => {
-  return WidgetEvent(
-    widget,
-    CreateWidgetMessageCommandType,
-    origin,
-    corr,
-    parent,
-    agent
-  );
-};
+) => ICreateWidgetMessageCommand = WidgetEvent(CreateWidgetMessageCommandType);
 
 export const IsCreateWidgetMessageCommand = (
   input: unknown

@@ -16,9 +16,8 @@ export const AddPhoneToWidgetMessageCommand = (
   parent?: UUID,
   agent?: UUID
 ): IAddPhoneToWidgetMessageCommand => {
-  const event = WidgetEvent(
+  const event = WidgetEvent(AddPhoneToWidgetMessageCommandType)(
     widget,
-    AddPhoneToWidgetMessageCommandType,
     origin,
     corr,
     parent,

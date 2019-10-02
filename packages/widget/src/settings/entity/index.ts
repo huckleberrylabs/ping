@@ -8,13 +8,14 @@ import {
   IsUUID,
   IsPhone,
   IsColor,
+  JSON,
 } from "@huckleberryai/core";
 
 const DEFAULT_MAIN_COLOR = "white";
 const DEFAULT_ACCENT_COLOR = "#1e73be";
 
 export interface IWidgetSettings {
-  [index: string]: any;
+  [index: string]: JSON;
   type: Type;
   id: UUID;
   phone: Phone;

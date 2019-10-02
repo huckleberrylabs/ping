@@ -5,7 +5,7 @@ import {
   NOT_FOUND,
   IEventRepository,
   StatusCode,
-  Data,
+  JSON,
 } from "@huckleberryai/core";
 import { IGetWidgetSettingsQuery } from "./query";
 import { IWidgetSettingsRepository } from "../../repository";
@@ -19,7 +19,7 @@ export class GetWidgetSettingsQueryHandler implements IEventHandler {
     private eventRepo: IEventRepository
   ) {}
   async handle(event: IGetWidgetSettingsQuery) {
-    let data: Data = "widget not found";
+    let data: JSON = "widget not found";
     let status: StatusCode = NOT_FOUND;
     await this.eventRepo.add(event);
     const widgetSettings = await this.settingsRepo.getByID(event.widget);

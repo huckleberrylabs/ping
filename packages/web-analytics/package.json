@@ -67,7 +67,9 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.1.28"
+    "@huckleberryai/core": "^0.1.28",
+    "@now/node": "^1.0.0",
+    "inversify": "^5.0.1"
   },
   "devDependencies": {
     "@types/color": "^3.0.0",
@@ -82,5 +84,6 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-jest": "^1.0.5",
     "typescript": "^3.5.3"
-  }
+  },
+  "gitHead": "15bcc54c055006a8a53d6b5817d2a24e65911435"
 }

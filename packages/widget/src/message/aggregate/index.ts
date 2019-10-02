@@ -4,6 +4,7 @@ import {
   UUID,
   NonEmptyString,
   TimeStamp,
+  IEvent,
 } from "@huckleberryai/core";
 import { IsCreateWidgetMessageCommand } from "../commands/create/command";
 import { IsAddTextToWidgetMessageCommand } from "../commands/add-text/command";
@@ -20,7 +21,7 @@ export interface IWidgetMessage {
   sent?: TimeStamp;
 }
 
-export function WidgetMessageAggregate(events: unknown[]): IWidgetMessage {
+export function WidgetMessageAggregate(events: IEvent[]): IWidgetMessage {
   return events.reduce<IWidgetMessage>((message, curr) => {
     if (IsCreateWidgetMessageCommand(curr)) {
       message.created = curr.timestamp;

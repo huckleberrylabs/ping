@@ -1,7 +1,7 @@
 import {
   UUID,
-  Data,
-  IsData,
+  JSON,
+  IsJSON,
   Type,
   StatusCode,
   IsStatusCode,
@@ -9,14 +9,14 @@ import {
 } from "../../values";
 import { IEvent, Event, IsEvent } from "../event";
 
-export interface IResult<Type extends Data> extends IEvent {
+export interface IResult<Type extends JSON> extends IEvent {
   data: Type;
   status: StatusCode;
 }
 
 export const ResultType: Type = "result";
 
-export const Result = <Type extends Data>(
+export const Result = <Type extends JSON>(
   data: Type,
   status: StatusCode,
   origin: UUID,
@@ -24,7 +24,7 @@ export const Result = <Type extends Data>(
   parent?: UUID
 ): IResult<Type> => {
   const event = Event(ResultType, origin, corr, parent);
-  if (!IsData(data))
+  if (!IsJSON(data))
     throw new Error(`ResultConstructor: invalid data: ${data}`);
   if (!IsStatusCode(status))
     throw new Error(`ResultConstructor: invalid status: ${status}`);
@@ -35,11 +35,11 @@ export const Result = <Type extends Data>(
   };
 };
 
-export const IsResult = (input: unknown): input is IResult<Data> =>
+export const IsResult = (input: unknown): input is IResult<JSON> =>
   IsNonNullObject(input) &&
   IsEvent(input) &&
   input.type === ResultType &&
-  IsData(input.data) &&
+  IsJSON(input.data) &&
   IsStatusCode(input.status);
 
 export const IsSuccess = (input: IResult<any>): boolean =>

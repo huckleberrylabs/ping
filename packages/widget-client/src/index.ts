@@ -5,20 +5,22 @@ import {
   IsError,
   IsUUID,
   IsNonEmptyString,
-} from "@huckleberryai/core";
-import {
-  TextWidgetSettingsQuery,
-  ClientLoadedEvent,
-  ClientUnloadedEvent,
-  TextWidgetOpenedCommand,
-  TextWidgetMessageAddedCommand,
-  TextWidgetPhoneAddedCommand,
-  TextWidgetNameAddedCommand,
-  TextWidgetSentCommand,
   API_ENDPOINT,
   EVENTS_ENDPOINT,
-  ITextWidgetSettings,
-  IsTextWidgetSettings,
+} from "@huckleberryai/core";
+import {
+  ClientLoadedEvent,
+  ClientUnloadedEvent,
+} from "@huckleberryai/web-analytics";
+import {
+  GetWidgetSettingsQuery,
+  CreateWidgetMessageCommand,
+  AddTextToWidgetMessageCommand,
+  AddPhoneToWidgetMessageCommand,
+  AddNameToWidgetMessageCommand,
+  SendWidgetMessageCommand,
+  IWidgetSettings,
+  IsWidgetSettings,
 } from "@huckleberryai/widget";
 import {
   CSS_ID,
@@ -122,17 +124,17 @@ async function HuckleberryTextWidget() {
   }
 
   // Retrieve Widget Settings
-  const textWidgetSettingsQuery = TextWidgetSettingsQuery(
+  const textWidgetSettingsQuery = GetWidgetSettingsQuery(
     WIDGET_ID,
     AGENT_ID,
     ORIGIN_ID,
     CORR_ID,
     textWidgetLoadedEvent.id
   );
-  const settingsResult = await postEvent<ITextWidgetSettings>(
+  const settingsResult = await postEvent<IWidgetSettings>(
     textWidgetSettingsQuery
   );
-  if (!IsTextWidgetSettings(settingsResult.data)) {
+  if (!IsWidgetSettings(settingsResult.data)) {
     log(settingsResult.data, ["error", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
     return;
   }
@@ -198,7 +200,7 @@ async function HuckleberryTextWidget() {
     messageButton.classList.add("shown");
     messageInput.classList.add("shown");
     messageInput.focus();
-    const command = TextWidgetOpenedCommand(
+    const command = CreateWidgetMessageCommand(
       WIDGET_ID,
       AGENT_ID,
       ORIGIN_ID,
@@ -219,7 +221,7 @@ async function HuckleberryTextWidget() {
       phoneInput.classList.add("shown");
       phoneButton.classList.add("shown");
       phoneInput.focus();
-      const command = TextWidgetMessageAddedCommand(
+      const command = AddTextToWidgetMessageCommand(
         message.trim(),
         WIDGET_ID,
         AGENT_ID,
@@ -247,7 +249,7 @@ async function HuckleberryTextWidget() {
     nameInput.classList.add("shown");
     sendButton.classList.add("shown");
     nameInput.focus();
-    const command = TextWidgetPhoneAddedCommand(
+    const command = AddPhoneToWidgetMessageCommand(
       phone,
       WIDGET_ID,
       AGENT_ID,
@@ -267,7 +269,7 @@ async function HuckleberryTextWidget() {
       sendButton.classList.remove("shown");
       loaderMessage.classList.add("shown");
       container.style.width = "";
-      const nameAddedCommand = TextWidgetNameAddedCommand(
+      const nameAddedCommand = AddNameToWidgetMessageCommand(
         personName,
         WIDGET_ID,
         AGENT_ID,
@@ -275,7 +277,7 @@ async function HuckleberryTextWidget() {
         CORR_ID,
         textWidgetLoadedEvent.id
       );
-      const sentCommand = TextWidgetSentCommand(
+      const sentCommand = SendWidgetMessageCommand(
         WIDGET_ID,
         AGENT_ID,
         ORIGIN_ID,

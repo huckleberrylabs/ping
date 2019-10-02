@@ -3,15 +3,16 @@ import {
   IResult,
   Result,
   IEvent,
-  Data,
+  JSON,
   StatusCode,
   INTERNAL_SERVER_ERROR,
   ENV,
+  API_ENDPOINT,
+  EVENTS_ENDPOINT,
 } from "@huckleberryai/core";
-import { API_ENDPOINT, EVENTS_ENDPOINT } from "@huckleberryai/widget";
 
 /** will never throw an error */
-export async function postEvent<ReturnType extends Data>(
+export async function postEvent<ReturnType extends JSON>(
   event: IEvent
 ): Promise<IResult<ReturnType | string>> {
   if (ENV === "development") {

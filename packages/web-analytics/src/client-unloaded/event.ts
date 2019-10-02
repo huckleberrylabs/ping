@@ -1,15 +1,20 @@
+import { ILog, IsLog } from "@huckleberryai/log";
 import {
   UUID,
   IsUUID,
   IEvent,
   IsEvent,
   Event,
-  ILog,
   IsNonNullObject,
 } from "@huckleberryai/core";
 
 export interface IClientUnloadedEvent extends IEvent {
   log: ILog;
+  widget: UUID | null;
+}
+
+export interface INormalizedClientUnloadedEvent extends IEvent {
+  log: UUID[];
   widget: UUID | null;
 }
 
@@ -37,4 +42,12 @@ export const IsClientUnloadedEvent = (
   IsNonNullObject(input) &&
   IsEvent(input) &&
   input.type === ClientUnloadedEventType &&
-  IsUUID(input.widget);
+  IsUUID(input.widget) &&
+  IsLog();
+
+export const NormalizeClientUnloadedEvent = (
+  input: IClientUnloadedEvent
+): INormalizedClientUnloadedEvent => ({
+  ...input,
+  log: input.log.log.map(logEntryEvent => logEntryEvent.id),
+});

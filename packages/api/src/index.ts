@@ -8,7 +8,7 @@ import {
   IsError,
   IsEvent,
 } from "@huckleberryai/core";
-import { EVENTS_ENDPOINT } from "@huckleberryai/widget";
+import { EVENTS_ENDPOINT } from "@huckleberryai/core";
 import { HTTPAccessEvent } from "@huckleberryai/web-analytics";
 import { bus } from "./structural";
 

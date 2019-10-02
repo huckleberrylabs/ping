@@ -5,15 +5,15 @@ import {
   StatusCode,
   OK,
   INTERNAL_SERVER_ERROR,
-  IEventRepository
+  IEventRepository,
 } from "@huckleberryai/core";
-import { IHTTPAccessEvent } from "../events";
+import { IHTTPAccessEvent } from "./event";
 
 @injectable()
 export class HTTPAccessEventHandler implements IEventHandler {
-  public origin = "b50b7c54-1b4a-426e-9e98-d53d9de2cfad";
   constructor(private repository: IEventRepository) {}
   async handle(event: IHTTPAccessEvent) {
+    const origin = "b50b7c54-1b4a-426e-9e98-d53d9de2cfad";
     let status: StatusCode = OK;
     let data = null;
     try {
@@ -22,6 +22,6 @@ export class HTTPAccessEventHandler implements IEventHandler {
       data = error.toString();
       status = INTERNAL_SERVER_ERROR;
     }
-    return Result(data, status, this.origin, event.corr, event.id);
+    return Result(data, status, origin, event.corr, event.id);
   }
 }

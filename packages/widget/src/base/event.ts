@@ -12,9 +12,8 @@ export interface IWidgetEvent extends IEvent {
   widget: UUID;
 }
 
-export const WidgetEvent = (
+export const WidgetEvent = (type: Type) => (
   widget: UUID,
-  type: Type,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,

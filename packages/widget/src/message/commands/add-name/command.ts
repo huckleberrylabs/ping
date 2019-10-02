@@ -21,9 +21,8 @@ export const AddNameToWidgetMessageCommand = (
   parent?: UUID,
   agent?: UUID
 ): IAddNameToWidgetMessageCommand => {
-  const event = WidgetEvent(
+  const event = WidgetEvent(AddNameToWidgetMessageCommandType)(
     widget,
-    AddNameToWidgetMessageCommandType,
     origin,
     corr,
     parent,

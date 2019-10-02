@@ -1,20 +1,16 @@
 import "reflect-metadata";
 import { Container, ContainerModule } from "inversify";
-import {
-  HandlerType,
-  IEventHandler,
-  IEventRepository,
-} from "@huckleberryai/core";
+import { IEventHandler, IEventRepository } from "@huckleberryai/core";
 import { IWidgetSettingsRepository } from "@huckleberryai/widget";
 import {
   HTTPAccessEventType,
   HTTPAccessEventHandler,
 } from "@huckleberryai/web-analytics";
-import { FireStore } from "../utilities";
+import { DocumentStore } from "../utilities";
 import { EventRepository, WidgetSettingsRepository } from "../repositories";
 
 const APIUtilitiesModule = new ContainerModule(bind => {
-  bind<FireStore>(FireStore)
+  bind<DocumentStore>(DocumentStore)
     .toSelf()
     .inSingletonScope();
 });
@@ -25,9 +21,7 @@ const APIRepositoryModule = new ContainerModule(bind => {
 });
 
 const APIHandlerModule = new ContainerModule(bind => {
-  bind<IEventHandler>(HTTPAccessEventType)
-    .to(HTTPAccessEventHandler)
-    .whenTargetNamed(HandlerType);
+  bind<IEventHandler>(HTTPAccessEventType).to(HTTPAccessEventHandler);
 });
 
 const IoC = new Container();

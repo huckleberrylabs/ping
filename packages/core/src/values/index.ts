@@ -1,5 +1,5 @@
 export * from "./color";
-export * from "./data";
+export * from "./json";
 export * from "./kebab-case-string";
 export * from "./non-empty-string";
 export * from "./non-null-object";

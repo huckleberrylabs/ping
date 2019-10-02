@@ -6,14 +6,34 @@ import {
   OK,
   INTERNAL_SERVER_ERROR,
   IEventRepository,
+  IEvent,
+  IResult,
+  JSON,
 } from "@huckleberryai/core";
 import { IAddNameToWidgetMessageCommand } from "./command";
 
+type SaveEvent = (event: IEvent) => Promise<void>;
+
+export const Handler = (saveEvent: SaveEvent) => async (
+  event: IAddNameToWidgetMessageCommand
+): Promise<IResult<JSON>> => {
+  const origin = "7b12f9ca-404e-49bb-9b97-d8bfe51f4854";
+  let status: StatusCode = OK;
+  let data = null;
+  try {
+    await saveEvent(event);
+  } catch (error) {
+    data = error.toString();
+    status = INTERNAL_SERVER_ERROR;
+  }
+  return Result(data, status, origin, event.corr, event.id);
+};
+
 @injectable()
 export class AddNameToWidgetMessageCommandHandler implements IEventHandler {
-  public origin = "7b12f9ca-404e-49bb-9b97-d8bfe51f4854";
   constructor(private repository: IEventRepository) {}
   async handle(event: IAddNameToWidgetMessageCommand) {
+    const origin = "7b12f9ca-404e-49bb-9b97-d8bfe51f4854";
     let status: StatusCode = OK;
     let data = null;
     try {
@@ -22,6 +42,6 @@ export class AddNameToWidgetMessageCommandHandler implements IEventHandler {
       data = error.toString();
       status = INTERNAL_SERVER_ERROR;
     }
-    return Result(data, status, this.origin, event.corr, event.id);
+    return Result(data, status, origin, event.corr, event.id);
   }
 }
