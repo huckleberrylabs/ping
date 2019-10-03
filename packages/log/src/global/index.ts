@@ -1,15 +1,17 @@
 import { CONTEXT_ID, ENV, RUNTIME } from "@huckleberryai/core";
-import { log, LOG } from "../log";
+import { LOG, log } from "../log";
 
-export const AttachLogToGlobal = () => {
+export const getGlobal = () => {
   const ORIGIN_ID = "c857c895-40b7-41ca-ae27-a04e34274298";
-  let GLOBAL: { [key: string]: any } = ((<any>window).Huckleberry = {});
-  GLOBAL.CONTEXT_ID = CONTEXT_ID;
+  const { HUCKLEBERRY } = RUNTIME === "browser" ? (window as any) : global;
+  HUCKLEBERRY.CONTEXT_ID = CONTEXT_ID;
+  HUCKLEBERRY.ENV = ENV;
+  HUCKLEBERRY.RUNTIME = RUNTIME;
   log(`CONTEXT_ID: ${CONTEXT_ID}`, ["info", "core"], ORIGIN_ID);
-  GLOBAL.ENV = ENV;
   log(`ENV: ${ENV}`, ["info", "core"], ORIGIN_ID);
-  GLOBAL.RUNTIME = RUNTIME;
   log(`RUNTIME: ${RUNTIME}`, ["info", "core"], ORIGIN_ID);
-  GLOBAL.log = LOG;
-  return GLOBAL;
+  HUCKLEBERRY.log = LOG;
+  return HUCKLEBERRY;
 };
+
+export const GLOBAL = {}; // getGlobal();

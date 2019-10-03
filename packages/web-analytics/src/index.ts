@@ -1,3 +1,4 @@
+import "reflect-metadata";
 export * from "./client-loaded";
 export * from "./client-unloaded";
 export * from "./fingerprint";

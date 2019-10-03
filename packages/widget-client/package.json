@@ -63,9 +63,9 @@
     "rulesDirectory": []
   },
   "scripts": {
-    "deploy:prod": "now --target production --env NODE_ENV=production",
-    "deploy:staging": "now --target staging --env NODE_ENV=staging",
-    "deploy:dev": "now dev --env NODE_ENV=development",
+    "deploy:prod": "now --prod",
+    "deploy:staging": "now -e NODE_ENV=staging --target staging",
+    "deploy:dev": "now dev",
     "now-build": "npm run build",
     "build": "npx webpack --config webpack.config.js",
     "test": "npx jest",

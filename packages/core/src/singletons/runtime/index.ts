@@ -1,15 +1,9 @@
 export type IRuntime = "browser" | "node";
 
-let RUNTIME: IRuntime;
+const getRuntime = (): IRuntime => {
+  if (typeof window === "undefined") return "node";
+  if (typeof window === "object") return "browser";
+  throw new Error(`unknown runtime: (window: ${typeof window})`);
+};
 
-if (typeof process === "object" && typeof window === "undefined") {
-  RUNTIME = "node";
-} else if (typeof process === "undefined" && typeof window === "object") {
-  RUNTIME = "browser";
-} else {
-  throw new Error(
-    `unknown runtime: (process: ${typeof process}), (window: ${typeof window})`
-  );
-}
-
-export { RUNTIME };
+export const RUNTIME = getRuntime();

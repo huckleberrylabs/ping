@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "@huckleberryai/widget-widget",
+  "name": "@huckleberryai/widget",
   "scope": "huckleberryai",
   "alias": ["static.huckleberry.app"],
   "public": false,
@@ -16,7 +16,8 @@
   "build": {
     "env": {
       "NPM_TOKEN": "@npm-token",
-      "WIDGET_ID": "@widget-id"
+      "WIDGET_ID": "@widget-id",
+      "NODE_ENV": "@node-env"
     }
   }
 }
