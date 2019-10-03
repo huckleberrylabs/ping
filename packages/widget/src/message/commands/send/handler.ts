@@ -1,4 +1,4 @@
-import { injectable } from "inversify";
+import { injectable, inject } from "inversify";
 import {
   IEventHandler,
   Result,
@@ -7,6 +7,7 @@ import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
   ITextingClient,
+  TextingClientType,
 } from "@huckleberryai/core";
 import {
   IWidgetSendMessageCommand,
@@ -17,13 +18,18 @@ import { WidgetMessageAggregate, MessageIsReadyToSend } from "../../aggregate";
 import {
   IWidgetSettingsRepository,
   IWidgetMessageRepository,
+  WidgetSettingsRepositoryType,
+  WidgetMessageRepositoryType,
 } from "../../../interfaces";
 
 @injectable()
 export class WidgetSendMessageCommandHandler implements IEventHandler {
   constructor(
+    @inject(WidgetSettingsRepositoryType)
     private settingsRepo: IWidgetSettingsRepository,
+    @inject(WidgetMessageRepositoryType)
     private messageRepo: IWidgetMessageRepository,
+    @inject(TextingClientType)
     private textingClient: ITextingClient
   ) {}
   async handle(command: IWidgetSendMessageCommand) {

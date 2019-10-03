@@ -5,6 +5,7 @@ export interface IEventHandler {
   handle(event: IEvent): Promise<IResult<JSON>>;
 }
 
+export const TextingClientType = "texting-client";
 export interface ITextingClient {
   send(body: NonEmptyString, to: Phone): Promise<void>;
 }

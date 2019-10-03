@@ -1,5 +1,5 @@
+import { IoC } from "./ioc"; // must be first import because of inversify & reflect-metadata
 import { NowRequest, NowResponse } from "@now/node";
-import { IoC } from "./ioc";
 import { Bus } from "./bus";
 import {
   OK,
