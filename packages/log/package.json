@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.1.28",
+  "version": "0.2.0",
   "description": "Logging",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -67,7 +67,7 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.1.28",
+    "@huckleberryai/core": "^0.2.0",
     "inversify": "^5.0.1"
   },
   "devDependencies": {
