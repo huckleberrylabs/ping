@@ -1,30 +1,35 @@
 import "reflect-metadata";
 import { Container, ContainerModule } from "inversify";
-import { IEventHandler, IEventRepository } from "@huckleberryai/core";
-import { IWidgetSettingsRepository } from "@huckleberryai/widget";
+import { ILogEntryRepository, LogModule } from "@huckleberryai/log";
 import {
-  HTTPAccessEventType,
-  HTTPAccessEventHandler,
+  IWebAnalyticsRepository,
+  WebAnalyticsModule,
 } from "@huckleberryai/web-analytics";
-import { DocumentStore } from "../utilities";
-import { EventRepository, WidgetSettingsRepository } from "../repositories";
+import {
+  IWidgetSettingsRepository,
+  IWidgetMessageRepository,
+  WidgetModule,
+} from "@huckleberryai/widget";
 
-const APIUtilitiesModule = new ContainerModule(bind => {
+import { DocumentStore } from "../utilities";
+import {
+  LogEntryRepository,
+  WebAnalyticsRepository,
+  WidgetSettingsRepository,
+  WidgetMessageRepository,
+} from "../repositories";
+
+const APIModule = new ContainerModule(bind => {
   bind<DocumentStore>(DocumentStore)
     .toSelf()
     .inSingletonScope();
-});
-
-const APIRepositoryModule = new ContainerModule(bind => {
+  bind<ILogEntryRepository>(LogEntryRepository).toSelf();
+  bind<IWebAnalyticsRepository>(WebAnalyticsRepository).toSelf();
   bind<IWidgetSettingsRepository>(WidgetSettingsRepository).toSelf();
-  bind<IEventRepository>(EventRepository).toSelf();
-});
-
-const APIHandlerModule = new ContainerModule(bind => {
-  bind<IEventHandler>(HTTPAccessEventType).to(HTTPAccessEventHandler);
+  bind<IWidgetMessageRepository>(WidgetMessageRepository).toSelf();
 });
 
 const IoC = new Container();
-IoC.load(APIRepositoryModule, APIUtilitiesModule, APIHandlerModule);
+IoC.load(APIModule, LogModule, WebAnalyticsModule, WidgetModule);
 
 export { IoC };

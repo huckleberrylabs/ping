@@ -10,7 +10,7 @@ import {
   ILogEntryEvent,
   LogEntryEvent,
   IsLogEntryEvent,
-} from "../log-event";
+} from "../log-entry-event";
 
 export const LogType = "log";
 

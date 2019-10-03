@@ -76,6 +76,7 @@
     "@huckleberryai/core": "^0.1.28",
     "@huckleberryai/web-analytics": "^0.1.28",
     "@huckleberryai/widget": "^0.1.28",
+    "@huckleberryai/log": "^0.1.28",
     "axios": "^0.19.0"
   },
   "devDependencies": {

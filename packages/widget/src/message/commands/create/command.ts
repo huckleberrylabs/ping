@@ -1,19 +1,19 @@
 import { UUID } from "@huckleberryai/core";
 import { IWidgetEvent, IsWidgetEvent, WidgetEvent } from "../../../base/event";
 
-export const CreateWidgetMessageCommandType = "create-widget-message-command";
+export const WidgetCreateMessageCommandType = " widget-create-message-command";
 
-export interface ICreateWidgetMessageCommand extends IWidgetEvent {}
+export interface IWidgetCreateMessageCommand extends IWidgetEvent {}
 
-export const CreateWidgetMessageCommand: (
+export const WidgetCreateMessageCommand: (
   widget: UUID,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-) => ICreateWidgetMessageCommand = WidgetEvent(CreateWidgetMessageCommandType);
+) => IWidgetCreateMessageCommand = WidgetEvent(WidgetCreateMessageCommandType);
 
-export const IsCreateWidgetMessageCommand = (
+export const IsWidgetCreateMessageCommand = (
   input: unknown
-): input is ICreateWidgetMessageCommand =>
-  IsWidgetEvent(input) && input.type === CreateWidgetMessageCommandType;
+): input is IWidgetCreateMessageCommand =>
+  IsWidgetEvent(input) && input.type === WidgetCreateMessageCommandType;

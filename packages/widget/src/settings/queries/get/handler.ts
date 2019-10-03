@@ -2,31 +2,36 @@ import {
   Result,
   IEventHandler,
   OK,
+  BAD_REQUEST,
   NOT_FOUND,
-  IEventRepository,
-  StatusCode,
-  JSON,
+  INTERNAL_SERVER_ERROR,
 } from "@huckleberryai/core";
-import { IGetWidgetSettingsQuery } from "./query";
-import { IWidgetSettingsRepository } from "../../repository";
+import { IWidgetGetSettingsQuery, IsWidgetGetSettingsQuery } from "./query";
+import { IWidgetSettingsRepository } from "../../../interfaces";
 import { injectable } from "inversify";
 
 @injectable()
-export class GetWidgetSettingsQueryHandler implements IEventHandler {
-  public origin = "1aa5921c-68e8-4e30-86ac-40d0ce279796";
-  constructor(
-    private settingsRepo: IWidgetSettingsRepository,
-    private eventRepo: IEventRepository
-  ) {}
-  async handle(event: IGetWidgetSettingsQuery) {
-    let data: JSON = "widget not found";
-    let status: StatusCode = NOT_FOUND;
-    await this.eventRepo.add(event);
-    const widgetSettings = await this.settingsRepo.getByID(event.widget);
-    if (widgetSettings) {
-      data = widgetSettings;
-      status = OK;
+export class WidgetGetSettingsQueryHandler implements IEventHandler {
+  constructor(private settingsRepo: IWidgetSettingsRepository) {}
+  async handle(query: IWidgetGetSettingsQuery) {
+    const ORIGIN_ID = "1aa5921c-68e8-4e30-86ac-40d0ce279796";
+    if (!IsWidgetGetSettingsQuery(query)) {
+      return Result(null, BAD_REQUEST, ORIGIN_ID);
     }
-    return Result(data, status, this.origin, event.corr, event.id);
+    try {
+      const widgetSettings = await this.settingsRepo.get(query.widget);
+      if (!widgetSettings) {
+        return Result(null, NOT_FOUND, ORIGIN_ID, query.corr, query.id);
+      }
+      return Result(widgetSettings, OK, ORIGIN_ID, query.corr, query.id);
+    } catch (error) {
+      return Result(
+        null,
+        INTERNAL_SERVER_ERROR,
+        ORIGIN_ID,
+        query.corr,
+        query.id
+      );
+    }
   }
 }

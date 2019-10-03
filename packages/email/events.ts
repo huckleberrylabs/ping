@@ -1,6 +1,6 @@
 import moment from "moment";
 import { Event } from "../base";
-import { HTTPAccessEvent } from "../access";
+import { WebAnalyticsHTTPAccessEvent } from "../access";
 
 // Custom Events
 
@@ -15,7 +15,7 @@ export class EmailReceivedEvent extends Event {
 }
 
 const EmailOpenedEventType = Symbol("EmailReceivedEvent");
-export class EmailOpenedEvent extends HTTPAccessEvent {
+export class EmailOpenedEvent extends WebAnalyticsHTTPAccessEvent {
   public get type(): symbol {
     return EmailOpenedEventType;
   }

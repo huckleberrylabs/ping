@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { KebabCaseString, IsEvent, UUID } from "@huckleberryai/core";
+import { KebabCaseString, IEvent, IsEvent, UUID } from "@huckleberryai/core";
 import {
   IWidgetMessage,
   IWidgetMessageRepository,
@@ -13,14 +13,15 @@ import { add, get, getByProperty } from "../base";
 export class WidgetMessageRepository implements IWidgetMessageRepository {
   private collection: KebabCaseString = "widget-message";
   constructor(private store: DocumentStore) {}
-  getMessageByID = async (id: UUID): Promise<IWidgetMessage | null> => {
-    const createdEvent = await this.getEventByID(id);
+  add = (event: IEvent) =>
+    add(this.store.store)(this.collection)(event.id, event);
+  get = async (id: UUID): Promise<IWidgetMessage | null> => {
+    const createdEvent = await this.getEvent(id);
     if (!IsWidgetMessageCreatedEvent(createdEvent)) return null;
     const events = await this.getEventsByCorrID(id);
-    return WidgetMessageAggregate(events);
+    return events ? WidgetMessageAggregate(events) : null;
   };
-  addEvent = add(this.store.store)(this.collection);
-  getEventByID = get(this.store.store)(this.collection)(IsEvent);
+  getEvent = get(this.store.store)(this.collection)(IsEvent);
   getEventsByCorrID = getByProperty(this.store.store)(this.collection)(
     "corr",
     IsEvent

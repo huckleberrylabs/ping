@@ -1,5 +1,5 @@
-import { IEvent, IResult } from "../entities";
-import { NonEmptyString, Phone, JSON } from "../values";
+import { IEvent, IResult } from "./base";
+import { NonEmptyString, Phone, JSON } from "./values";
 
 export interface IEventHandler {
   handle(event: IEvent): Promise<IResult<JSON>>;

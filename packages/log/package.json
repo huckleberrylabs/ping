@@ -67,7 +67,8 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.1.28"
+    "@huckleberryai/core": "^0.1.28",
+    "inversify": "^5.0.1"
   },
   "devDependencies": {
     "@types/color": "^3.0.0",

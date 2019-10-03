@@ -5,12 +5,15 @@ import {
   NonEmptyString,
   TimeStamp,
   IEvent,
+  IsPersonName,
+  IsPhone,
+  IsNonEmptyString,
 } from "@huckleberryai/core";
-import { IsCreateWidgetMessageCommand } from "../commands/create/command";
-import { IsAddTextToWidgetMessageCommand } from "../commands/add-text/command";
-import { IsAddNameToWidgetMessageCommand } from "../commands/add-name/command";
-import { IsAddPhoneToWidgetMessageCommand } from "../commands/add-phone/command";
-import { IsSendWidgetMessageCommand } from "../commands/send/command";
+import { IsWidgetMessageCreatedEvent } from "../commands/create/event";
+import { IsWidgetTextAddedToMessageEvent } from "../commands/add-text/event";
+import { IsWidgetNameAddedToMessageEvent } from "../commands/add-name/event";
+import { IsWidgetPhoneAddedToMessageEvent } from "../commands/add-phone/event";
+import { IsWidgetMessageSentEvent } from "../commands/send/event";
 
 export interface IWidgetMessage {
   id?: UUID;
@@ -21,25 +24,30 @@ export interface IWidgetMessage {
   sent?: TimeStamp;
 }
 
-export function WidgetMessageAggregate(events: IEvent[]): IWidgetMessage {
+export const MessageIsReadyToSend = (message: IWidgetMessage) =>
+  IsNonEmptyString(message.text) &&
+  IsPersonName(message.name) &&
+  IsPhone(message.phone);
+
+export const WidgetMessageAggregate = (events: IEvent[]): IWidgetMessage => {
   return events.reduce<IWidgetMessage>((message, curr) => {
-    if (IsCreateWidgetMessageCommand(curr)) {
+    if (IsWidgetMessageCreatedEvent(curr)) {
       message.created = curr.timestamp;
       message.id = curr.id;
     }
-    if (IsAddTextToWidgetMessageCommand(curr)) {
+    if (IsWidgetTextAddedToMessageEvent(curr)) {
       message.text = curr.message;
       message.id = curr.id;
     }
-    if (IsAddNameToWidgetMessageCommand(curr)) {
+    if (IsWidgetNameAddedToMessageEvent(curr)) {
       message.name = curr.name;
     }
-    if (IsAddPhoneToWidgetMessageCommand(curr)) {
+    if (IsWidgetPhoneAddedToMessageEvent(curr)) {
       message.phone = curr.phone;
     }
-    if (IsSendWidgetMessageCommand(curr)) {
+    if (IsWidgetMessageSentEvent(curr)) {
       message.sent = curr.timestamp;
     }
     return message;
   }, {});
-}
+};

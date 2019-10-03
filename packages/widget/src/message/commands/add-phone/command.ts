@@ -1,22 +1,22 @@
 import { UUID, Phone, IsPhone, IsNonNullObject } from "@huckleberryai/core";
 import { IWidgetEvent, IsWidgetEvent, WidgetEvent } from "../../../base/event";
 
-export const AddPhoneToWidgetMessageCommandType =
-  "text-widget-phone-added-command";
+export const WidgetAddPhoneToMessageCommandType =
+  "widget-add-phone-to-message-command";
 
-export interface IAddPhoneToWidgetMessageCommand extends IWidgetEvent {
+export interface IWidgetAddPhoneToMessageCommand extends IWidgetEvent {
   phone: Phone;
 }
 
-export const AddPhoneToWidgetMessageCommand = (
+export const WidgetAddPhoneToMessageCommand = (
   phone: Phone,
   widget: UUID,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IAddPhoneToWidgetMessageCommand => {
-  const event = WidgetEvent(AddPhoneToWidgetMessageCommandType)(
+): IWidgetAddPhoneToMessageCommand => {
+  const event = WidgetEvent(WidgetAddPhoneToMessageCommandType)(
     widget,
     origin,
     corr,
@@ -26,10 +26,10 @@ export const AddPhoneToWidgetMessageCommand = (
   return { ...event, phone };
 };
 
-export const IsAddPhoneToWidgetMessageCommand = (
+export const IsWidgetAddPhoneToMessageCommand = (
   input: unknown
-): input is IAddPhoneToWidgetMessageCommand =>
+): input is IWidgetAddPhoneToMessageCommand =>
   IsNonNullObject(input) &&
   IsWidgetEvent(input) &&
-  input.type === AddPhoneToWidgetMessageCommandType &&
+  input.type === WidgetAddPhoneToMessageCommandType &&
   IsPhone(input.phone);

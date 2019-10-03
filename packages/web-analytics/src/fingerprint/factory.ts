@@ -13,6 +13,7 @@ export const generateFingerPrint = async (): Promise<FingerPrint> => ({
     platform: window.navigator.platform,
     oscpu: window.navigator.oscpu,
     hardwareConcurrency: window.navigator.hardwareConcurrency,
+    // @ts-ignore
     ram: window.navigator.deviceMemory,
     gpu: await detectGPU(),
     screen: {
@@ -20,18 +21,25 @@ export const generateFingerPrint = async (): Promise<FingerPrint> => ({
       height: window.screen.height * window.devicePixelRatio,
       colorDepth: window.screen.colorDepth,
     },
+    // @ts-ignore
     keyboard: window.navigator.keyboard
-      ? await window.navigator.keyboard.getLayoutMap()
+      ? //
+        // @ts-ignore
+        await window.navigator.keyboard.getLayoutMap()
       : undefined,
     maxTouchPoints: window.navigator.maxTouchPoints,
+    // @ts-ignore
     battery: window.navigator.getBattery
-      ? await window.navigator.getBattery()
+      ? //
+        // @ts-ignore
+        await window.navigator.getBattery()
       : undefined,
     mediaDevices: await window.navigator.mediaDevices.enumerateDevices(),
     gamePads: window.navigator.getGamepads(),
     fonts: await detectFonts(),
   },
   network: {
+    // @ts-ignore
     connection: window.navigator.connection,
     localIP: await detectLocalIP(),
   },
@@ -41,6 +49,7 @@ export const generateFingerPrint = async (): Promise<FingerPrint> => ({
       name: window.navigator.appName,
       version: window.navigator.appVersion,
     },
+    // @ts-ignore
     buildID: window.navigator.buildID,
     product: window.navigator.product,
     productSub: window.navigator.productSub,
@@ -187,9 +196,12 @@ export const detectGPU = async (): Promise<GPU | undefined> => {
     const gl =
       canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
     if (gl) {
+      // @ts-ignore
       const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
       if (debugInfo) {
+        // @ts-ignore
         const vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+        // @ts-ignore
         const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
         return { vendor, renderer };
       }

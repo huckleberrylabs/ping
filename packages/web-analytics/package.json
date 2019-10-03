@@ -68,6 +68,7 @@
   },
   "dependencies": {
     "@huckleberryai/core": "^0.1.28",
+    "@huckleberryai/log": "^0.1.28",
     "@now/node": "^1.0.0",
     "inversify": "^5.0.1"
   },

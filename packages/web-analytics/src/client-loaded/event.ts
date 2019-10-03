@@ -7,30 +7,37 @@ import {
   IsUUID,
 } from "@huckleberryai/core";
 
-export const ClientLoadedEventType = "client-loaded-event";
+export const WebAnalyticsClientLoadedEventType =
+  "web-analytics-client-loaded-event";
 
-export interface IClientLoadedEvent extends IEvent {
-  widget: UUID | null;
+export interface IWebAnalyticsClientLoadedEvent extends IEvent {
+  app: UUID | null;
 }
 
-export const ClientLoadedEvent = (
-  widget: UUID | null,
+export const WebAnalyticsClientLoadedEvent = (
+  app: UUID | null,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IClientLoadedEvent => {
-  const event = Event(ClientLoadedEventType, origin, corr, parent, agent);
+): IWebAnalyticsClientLoadedEvent => {
+  const event = Event(
+    WebAnalyticsClientLoadedEventType,
+    origin,
+    corr,
+    parent,
+    agent
+  );
   return {
     ...event,
-    widget,
+    app,
   };
 };
 
-export const IsClientLoadedEvent = (
+export const IsWebAnalyticsClientLoadedEvent = (
   input: unknown
-): input is IClientLoadedEvent =>
+): input is IWebAnalyticsClientLoadedEvent =>
   IsNonNullObject(input) &&
   IsEvent(input) &&
-  input.type === ClientLoadedEventType &&
-  (IsUUID(input.widget) || input.widget === null);
+  input.type === WebAnalyticsClientLoadedEventType &&
+  (IsUUID(input.app) || input.app === null);

@@ -2,29 +2,37 @@ import { injectable } from "inversify";
 import {
   IEventHandler,
   Result,
-  StatusCode,
   OK,
+  BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
 } from "@huckleberryai/core";
-import { ILogEntriesRepository } from "@huckleberryai/log";
-import { IClientUnloadedEvent } from "./event";
+import { ILogEntryRepository } from "@huckleberryai/log";
+import { IWebAnalyticsRepository } from "../interfaces";
+import {
+  IWebAnalyticsClientUnloadedEvent,
+  NormalizeWebAnalyticsClientUnloadedEvent,
+  IsWebAnalyticsClientUnloadedEvent,
+} from "./event";
 
 @injectable()
-export class ClientUnloadedEventHandler implements IEventHandler {
+export class WebAnalyticsClientUnloadedEventHandler implements IEventHandler {
   constructor(
     private webAnalyticsRepository: IWebAnalyticsRepository,
-    private logEntriesRepository: ILogEntriesRepository
+    private logEntriesRepository: ILogEntryRepository
   ) {}
-  async handle(event: IClientUnloadedEvent) {
-    const origin = "043329cb-bb3f-4912-be84-0c58b2b1a895";
-    let status: StatusCode = OK;
-    let data = null;
-    try {
-      await this.webAnalyticsRepository.add(event);
-    } catch (error) {
-      data = error.toString();
-      status = INTERNAL_SERVER_ERROR;
+  async handle(event: IWebAnalyticsClientUnloadedEvent) {
+    const ORIGIN_ID = "043329cb-bb3f-4912-be84-0c58b2b1a895";
+    if (!IsWebAnalyticsClientUnloadedEvent(event)) {
+      return Result(null, BAD_REQUEST, ORIGIN_ID);
     }
-    return Result(data, status, origin, event.corr, event.id);
+    try {
+      await this.webAnalyticsRepository.add(
+        NormalizeWebAnalyticsClientUnloadedEvent(event)
+      );
+      await Promise.all(event.log.log.map(this.logEntriesRepository.add));
+      return Result(null, OK, origin, event.corr, event.id);
+    } catch (error) {
+      return Result(null, INTERNAL_SERVER_ERROR, origin, event.corr, event.id);
+    }
   }
 }

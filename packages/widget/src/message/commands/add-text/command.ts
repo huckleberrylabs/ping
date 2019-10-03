@@ -6,22 +6,22 @@ import {
 } from "@huckleberryai/core";
 import { IWidgetEvent, IsWidgetEvent, WidgetEvent } from "../../../base/event";
 
-export const AddTextToWidgetMessageCommandType =
-  "add-text-to-widget-message-command";
+export const WidgetAddTextToMessageCommandType =
+  "widget-add-text-to-message-command";
 
-export interface IAddTextToWidgetMessageCommand extends IWidgetEvent {
+export interface IWidgetAddTextToMessageCommand extends IWidgetEvent {
   message: NonEmptyString;
 }
 
-export const AddTextToWidgetMessageCommand = (
+export const WidgetAddTextToMessageCommand = (
   message: NonEmptyString,
   widget: UUID,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IAddTextToWidgetMessageCommand => {
-  const event = WidgetEvent(AddTextToWidgetMessageCommandType)(
+): IWidgetAddTextToMessageCommand => {
+  const event = WidgetEvent(WidgetAddTextToMessageCommandType)(
     widget,
     origin,
     corr,
@@ -31,10 +31,10 @@ export const AddTextToWidgetMessageCommand = (
   return { ...event, message };
 };
 
-export const IsAddTextToWidgetMessageCommand = (
+export const IsWidgetAddTextToMessageCommand = (
   input: unknown
-): input is IAddTextToWidgetMessageCommand =>
+): input is IWidgetAddTextToMessageCommand =>
   IsNonNullObject(input) &&
   IsWidgetEvent(input) &&
-  input.type === AddTextToWidgetMessageCommandType &&
+  input.type === WidgetAddTextToMessageCommandType &&
   IsNonEmptyString(input.message);

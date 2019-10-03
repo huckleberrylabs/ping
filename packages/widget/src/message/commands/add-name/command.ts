@@ -6,22 +6,22 @@ import {
 } from "@huckleberryai/core";
 import { IWidgetEvent, IsWidgetEvent, WidgetEvent } from "../../../base/event";
 
-export const AddNameToWidgetMessageCommandType =
-  "add-name-to-widget-message-command";
+export const WidgetAddNameToMessageCommandType =
+  "widget-add-name-to-message-command";
 
-export interface IAddNameToWidgetMessageCommand extends IWidgetEvent {
+export interface IWidgetAddNameToMessageCommand extends IWidgetEvent {
   name: PersonName;
 }
 
-export const AddNameToWidgetMessageCommand = (
+export const WidgetAddNameToMessageCommand = (
   name: PersonName,
   widget: UUID,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IAddNameToWidgetMessageCommand => {
-  const event = WidgetEvent(AddNameToWidgetMessageCommandType)(
+): IWidgetAddNameToMessageCommand => {
+  const event = WidgetEvent(WidgetAddNameToMessageCommandType)(
     widget,
     origin,
     corr,
@@ -31,10 +31,10 @@ export const AddNameToWidgetMessageCommand = (
   return { ...event, name };
 };
 
-export const IsAddNameToWidgetMessageCommand = (
+export const IsWidgetAddNameToMessageCommand = (
   input: unknown
-): input is IAddNameToWidgetMessageCommand =>
+): input is IWidgetAddNameToMessageCommand =>
   IsNonNullObject(input) &&
   IsWidgetEvent(input) &&
-  input.type === AddNameToWidgetMessageCommandType &&
+  input.type === WidgetAddNameToMessageCommandType &&
   IsPersonName(input.name);

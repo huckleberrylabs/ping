@@ -9,19 +9,20 @@ import {
   EVENTS_ENDPOINT,
 } from "@huckleberryai/core";
 import {
-  ClientLoadedEvent,
-  ClientUnloadedEvent,
+  WebAnalyticsClientLoadedEvent,
+  WebAnalyticsClientUnloadedEvent,
 } from "@huckleberryai/web-analytics";
 import {
-  GetWidgetSettingsQuery,
-  CreateWidgetMessageCommand,
-  AddTextToWidgetMessageCommand,
-  AddPhoneToWidgetMessageCommand,
-  AddNameToWidgetMessageCommand,
-  SendWidgetMessageCommand,
+  WidgetGetSettingsQuery,
+  WidgetCreateMessageCommand,
+  WidgetAddTextToMessageCommand,
+  WidgetAddPhoneToMessageCommand,
+  WidgetAddNameToMessageCommand,
+  WidgetSendMessageCommand,
   IWidgetSettings,
   IsWidgetSettings,
 } from "@huckleberryai/widget";
+import { log, LOG } from "@huckleberryai/log";
 import {
   CSS_ID,
   INSERT_SCRIPT_ID,
@@ -37,7 +38,6 @@ import {
   ERROR_ID,
   LOADER_ID,
 } from "./element-ids";
-import { log, LOG } from "./log";
 import { getElementById } from "./helpers";
 import { postEvent, beaconEvent } from "./api";
 import { generateCSS } from "./css";
@@ -47,27 +47,40 @@ async function HuckleberryTextWidget() {
   // send log on page close
   async function onUnloadEvent() {
     const ORIGIN_ID = "28d540c0-a781-47db-870c-fac3ad9a3d6b";
-    let widgetID = null;
+    let appID = null;
     try {
       // WIDGET_ID might not be defined, giving a reference error;
-      widgetID = WIDGET_ID;
+      appID = WIDGET_ID;
     } catch (error) {
       // ignore, this is already logged in retrieve widget id section;
     }
-    beaconEvent(ClientUnloadedEvent(LOG, widgetID, ORIGIN_ID, CORR_ID));
+    beaconEvent(
+      WebAnalyticsClientUnloadedEvent(
+        LOG,
+        null,
+        appID,
+        ORIGIN_ID,
+        CORR_ID,
+        PARENT_ID,
+        AGENT_ID
+      )
+    );
   }
   window.addEventListener("unload", onUnloadEvent);
 
   const ORIGIN_ID = "02553494-2ee2-43fb-b7e5-826ea0281883";
-  const AGENT_ID = UUID();
   const CORR_ID = UUID();
+  // If customer has their own userID implementation (signed-in users)
+  const AGENT_ID = undefined;
 
-  const textWidgetLoadedEvent = ClientLoadedEvent(
+  const webAnalyticsClientLoadedEvent = WebAnalyticsClientLoadedEvent(
     UUID(), // chicken and egg problem between PARENT_ID and WIDGET_ID
     ORIGIN_ID,
-    CORR_ID
+    CORR_ID,
+    undefined,
+    AGENT_ID
   );
-  const PARENT_ID = textWidgetLoadedEvent.id;
+  const PARENT_ID = webAnalyticsClientLoadedEvent.id;
   log(`loaded successfully`, ["info", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
 
   // retrieve widget id
@@ -101,8 +114,8 @@ async function HuckleberryTextWidget() {
   })();
 
   // widget loaded event
-  textWidgetLoadedEvent.widget = WIDGET_ID;
-  const loadedResult = await postEvent(textWidgetLoadedEvent);
+  webAnalyticsClientLoadedEvent.app = WIDGET_ID;
+  const loadedResult = await postEvent(webAnalyticsClientLoadedEvent);
   if (IsError(loadedResult)) {
     log(
       `could not post to api: ${API_ENDPOINT + EVENTS_ENDPOINT}`,
@@ -124,15 +137,15 @@ async function HuckleberryTextWidget() {
   }
 
   // Retrieve Widget Settings
-  const textWidgetSettingsQuery = GetWidgetSettingsQuery(
+  const widgetGetSettingsQuery = WidgetGetSettingsQuery(
     WIDGET_ID,
-    AGENT_ID,
     ORIGIN_ID,
     CORR_ID,
-    textWidgetLoadedEvent.id
+    PARENT_ID,
+    AGENT_ID
   );
   const settingsResult = await postEvent<IWidgetSettings>(
-    textWidgetSettingsQuery
+    widgetGetSettingsQuery
   );
   if (!IsWidgetSettings(settingsResult.data)) {
     log(settingsResult.data, ["error", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
@@ -145,10 +158,10 @@ async function HuckleberryTextWidget() {
     CORR_ID,
     PARENT_ID
   );
-  const textWidgetSettings = settingsResult.data;
+  const widgetSettings = settingsResult.data;
 
   // CHECK IF WIDGET IS ENABLED
-  if (!textWidgetSettings.enabled) {
+  if (!widgetSettings.enabled) {
     log(`widget disabled`, ["info", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
     return;
   }
@@ -160,8 +173,8 @@ async function HuckleberryTextWidget() {
       style.id = CSS_ID;
       style.type = "text/css";
       style.innerHTML = generateCSS(
-        textWidgetSettings.mainColor,
-        textWidgetSettings.accentColor
+        widgetSettings.mainColor,
+        widgetSettings.accentColor
       );
       const head = document.getElementsByTagName("head")[0];
       head.appendChild(style);
@@ -200,12 +213,12 @@ async function HuckleberryTextWidget() {
     messageButton.classList.add("shown");
     messageInput.classList.add("shown");
     messageInput.focus();
-    const command = CreateWidgetMessageCommand(
+    const command = WidgetCreateMessageCommand(
       WIDGET_ID,
-      AGENT_ID,
       ORIGIN_ID,
       CORR_ID,
-      textWidgetLoadedEvent.id
+      PARENT_ID,
+      AGENT_ID
     );
     postEvent(command);
   }
@@ -214,25 +227,25 @@ async function HuckleberryTextWidget() {
   async function onMessageAddedEvent() {
     const ORIGIN_ID = "ccaeae68-b431-4fd0-95c5-d13abeb12cb7";
     const message = messageInput.value;
-    if (IsNonEmptyString(message)) {
-      container.style.width = "23rem";
-      messageButton.classList.remove("shown");
-      messageInput.classList.remove("shown");
-      phoneInput.classList.add("shown");
-      phoneButton.classList.add("shown");
-      phoneInput.focus();
-      const command = AddTextToWidgetMessageCommand(
-        message.trim(),
-        WIDGET_ID,
-        AGENT_ID,
-        ORIGIN_ID,
-        CORR_ID,
-        textWidgetLoadedEvent.id
-      );
-      postEvent(command);
-    } else {
+    if (!IsNonEmptyString(message)) {
       messageInput.setCustomValidity("Invalid");
+      return;
     }
+    container.style.width = "23rem";
+    messageButton.classList.remove("shown");
+    messageInput.classList.remove("shown");
+    phoneInput.classList.add("shown");
+    phoneButton.classList.add("shown");
+    phoneInput.focus();
+    const command = WidgetAddTextToMessageCommand(
+      message.trim(),
+      WIDGET_ID,
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID,
+      AGENT_ID
+    );
+    postEvent(command);
   }
   messageButton.addEventListener("click", onMessageAddedEvent);
 
@@ -249,13 +262,13 @@ async function HuckleberryTextWidget() {
     nameInput.classList.add("shown");
     sendButton.classList.add("shown");
     nameInput.focus();
-    const command = AddPhoneToWidgetMessageCommand(
+    const command = WidgetAddPhoneToMessageCommand(
       phone,
       WIDGET_ID,
-      AGENT_ID,
       ORIGIN_ID,
       CORR_ID,
-      textWidgetLoadedEvent.id
+      PARENT_ID,
+      AGENT_ID
     );
     postEvent(command);
   }
@@ -264,56 +277,51 @@ async function HuckleberryTextWidget() {
   async function onNameAddedAndSentEvent() {
     const ORIGIN_ID = "67a2a42b-2a4b-47e9-9550-6395cba39ff0";
     const personName = nameInput.value;
-    if (IsPersonName(personName)) {
-      nameInput.classList.remove("shown");
-      sendButton.classList.remove("shown");
-      loaderMessage.classList.add("shown");
-      container.style.width = "";
-      const nameAddedCommand = AddNameToWidgetMessageCommand(
-        personName,
-        WIDGET_ID,
-        AGENT_ID,
-        ORIGIN_ID,
-        CORR_ID,
-        textWidgetLoadedEvent.id
-      );
-      const sentCommand = SendWidgetMessageCommand(
-        WIDGET_ID,
-        AGENT_ID,
-        ORIGIN_ID,
-        CORR_ID,
-        textWidgetLoadedEvent.id
-      );
-
-      try {
-        await postEvent(nameAddedCommand);
-        await postEvent(sentCommand);
-        loaderMessage.classList.remove("shown");
-        successMessage.classList.add("shown");
-      } catch (error) {
-        loaderMessage.classList.remove("shown");
-        errorMessage.classList.add("shown");
-      }
-    } else {
+    if (!IsPersonName(personName)) {
       nameInput.setCustomValidity("Invalid");
+      return;
+    }
+    nameInput.classList.remove("shown");
+    sendButton.classList.remove("shown");
+    loaderMessage.classList.add("shown");
+    container.style.width = "";
+    const nameAddedCommand = WidgetAddNameToMessageCommand(
+      personName,
+      WIDGET_ID,
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID,
+      AGENT_ID
+    );
+    const sentCommand = WidgetSendMessageCommand(
+      WIDGET_ID,
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID,
+      AGENT_ID
+    );
+    try {
+      await postEvent(nameAddedCommand);
+      await postEvent(sentCommand);
+      loaderMessage.classList.remove("shown");
+      successMessage.classList.add("shown");
+    } catch (error) {
+      loaderMessage.classList.remove("shown");
+      errorMessage.classList.add("shown");
     }
   }
   sendButton.addEventListener("click", onNameAddedAndSentEvent);
 
-  function nextOnEnter(event: KeyboardEvent, button: HTMLButtonElement) {
+  const nextOnEnter = (button: HTMLButtonElement) => (event: KeyboardEvent) => {
     event.preventDefault();
     if (event.keyCode === 13) {
       button.click();
     }
-  }
+  };
 
-  messageInput.addEventListener("keyup", event =>
-    nextOnEnter(event, messageButton)
-  );
-  phoneInput.addEventListener("keyup", event =>
-    nextOnEnter(event, phoneButton)
-  );
-  nameInput.addEventListener("keyup", event => nextOnEnter(event, sendButton));
+  messageInput.addEventListener("keyup", nextOnEnter(messageButton));
+  phoneInput.addEventListener("keyup", nextOnEnter(phoneButton));
+  nameInput.addEventListener("keyup", nextOnEnter(sendButton));
 
   log(
     `event listeners loaded`,

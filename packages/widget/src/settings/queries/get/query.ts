@@ -1,28 +1,19 @@
 import { UUID } from "@huckleberryai/core";
 import { IWidgetEvent, IsWidgetEvent, WidgetEvent } from "../../../base/event";
 
-export interface IGetWidgetSettingsQuery extends IWidgetEvent {}
+export interface IWidgetGetSettingsQuery extends IWidgetEvent {}
 
-export const GetWidgetSettingsQueryType = "get-widget-settings-query";
+export const WidgetGetSettingsQueryType = "widget-get-settings-query";
 
-export const GetWidgetSettingsQuery = (
+export const WidgetGetSettingsQuery: (
   widget: UUID,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IGetWidgetSettingsQuery => {
-  return WidgetEvent(
-    widget,
-    GetWidgetSettingsQueryType,
-    origin,
-    corr,
-    parent,
-    agent
-  );
-};
+) => IWidgetGetSettingsQuery = WidgetEvent(WidgetGetSettingsQueryType);
 
-export const IsGetWidgetSettingsQuery = (
+export const IsWidgetGetSettingsQuery = (
   input: unknown
-): input is IGetWidgetSettingsQuery =>
-  IsWidgetEvent(input) && input.type === GetWidgetSettingsQueryType;
+): input is IWidgetGetSettingsQuery =>
+  IsWidgetEvent(input) && input.type === WidgetGetSettingsQueryType;

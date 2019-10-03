@@ -9,7 +9,7 @@ import {
   IsEvent,
 } from "@huckleberryai/core";
 import { EVENTS_ENDPOINT } from "@huckleberryai/core";
-import { HTTPAccessEvent } from "@huckleberryai/web-analytics";
+import { WebAnalyticsHTTPAccessEvent } from "@huckleberryai/web-analytics";
 import { bus } from "./structural";
 
 export default async (req: NowRequest, res: NowResponse) => {
@@ -26,7 +26,7 @@ export default async (req: NowRequest, res: NowResponse) => {
   }
 
   // HTTP Access Filtering
-  const accessEvent = HTTPAccessEvent(req, ORIGIN_ID);
+  const accessEvent = WebAnalyticsHTTPAccessEvent(req, ORIGIN_ID);
   const result = await bus(accessEvent);
   if (IsError(result)) {
     res.status(result.status).send(result);

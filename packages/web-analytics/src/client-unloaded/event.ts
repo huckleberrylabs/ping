@@ -7,47 +7,59 @@ import {
   Event,
   IsNonNullObject,
 } from "@huckleberryai/core";
+import { FingerPrint, IsFingerPrint } from "../fingerprint";
 
-export interface IClientUnloadedEvent extends IEvent {
+export interface IWebAnalyticsClientUnloadedEvent extends IEvent {
   log: ILog;
-  widget: UUID | null;
+  fingerprint: FingerPrint | null;
+  app: UUID | null;
 }
 
-export interface INormalizedClientUnloadedEvent extends IEvent {
+export interface INormalizedWebAnalyticsClientUnloadedEvent extends IEvent {
   log: UUID[];
-  widget: UUID | null;
+  fingerprint: FingerPrint | null;
+  app: UUID | null;
 }
 
-export const ClientUnloadedEventType = "client-unloaded-event";
+export const WebAnalyticsClientUnloadedEventType = "client-unloaded-event";
 
-export const ClientUnloadedEvent = (
+export const WebAnalyticsClientUnloadedEvent = (
   log: ILog,
-  widget: UUID | null,
+  fingerprint: FingerPrint | null,
+  app: UUID | null,
   origin: UUID,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IClientUnloadedEvent => {
-  const event = Event(ClientUnloadedEventType, origin, corr, parent, agent);
+): IWebAnalyticsClientUnloadedEvent => {
+  const event = Event(
+    WebAnalyticsClientUnloadedEventType,
+    origin,
+    corr,
+    parent,
+    agent
+  );
   return {
     ...event,
-    widget,
+    app,
     log,
+    fingerprint,
   };
 };
 
-export const IsClientUnloadedEvent = (
+export const IsWebAnalyticsClientUnloadedEvent = (
   input: unknown
-): input is IClientUnloadedEvent =>
+): input is IWebAnalyticsClientUnloadedEvent =>
   IsNonNullObject(input) &&
   IsEvent(input) &&
-  input.type === ClientUnloadedEventType &&
-  IsUUID(input.widget) &&
-  IsLog();
+  input.type === WebAnalyticsClientUnloadedEventType &&
+  (IsUUID(input.app) || input.app === null) &&
+  IsLog(input.log) &&
+  (IsFingerPrint(input.fingerprint) || input.fingerprint === null);
 
-export const NormalizeClientUnloadedEvent = (
-  input: IClientUnloadedEvent
-): INormalizedClientUnloadedEvent => ({
+export const NormalizeWebAnalyticsClientUnloadedEvent = (
+  input: IWebAnalyticsClientUnloadedEvent
+): INormalizedWebAnalyticsClientUnloadedEvent => ({
   ...input,
   log: input.log.log.map(logEntryEvent => logEntryEvent.id),
 });

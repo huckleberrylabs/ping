@@ -1,27 +1,17 @@
 import { injectable } from "inversify";
+import { IEventHandler, PersistEventHandler } from "@huckleberryai/core";
 import {
-  IEventHandler,
-  Result,
-  StatusCode,
-  OK,
-  INTERNAL_SERVER_ERROR,
-  IEventRepository,
-} from "@huckleberryai/core";
-import { IHTTPAccessEvent } from "./event";
+  IWebAnalyticsHTTPAccessEvent,
+  IsWebAnalyticsHTTPAccessEvent,
+} from "./event";
+import { IWebAnalyticsRepository } from "../interfaces";
 
 @injectable()
-export class HTTPAccessEventHandler implements IEventHandler {
-  constructor(private repository: IEventRepository) {}
-  async handle(event: IHTTPAccessEvent) {
-    const origin = "b50b7c54-1b4a-426e-9e98-d53d9de2cfad";
-    let status: StatusCode = OK;
-    let data = null;
-    try {
-      await this.repository.add(event);
-    } catch (error) {
-      data = error.toString();
-      status = INTERNAL_SERVER_ERROR;
-    }
-    return Result(data, status, origin, event.corr, event.id);
-  }
+export class WebAnalyticsHTTPAccessEventHandler implements IEventHandler {
+  constructor(private repository: IWebAnalyticsRepository) {}
+  handle = PersistEventHandler<IWebAnalyticsHTTPAccessEvent>(
+    "b50b7c54-1b4a-426e-9e98-d53d9de2cfad",
+    this.repository.add,
+    IsWebAnalyticsHTTPAccessEvent
+  );
 }
