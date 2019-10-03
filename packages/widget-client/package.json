@@ -96,5 +96,5 @@
     "webpack-cli": "^3.3.5",
     "webpack-obfuscator": "^0.18.3"
   },
-  "gitHead": "15bcc54c055006a8a53d6b5817d2a24e65911435"
+  "gitHead": "62a71a063a7992eb35f5a1be639ebe138876d8f6"
 }
