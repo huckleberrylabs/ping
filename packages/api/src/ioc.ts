@@ -1,17 +1,27 @@
 import "reflect-metadata";
 import { Container, ContainerModule } from "inversify";
-import { ILogEntryRepository, LogModule } from "@huckleberryai/log";
+
+import { ITextingClient, TextingClientType } from "@huckleberryai/core";
+
+import {
+  ILogEntryRepository,
+  LogEntryRepositoryType,
+  LogModule,
+} from "@huckleberryai/log";
 import {
   IWebAnalyticsRepository,
+  WebAnalyticsRepositoryType,
   WebAnalyticsModule,
 } from "@huckleberryai/web-analytics";
 import {
   IWidgetSettingsRepository,
+  WidgetSettingsRepositoryType,
   IWidgetMessageRepository,
+  WidgetMessageRepositoryType,
   WidgetModule,
 } from "@huckleberryai/widget";
 
-import { DocumentStore } from "./utilities";
+import { DocumentStore, TextingClient } from "./utilities";
 import {
   LogEntryRepository,
   WebAnalyticsRepository,
@@ -23,10 +33,19 @@ const APIModule = new ContainerModule(bind => {
   bind<DocumentStore>(DocumentStore)
     .toSelf()
     .inSingletonScope();
-  bind<ILogEntryRepository>(LogEntryRepository).toSelf();
-  bind<IWebAnalyticsRepository>(WebAnalyticsRepository).toSelf();
-  bind<IWidgetSettingsRepository>(WidgetSettingsRepository).toSelf();
-  bind<IWidgetMessageRepository>(WidgetMessageRepository).toSelf();
+  bind<ITextingClient>(TextingClientType)
+    .to(TextingClient)
+    .inSingletonScope();
+  bind<ILogEntryRepository>(LogEntryRepositoryType).to(LogEntryRepository);
+  bind<IWebAnalyticsRepository>(WebAnalyticsRepositoryType).to(
+    WebAnalyticsRepository
+  );
+  bind<IWidgetSettingsRepository>(WidgetSettingsRepositoryType).to(
+    WidgetSettingsRepository
+  );
+  bind<IWidgetMessageRepository>(WidgetMessageRepositoryType).to(
+    WidgetMessageRepository
+  );
 });
 
 const IoC = new Container();

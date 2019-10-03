@@ -11,9 +11,14 @@ import {
   IsEvent,
 } from "@huckleberryai/core";
 import { EVENTS_ENDPOINT } from "@huckleberryai/core";
-import { WebAnalyticsHTTPAccessEvent } from "@huckleberryai/web-analytics";
+import {
+  WebAnalyticsHTTPAccessEvent,
+  WebAnalyticsHTTPAccessEventType,
+} from "@huckleberryai/web-analytics";
 
 export const bus = Bus(IoC);
+
+IoC.get(WebAnalyticsHTTPAccessEventType);
 
 export default async (req: NowRequest, res: NowResponse) => {
   const ORIGIN_ID = "c7e384c3-697f-4ccf-a514-d54a452acfac";

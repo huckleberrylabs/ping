@@ -1,4 +1,4 @@
-import { injectable } from "inversify";
+import { injectable, inject } from "inversify";
 import {
   Result,
   IEventHandler,
@@ -8,11 +8,17 @@ import {
   INTERNAL_SERVER_ERROR,
 } from "@huckleberryai/core";
 import { IWidgetGetSettingsQuery, IsWidgetGetSettingsQuery } from "./query";
-import { IWidgetSettingsRepository } from "../../../interfaces";
+import {
+  IWidgetSettingsRepository,
+  WidgetSettingsRepositoryType,
+} from "../../../interfaces";
 
 @injectable()
 export class WidgetGetSettingsQueryHandler implements IEventHandler {
-  constructor(private settingsRepo: IWidgetSettingsRepository) {}
+  constructor(
+    @inject(WidgetSettingsRepositoryType)
+    private settingsRepo: IWidgetSettingsRepository
+  ) {}
   async handle(query: IWidgetGetSettingsQuery) {
     const ORIGIN_ID = "1aa5921c-68e8-4e30-86ac-40d0ce279796";
     if (!IsWidgetGetSettingsQuery(query)) {
