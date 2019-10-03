@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Web Analytics",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "@huckleberryai/core": "^0.2.0",
-    "@huckleberryai/log": "^0.2.3",
+    "@huckleberryai/log": "^0.2.4",
     "@now/node": "^1.0.0",
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13"
