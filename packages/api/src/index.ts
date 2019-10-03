@@ -1,4 +1,6 @@
 import { NowRequest, NowResponse } from "@now/node";
+import { IoC } from "./ioc";
+import { Bus } from "./bus";
 import {
   OK,
   NOT_FOUND,
@@ -10,7 +12,8 @@ import {
 } from "@huckleberryai/core";
 import { EVENTS_ENDPOINT } from "@huckleberryai/core";
 import { WebAnalyticsHTTPAccessEvent } from "@huckleberryai/web-analytics";
-import { bus } from "./structural";
+
+export const bus = Bus(IoC);
 
 export default async (req: NowRequest, res: NowResponse) => {
   const ORIGIN_ID = "c7e384c3-697f-4ccf-a514-d54a452acfac";

@@ -11,13 +11,13 @@ import {
   WidgetModule,
 } from "@huckleberryai/widget";
 
-import { DocumentStore } from "../utilities";
+import { DocumentStore } from "./utilities";
 import {
   LogEntryRepository,
   WebAnalyticsRepository,
   WidgetSettingsRepository,
   WidgetMessageRepository,
-} from "../repositories";
+} from "./repositories";
 
 const APIModule = new ContainerModule(bind => {
   bind<DocumentStore>(DocumentStore)

@@ -8,7 +8,6 @@ import {
   IEvent,
   IEventHandler,
 } from "@huckleberryai/core";
-import { IoC } from "./ioc";
 
 export const Bus = (ioc: Container) => async (
   event: IEvent
@@ -28,5 +27,3 @@ export const Bus = (ioc: Container) => async (
   }
   return await handler.handle(event);
 };
-
-export const bus = Bus(IoC);

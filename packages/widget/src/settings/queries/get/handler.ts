@@ -1,3 +1,4 @@
+import { injectable } from "inversify";
 import {
   Result,
   IEventHandler,
@@ -8,7 +9,6 @@ import {
 } from "@huckleberryai/core";
 import { IWidgetGetSettingsQuery, IsWidgetGetSettingsQuery } from "./query";
 import { IWidgetSettingsRepository } from "../../../interfaces";
-import { injectable } from "inversify";
 
 @injectable()
 export class WidgetGetSettingsQueryHandler implements IEventHandler {
