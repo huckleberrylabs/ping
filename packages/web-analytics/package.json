@@ -70,7 +70,8 @@
     "@huckleberryai/core": "^0.2.0",
     "@huckleberryai/log": "^0.2.0",
     "@now/node": "^1.0.0",
-    "inversify": "^5.0.1"
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/color": "^3.0.0",

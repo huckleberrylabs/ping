@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { ContainerModule } from "inversify";
 import { IEventHandler } from "../../core/lib";
 import {
