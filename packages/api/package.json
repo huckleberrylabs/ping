@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Huckleberry API",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -74,7 +74,7 @@
     "@google/maps": "^0.5.5",
     "@huckleberryai/core": "^0.2.7",
     "@huckleberryai/log": "^0.2.7",
-    "@huckleberryai/web-analytics": "^0.2.7",
+    "@huckleberryai/web-analytics": "^0.2.8",
     "@huckleberryai/widget": "^0.2.7",
     "@now/node": "^0.12.1",
     "inversify": "^5.0.1",
