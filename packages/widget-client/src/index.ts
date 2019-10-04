@@ -81,7 +81,13 @@ async function HuckleberryTextWidget() {
     AGENT_ID
   );
   const PARENT_ID = webAnalyticsClientLoadedEvent.id;
-  log(`loaded successfully`, ["info", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
+  log(
+    `loaded successfully`,
+    ["info", "widget-client", webAnalyticsClientLoadedEvent.type],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 
   // retrieve widget id
   const WIDGET_ID = ((): UUID => {
@@ -100,7 +106,7 @@ async function HuckleberryTextWidget() {
       }
       log(
         `widget_id retrieved successfully: ${id} `,
-        ["info", "text"],
+        ["info", "widget-client"],
         ORIGIN_ID,
         CORR_ID,
         PARENT_ID
@@ -108,7 +114,7 @@ async function HuckleberryTextWidget() {
       return id;
     } catch (error) {
       const message = "widget_id could not be retrieved";
-      log(message, ["error", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
+      log(message, ["error", "widget-client"], ORIGIN_ID, CORR_ID, PARENT_ID);
       throw new Error(message);
     }
   })();
@@ -119,7 +125,7 @@ async function HuckleberryTextWidget() {
   if (IsError(loadedResult)) {
     log(
       `could not post to api: ${API_ENDPOINT + EVENTS_ENDPOINT}`,
-      ["error", "text"],
+      ["error", "widget-client", webAnalyticsClientLoadedEvent.type],
       ORIGIN_ID,
       CORR_ID,
       PARENT_ID
@@ -129,7 +135,7 @@ async function HuckleberryTextWidget() {
   } else {
     log(
       `api posted to successfully: ${API_ENDPOINT + EVENTS_ENDPOINT}`,
-      ["info", "text"],
+      ["info", "widget-client", webAnalyticsClientLoadedEvent.type],
       ORIGIN_ID,
       CORR_ID,
       PARENT_ID
@@ -148,7 +154,13 @@ async function HuckleberryTextWidget() {
     widgetGetSettingsQuery
   );
   if (!IsWidgetSettings(settingsResult.data)) {
-    log(settingsResult.data, ["error", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
+    log(
+      settingsResult.data,
+      ["error", "widget-client", widgetGetSettingsQuery.type],
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID
+    );
     return;
   }
   log(
@@ -162,7 +174,13 @@ async function HuckleberryTextWidget() {
 
   // CHECK IF WIDGET IS ENABLED
   if (!widgetSettings.enabled) {
-    log(`widget disabled`, ["info", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
+    log(
+      `widget disabled`,
+      ["info", "widget-client"],
+      ORIGIN_ID,
+      CORR_ID,
+      PARENT_ID
+    );
     return;
   }
 
@@ -180,7 +198,7 @@ async function HuckleberryTextWidget() {
       head.appendChild(style);
     }
   })();
-  log(`css inserted`, ["info", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
+  log(`css inserted`, ["info", "widget-client"], ORIGIN_ID, CORR_ID, PARENT_ID);
 
   // INSERT HTML
   (() => {
@@ -188,7 +206,13 @@ async function HuckleberryTextWidget() {
     div.innerHTML = generateHTML();
     document.getElementsByTagName("body")[0].appendChild(div);
   })();
-  log(`html inserted`, ["info", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
+  log(
+    `html inserted`,
+    ["info", "widget-client"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 
   // Load Elements
   const container = <HTMLDivElement>getElementById(CONTAINER_ID);
@@ -204,7 +228,13 @@ async function HuckleberryTextWidget() {
   const successMessage = <HTMLImageElement>getElementById(SUCCESS_ID);
   const errorMessage = <HTMLImageElement>getElementById(ERROR_ID);
 
-  log(`elements loaded`, ["info", "text"], ORIGIN_ID, CORR_ID, PARENT_ID);
+  log(
+    `elements loaded`,
+    ["info", "widget-client"],
+    ORIGIN_ID,
+    CORR_ID,
+    PARENT_ID
+  );
 
   async function onOpenedEvent(): Promise<void> {
     const ORIGIN_ID = "066548fe-cc82-475c-82d9-9bacfbf39104";
@@ -325,14 +355,14 @@ async function HuckleberryTextWidget() {
 
   log(
     `event listeners loaded`,
-    ["info", "text"],
+    ["info", "widget-client"],
     ORIGIN_ID,
     CORR_ID,
     PARENT_ID
   );
   log(
     `initialized successfully`,
-    ["info", "text"],
+    ["info", "widget-client"],
     ORIGIN_ID,
     CORR_ID,
     PARENT_ID

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "@huckleberryai/widget",
+  "name": "@huckleberryai/widget-client",
   "scope": "huckleberryai",
   "alias": ["static.huckleberry.app"],
   "public": false,

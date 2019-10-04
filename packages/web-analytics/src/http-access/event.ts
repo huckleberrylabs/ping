@@ -19,7 +19,15 @@ export const WebAnalyticsHTTPAccessEvent = (
   const corr = IsUUID(corrString) ? corrString : undefined;
   const parentString = req.query["parent_id"];
   let parent = IsUUID(parentString) ? parentString : undefined;
-  const event = Event(WebAnalyticsHTTPAccessEventType, origin, corr, parent);
+  const agentString = req.query["agent_id"];
+  let agent = IsUUID(agentString) ? agentString : undefined;
+  const event = Event(
+    WebAnalyticsHTTPAccessEventType,
+    origin,
+    corr,
+    parent,
+    agent
+  );
   return {
     ...event,
     method: req.method ? req.method : null,

@@ -63,7 +63,7 @@
     "rulesDirectory": []
   },
   "scripts": {
-    "deploy:prod": "now --prod",
+    "deploy:prod": "now --target production",
     "deploy:staging": "now -e NODE_ENV=staging --target staging",
     "deploy:dev": "now dev",
     "now-build": "npm run build",
@@ -93,7 +93,7 @@
     "tslint-jest": "^1.0.5",
     "typescript": "^3.5.3",
     "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5",
+    "webpack-cli": "^3.3.9",
     "webpack-obfuscator": "^0.18.3"
   },
   "gitHead": "62a71a063a7992eb35f5a1be639ebe138876d8f6"

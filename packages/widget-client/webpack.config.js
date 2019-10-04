@@ -32,8 +32,8 @@ module.exports = {
       node_env: process.env.NODE_ENV,
       template: "index.html",
     }),
-    /* new JavaScriptObfuscator({
+    new JavaScriptObfuscator({
       rotateUnicodeArray: true,
-    }), */
+    }),
   ],
 };

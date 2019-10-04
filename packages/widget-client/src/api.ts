@@ -22,9 +22,13 @@ export async function postEvent<ReturnType extends JSON>(
     // send the event
     let res: AxiosResponse<any>;
     try {
-      res = await axios.post(API_ENDPOINT + EVENTS_ENDPOINT, event, {
-        validateStatus: () => true,
-      });
+      res = await axios.post(
+        `${API_ENDPOINT}${EVENTS_ENDPOINT}?corr_id=${event.corr}&parent_id=${event.parent}&${event.agent}`,
+        event,
+        {
+          validateStatus: () => true,
+        }
+      );
     } catch (error) {
       if (error.response) {
         // the request was made and the server responded with a status code that falls out of the range of validateStatus
