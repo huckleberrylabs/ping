@@ -1,8 +1,6 @@
 import "reflect-metadata";
 import { Container, ContainerModule } from "inversify";
-
 import { ITextingClient, TextingClientType } from "@huckleberryai/core";
-
 import {
   ILogEntryRepository,
   LogEntryRepositoryType,
@@ -20,7 +18,6 @@ import {
   WidgetMessageRepositoryType,
   WidgetModule,
 } from "@huckleberryai/widget";
-
 import { DocumentStore, TextingClient } from "./utilities";
 import {
   LogEntryRepository,

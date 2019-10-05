@@ -1,12 +1,13 @@
+import { Either, right, left } from "fp-ts/lib/Either";
 import { parsePhoneNumberFromString } from "libphonenumber-js/max";
 import { IsNonEmptyString } from "../non-empty-string";
 
 export type Phone = string;
 
-export const ParsePhone = (input: string): Phone => {
+export const ParsePhone = (input: string): Either<Error, Phone> => {
   const phone = parsePhoneNumberFromString(input);
-  if (phone) return phone.format("E.164");
-  throw new Error("phone input cannot be parsed");
+  if (phone) return right(phone.format("E.164"));
+  return left(new Error("phone input cannot be parsed"));
 };
 
 export const IsPhone = (input: unknown): input is Phone =>

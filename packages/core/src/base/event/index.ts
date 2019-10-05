@@ -1,4 +1,5 @@
-import { CONTEXT_ID } from "../../singletons";
+import { Either, right, isLeft } from "fp-ts/lib/Either";
+import { GetContext } from "../../singletons";
 import {
   UUID,
   IsUUID,
@@ -26,16 +27,21 @@ export const Event = (
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IEvent => ({
-  type,
-  timestamp: TimeStamp(),
-  context: CONTEXT_ID,
-  origin: origin,
-  id: UUID(),
-  corr: corr ? corr : UUID(),
-  parent: parent ? parent : null,
-  agent: agent ? agent : null,
-});
+): Either<Error, IEvent> => {
+  const context = GetContext();
+  return isLeft(context)
+    ? context
+    : right({
+        type,
+        timestamp: TimeStamp(),
+        context: context.right,
+        origin: origin,
+        id: UUID(),
+        corr: corr ? corr : UUID(),
+        parent: parent ? parent : null,
+        agent: agent ? agent : null,
+      });
+};
 
 export const IsEvent = (input: unknown): input is IEvent =>
   IsNonNullObject(input) &&

@@ -1,7 +1,7 @@
-import { ENV } from ".";
+import { GetENV } from ".";
 
 describe("ENV", () => {
   test("should be test", () => {
-    expect(ENV).toBe("test");
+    expect(GetENV()).toBe("test");
   });
 });

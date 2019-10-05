@@ -1,26 +1,30 @@
-import {
-  CONTAINER_ID,
-  FORM_ID,
-  OPEN_BUTON_ID,
-  OPEN_BUTON_ICON_ID,
-  LOADER_ID,
-  SUCCESS_ID,
-  ERROR_ID,
-} from "./element-ids";
+import { UUID } from "@huckleberryai/core";
+import { IWidgetSettings } from "@huckleberryai/widget";
+import { IWidgetClientElementIDs } from "./elements";
 
-/** will never throw error */
-export function generateCSS(mainColor: string, accentColor: string) {
-  return `:root {
-  --huckleberry-text-main-color: ${mainColor};
-  --huckleberry-text-accent-color: ${accentColor};
+export const insertCSS = (css: string) => {
+  const style = document.createElement("style");
+  style.id = `css-${UUID()}`;
+  style.type = "text/css";
+  style.innerHTML = css;
+  const head = document.getElementsByTagName("head")[0];
+  head.appendChild(style);
+};
+
+export const generateCSS = (e: IWidgetClientElementIDs) => (
+  w: IWidgetSettings
+) =>
+  `:root {
+  --huckleberry-text-main-color: ${w.mainColor};
+  --huckleberry-text-accent-color: ${w.accentColor};
   --huckleberry-text-success-color: #00ae4e;
   --huckleberry-text-fail-color: #ae0034;
 }
-#${CONTAINER_ID} * {
+#${e.container} * {
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
 }
-#${CONTAINER_ID} {
+#${e.container} {
   position: fixed;
   z-index: 2147483647;
   bottom: 24px;
@@ -34,15 +38,15 @@ export function generateCSS(mainColor: string, accentColor: string) {
   background-color: var(--huckleberry-text-main-color);
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25);
 }
-#${FORM_ID} {
+#${e.form} {
   width: 100%;
   height: 100%;
 }
-#${FORM_ID} button,
-#${FORM_ID} input,
-#${LOADER_ID},
-#${SUCCESS_ID},
-#${ERROR_ID} {
+#${e.form} button,
+#${e.form} input,
+#${e.loader},
+#${e.success},
+#${e.error} {
   position: absolute;
   height: 100%;
   border: none;
@@ -53,7 +57,7 @@ export function generateCSS(mainColor: string, accentColor: string) {
   transform: scale(0);
   opacity: 0;
 }
-#${FORM_ID} button {
+#${e.form} button {
   width: 20%;
   padding: 0;
   border-radius: 5px;
@@ -62,52 +66,52 @@ export function generateCSS(mainColor: string, accentColor: string) {
   color: var(--huckleberry-text-main-color);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
-#${FORM_ID} input {
+#${e.form} input {
   width: 100%;
   background-color: var(--huckleberry-text-main-color);
   box-sizing: border-box;
   padding: 0 20px;
 }
 
-#${FORM_ID} input:invalid {
+#${e.form} input:invalid {
   background-color: #FDD;
 }
 
-#${CONTAINER_ID} > #${FORM_ID} .shown {
+#${e.container} > #${e.form} .shown {
   transition: all 0.4s ease 0.4s;
   transform: scale(1);
   opacity: 1;
 }
 
-#${CONTAINER_ID} > #${FORM_ID} #${LOADER_ID}.shown,
-#${CONTAINER_ID} > #${FORM_ID} #${SUCCESS_ID}.shown,
-#${CONTAINER_ID} > #${FORM_ID} #${ERROR_ID}.shown {
+#${e.container} > #${e.form} #${e.loader}.shown,
+#${e.container} > #${e.form} #${e.success}.shown,
+#${e.container} > #${e.form} #${e.error}.shown {
   transition: opacity 0.4s ease 0.4s;
   transform: scale(1);
   opacity: 1;
 }
 
-#${FORM_ID} #${OPEN_BUTON_ID} {
+#${e.form} #${e.create} {
   width: 100%;
 }
 
-#${OPEN_BUTON_ICON_ID},
-#${LOADER_ID},
-#${SUCCESS_ID},
-#${ERROR_ID} {
+#${e.createIcon},
+#${e.loader},
+#${e.success},
+#${e.error} {
   width: 64px;
   height: 64px;
 }
 
-#${OPEN_BUTON_ICON_ID} path {
+#${e.createIcon} path {
   fill: var(--huckleberry-text-main-color);
 }
 
-#${SUCCESS_ID} rect { 
+#${e.success} rect { 
   fill: var(--huckleberry-text-success-color);
 }
 
-#${SUCCESS_ID} polyline {
+#${e.success} polyline {
   fill: none;
   stroke: var(--huckleberry-text-main-color);
   stroke-linecap: round;
@@ -117,17 +121,17 @@ export function generateCSS(mainColor: string, accentColor: string) {
   stroke-dashoffset: -100;
 }
 
-#${CONTAINER_ID} > #${FORM_ID} #${SUCCESS_ID}.shown polyline {
+#${e.container} > #${e.form} #${e.success}.shown polyline {
   -webkit-animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation-delay: 0.4s;
 }
 
-#${ERROR_ID} rect { 
+#${e.error} rect { 
   fill: var(--huckleberry-text-fail-color);
 }
 
-#${ERROR_ID} line {
+#${e.error} line {
   fill: none;
   stroke: var(--huckleberry-text-main-color);
   stroke-linecap: round;
@@ -137,23 +141,23 @@ export function generateCSS(mainColor: string, accentColor: string) {
   stroke-dashoffset: 1000;
 }
 
-#${CONTAINER_ID} > #${FORM_ID} #${ERROR_ID}.shown line {
+#${e.container} > #${e.form} #${e.error}.shown line {
   -webkit-animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation-delay: 0.4s;
 }
 
-#${LOADER_ID} {
+#${e.loader} {
   font-size: 4rem;
   width: 1em;
   height: 1em;
 }
 
-#${CONTAINER_ID} > #${FORM_ID} #${LOADER_ID}.shown {
+#${e.container} > #${e.form} #${e.loader}.shown {
   animation: 2s rotate infinite linear;
 }
 
-#${LOADER_ID} circle {
+#${e.loader} circle {
   fill: transparent;
   stroke: var(--huckleberry-text-accent-color);
   stroke-width: 0.128em;
@@ -233,4 +237,3 @@ export function generateCSS(mainColor: string, accentColor: string) {
   }
 }
 `;
-}

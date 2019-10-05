@@ -32,13 +32,15 @@ export const IsLog = (input: unknown): input is ILog =>
 
 export const LOG = Log();
 
-export const log = (
+export type ILogger = (
   message: NonEmptyString,
   labels: LOG_LABELS[],
   origin: UUID,
   corr?: UUID,
   parent?: UUID
-): void => {
+) => void;
+
+export const log: ILogger = (message, labels, origin, corr, parent) => {
   const event = LogEntryEvent(message, labels, origin, corr, parent);
   if (ENV === "development" || ENV === "test" || ENV === "staging") {
     console.log(event.timestamp.toString(), event.labels, event.message);

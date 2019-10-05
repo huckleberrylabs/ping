@@ -1,7 +1,7 @@
-import { RUNTIME } from ".";
+import { GetRuntime } from ".";
 
 describe("RUNTIME", () => {
   test("should be node", () => {
-    expect(RUNTIME).toBe("node");
+    expect(GetRuntime()).toBe("node");
   });
 });

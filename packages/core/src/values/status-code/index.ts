@@ -16,3 +16,8 @@ export const IsStatusCode = (input: unknown): input is StatusCode =>
   input === 403 ||
   input === 404 ||
   input === 500;
+
+export const IsSuccess = (input: StatusCode): boolean =>
+  input <= 299 && input >= 200;
+
+export const IsError = (input: StatusCode): boolean => !IsSuccess(input);

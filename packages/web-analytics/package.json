@@ -59,13 +59,6 @@
     "rules": {},
     "rulesDirectory": []
   },
-  "scripts": {
-    "build": "npx tsc",
-    "build:watch": "npx tsc --watch",
-    "test": "npx jest",
-    "test:watch": "npx jest --watch",
-    "prepare": "npm run test && npm run build"
-  },
   "dependencies": {
     "@huckleberryai/core": "^0.2.7",
     "@huckleberryai/log": "^0.2.7",

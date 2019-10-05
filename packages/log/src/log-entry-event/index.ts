@@ -25,9 +25,9 @@ export const LogEntryEvent = (
   origin: UUID,
   corr?: UUID,
   parent?: UUID
-): ILogEntryEvent => {
-  if (!IsNonEmptyString(message)) throw new Error("Invalid Message");
-  if (!IsLogLabelArray(labels)) throw new Error("Invalid Log Labels");
+): ILogEntryEvent | Error => {
+  if (!IsNonEmptyString(message)) return new Error("invalid message");
+  if (!IsLogLabelArray(labels)) return new Error("invalid log labels");
   const event = Event(LogEntryEventType, origin, corr, parent);
   return {
     ...event,

@@ -1,48 +1,27 @@
-import {
-  UUID,
-  JSON,
-  IsJSON,
-  Type,
-  StatusCode,
-  IsStatusCode,
-  IsNonNullObject,
-} from "../../values";
+import { isLeft } from "fp-ts/lib/Either";
+import { UUID, JSON, IsJSON, Type, IsNonNullObject } from "../../values";
 import { IEvent, Event, IsEvent } from "../event";
 
 export interface IResult<Type extends JSON> extends IEvent {
   data: Type;
-  status: StatusCode;
 }
 
-export const ResultType: Type = "result";
-
-export const Result = <Type extends JSON>(
-  data: Type,
-  status: StatusCode,
+/** throws error */
+export const Result = <DataType extends JSON>(
+  type: Type,
+  data: DataType,
   origin: UUID,
   corr?: UUID,
   parent?: UUID
-): IResult<Type> => {
-  const event = Event(ResultType, origin, corr, parent);
-  if (!IsJSON(data))
-    throw new Error(`ResultConstructor: invalid data: ${data}`);
-  if (!IsStatusCode(status))
-    throw new Error(`ResultConstructor: invalid status: ${status}`);
+): IResult<DataType> => {
+  const event = Event(type, origin, corr, parent);
+  if (isLeft(event)) throw event.left;
+  if (!IsJSON(data)) throw new Error(`invalid data`);
   return {
-    ...event,
+    ...event.right,
     data,
-    status,
   };
 };
 
 export const IsResult = (input: unknown): input is IResult<JSON> =>
-  IsNonNullObject(input) &&
-  IsEvent(input) &&
-  input.type === ResultType &&
-  IsJSON(input.data) &&
-  IsStatusCode(input.status);
-
-export const IsSuccess = (input: IResult<any>): boolean =>
-  input.status <= 299 && input.status >= 200;
-
-export const IsError = (input: IResult<any>): boolean => !IsSuccess(input);
+  IsNonNullObject(input) && IsEvent(input) && IsJSON(input.data);

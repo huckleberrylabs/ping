@@ -11,18 +11,12 @@ import {
   IsEvent,
 } from "@huckleberryai/core";
 import { EVENTS_ENDPOINT } from "@huckleberryai/core";
-import {
-  WebAnalyticsHTTPAccessEvent,
-  WebAnalyticsHTTPAccessEventType,
-} from "@huckleberryai/web-analytics";
+import { WebAnalyticsHTTPAccessEvent } from "@huckleberryai/web-analytics";
 
 export const bus = Bus(IoC);
 
-IoC.get(WebAnalyticsHTTPAccessEventType);
-
 export default async (req: NowRequest, res: NowResponse) => {
   const ORIGIN_ID = "c7e384c3-697f-4ccf-a514-d54a452acfac";
-
   // Options
   res.setHeader("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") {
@@ -36,6 +30,10 @@ export default async (req: NowRequest, res: NowResponse) => {
   // HTTP Access Filtering
   const accessEvent = WebAnalyticsHTTPAccessEvent(req, ORIGIN_ID);
   const result = await bus(accessEvent);
+  if (result instanceof Error) {
+    res.status(INTERNAL_SERVER_ERROR).send(result);
+    return;
+  }
   if (IsError(result)) {
     res.status(result.status).send(result);
     return;

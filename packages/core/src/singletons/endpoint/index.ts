@@ -1,13 +1,23 @@
-import { ENV } from "../env";
+import { Either, right, isLeft } from "fp-ts/lib/Either";
+import { GetENV, ENV } from "../env";
 
-export const getAPIEndpoint = (): string => {
-  if (ENV === "production") return "https://api.huckleberry.app";
-  if (ENV === "staging") return "https://staging.huckleberry.app";
-  if (ENV === "development") return "http://localhost:8000";
-  if (ENV === "test") return "http://localhost:8000";
-  throw new Error("Invalid ENV");
+export const APIURLS: {
+  [P in ENV]: string;
+} = {
+  development: "http://localhost:8000",
+  staging: "https://staging.huckleberry.app",
+  production: "https://api.huckleberry.app",
+  test: "http://localhost:8000",
 };
 
-export const API_ENDPOINT = getAPIEndpoint();
+export const GetAPIURL = (): Either<Error, string> => {
+  const env = GetENV();
+  return isLeft(env) ? env : right(APIURLS[env.right]);
+};
 
 export const EVENTS_ENDPOINT = "/events";
+
+export const GetEventsEndpoint = (): Either<Error, string> => {
+  const apiUrl = GetAPIURL();
+  return isLeft(apiUrl) ? apiUrl : right(apiUrl.right + EVENTS_ENDPOINT);
+};
