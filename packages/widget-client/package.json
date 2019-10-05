@@ -62,6 +62,16 @@
     "rules": {},
     "rulesDirectory": []
   },
+  "scripts": {
+    "deploy:prod": "now --target production",
+    "deploy:staging": "now -e NODE_ENV=staging --target staging",
+    "deploy:dev": "now dev",
+    "now-build": "npm run build",
+    "build": "npx webpack --config webpack.config.js",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch",
+    "prepare": "npm run test && npm run build"
+  },
   "dependencies": {
     "@huckleberryai/core": "^0.2.7",
     "@huckleberryai/log": "^0.2.7",

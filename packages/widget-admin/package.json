@@ -30,6 +30,13 @@
       "last 1 safari version"
     ]
   },
+  "scripts": {
+    "now-build": "npm run build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --watchAll=false",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@huckleberryai/core": "^0.2.7",
     "@huckleberryai/log": "^0.2.7",
