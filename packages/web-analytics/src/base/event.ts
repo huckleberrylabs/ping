@@ -2,8 +2,14 @@ import { Option } from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/pipeable";
 import { Either, map } from "fp-ts/lib/Either";
 import * as t from "io-ts";
-import { OptionFromNullableC, optionFromNullable } from "io-ts-types/lib/optionFromNullable";
-import { Event, EventCodec, UUIDCodec, UUID, Type } from "@huckleberryai/core";
+import {
+  Event,
+  EventCodec,
+  UUIDCodec,
+  UUID,
+  Type,
+  optionFromNullable,
+} from "@huckleberryai/core";
 
 export const WebAnalyticsClientEventCodec = t.intersection([
   EventCodec,

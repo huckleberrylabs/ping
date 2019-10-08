@@ -1,7 +1,6 @@
 import { Either } from "fp-ts/lib/Either";
-import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
 import { Event } from "./base";
-import { Phone } from "./values";
+import { Phone, NonEmptyString } from "./values";
 
 export type IDispatch = (event: Event) => Promise<void>;
 export type IHandler = (event: Event) => Promise<Either<Event, Event>>;

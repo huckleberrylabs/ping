@@ -1,19 +1,29 @@
-import { Type, UUID, IEvent, Event } from "@huckleberryai/core";
+import { pipe } from "fp-ts/lib/pipeable";
+import * as iots from "io-ts";
+import "io-ts-types/lib/optionFromNullable";
+import { Type, UUID, Event, EventCodec, UUIDCodec } from "@huckleberryai/core";
+import { Either, map } from "fp-ts/lib/Either";
 
-export interface IWidgetEvent extends IEvent {
-  widget: UUID;
-}
+export const WidgetEventCodec = iots.intersection([
+  EventCodec,
+  iots.type({
+    widget: UUIDCodec,
+  }),
+]);
+
+export type WidgetEvent = iots.TypeOf<typeof WidgetEventCodec>;
 
 export const WidgetEvent = (type: Type) => (
   widget: UUID,
-  origin: UUID,
+  origin: Type,
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IWidgetEvent => {
-  const event = Event(type, origin, corr, parent, agent);
-  return {
-    ...event,
-    widget,
-  };
-};
+): Either<Error, WidgetEvent> =>
+  pipe(
+    Event(type, origin, corr, parent, agent),
+    map(event => ({
+      ...event,
+      widget,
+    }))
+  );

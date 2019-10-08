@@ -1,25 +1,11 @@
-import { injectable, inject } from "inversify";
-import { IEventHandler, PersistEventHandler } from "@huckleberryai/core";
-import {
-  IWidgetAddNameToMessageCommand,
-  IsWidgetAddNameToMessageCommand,
-} from "./command";
-import { WidgetNameAddedToMessageEventType } from "./event";
-import {
-  IWidgetMessageRepository,
-  WidgetMessageRepositoryType,
-} from "../../../interfaces";
+import { IDispatch, Type } from "@huckleberryai/core";
+import { WidgetAddNameToMessageCommand } from "./command";
+import { Widget } from "./event";
 
-@injectable()
-export class WidgetAddNameToMessageCommandHandler implements IEventHandler {
-  constructor(
-    @inject(WidgetMessageRepositoryType)
-    private repository: IWidgetMessageRepository
-  ) {}
-  handle = PersistEventHandler<IWidgetAddNameToMessageCommand>(
-    "7b12f9ca-404e-49bb-9b97-d8bfe51f4854",
-    this.repository.add,
-    IsWidgetAddNameToMessageCommand,
-    WidgetNameAddedToMessageEventType
-  );
-}
+const origin = "widget:handler:add-name-to-message-command" as Type;
+export const WidgetAddNameToMessageCommandHandler = (dispatch: IDispatch) => (
+  command: WidgetAddNameToMessageCommand
+) => {
+  const event = WidgetNameAddedToMessageEvent(origin, command);
+  dispatch(event);
+};

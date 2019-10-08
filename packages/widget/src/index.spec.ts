@@ -1,5 +1,5 @@
 describe("@huckleberryai/widget", () => {
-  test("it returns tests", async () => {
+  test("it returns tests", () => {
     expect(true).toBeTruthy();
   });
 });

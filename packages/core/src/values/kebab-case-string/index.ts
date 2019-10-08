@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
+import { IsNonEmptyString } from "../non-empty-string";
 
 export interface KebabCaseStringBrand {
   readonly KebabCaseString: unique symbol;
@@ -15,4 +15,4 @@ export const KebabCaseStringCodec = iots.brand(
 export type KebabCaseString = iots.TypeOf<typeof KebabCaseStringCodec>;
 
 export const IsKebabCaseString = (input: unknown): input is KebabCaseString =>
-  NonEmptyString.is(input) && /^([a-z0-9]+)(-[a-z0-9]+)*$/.test(input);
+  IsNonEmptyString(input) && /^([a-z0-9]+)(-[a-z0-9]+)*$/.test(input);

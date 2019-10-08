@@ -9,9 +9,9 @@ import {
   Either,
 } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
-import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
 import ColorLib from "color";
 import { ParsingError, ValidationError } from "../../errors";
+import { IsNonEmptyString } from "../non-empty-string";
 
 export interface ColorBrand {
   readonly Color: unique symbol;
@@ -29,7 +29,7 @@ export const Color = (
   input: string
 ): Either<ValidationError | ParsingError, Color> =>
   pipe(
-    NonEmptyString.is(input)
+    IsNonEmptyString(input)
       ? right(input)
       : left(new ValidationError("cannot be empty")),
     map(ParseColor),

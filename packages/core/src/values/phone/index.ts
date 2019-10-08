@@ -9,11 +9,11 @@ import {
   flatten,
 } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
-import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
 import { parsePhoneNumber, PhoneNumber } from "libphonenumber-js/max";
 import { ValidationError, ParsingError } from "../../errors";
+import { IsNonEmptyString } from "../non-empty-string";
 
-interface PhoneBrand {
+export interface PhoneBrand {
   readonly Phone: unique symbol;
 }
 
@@ -29,7 +29,7 @@ export const Phone = (
   input: string
 ): Either<ValidationError | ParsingError, Phone> =>
   pipe(
-    NonEmptyString.is(input)
+    IsNonEmptyString(input)
       ? right(input)
       : left(new ValidationError("cannot be empty")),
     map(ParsePhone),

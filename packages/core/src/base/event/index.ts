@@ -2,7 +2,6 @@ import { pipe } from "fp-ts/lib/pipeable";
 import { none, some } from "fp-ts/lib/Option";
 import { Either, map } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
-import { optionFromNullable } from "io-ts-types/lib/optionFromNullable";
 import { GetContext } from "../../singletons";
 import {
   UUID,
@@ -11,6 +10,7 @@ import {
   TimeStampCodec,
   Type,
   TypeCodec,
+  optionFromNullable,
 } from "../../values";
 
 export const EventCodec = iots.type({

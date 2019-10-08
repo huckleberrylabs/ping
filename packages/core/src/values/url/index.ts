@@ -1,5 +1,4 @@
 import * as iots from "io-ts";
-import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
 import { URL } from "url";
 import normalize from "normalize-url";
 import {
@@ -13,6 +12,7 @@ import {
 } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 import { ValidationError, ParsingError } from "../../errors";
+import { IsNonEmptyString } from "../non-empty-string";
 
 export interface UrlBrand {
   readonly Url: unique symbol;
@@ -30,7 +30,7 @@ export const Url = (
   input: string
 ): Either<ValidationError | ParsingError, Url> =>
   pipe(
-    NonEmptyString.is(input)
+    IsNonEmptyString(input)
       ? right(input)
       : left(new ValidationError("cannot be empty")),
     map(ParseUrl),

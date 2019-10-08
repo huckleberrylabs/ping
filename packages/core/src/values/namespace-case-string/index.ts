@@ -1,6 +1,6 @@
 import * as iots from "io-ts";
-import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
 import { IsKebabCaseString } from "../kebab-case-string";
+import { IsNonEmptyString } from "../non-empty-string";
 
 export interface NameSpaceCaseStringBrand {
   readonly NameSpaceCaseString: unique symbol;
@@ -18,4 +18,4 @@ export type NameSpaceCaseString = iots.TypeOf<typeof NameSpaceCaseStringCodec>;
 export const IsNameSpaceCaseString = (
   input: unknown
 ): input is NameSpaceCaseString =>
-  NonEmptyString.is(input) && input.split(":").every(IsKebabCaseString);
+  IsNonEmptyString(input) && input.split(":").every(IsKebabCaseString);

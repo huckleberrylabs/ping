@@ -1,12 +1,25 @@
-import { UUID, Phone } from "@huckleberryai/core";
-import { IWidgetEvent, WidgetEvent } from "../../../base/event";
+import * as iots from "io-ts";
+import { pipe } from "fp-ts/lib/pipeable";
+import { map, Either } from "fp-ts/lib/Either";
+import { UUID, Phone, PhoneCodec } from "@huckleberryai/core";
+import { WidgetEvent, WidgetEventCodec } from "../../../base/event";
 
 export const WidgetAddPhoneToMessageCommandType =
-  "widget-add-phone-to-message-command";
+  "widget:command:add-phone-to-message";
 
-export interface IWidgetAddPhoneToMessageCommand extends IWidgetEvent {
-  phone: Phone;
-}
+export const WidgetAddPhoneToMessageCommandCodec = iots.intersection(
+  [
+    WidgetEventCodec,
+    iots.type({
+      phone: PhoneCodec,
+    }),
+  ],
+  WidgetAddPhoneToMessageCommandType
+);
+
+export type WidgetAddPhoneToMessageCommand = iots.TypeOf<
+  typeof WidgetAddPhoneToMessageCommandCodec
+>;
 
 export const WidgetAddPhoneToMessageCommand = (
   phone: Phone,
@@ -15,13 +28,14 @@ export const WidgetAddPhoneToMessageCommand = (
   corr?: UUID,
   parent?: UUID,
   agent?: UUID
-): IWidgetAddPhoneToMessageCommand => {
-  const event = WidgetEvent(WidgetAddPhoneToMessageCommandType)(
-    widget,
-    origin,
-    corr,
-    parent,
-    agent
+): Either<Error, WidgetAddPhoneToMessageCommand> =>
+  pipe(
+    WidgetEvent(WidgetAddPhoneToMessageCommandType)(
+      widget,
+      origin,
+      corr,
+      parent,
+      agent
+    ),
+    map(event => ({ ...event, name }))
   );
-  return { ...event, phone };
-};
