@@ -1,15 +1,4 @@
-import {
-  IsNonNullObject,
-  UUID,
-  Type,
-  Phone,
-  Color,
-  IsType,
-  IsUUID,
-  IsPhone,
-  IsColor,
-  JSON,
-} from "@huckleberryai/core";
+import { UUID, Type, Phone, Color, JSON } from "@huckleberryai/core";
 
 const DEFAULT_MAIN_COLOR = "white";
 const DEFAULT_ACCENT_COLOR = "#1e73be";
@@ -37,12 +26,3 @@ export const WidgetSettings = (phone: Phone): IWidgetSettings => {
   };
   return textWidgetSettings;
 };
-
-export const IsWidgetSettings = (input: unknown): input is IWidgetSettings =>
-  IsNonNullObject(input) &&
-  IsType(input.type) &&
-  IsUUID(input.id) &&
-  IsPhone(input.phone) &&
-  IsColor(input.mainColor) &&
-  IsColor(input.accentColor) &&
-  typeof input.enabled === "boolean";

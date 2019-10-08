@@ -1,16 +1,9 @@
-import { ILog, IsLog } from "@huckleberryai/log";
-import {
-  UUID,
-  IsUUID,
-  IEvent,
-  IsEvent,
-  Event,
-  IsNonNullObject,
-} from "@huckleberryai/core";
-import { FingerPrint, IsFingerPrint } from "../fingerprint";
+import { Log } from "@huckleberryai/log";
+import { UUID, IEvent, Event } from "@huckleberryai/core";
+import { FingerPrint } from "../fingerprint";
 
 export interface IWebAnalyticsClientUnloadedEvent extends IEvent {
-  log: ILog;
+  log: Log;
   fingerprint: FingerPrint | null;
   app: UUID | null;
 }
@@ -24,7 +17,7 @@ export interface INormalizedWebAnalyticsClientUnloadedEvent extends IEvent {
 export const WebAnalyticsClientUnloadedEventType = "client-unloaded-event";
 
 export const WebAnalyticsClientUnloadedEvent = (
-  log: ILog,
+  log: Log | null,
   fingerprint: FingerPrint | null,
   app: UUID | null,
   origin: UUID,
@@ -46,16 +39,6 @@ export const WebAnalyticsClientUnloadedEvent = (
     fingerprint,
   };
 };
-
-export const IsWebAnalyticsClientUnloadedEvent = (
-  input: unknown
-): input is IWebAnalyticsClientUnloadedEvent =>
-  IsNonNullObject(input) &&
-  IsEvent(input) &&
-  input.type === WebAnalyticsClientUnloadedEventType &&
-  (IsUUID(input.app) || input.app === null) &&
-  IsLog(input.log) &&
-  (IsFingerPrint(input.fingerprint) || input.fingerprint === null);
 
 export const NormalizeWebAnalyticsClientUnloadedEvent = (
   input: IWebAnalyticsClientUnloadedEvent

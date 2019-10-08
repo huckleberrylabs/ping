@@ -146,7 +146,7 @@ export const onUnloadEvent = (beacon: IBeaconEvent) => (
   agent: UUID | undefined
 ) => async () => {
   const ORIGIN_ID = "28d540c0-a781-47db-870c-fac3ad9a3d6b";
-  beaconEvent(
+  beacon(
     WebAnalyticsClientUnloadedEvent(
       LOG,
       null,

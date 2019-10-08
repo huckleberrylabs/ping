@@ -1,10 +1,5 @@
-import {
-  UUID,
-  NonEmptyString,
-  IsNonEmptyString,
-  IsNonNullObject,
-} from "@huckleberryai/core";
-import { IWidgetEvent, IsWidgetEvent, WidgetEvent } from "../../../base/event";
+import { UUID, NonEmptyString } from "@huckleberryai/core";
+import { IWidgetEvent, WidgetEvent } from "../../../base/event";
 
 export const WidgetAddTextToMessageCommandType =
   "widget-add-text-to-message-command";
@@ -30,11 +25,3 @@ export const WidgetAddTextToMessageCommand = (
   );
   return { ...event, message };
 };
-
-export const IsWidgetAddTextToMessageCommand = (
-  input: unknown
-): input is IWidgetAddTextToMessageCommand =>
-  IsNonNullObject(input) &&
-  IsWidgetEvent(input) &&
-  input.type === WidgetAddTextToMessageCommandType &&
-  IsNonEmptyString(input.message);

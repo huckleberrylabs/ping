@@ -1,5 +1,5 @@
 import { injectable, inject } from "inversify";
-import { IEventHandler, PersistEventHandler } from "@huckleberryai/core";
+import { IHandler, PersistEventHandler } from "@huckleberryai/core";
 import {
   IWebAnalyticsClientLoadedEvent,
   IsWebAnalyticsClientLoadedEvent,
@@ -8,6 +8,10 @@ import {
   IWebAnalyticsRepository,
   WebAnalyticsRepositoryType,
 } from "../interfaces";
+
+export const WebAnalyticsClientLoadedEventHandler = () => (
+  event: IWebAnalyticsClientLoadedEvent
+) => {};
 
 @injectable()
 export class WebAnalyticsClientLoadedEventHandler implements IEventHandler {

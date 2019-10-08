@@ -6,6 +6,9 @@ module.exports = function() {
     env: {
       type: "node",
       runner: "node",
+      params: {
+        env: "NODE_ENV=test",
+      },
     },
     debug: true,
   };

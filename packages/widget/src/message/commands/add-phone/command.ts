@@ -1,5 +1,5 @@
-import { UUID, Phone, IsPhone, IsNonNullObject } from "@huckleberryai/core";
-import { IWidgetEvent, IsWidgetEvent, WidgetEvent } from "../../../base/event";
+import { UUID, Phone } from "@huckleberryai/core";
+import { IWidgetEvent, WidgetEvent } from "../../../base/event";
 
 export const WidgetAddPhoneToMessageCommandType =
   "widget-add-phone-to-message-command";
@@ -25,11 +25,3 @@ export const WidgetAddPhoneToMessageCommand = (
   );
   return { ...event, phone };
 };
-
-export const IsWidgetAddPhoneToMessageCommand = (
-  input: unknown
-): input is IWidgetAddPhoneToMessageCommand =>
-  IsNonNullObject(input) &&
-  IsWidgetEvent(input) &&
-  input.type === WidgetAddPhoneToMessageCommandType &&
-  IsPhone(input.phone);

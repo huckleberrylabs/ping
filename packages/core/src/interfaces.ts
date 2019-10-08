@@ -1,12 +1,11 @@
 import { Either } from "fp-ts/lib/Either";
-import { IEvent, IResult } from "./base";
-import { NonEmptyString, Phone, JSON } from "./values";
+import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
+import { Event } from "./base";
+import { Phone } from "./values";
 
-export interface IEventHandler {
-  handle(event: IEvent): Promise<Either<IResult<JSON>, IResult<JSON>>>;
-}
-
-export const TextingClientType = "texting-client";
-export interface ITextingClient {
-  send(body: NonEmptyString, to: Phone): Promise<void | Error>;
-}
+export type IDispatch = (event: Event) => Promise<void>;
+export type IHandler = (event: Event) => Promise<Either<Event, Event>>;
+export type ISMSClient = (
+  body: NonEmptyString,
+  to: Phone
+) => Promise<Either<Error, void>>;

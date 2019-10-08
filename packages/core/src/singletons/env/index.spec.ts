@@ -1,7 +1,12 @@
-import { GetENV } from ".";
+import { GetEnv } from ".";
+import { pipe } from "fp-ts/lib/pipeable";
+import { map } from "fp-ts/lib/Either";
 
-describe("ENV", () => {
+describe("environment", () => {
   test("should be test", () => {
-    expect(GetENV()).toBe("test");
+    pipe(
+      GetEnv(),
+      map(a => expect(a).toBe("test"))
+    );
   });
 });

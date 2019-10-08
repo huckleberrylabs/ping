@@ -1,44 +1,50 @@
+import { pipe } from "fp-ts/lib/pipeable";
+import { Either, right, left, map } from "fp-ts/lib/Either";
+import { some, none } from "fp-ts/lib/Option";
+import * as iots from "io-ts";
+import { optionFromNullable } from "io-ts-types/lib/optionFromNullable";
+import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
+import { ValidationError } from "../../errors";
+import { parseName, NameOutput } from "humanparser";
 // Try parse-full-name as well if not working well
-import { parseName } from "humanparser";
-import { IsNonNullObject } from "../non-null-object";
-import { IsNonEmptyString } from "../non-empty-string";
 
-export type NameString = string | null;
+export const NameStringCodec = optionFromNullable(NonEmptyString);
 
-export type PersonName = {
-  parsed: NameString;
-  legal: NameString;
-  first: NameString;
-  last: NameString;
-  middle: NameString;
-  prefix: NameString;
-  suffix: NameString;
-};
+export type NameString = iots.TypeOf<typeof NameStringCodec>;
 
-export const ParsePersonName = (input: string): PersonName => {
-  const { firstName, lastName, middleName, salutation, suffix } = parseName(
-    input
+export const PersonNameCodec = iots.type(
+  {
+    parsed: NameStringCodec,
+    legal: NameStringCodec,
+    first: NameStringCodec,
+    last: NameStringCodec,
+    middle: NameStringCodec,
+    prefix: NameStringCodec,
+    suffix: NameStringCodec,
+  },
+  "PersonName"
+);
+
+export type PersonName = iots.TypeOf<typeof PersonNameCodec>;
+
+export const PersonName = (
+  input: string
+): Either<ValidationError, PersonName> =>
+  pipe(
+    NonEmptyString.is(input)
+      ? right(input)
+      : left(new ValidationError("cannot be empty")),
+    map(parseName),
+    map(parsed => MapPersonName(input, parsed))
   );
-  return {
-    parsed: input,
-    legal: null,
-    first: firstName && firstName.length > 0 ? firstName : null,
-    last: lastName && lastName.length > 0 ? lastName : null,
-    middle: middleName && middleName.length > 0 ? middleName : null,
-    prefix: salutation && salutation.length > 0 ? salutation : null,
-    suffix: suffix && suffix.length > 0 ? suffix : null,
-  };
-};
 
-export const IsValidNameString = (input: unknown): boolean =>
-  typeof input === null || IsNonEmptyString(input);
-
-export const IsPersonName = (input: unknown): input is PersonName =>
-  IsNonNullObject(input) &&
-  IsValidNameString(input.parsed) &&
-  IsValidNameString(input.legal) &&
-  IsValidNameString(input.first) &&
-  IsValidNameString(input.last) &&
-  IsValidNameString(input.middle) &&
-  IsValidNameString(input.prefix) &&
-  IsValidNameString(input.suffix);
+const MapPersonName = (original: string, input: NameOutput) =>
+  ({
+    parsed: some(original),
+    legal: none,
+    first: NonEmptyString.is(input.firstName) ? some(input.firstName) : none,
+    last: NonEmptyString.is(input.lastName) ? some(input.lastName) : none,
+    middle: NonEmptyString.is(input.middleName) ? some(input.middleName) : none,
+    prefix: NonEmptyString.is(input.salutation) ? some(input.salutation) : none,
+    suffix: NonEmptyString.is(input.suffix) ? some(input.suffix) : none,
+  } as PersonName);

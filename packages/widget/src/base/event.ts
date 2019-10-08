@@ -1,12 +1,4 @@
-import {
-  Type,
-  UUID,
-  IsUUID,
-  IEvent,
-  Event,
-  IsEvent,
-  IsNonNullObject,
-} from "@huckleberryai/core";
+import { Type, UUID, IEvent, Event } from "@huckleberryai/core";
 
 export interface IWidgetEvent extends IEvent {
   widget: UUID;
@@ -25,6 +17,3 @@ export const WidgetEvent = (type: Type) => (
     widget,
   };
 };
-
-export const IsWidgetEvent = (input: unknown): input is IWidgetEvent =>
-  IsNonNullObject(input) && IsEvent(input) && IsUUID(input.widget);

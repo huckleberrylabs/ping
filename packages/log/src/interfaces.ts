@@ -1,9 +1,9 @@
 import { UUID } from "@huckleberryai/core";
-import { ILogEntryEvent } from "./log-entry-event";
+import { LogEntryEvent } from "./log-entry-event";
 
 export const LogEntryRepositoryType = "log-entry-repository";
 export interface ILogEntryRepository {
-  add(event: ILogEntryEvent): Promise<void>;
-  get(id: UUID): Promise<ILogEntryEvent | null>;
-  getByCorrID(corrID: UUID): Promise<ILogEntryEvent[] | null>;
+  add(event: LogEntryEvent): Promise<void>;
+  get(id: UUID): Promise<LogEntryEvent | null>;
+  getByCorrID(corrID: UUID): Promise<LogEntryEvent[] | null>;
 }

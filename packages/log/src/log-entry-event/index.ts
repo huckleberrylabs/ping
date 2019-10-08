@@ -1,47 +1,49 @@
-import {
-  UUID,
-  NonEmptyString,
-  IsNonEmptyString,
-  IsKebabCaseString,
-  IsNonNullObject,
-  Event,
-  IsEvent,
-  IEvent,
-} from "@huckleberryai/core";
+import { pipe } from "fp-ts/lib/pipeable";
+import { Either, map } from "fp-ts/lib/Either";
+import * as t from "io-ts";
+import "io-ts-types";
+import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
+import { UUID, Event, EventCodec, Type } from "@huckleberryai/core";
 
-export type LOG_LEVELS = "critical" | "error" | "debug" | "info";
-export type LOG_LABELS = LOG_LEVELS | string;
+export const LogEntryEventType = "log-entry-event" as Type;
 
-export interface ILogEntryEvent extends IEvent {
-  labels: LOG_LABELS[];
-  message: NonEmptyString;
-}
+const LogLevelCodec = t.union([
+  t.literal("critical"),
+  t.literal("error"),
+  t.literal("debug"),
+  t.literal("info"),
+]);
 
-export const LogEntryEventType = "log-entry-event";
+export type LogLevel = t.TypeOf<typeof LogLevelCodec>;
+
+export const LogEntryEventCodec = t.intersection(
+  [
+    EventCodec,
+    t.type({
+      message: NonEmptyString,
+      level: LogLevelCodec,
+      tags: t.array(NonEmptyString),
+    }),
+  ],
+  LogEntryEventType
+);
+
+export type LogEntryEvent = t.TypeOf<typeof LogEntryEventCodec>;
 
 export const LogEntryEvent = (
   message: NonEmptyString,
-  labels: LOG_LABELS[],
+  level: LogLevel,
+  tags: NonEmptyString[],
   origin: UUID,
   corr?: UUID,
   parent?: UUID
-): ILogEntryEvent | Error => {
-  if (!IsNonEmptyString(message)) return new Error("invalid message");
-  if (!IsLogLabelArray(labels)) return new Error("invalid log labels");
-  const event = Event(LogEntryEventType, origin, corr, parent);
-  return {
-    ...event,
-    labels,
-    message,
-  };
-};
-
-export const IsLogLabelArray = (input: unknown): input is LOG_LABELS[] =>
-  Array.isArray(input) && input.every(IsKebabCaseString);
-
-export const IsLogEntryEvent = (input: unknown): input is ILogEntryEvent =>
-  IsNonNullObject(input) &&
-  IsEvent(input) &&
-  input.type === LogEntryEventType &&
-  IsLogLabelArray(input.labels) &&
-  IsNonEmptyString(input.message);
+): Either<Error, LogEntryEvent> =>
+  pipe(
+    Event(LogEntryEventType, origin, corr, parent),
+    map(event => ({
+      ...event,
+      message,
+      level,
+      tags,
+    }))
+  );

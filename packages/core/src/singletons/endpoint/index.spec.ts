@@ -1,10 +1,23 @@
-import { APIURLS, GetAPIURL, EVENTS_ENDPOINT, GetEventsEndpoint } from ".";
+import { pipe } from "fp-ts/lib/pipeable";
+import { map } from "fp-ts/lib/Either";
+import { GetAPIURL, GetEndpoint } from ".";
 
-describe("Endpoints", () => {
-  test(`API URL should be ${APIURLS.test}`, () => {
-    expect(GetAPIURL()).toBe(APIURLS.test);
+describe("endpoints", () => {
+  const testURL = "http://localhost:8000";
+  test(`api url should be ${testURL}`, () => {
+    pipe(
+      GetAPIURL(),
+      map(a => expect(a).toBe(testURL))
+    );
   });
-  test(`Events URL should return`, () => {
-    expect(GetEventsEndpoint()).toBe(APIURLS.test + EVENTS_ENDPOINT);
+  test(`should return correct output`, () => {
+    pipe(
+      GetEndpoint("/test-endpoint"),
+      map(a => {
+        const url = new URL(testURL);
+        url.pathname = "/test-endpoint";
+        expect(a.toString()).toBe(url.toString());
+      })
+    );
   });
 });

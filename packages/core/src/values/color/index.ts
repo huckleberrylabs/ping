@@ -1,16 +1,44 @@
+import { pipe } from "fp-ts/lib/pipeable";
+import {
+  tryCatch,
+  map,
+  right,
+  left,
+  isRight,
+  flatten,
+  Either,
+} from "fp-ts/lib/Either";
+import * as iots from "io-ts";
+import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
 import ColorLib from "color";
-import { IsNonEmptyString } from "../non-empty-string";
+import { ParsingError, ValidationError } from "../../errors";
 
-export type Color = string;
+export interface ColorBrand {
+  readonly Color: unique symbol;
+}
 
-export const IsValidColor = (input: string): input is Color => {
-  try {
-    ColorLib(input, "hex");
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
+export const ColorCodec = iots.brand(
+  iots.string,
+  (input): input is iots.Branded<string, ColorBrand> => isRight(Color(input)),
+  "Color"
+);
 
-export const IsColor = (input: unknown): input is Color =>
-  IsNonEmptyString(input) && IsValidColor(input);
+export type Color = iots.TypeOf<typeof ColorCodec>;
+
+export const Color = (
+  input: string
+): Either<ValidationError | ParsingError, Color> =>
+  pipe(
+    NonEmptyString.is(input)
+      ? right(input)
+      : left(new ValidationError("cannot be empty")),
+    map(ParseColor),
+    flatten,
+    map(FormatColor)
+  );
+
+export const ParseColor = (input: string) =>
+  tryCatch(() => ColorLib(input, "hex"), () => new ParsingError());
+
+export const FormatColor = (color: ColorLib) =>
+  color.hex().toLowerCase() as Color;

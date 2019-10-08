@@ -1,49 +1,59 @@
+import { pipe } from "fp-ts/lib/pipeable";
+import { map } from "fp-ts/lib/Either";
+import * as t from "io-ts";
+import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
+import { GetENV, UUID } from "@huckleberryai/core";
 import {
-  ENV,
-  UUID,
-  NonEmptyString,
-  Type,
-  IsNonNullObject,
-} from "@huckleberryai/core";
-import {
-  LOG_LABELS,
-  ILogEntryEvent,
   LogEntryEvent,
-  IsLogEntryEvent,
+  LogLevel,
+  LogEntryEventCodec,
 } from "../log-entry-event";
 
-export const LogType = "log";
+export const LogCodec = t.array(LogEntryEventCodec);
 
-export interface ILog {
-  type: Type;
-  log: ILogEntryEvent[];
-}
+export type Log = t.TypeOf<typeof LogCodec>;
 
-export const Log = (): ILog => ({
-  type: LogType,
-  log: [],
-});
+export const Log = (): Log => [];
 
-export const IsLog = (input: unknown): input is ILog =>
-  IsNonNullObject(input) &&
-  input.type === LogType &&
-  Array.isArray(input.log) &&
-  input.log.every(IsLogEntryEvent);
-
-export const LOG = Log();
-
-export type ILogger = (
+export type Logger = (
+  log: Log
+) => (
   message: NonEmptyString,
-  labels: LOG_LABELS[],
+  level: LogLevel,
+  tags: NonEmptyString[],
   origin: UUID,
   corr?: UUID,
   parent?: UUID
 ) => void;
 
-export const log: ILogger = (message, labels, origin, corr, parent) => {
-  const event = LogEntryEvent(message, labels, origin, corr, parent);
-  if (ENV === "development" || ENV === "test" || ENV === "staging") {
-    console.log(event.timestamp.toString(), event.labels, event.message);
-  }
-  LOG.log.push(event);
+export const Logger: Logger = (log: Log) => (
+  message,
+  level,
+  tags,
+  origin,
+  corr,
+  parent
+) => {
+  pipe(
+    LogEntryEvent(message, level, tags, origin, corr, parent),
+    map(logEvent => {
+      log.push(logEvent);
+      pipe(
+        GetENV(),
+        map(
+          env => env === "development" || env === "test" || env === "staging"
+        ),
+        map(notProd =>
+          notProd
+            ? console.log(
+                logEvent.timestamp.toString(),
+                logEvent.level,
+                logEvent.tags,
+                logEvent.message
+              )
+            : null
+        )
+      );
+    })
+  );
 };
