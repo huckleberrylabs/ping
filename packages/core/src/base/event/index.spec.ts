@@ -1,19 +1,20 @@
 import { Event, EventCodec } from ".";
 import { UUID, Type } from "../../values";
 import { pipe } from "fp-ts/lib/pipeable";
-import { map } from "fp-ts/lib/Either";
+import { map, isRight } from "fp-ts/lib/Either";
 
 describe("event", () => {
-  test("should", () => {
+  test("construct, encode, decode", () => {
     pipe(
       Event(
         "core:event:test" as Type,
         "core:origin:event-test" as Type,
-        UUID(),
+        undefined,
+        undefined,
         UUID()
       ),
       map(EventCodec.encode),
-      event => console.log(event)
+      event => expect(isRight(event)).toBeTruthy()
     );
     pipe(
       Event(
@@ -23,9 +24,18 @@ describe("event", () => {
         UUID()
       ),
       map(EventCodec.encode),
-      map(event => EventCodec.decode(event)),
-      event => console.log(event)
+      event => expect(isRight(event)).toBeTruthy()
     );
-    expect(true).toBeTruthy();
+    pipe(
+      Event(
+        "core:event:test" as Type,
+        "core:origin:event-test" as Type,
+        UUID(),
+        UUID()
+      ),
+      map(EventCodec.encode),
+      map(EventCodec.decode),
+      event => expect(isRight(event)).toBeTruthy()
+    );
   });
 });

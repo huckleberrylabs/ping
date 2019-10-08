@@ -1,4 +1,4 @@
-import { Either, right, left, map } from "fp-ts/lib/Either";
+import { Either, right, left, map, flatten } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
 import { fold } from "fp-ts/lib/Option";
 import axios from "axios";
@@ -11,11 +11,10 @@ export type IPost = (url: Url, dto: JSON) => Promise<Either<HTTPError, JSON>>; /
 
 export const Post: IPost = async (url: Url, dto: JSON) => {
   try {
-    return right(
-      (await axios.post(url, dto, {
-        validateStatus: status => status < INTERNAL_SERVER_ERROR,
-      })).data
-    );
+    const res = await axios.post(url, dto, {
+      validateStatus: status => status < INTERNAL_SERVER_ERROR,
+    });
+    return right(JSON.parse(res.data));
   } catch (error) {
     return left(new HTTPError());
   }
@@ -26,8 +25,9 @@ export const Beacon = (url: Url, dto: JSON) =>
 
 export const EndpointFromEvent = (event: Event) =>
   pipe(
-    GetEndpoint(event.type),
-    map(url => AddEventParamsToURL(url, event))
+    GetEndpoint(event.type.replace(/:/g, "-")),
+    map(url => AddEventParamsToURL(url, event)),
+    flatten
   );
 
 export const AddEventParamsToURL = (url: Url, event: Event) => {
