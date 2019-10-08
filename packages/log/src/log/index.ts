@@ -1,8 +1,7 @@
 import { pipe } from "fp-ts/lib/pipeable";
 import { map } from "fp-ts/lib/Either";
 import * as t from "io-ts";
-import { NonEmptyString } from "io-ts-types/lib/NonEmptyString";
-import { GetENV, UUID } from "@huckleberryai/core";
+import { GetEnv, UUID, Type } from "@huckleberryai/core";
 import {
   LogEntryEvent,
   LogLevel,
@@ -18,10 +17,10 @@ export const Log = (): Log => [];
 export type Logger = (
   log: Log
 ) => (
-  message: NonEmptyString,
+  message: string,
   level: LogLevel,
-  tags: NonEmptyString[],
-  origin: UUID,
+  tags: string[],
+  origin: Type,
   corr?: UUID,
   parent?: UUID
 ) => void;
@@ -39,7 +38,7 @@ export const Logger: Logger = (log: Log) => (
     map(logEvent => {
       log.push(logEvent);
       pipe(
-        GetENV(),
+        GetEnv(),
         map(
           env => env === "development" || env === "test" || env === "staging"
         ),

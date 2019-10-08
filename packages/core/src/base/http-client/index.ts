@@ -9,12 +9,12 @@ import { GetEndpoint } from "../../singletons";
 
 export type IPost = (url: Url, dto: JSON) => Promise<Either<HTTPError, JSON>>; // TODO replace with TaskEither
 
-export const Post: IPost = async (url: Url, dto: JSON) => {
+export const Post: IPost = async (url, dto) => {
   try {
     const res = await axios.post(url, dto, {
       validateStatus: status => status < INTERNAL_SERVER_ERROR,
     });
-    return right(JSON.parse(res.data));
+    return right(res.data);
   } catch (error) {
     return left(new HTTPError());
   }
