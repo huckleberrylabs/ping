@@ -1,41 +1,41 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import { UrlCodec, Url, NormalizeUrl } from ".";
+import { Codec, C, Normalize } from ".";
 import { map, isRight, isLeft } from "fp-ts/lib/Either";
 
 describe("type", () => {
   test("it normalizes", () => {
     pipe(
-      NormalizeUrl("http://www.example.com/?"),
+      Normalize("http://www.example.com/?"),
       result => expect(result).toBe("http://example.com")
     );
     pipe(
-      Url("not a url"),
+      C("not a url"),
       result => expect(isLeft(result)).toBeTruthy()
     );
     pipe(
-      Url(""),
+      C(""),
       result => expect(isLeft(result)).toBeTruthy()
     );
   });
   test("it constructs", () => {
     pipe(
-      Url("https://example.com"),
+      C("https://example.com"),
       result => expect(isRight(result)).toBeTruthy()
     );
     pipe(
-      Url("not a url"),
+      C("not a url"),
       result => expect(isLeft(result)).toBeTruthy()
     );
     pipe(
-      Url(""),
+      C(""),
       result => expect(isLeft(result)).toBeTruthy()
     );
   });
   test("it encodes/decodes", () => {
     pipe(
-      Url("https://example.com"),
-      map(UrlCodec.encode),
-      map(UrlCodec.decode),
+      C("https://example.com"),
+      map(Codec.encode),
+      map(Codec.decode),
       result => expect(isRight(result)).toBeTruthy()
     );
   });

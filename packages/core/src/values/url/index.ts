@@ -1,6 +1,4 @@
-import * as iots from "io-ts";
-import { URL } from "url";
-import normalize from "normalize-url";
+import { pipe } from "fp-ts/lib/pipeable";
 import {
   tryCatch,
   isRight,
@@ -10,33 +8,35 @@ import {
   map,
   flatten,
 } from "fp-ts/lib/Either";
-import { pipe } from "fp-ts/lib/pipeable";
-import { ValidationError, ParsingError } from "../../errors";
-import { IsNonEmptyString } from "../non-empty-string";
+import * as iots from "io-ts";
+import { URL } from "url";
+import normalize from "normalize-url";
+import * as Errors from "../../errors";
+import * as NonEmptyString from "../non-empty-string";
 
-export interface UrlBrand {
+export interface Brand {
   readonly Url: unique symbol;
 }
 
-export const UrlCodec = iots.brand(
+export const Codec = iots.brand(
   iots.string,
-  (input): input is iots.Branded<string, UrlBrand> => isRight(Url(input)),
+  (input): input is iots.Branded<string, Brand> => isRight(C(input)),
   "Url"
 );
 
-export type Url = iots.TypeOf<typeof UrlCodec>;
+export type T = iots.TypeOf<typeof Codec>;
 
-export const Url = (
+export const C = (
   input: string
-): Either<ValidationError | ParsingError, Url> =>
+): Either<Errors.Validation | Errors.Parsing, T> =>
   pipe(
-    IsNonEmptyString(input)
+    NonEmptyString.Is(input)
       ? right(input)
-      : left(new ValidationError("cannot be empty")),
-    map(ParseUrl),
+      : left(new Errors.Validation("cannot be empty")),
+    map(Parse),
     flatten,
-    map(NormalizeUrl),
-    map(FormatUrl)
+    map(Normalize),
+    map(Format)
   );
 
 /* 
@@ -44,8 +44,8 @@ export const Url = (
   - lowercases scheme and host
   - removes default port
 */
-export const ParseUrl = (input: string) =>
-  tryCatch(() => new URL(input).toString(), () => new ParsingError());
+export const Parse = (input: string) =>
+  tryCatch(() => new URL(input).toString(), () => new Errors.Parsing());
 
 /*
   - removes trailing slash
@@ -54,11 +54,13 @@ export const ParseUrl = (input: string) =>
   - alphabetically sorts query parameters
   - removes utm parameters
 */
-export const NormalizeUrl = (input: string): string =>
+export const Normalize = (input: string): string =>
   pipe(
     normalize(input),
     // Remove unecessary question mark
     url => (url = url.endsWith("?") ? url.slice(0, -1) : url)
   );
 
-export const FormatUrl = (input: string) => input as Url;
+export const Format = (input: string) => input as T;
+
+export const Is = Codec.is;

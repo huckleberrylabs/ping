@@ -1,2 +1,4 @@
-export * from "./event";
+import * as Event from "./event";
+
+export { Event };
 export * from "./handler";

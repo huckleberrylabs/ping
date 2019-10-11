@@ -1,15 +1,22 @@
-import { UUID, Event } from "@huckleberryai/core";
-import { WidgetSettings } from "./settings/entity";
-import { WidgetMessage } from "./message/domain";
+import { UUID } from "@huckleberryai/core";
+import { Either } from "fp-ts/lib/Either";
+import * as Settings from "./settings";
+import * as Message from "./message";
+import { Option } from "fp-ts/lib/Option";
 
-export interface IWidgetSettingsRepository {
-  add(widget: WidgetSettings): Promise<void>;
-  get(id: UUID): Promise<WidgetSettings | null>;
+export type Event =
+  | Message.UseCases.Create.Event.T
+  | Message.UseCases.AddText.Event.T
+  | Message.UseCases.AddName.Event.T
+  | Message.UseCases.AddPhone.Event.T
+  | Message.UseCases.Send.Event.T;
+
+export interface SettingsRepository {
+  add(settings: Settings.T): Promise<void>;
+  get(id: UUID.T): Promise<Either<Error, Option<Settings.T>>>;
 }
 
-export interface IWidgetMessageRepository {
+export interface MessageRepository {
   add(event: Event): Promise<void>;
-  get(id: UUID): Promise<WidgetMessage | null>;
-  getEvent(id: UUID): Promise<Event | null>;
-  getEventsByCorrID(corrID: UUID): Promise<Event[] | null>;
+  get(id: UUID.T): Promise<Either<Error, Option<Message.T>>>;
 }

@@ -11,9 +11,9 @@ import { Query } from "../settings/queries";
 import { Create, AddText, AddPhone, AddName, Send } from "../message/use-cases";
 
 export const GetSettingsByID = (
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () => {
   pipe(
     Query(widget, corr, parent),
@@ -39,18 +39,18 @@ export const GetSettingsByID = (
 };
 
 export const CreateMessage = (
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () =>
   pipe(
-    Create.Command(widget, corr, parent),
+    Create.Command.C(widget, corr, parent),
     map(query => {
       pipe(
         EndpointFromEvent(query),
         map(async url => {
           pipe(
-            await Post(url, Create.CommandCodec.encode(query)),
+            await Post(url, Create.Command.Codec.encode(query)),
             map(res => {
               /* 
                   TODO:
@@ -67,12 +67,12 @@ export const CreateMessage = (
 
 export const AddTextToMessage = (
   message: string,
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () =>
   pipe(
-    AddText.Command(message, widget, corr, parent),
+    AddText.Command.C(message, widget, corr, parent),
     map(command => {
       pipe(
         EndpointFromEvent(command),
@@ -94,14 +94,14 @@ export const AddTextToMessage = (
   );
 
 export const AddPhoneToMessage = (
-  phone: Phone,
-  widget: UUID,
+  phone: Phone.T,
+  widget: UUID.T,
 
-  corr: UUID,
-  parent: UUID
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () =>
   pipe(
-    AddPhone.Command(phone, widget, corr, parent),
+    AddPhone.Command.C(phone, widget, corr, parent),
     map(command => {
       pipe(
         EndpointFromEvent(command),
@@ -123,13 +123,13 @@ export const AddPhoneToMessage = (
   );
 
 export const AddNameToMessage = (
-  name: PersonName,
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  name: PersonName.T,
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () =>
   pipe(
-    AddName.Command(name, widget, corr, parent),
+    AddName.Command.C(name, widget, corr, parent),
     map(command => {
       pipe(
         EndpointFromEvent(command),
@@ -151,12 +151,12 @@ export const AddNameToMessage = (
   );
 
 export const SendMessage = (
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () =>
   pipe(
-    Send.Command(widget, corr, parent),
+    Send.Command.C(widget, corr, parent),
     map(query => {
       pipe(
         EndpointFromEvent(query),

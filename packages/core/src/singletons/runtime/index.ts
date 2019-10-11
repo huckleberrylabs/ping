@@ -1,12 +1,12 @@
 import { Either, left, right } from "fp-ts/lib/Either";
-import { EnvironmentError } from "../../errors";
+import * as Errors from "../../errors";
 
 export type Runtime = "browser" | "node";
 
-export const GetRuntime = (): Either<EnvironmentError, Runtime> => {
+export const GetRuntime = (): Either<Errors.Environment, Runtime> => {
   if (typeof window === "undefined") return right("node");
   if (typeof window === "object") return right("browser");
   return left(
-    new EnvironmentError(`unknown runtime: (window: ${typeof window})`)
+    new Errors.Environment(`unknown runtime: (window: ${typeof window})`)
   );
 };

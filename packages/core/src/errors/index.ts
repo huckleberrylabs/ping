@@ -1,16 +1,16 @@
 import { Type } from "../values";
 
-export class ValidationError extends Error {
-  name = "core:error:validation" as Type;
+export class Validation extends Error {
+  name = "core:error:validation" as Type.T;
 }
-export class ParsingError extends Error {
-  name = "core:error:parsing" as Type;
-}
-
-export class HTTPError extends Error {
-  name = "core:error:http" as Type;
+export class Parsing extends Error {
+  name = "core:error:parsing" as Type.T;
 }
 
-export class EnvironmentError extends Error {
-  name = "core:error:environment" as Type;
+export class Adapter extends Error {
+  name = "core:error:adapter" as Type.T;
+}
+
+export class Environment extends Error {
+  name = "core:error:environment" as Type.T;
 }

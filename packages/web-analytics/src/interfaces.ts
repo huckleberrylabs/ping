@@ -1,18 +1,22 @@
 import { Either } from "fp-ts/lib/Either";
 import { UUID } from "@huckleberryai/core";
-import { LogEvent, Loaded, Unloaded, LogLevel } from "./client";
-import { HTTPAccess } from "./server";
+import { Logging, UseCases } from "./client";
+import * as Server from "./server";
 
-export type Event = LogEvent | Loaded.Event | Unloaded.Event | HTTPAccess.Event;
+export type Event =
+  | Logging.Event.T
+  | UseCases.Loaded.Event.T
+  | UseCases.Unloaded.Event.T
+  | Server.UseCases.HTTPAccess.Event.T;
 
 export type Logger = (
-  level: LogLevel,
+  level: Logging.Level.T,
   message: string,
   tags: string[],
-  parent?: UUID
+  parent?: UUID.T
 ) => void;
 
 export interface Repository {
-  get(id: UUID): Promise<Either<Error, Event>>;
-  getByCorrID(corrID: UUID): Promise<Event[]>;
+  get(id: UUID.T): Promise<Either<Error, Event>>;
+  getByCorrID(corr: UUID.T): Promise<Event[]>;
 }

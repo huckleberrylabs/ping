@@ -2,29 +2,27 @@ import { pipe } from "fp-ts/lib/pipeable";
 import { none, some } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
 import {
-  Event,
-  EventCodec,
-  UUIDCodec,
+  Event as Base,
   UUID,
   Type,
   optionFromNullable,
 } from "@huckleberryai/core";
 
-export const ClientEventCodec = iots.intersection([
-  EventCodec,
+export const Codec = iots.intersection([
+  Base.Codec,
   iots.type({
-    app: optionFromNullable(UUIDCodec),
+    app: optionFromNullable(UUID.Codec),
   }),
 ]);
 
-export type ClientEvent = iots.TypeOf<typeof ClientEventCodec>;
+export type T = iots.TypeOf<typeof Codec>;
 
-export const ClientEvent = (type: Type) => (
-  app?: UUID,
-  corr?: UUID,
-  parent?: UUID
-): ClientEvent =>
+export const C = (type: Type.T) => (
+  app?: UUID.T,
+  corr?: UUID.T,
+  parent?: UUID.T
+): T =>
   pipe(
-    Event(type, corr, parent),
+    Base.C(type, corr, parent),
     event => ({ ...event, app: app ? some(app) : none })
   );

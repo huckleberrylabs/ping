@@ -1,20 +1,20 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import { IsTimeStamp, TimeStamp, TimeStampCodec } from ".";
+import { Is, C, Codec } from ".";
 import { map } from "fp-ts/lib/Either";
 
 describe("timestamp", () => {
   test("it constructs", () => {
-    expect(TimeStamp()).toBeTruthy();
+    expect(C()).toBeTruthy();
   });
   test("it guards", () => {
-    expect(IsTimeStamp(TimeStamp())).toBeTruthy();
+    expect(Is(C())).toBeTruthy();
   });
   test("it encodes/decodes", () => {
     pipe(
-      TimeStamp(),
-      TimeStampCodec.encode,
-      TimeStampCodec.decode,
-      map(timestamp => expect(IsTimeStamp(timestamp)).toBeTruthy())
+      C(),
+      Codec.encode,
+      Codec.decode,
+      map(timestamp => expect(Is(timestamp)).toBeTruthy())
     );
   });
 });

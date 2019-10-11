@@ -1,89 +1,99 @@
 {
-	"name": "@huckleberryai/api",
-	"publishConfig": {
-		"access": "restricted"
-	},
-	"version": "0.2.8",
-	"description": "Huckleberry API",
-	"author": "Dragos Rotaru <dragos@rotaru.co>",
-	"license": "ISC",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/askhuckleberry/monorepo.git"
-	},
-	"bugs": {
-		"url": "https://github.com/askhuckleberry/monorepo/issues"
-	},
-	"main": "lib/index.js",
-	"typings": "lib/index.d.ts",
-	"directories": {
-		"lib": "lib"
-	},
-	"files": [
-		"lib",
-		"src"
-	],
-	"engines": {
-		"node": ">=10"
-	},
-	"jest": {
-		"preset": "ts-jest",
-		"testEnvironment": "node",
-		"roots": [
-			"<rootDir>/src"
-		],
-		"transformIgnorePatterns": [
-			"<rootDir>/node_modules/"
-		],
-		"transform": {
-			"^.+\\.tsx?$": "ts-jest"
-		},
-		"testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-		"moduleFileExtensions": [
-			"ts",
-			"tsx",
-			"js",
-			"jsx",
-			"json",
-			"node"
-		]
-	},
-	"prettier": {
-		"trailingComma": "es5"
-	},
-	"tslint": {
-		"defaultSeverity": "error",
-		"extends": [
-			"tslint:recommended",
-			"tslint-jest",
-			"tslint-config-prettier"
-		],
-		"jsRules": {},
-		"rules": {},
-		"rulesDirectory": []
-	},
-	"dependencies": {
-		"@google-cloud/firestore": "^2.2.6",
-		"@google/maps": "^0.5.5",
-		"@huckleberryai/log": "^0.2.7",
-		"@now/node": "^0.12.1",
-		"inversify": "^5.0.1",
-		"reflect-metadata": "^0.1.13",
-		"twilio": "^3.33.2"
-	},
-	"devDependencies": {
-		"@types/color": "^3.0.0",
-		"@types/google__maps": "^0.5.5",
-		"@types/jest": "^24.0.17",
-		"@types/node": "^12.6.8",
-		"jest": "^24.8.0",
-		"now": "^16.1.1",
-		"prettier": "^1.17.0",
-		"ts-jest": "^24.0.2",
-		"tslint": "^5.16.0",
-		"tslint-config-prettier": "^1.18.0",
-		"tslint-jest": "^1.0.5",
-		"typescript": "^3.5.3"
-	},
-	"gitHead": "62a71a063a7992eb35f5a1be639ebe138876d8f6"
+  "name": "@huckleberryai/api",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "version": "0.2.8",
+  "description": "Huckleberry API",
+  "author": "Dragos Rotaru <dragos@rotaru.co>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askhuckleberry/monorepo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/askhuckleberry/monorepo/issues"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
+  "prettier": {
+    "trailingComma": "es5"
+  },
+  "tslint": {
+    "defaultSeverity": "error",
+    "extends": [
+      "tslint:recommended",
+      "tslint-jest",
+      "tslint-config-prettier"
+    ],
+    "jsRules": {},
+    "rules": {},
+    "rulesDirectory": []
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
+    "test": "npx jest",
+    "test:watch": "npx jest --watch",
+    "prepare": "npm run test && npm run build"
+  },
+  "dependencies": {
+    "@huckleberryai/core": "^0.2.7",
+    "@huckleberryai/log": "^0.2.7",
+    "@huckleberryai/web-analytics": "^0.2.8",
+    "@huckleberryai/widget": "^0.2.7",
+    "@google-cloud/firestore": "^2.2.6",
+    "@google/maps": "^0.5.5",
+    "@now/node": "^0.12.1",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13",
+    "twilio": "^3.33.2"
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.0",
+    "@types/google__maps": "^0.5.5",
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.6.8",
+    "jest": "^24.8.0",
+    "now": "^16.1.1",
+    "prettier": "^1.17.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-jest": "^1.0.5",
+    "typescript": "^3.5.3"
+  },
+  "gitHead": "62a71a063a7992eb35f5a1be639ebe138876d8f6"
 }

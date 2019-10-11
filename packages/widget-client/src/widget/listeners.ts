@@ -10,9 +10,9 @@ import { WidgetSDK } from "@huckleberryai/widget";
 import { Elements } from "./elements";
 
 export const onCreateMessage = (e: Elements) => (
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () => {
   e.container.style.width = "37rem";
   e.create.classList.remove("shown");
@@ -23,9 +23,9 @@ export const onCreateMessage = (e: Elements) => (
 };
 
 export const onAddTextToMessage = (e: Elements) => (
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () =>
   pipe(
     NonEmptyStringCodec.decode(e.textInput.value),
@@ -44,9 +44,9 @@ export const onAddTextToMessage = (e: Elements) => (
   );
 
 export const onAddPhoneToMessage = (e: Elements) => (
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () =>
   pipe(
     Phone(e.phoneInput.value),
@@ -65,9 +65,9 @@ export const onAddPhoneToMessage = (e: Elements) => (
   );
 
 export const onAddNameToMessageAndSend = (e: Elements) => (
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => async () =>
   pipe(
     PersonName(e.nameInput.value),
@@ -98,9 +98,9 @@ export const nextOnEnter = (button: HTMLButtonElement) => (
 };
 
 export const AddEventListeners = (e: Elements) => (
-  widget: UUID,
-  corr: UUID,
-  parent: UUID
+  widget: UUID.T,
+  corr: UUID.T,
+  parent?: UUID.T
 ) => {
   e.create.addEventListener("click", onCreateMessage(e)(widget, corr, parent));
   e.textInput.addEventListener("keyup", nextOnEnter(e.addText));

@@ -2,44 +2,43 @@ import * as iots from "io-ts";
 import { NowRequest } from "@now/node";
 import {
   Type,
-  Event as BaseEvent,
-  EventCodec as BaseEventCodec,
-  NonEmptyStringCodec,
-  IsUUID,
+  UUID,
+  Event as Base,
+  NonEmptyString,
   optionFromNullable,
 } from "@huckleberryai/core";
 import { none, some } from "fp-ts/lib/Option";
 
-export const EventType = "web-analytics:event:http-access" as Type;
+export const Name = "web-analytics:event:http-access" as Type.T;
 
-export const EventCodec = iots.intersection(
+export const Codec = iots.intersection(
   [
-    BaseEventCodec,
+    Base.Codec,
     iots.type({
-      method: optionFromNullable(NonEmptyStringCodec),
-      url: optionFromNullable(NonEmptyStringCodec),
+      method: optionFromNullable(NonEmptyString.Codec),
+      url: optionFromNullable(NonEmptyString.Codec),
       headers: iots.record(
         iots.string,
         iots.union([iots.string, iots.array(iots.string), iots.undefined])
       ),
     }),
   ],
-  EventType
+  Name
 );
 
-export type Event = iots.TypeOf<typeof EventCodec>;
+export type T = iots.TypeOf<typeof Codec>;
 
-export const Event = (req: NowRequest): Event => {
+export const C = (req: NowRequest): T => {
   req.headers;
   const corrString = req.query["corr_id"];
-  const corr = IsUUID(corrString) ? corrString : undefined;
+  const corr = UUID.Is(corrString) ? corrString : undefined;
   const parentString = req.query["parent_id"];
-  let parent = IsUUID(parentString) ? parentString : undefined;
-  const event = BaseEvent(EventType, corr, parent);
+  let parent = UUID.Is(parentString) ? parentString : undefined;
+  const event = Base.C(Name, corr, parent);
   return {
     ...event,
-    method: NonEmptyStringCodec.is(req.method) ? some(req.method) : none,
-    url: NonEmptyStringCodec.is(req.url) ? some(req.url) : none,
+    method: NonEmptyString.Is(req.method) ? some(req.method) : none,
+    url: NonEmptyString.Is(req.url) ? some(req.url) : none,
     headers: req.headers,
   };
 };

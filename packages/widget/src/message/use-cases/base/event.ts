@@ -1,24 +1,26 @@
 import { pipe } from "fp-ts/lib/pipeable";
 import * as iots from "io-ts";
-import { Type, UUIDCodec, UUID } from "@huckleberryai/core";
-import { WidgetEvent, WidgetEventCodec } from "../../../base";
+import { Type, UUID } from "@huckleberryai/core";
+import { Event as Base } from "../../../base";
 
-export const MessageEventCodec = iots.intersection([
-  WidgetEventCodec,
+export const Codec = iots.intersection([
+  Base.Codec,
   iots.type({
-    message: UUIDCodec,
+    message: UUID.Codec,
   }),
 ]);
 
-export type MessageEvent = iots.TypeOf<typeof MessageEventCodec>;
+export type T = iots.TypeOf<typeof Codec>;
 
-export const MessageEvent = (type: Type) => (
-  message: UUID,
-  widget: UUID,
-  corr?: UUID,
-  parent?: UUID
-): MessageEvent =>
+export const C = (type: Type.T) => (
+  message: UUID.T,
+  widget: UUID.T,
+  corr?: UUID.T,
+  parent?: UUID.T
+): T =>
   pipe(
-    WidgetEvent(type)(widget, corr, parent),
+    Base.C(type)(widget, corr, parent),
     event => ({ ...event, message })
   );
+
+export const Is = Codec.is;

@@ -1,16 +1,16 @@
 import { map, isRight, isLeft } from "fp-ts/lib/Either";
 import { pipe } from "fp-ts/lib/pipeable";
-import { PersonName, PersonNameCodec } from ".";
+import * as PersonName from ".";
 import { isSome, isNone } from "fp-ts/lib/Option";
 
 describe("person-name", () => {
   test("it constructs", () => {
     pipe(
-      PersonName(""),
+      PersonName.C(""),
       result => expect(isLeft(result)).toBeTruthy()
     );
     pipe(
-      PersonName("Mr. Smith, PhD"),
+      PersonName.C("Mr. Smith, PhD"),
       map(result => {
         expect(
           isSome(result.parsed) && result.parsed.value === "Mr. Smith, PhD"
@@ -30,7 +30,7 @@ describe("person-name", () => {
       })
     );
     pipe(
-      PersonName("Bobby"),
+      PersonName.C("Bobby"),
       map(result => {
         expect(
           isSome(result.parsed) && result.parsed.value === "Bobby"
@@ -46,7 +46,7 @@ describe("person-name", () => {
       })
     );
     pipe(
-      PersonName("john doe"),
+      PersonName.C("john doe"),
       map(result => {
         expect(
           isSome(result.parsed) && result.parsed.value === "john doe"
@@ -62,7 +62,7 @@ describe("person-name", () => {
       })
     );
     pipe(
-      PersonName("Mrs. Jane Samantha Doe"),
+      PersonName.C("Mrs. Jane Samantha Doe"),
       map(result => {
         expect(
           isSome(result.parsed) &&
@@ -85,9 +85,9 @@ describe("person-name", () => {
   });
   test("it decodes", () => {
     pipe(
-      PersonName("Mrs. Jane Samantha Doe"),
-      map(PersonNameCodec.encode),
-      map(PersonNameCodec.decode),
+      PersonName.C("Mrs. Jane Samantha Doe"),
+      map(PersonName.Codec.encode),
+      map(PersonName.Codec.decode),
       result => expect(isRight(result)).toBeTruthy()
     );
   });

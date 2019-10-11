@@ -1,18 +1,18 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import { IsType, TypeCodec, Type } from ".";
+import { Is, Codec, T } from ".";
 import { map } from "fp-ts/lib/Either";
 
 describe("type", () => {
   test("it guards", () => {
-    expect(IsType("this-is-a-type")).toBeTruthy();
-    expect(IsType("")).toBeFalsy();
+    expect(Is("this-is-a-type")).toBeTruthy();
+    expect(Is("")).toBeFalsy();
   });
   test("it encodes/decodes", () => {
     pipe(
-      "my-type" as Type,
-      TypeCodec.encode,
-      TypeCodec.decode,
-      map(type => expect(IsType(type)).toBeTruthy())
+      "my-type" as T,
+      Codec.encode,
+      Codec.decode,
+      map(type => expect(Is(type)).toBeTruthy())
     );
   });
 });

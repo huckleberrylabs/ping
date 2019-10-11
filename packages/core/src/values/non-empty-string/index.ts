@@ -1,17 +1,16 @@
 import * as iots from "io-ts";
 
-export interface NonEmptyStringBrand {
+export interface Brand {
   readonly NonEmptyString: unique symbol;
 }
 
-export const NonEmptyStringCodec = iots.brand(
+export const Codec = iots.brand(
   iots.string,
-  (input): input is iots.Branded<string, NonEmptyStringBrand> =>
-    IsNonEmptyString(input),
+  (input): input is iots.Branded<string, Brand> => Is(input),
   "NonEmptyString"
 );
 
-export type NonEmptyString = iots.TypeOf<typeof NonEmptyStringCodec>;
+export type T = iots.TypeOf<typeof Codec>;
 
-export const IsNonEmptyString = (input: unknown): input is NonEmptyString =>
+export const Is = (input: unknown): input is T =>
   typeof input === "string" && input.length > 0;

@@ -1,41 +1,32 @@
 import * as iots from "io-ts";
 import { pipe } from "fp-ts/lib/pipeable";
 import { some, none } from "fp-ts/lib/Option";
-import { Type, optionFromNullable, UUID, UUIDCodec } from "@huckleberryai/core";
-import { ClientEvent, ClientEventCodec } from "../../base";
-import { Log, LogCodec, FingerPrint, FingerPrintCodec } from "../../domain";
+import { Type, UUID, optionFromNullable } from "@huckleberryai/core";
+import * as Base from "../../base";
+import * as FingerPrint from "../../fingerprint";
+import * as Logging from "../../logging";
 
-export const EventType = "web-analytics:event:client-unloaded" as Type;
+export const Name = "web-analytics:event:client-unloaded" as Type.T;
 
-export const EventCodec = iots.intersection([
-  ClientEventCodec,
+export const Codec = iots.intersection([
+  Base.Event.Codec,
   iots.type({
-    log: LogCodec,
-    fingerprint: optionFromNullable(FingerPrintCodec),
+    log: Logging.Log.Codec,
+    fingerprint: optionFromNullable(FingerPrint.Codec),
   }),
 ]);
 
-export type Event = iots.TypeOf<typeof EventCodec>;
+export type T = iots.TypeOf<typeof Codec>;
 
-export const NormalizedEventCodec = iots.intersection([
-  ClientEventCodec,
-  iots.type({
-    log: iots.array(UUIDCodec),
-    fingerprint: optionFromNullable(FingerPrintCodec),
-  }),
-]);
-
-export type NormalizedEvent = iots.TypeOf<typeof NormalizedEventCodec>;
-
-export const Event = (
-  log: Log,
-  fingerprint?: FingerPrint,
-  app?: UUID,
-  corr?: UUID,
-  parent?: UUID
-): Event =>
+export const C = (
+  log: Logging.Log.T,
+  fingerprint?: FingerPrint.T,
+  app?: UUID.T,
+  corr?: UUID.T,
+  parent?: UUID.T
+): T =>
   pipe(
-    ClientEvent(EventType)(app, corr, parent),
+    Base.Event.C(Name)(app, corr, parent),
     event => ({
       ...event,
       log,
@@ -43,7 +34,17 @@ export const Event = (
     })
   );
 
-export const NormalizeEvent = (input: Event): NormalizedEvent => ({
+export const NormalizedCodec = iots.intersection([
+  Base.Event.Codec,
+  iots.type({
+    log: iots.array(UUID.Codec),
+    fingerprint: optionFromNullable(FingerPrint.Codec),
+  }),
+]);
+
+export type Normalized = iots.TypeOf<typeof NormalizedCodec>;
+
+export const Normalize = (input: T): Normalized => ({
   ...input,
   log: input.log.map(event => event.id),
 });

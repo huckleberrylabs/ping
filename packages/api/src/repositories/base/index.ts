@@ -2,19 +2,19 @@ import { Firestore } from "@google-cloud/firestore";
 import { KebabCaseString, UUID } from "@huckleberryai/core";
 
 export const add = (store: Firestore) => (
-  collection: KebabCaseString
-) => async <Type>(id: UUID, data: Type): Promise<void> => {
+  collection: KebabCaseString.T
+) => async <Type>(id: UUID.T, data: Type): Promise<void> => {
   await store
     .collection(collection)
     .doc(id)
     .create(data);
 };
 
-export const get = (store: Firestore) => (collection: KebabCaseString) => <
+export const get = (store: Firestore) => (collection: KebabCaseString.T) => <
   Type
 >(
   isType: (input: unknown) => input is Type
-) => async (id: UUID): Promise<Type | null> => {
+) => async (id: UUID.T): Promise<Type | null> => {
   const json = (await store
     .collection(collection)
     .doc(id)
@@ -23,7 +23,7 @@ export const get = (store: Firestore) => (collection: KebabCaseString) => <
 };
 
 export const getByProperty = (store: Firestore) => (
-  collection: KebabCaseString
+  collection: KebabCaseString.T
 ) => <PropType, Type>(
   propKey: string,
   isType: (input: unknown) => input is Type

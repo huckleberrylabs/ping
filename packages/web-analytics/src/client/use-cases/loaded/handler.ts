@@ -1,5 +1,5 @@
 import { IDispatch } from "@huckleberryai/core";
-import { Event } from "./event";
+import * as Event from "./event";
 
-export const Handler = (dispatch: IDispatch) => (event: Event) =>
+export const Handler = (dispatch: IDispatch) => (event: Event.T) =>
   dispatch(event);

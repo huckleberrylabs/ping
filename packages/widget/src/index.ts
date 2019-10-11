@@ -1,5 +1,6 @@
-export * from "./base";
-export * from "./sdk";
-export * from "./message";
-export * from "./settings";
-export * from "./interfaces";
+import * as SDK from "./sdk";
+import * as Message from "./message";
+import * as Settings from "./settings";
+import * as Interfaces from "./interfaces";
+
+export { SDK, Message, Settings, Interfaces };

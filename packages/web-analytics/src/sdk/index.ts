@@ -1,7 +1,7 @@
 import { pipe } from "fp-ts/lib/pipeable";
 import { map } from "fp-ts/lib/Either";
 import { UUID, Beacon, EndpointFromEvent } from "@huckleberryai/core";
-import { Loaded, Unloaded, Log, Logger, FingerPrint } from "../client";
+import { UseCases, Logging, FingerPrint } from "../client";
 import { Logger as ILogger } from "../interfaces";
 import { AttachToWindow } from "./window";
 
@@ -29,44 +29,39 @@ const DefaultOptions: Options = {
   setUnloadListener: true,
 };
 
-export type SDK = {
-  log: ILogger;
-  unload: () => void;
-};
-
 export const SDK = (options: Options = DefaultOptions) => async (
-  app?: UUID,
-  corr?: UUID,
-  parent?: UUID
-): Promise<SDK> => {
+  app?: UUID.T,
+  corr?: UUID.T,
+  parent?: UUID.T
+) => {
   // Loaded
   pipe(
-    Loaded.Event(app, corr, parent),
+    UseCases.Loaded.Event.C(app, corr, parent),
     event =>
       pipe(
         EndpointFromEvent(event),
-        map(url => Beacon(url, Loaded.EventCodec.encode(event)))
+        map(url => Beacon(url, UseCases.Loaded.Event.Codec.encode(event)))
       )
   );
 
   // Logging
-  const log = Log();
+  const log = Logging.Log.C();
   const logger: ILogger = (level, message, tags, parent) =>
-    Logger(log)(level, message, tags, corr, parent);
+    Logging.Logger.C(log)(level, message, tags, corr, parent);
 
   // Fingerprint
   const fingerprint =
     options.fingerPrint && options.fingerPrint.enabled
-      ? await FingerPrint()
+      ? await FingerPrint.Generate()
       : undefined;
 
   const unload = () =>
     pipe(
-      Unloaded.Event(log, fingerprint, app, corr, parent),
+      UseCases.Unloaded.Event.C(log, fingerprint, app, corr, parent),
       event =>
         pipe(
           EndpointFromEvent(event),
-          map(url => Beacon(url, Loaded.EventCodec.encode(event)))
+          map(url => Beacon(url, UseCases.Loaded.Event.Codec.encode(event)))
         )
     );
 

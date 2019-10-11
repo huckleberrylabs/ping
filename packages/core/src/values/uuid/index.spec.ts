@@ -1,20 +1,20 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import { IsUUID, UUID, UUIDCodec } from ".";
+import { Is, C, Codec } from ".";
 import { map } from "fp-ts/lib/Either";
 
 describe("uuid", () => {
   test("it constructs", () => {
-    expect(UUID()).toBeTruthy();
+    expect(C()).toBeTruthy();
   });
   test("it guards", () => {
-    expect(IsUUID(UUID())).toBeTruthy();
+    expect(Is(C())).toBeTruthy();
   });
   test("it encodes/decodes", () => {
     pipe(
-      UUID(),
-      UUIDCodec.encode,
-      UUIDCodec.decode,
-      map(timestamp => expect(IsUUID(timestamp)).toBeTruthy())
+      C(),
+      Codec.encode,
+      Codec.decode,
+      map(timestamp => expect(Is(timestamp)).toBeTruthy())
     );
   });
 });

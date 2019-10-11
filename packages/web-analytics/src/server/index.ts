@@ -1,1 +1,3 @@
-export * from "./use-cases";
+import * as UseCases from "./use-cases";
+
+export { UseCases };

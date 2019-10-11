@@ -1,21 +1,18 @@
 import * as iots from "io-ts";
-import { IsKebabCaseString } from "../kebab-case-string";
-import { IsNonEmptyString } from "../non-empty-string";
+import * as Kebab from "../kebab-case-string";
+import * as NonEmptyString from "../non-empty-string";
 
-export interface NameSpaceCaseStringBrand {
+export interface Brand {
   readonly NameSpaceCaseString: unique symbol;
 }
 
-export const NameSpaceCaseStringCodec = iots.brand(
+export const Codec = iots.brand(
   iots.string,
-  (input): input is iots.Branded<string, NameSpaceCaseStringBrand> =>
-    IsNameSpaceCaseString(input),
+  (input): input is iots.Branded<string, Brand> => Is(input),
   "NameSpaceCaseString"
 );
 
-export type NameSpaceCaseString = iots.TypeOf<typeof NameSpaceCaseStringCodec>;
+export type T = iots.TypeOf<typeof Codec>;
 
-export const IsNameSpaceCaseString = (
-  input: unknown
-): input is NameSpaceCaseString =>
-  IsNonEmptyString(input) && input.split(":").every(IsKebabCaseString);
+export const Is = (input: unknown): input is T =>
+  NonEmptyString.Is(input) && input.split(":").every(Kebab.Is);

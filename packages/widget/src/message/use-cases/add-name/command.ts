@@ -1,31 +1,32 @@
 import { pipe } from "fp-ts/lib/pipeable";
 import * as iots from "io-ts";
-import { Type, UUID, PersonName, PersonNameCodec } from "@huckleberryai/core";
-import { WidgetEventCodec } from "../../../base/event";
-import { MessageEvent } from "../base";
+import { Type, UUID, PersonName } from "@huckleberryai/core";
+import { Event as Base } from "../base";
 
-export const CommandType = "widget:command:add-name-to-message" as Type;
+export const Name = "widget:command:add-name-to-message" as Type.T;
 
-export const CommandCodec = iots.intersection(
+export const Codec = iots.intersection(
   [
-    WidgetEventCodec,
+    Base.Codec,
     iots.type({
-      name: PersonNameCodec,
+      name: PersonName.Codec,
     }),
   ],
-  CommandType
+  Name
 );
 
-export type Command = iots.TypeOf<typeof CommandCodec>;
+export type T = iots.TypeOf<typeof Codec>;
 
-export const Command = (
-  name: PersonName,
-  message: UUID,
-  widget: UUID,
-  corr?: UUID,
-  parent?: UUID
-): Command =>
+export const C = (
+  name: PersonName.T,
+  message: UUID.T,
+  widget: UUID.T,
+  corr?: UUID.T,
+  parent?: UUID.T
+): T =>
   pipe(
-    MessageEvent(CommandType)(message, widget, corr, parent),
+    Base.C(Name)(message, widget, corr, parent),
     event => ({ ...event, name })
   );
+
+export const Is = Codec.is;

@@ -1,21 +1,21 @@
-export type JSONPrimitive = boolean | number | string | null;
-export type JSON = JSONPrimitive | JSONObject | JSONArray;
-export type JSONObject = { [member: string]: JSON };
-export interface JSONArray extends Array<JSON> {}
+export type Primitive = boolean | number | string | null;
+export type T = Primitive | JObject | JArray;
+export type JObject = { [member: string]: T };
+export interface JArray extends Array<T> {}
 
-export const IsJSONPrimitive = (input: unknown): input is JSONPrimitive =>
+export const IsPrimitive = (input: unknown): input is Primitive =>
   typeof input === "boolean" ||
   typeof input === "number" ||
   typeof input === "string" ||
   input === null;
 
-export const IsJSONArray = (input: unknown): input is JSONArray =>
-  Array.isArray(input) && input.every(IsJSON);
+export const IsArray = (input: unknown): input is JArray =>
+  Array.isArray(input) && input.every(Is);
 
-export const IsJSONObject = (input: unknown): input is JSONObject =>
+export const IsObject = (input: unknown): input is JObject =>
   typeof input === "object" &&
   input !== null &&
-  Object.entries(input).every(elem => IsJSON(elem[1]));
+  Object.entries(input).every(elem => Is(elem[1]));
 
-export const IsJSON = (input: unknown): input is JSON =>
-  IsJSONPrimitive(input) || IsJSONArray(input) || IsJSONObject(input);
+export const Is = (input: unknown): input is T =>
+  IsPrimitive(input) || IsArray(input) || IsObject(input);

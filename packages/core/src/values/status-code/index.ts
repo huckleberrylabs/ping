@@ -7,9 +7,9 @@ export {
   INTERNAL_SERVER_ERROR, // 500
 } from "http-status-codes";
 
-export type StatusCode = 200 | 400 | 401 | 403 | 404 | 500;
+export type T = 200 | 400 | 401 | 403 | 404 | 500;
 
-export const IsStatusCode = (input: unknown): input is StatusCode =>
+export const Is = (input: unknown): input is T =>
   input === 200 ||
   input === 400 ||
   input === 401 ||
@@ -17,7 +17,6 @@ export const IsStatusCode = (input: unknown): input is StatusCode =>
   input === 404 ||
   input === 500;
 
-export const IsSuccess = (input: StatusCode): boolean =>
-  input <= 299 && input >= 200;
+export const IsSuccess = (input: T): boolean => input <= 299 && input >= 200;
 
-export const IsError = (input: StatusCode): boolean => !IsSuccess(input);
+export const IsError = (input: T): boolean => !IsSuccess(input);

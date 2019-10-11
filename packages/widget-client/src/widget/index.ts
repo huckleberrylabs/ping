@@ -42,8 +42,8 @@ export const GetWidgetID = (insertScriptID: string): Either<Error, UUID> =>
 
 export const InitializeWidget = (log: Logger) => (
   settings: WidgetSettings,
-  corr: UUID,
-  parent: UUID
+  corr: UUID.T,
+  parent?: UUID.T
 ) =>
   pipe(
     ElementIDs(),

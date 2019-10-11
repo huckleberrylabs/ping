@@ -1,5 +1,5 @@
 import { Either, left, right } from "fp-ts/lib/Either";
-import { EnvironmentError } from "../../errors";
+import * as Errors from "../../errors";
 
 export type Env = "development" | "test" | "staging" | "production";
 
@@ -10,7 +10,7 @@ export const IsEnv = (input: unknown): input is Env =>
     input === "staging" ||
     input === "production");
 
-export const GetEnv = (): Either<EnvironmentError, Env> =>
+export const GetEnv = (): Either<Errors.Environment, Env> =>
   IsEnv(process.env.NODE_ENV)
     ? right(process.env.NODE_ENV)
-    : left(new EnvironmentError(`unknown NODE_ENV: ${process.env.NODE_ENV}`));
+    : left(new Errors.Environment(`unknown NODE_ENV: ${process.env.NODE_ENV}`));
