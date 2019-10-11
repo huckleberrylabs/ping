@@ -1,19 +1,18 @@
-import { UUID } from "@huckleberryai/core";
-import { IWidgetEvent, IsWidgetEvent, WidgetEvent } from "../../../base/event";
+import * as iots from "io-ts";
+import { Either } from "fp-ts/lib/Either";
+import { Type, UUID } from "@huckleberryai/core";
+import { WidgetEventCodec, WidgetEvent } from "../../../base/event";
 
-export interface IWidgetGetSettingsQuery extends IWidgetEvent {}
+export interface WidgetGetSettingsQuery extends WidgetEvent {}
 
-export const WidgetGetSettingsQueryType = "widget-get-settings-query";
+export const QueryType = "widget:settings:get-by-id-query" as Type;
 
-export const WidgetGetSettingsQuery: (
+export const QueryCodec = WidgetEventCodec;
+
+export type Query = iots.TypeOf<typeof QueryCodec>;
+
+export const Query: (
   widget: UUID,
-  origin: UUID,
   corr?: UUID,
-  parent?: UUID,
-  agent?: UUID
-) => IWidgetGetSettingsQuery = WidgetEvent(WidgetGetSettingsQueryType);
-
-export const IsWidgetGetSettingsQuery = (
-  input: unknown
-): input is IWidgetGetSettingsQuery =>
-  IsWidgetEvent(input) && input.type === WidgetGetSettingsQueryType;
+  parent?: UUID
+) => Either<Error, Query> = WidgetEvent(QueryType);

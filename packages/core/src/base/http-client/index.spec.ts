@@ -2,7 +2,7 @@ import { Post, Beacon, EndpointFromEvent } from ".";
 import { pipe } from "fp-ts/lib/pipeable";
 import { Event } from "../event";
 import { Type, UUID, Url, IsJSON } from "../../values";
-import { map, flatten, isLeft, isRight } from "fp-ts/lib/Either";
+import { map, isLeft, isRight } from "fp-ts/lib/Either";
 
 describe("http-client", () => {
   test("it posts", async () => {
@@ -29,16 +29,13 @@ describe("http-client", () => {
     pipe(
       Event(
         "core:event:test" as Type,
-        "core:origin:event-test" as Type,
         "my-test-corr-id" as UUID,
-        "my-test-parent-id" as UUID,
-        "my-test-agent-id" as UUID
+        "my-test-parent-id" as UUID
       ),
-      map(EndpointFromEvent),
-      flatten,
+      EndpointFromEvent,
       map(url =>
         expect(url).toBe(
-          "http://localhost:8000/core-event-test?agent_id=my-test-agent-id&corr_id=my-test-corr-id&parent_id=my-test-parent-id"
+          "http://localhost:8000/core-event-test?corr_id=my-test-corr-id&parent_id=my-test-parent-id"
         )
       )
     );

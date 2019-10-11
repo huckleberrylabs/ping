@@ -16,7 +16,6 @@ import { WebAnalyticsHTTPAccessEvent } from "@huckleberryai/web-analytics";
 export const bus = Bus(IoC);
 
 export default async (req: NowRequest, res: NowResponse) => {
-  const ORIGIN_ID = "c7e384c3-697f-4ccf-a514-d54a452acfac";
   // Options
   res.setHeader("Access-Control-Allow-Origin", "*");
   if (req.method === "OPTIONS") {
@@ -28,7 +27,7 @@ export default async (req: NowRequest, res: NowResponse) => {
   }
 
   // HTTP Access Filtering
-  const accessEvent = WebAnalyticsHTTPAccessEvent(req, ORIGIN_ID);
+  const accessEvent = WebAnalyticsHTTPAccessEvent(req);
   const result = await bus(accessEvent);
   if (result instanceof Error) {
     res.status(INTERNAL_SERVER_ERROR).send(result);
@@ -52,7 +51,7 @@ export default async (req: NowRequest, res: NowResponse) => {
     if (!IsEvent(event)) {
       res
         .status(BAD_REQUEST)
-        .send(Result("data provided is not an event", BAD_REQUEST, ORIGIN_ID));
+        .send(Result("data provided is not an event", BAD_REQUEST));
       return;
     }
     try {
@@ -66,7 +65,6 @@ export default async (req: NowRequest, res: NowResponse) => {
           Result(
             error.toString(),
             INTERNAL_SERVER_ERROR,
-            ORIGIN_ID,
             event.corr,
             event.parent ? event.parent : undefined
           )

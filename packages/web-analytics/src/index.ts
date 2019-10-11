@@ -1,5 +1,6 @@
-export * from "./client-loaded";
-export * from "./client-unloaded";
-export * from "./fingerprint";
-export * from "./http-access";
-export * from "./interfaces";
+import * as Client from "./client";
+import * as Server from "./server";
+import * as SDK from "./sdk";
+import * as Interfaces from "./interfaces";
+
+export { Client, Server, SDK, Interfaces };

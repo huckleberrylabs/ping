@@ -1,2 +1,4 @@
-export * from "./entity";
-export * from "./queries";
+import * as Entity from "./entity";
+import * as Queries from "./queries";
+
+export { Entity, Queries };

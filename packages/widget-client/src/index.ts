@@ -1,16 +1,25 @@
-import { UUID, API_ENDPOINT, EVENTS_ENDPOINT } from "@huckleberryai/core";
-import { log } from "@huckleberryai/log";
-import { postEvent } from "./api";
-import { LoadWidget } from "./load";
-import { INSERT_SCRIPT_ID } from "./load/elements";
-import { GetWidgetID } from "./load/data";
+import { UUID } from "@huckleberryai/core";
+import { WidgetSDK } from "@huckleberryai/widget";
+import { WebAnalyticsSDK } from "@huckleberryai/web-analytics";
+import { GetWidgetID } from "./widget";
+import { InitializeWidget } from "./widget";
 
-window.addEventListener(
-  "load",
-  LoadWidget(log, postEvent)(API_ENDPOINT + EVENTS_ENDPOINT)(
-    GetWidgetID(INSERT_SCRIPT_ID),
-    "02553494-2ee2-43fb-b7e5-826ea0281883",
-    UUID()
-  ),
-  false
-);
+const INSERT_SCRIPT_ID = "huckleberry-text-insert-script";
+
+export const onLoad = () => {
+  // Get Widget ID
+  const corr = UUID();
+  const id = GetWidgetID(INSERT_SCRIPT_ID);
+
+  // Client Loaded Event, Set Unload Listener, Check API online
+  const analytics = WebAnalyticsSDK()(id, corr);
+
+  // const parent = LoadedEvent.id
+
+  const settings = WidgetSDK.Settings.GetByID(id);
+  if (!settings.disabled) {
+    InitializeWidget(analytics.log)(settings, corr);
+  }
+};
+
+window.addEventListener("load", onLoad, false);

@@ -7,9 +7,10 @@ import { Event } from "../event";
 import { HTTPError } from "../../errors";
 import { GetEndpoint } from "../../singletons";
 
-export type IPost = (url: Url, dto: JSON) => Promise<Either<HTTPError, JSON>>; // TODO replace with TaskEither
-
-export const Post: IPost = async (url, dto) => {
+export const Post = async (
+  url: Url,
+  dto: JSON
+): Promise<Either<HTTPError, JSON>> => {
   try {
     const res = await axios.post(url, dto, {
       validateStatus: status => status < INTERNAL_SERVER_ERROR,
@@ -36,10 +37,6 @@ export const AddEventParamsToURL = (url: Url, event: Event) => {
   pipe(
     event.parent,
     fold(() => {}, parent => urlCopy.searchParams.append("parent_id", parent))
-  );
-  pipe(
-    event.agent,
-    fold(() => {}, agent => urlCopy.searchParams.append("agent_id", agent))
   );
   return Url(urlCopy.toString());
 };
