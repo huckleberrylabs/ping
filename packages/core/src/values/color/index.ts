@@ -27,18 +27,16 @@ export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (
   input: string
-): Either<Errors.Validation | Errors.Parsing, T> =>
+): Either<Errors.Validation.T | Errors.Parsing.T, T> =>
   pipe(
-    NonEmptyString.Is(input)
-      ? right(input)
-      : left(new Errors.Validation("cannot be empty")),
+    NonEmptyString.Is(input) ? right(input) : left(Errors.Validation.C()),
     map(Parse),
     flatten,
     map(Format)
   );
 
 export const Parse = (input: string) =>
-  tryCatch(() => ColorLib(input, "hex"), () => new Errors.Parsing());
+  tryCatch(() => ColorLib(input, "hex"), () => Errors.Parsing.C());
 
 export const Format = (color: ColorLib) => color.hex().toLowerCase() as T;
 

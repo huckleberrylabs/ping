@@ -1,8 +1,7 @@
-import { UUID } from "@huckleberryai/core";
-import { Either } from "fp-ts/lib/Either";
+import { Errors, UUID } from "@huckleberryai/core";
+import { TaskEither } from "fp-ts/lib/TaskEither";
 import * as Settings from "./settings";
 import * as Message from "./message";
-import { Option } from "fp-ts/lib/Option";
 
 export type Event =
   | Message.UseCases.Create.Event.T
@@ -12,11 +11,13 @@ export type Event =
   | Message.UseCases.Send.Event.T;
 
 export interface SettingsRepository {
-  add(settings: Settings.T): Promise<void>;
-  get(id: UUID.T): Promise<Either<Error, Option<Settings.T>>>;
+  add(id: UUID.T, settings: Settings.T): TaskEither<Errors.Adapter, true>;
+  delete(id: UUID.T): TaskEither<Errors.Adapter, true>;
+  get(id: UUID.T): TaskEither<Errors.Adapter | Errors.NotFound, Settings.T>;
 }
 
 export interface MessageRepository {
-  add(event: Event): Promise<void>;
-  get(id: UUID.T): Promise<Either<Error, Option<Message.T>>>;
+  add(id: UUID.T, event: Event): TaskEither<Errors.Adapter, true>;
+  delete(id: UUID.T): TaskEither<Errors.Adapter, true>;
+  get(id: UUID.T): TaskEither<Errors.Adapter | Errors.NotFound, Message.T>;
 }

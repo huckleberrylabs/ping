@@ -1,4 +1,3 @@
-import { pipe } from "fp-ts/lib/pipeable";
 import * as iots from "io-ts";
 import { Type, UUID } from "@huckleberryai/core";
 import { Event as Base } from "../../../base";
@@ -17,10 +16,6 @@ export const C = (type: Type.T) => (
   widget: UUID.T,
   corr?: UUID.T,
   parent?: UUID.T
-): T =>
-  pipe(
-    Base.C(type)(widget, corr, parent),
-    event => ({ ...event, message })
-  );
+): T => ({ ...Base.C(type)(widget, corr, parent), message });
 
 export const Is = Codec.is;

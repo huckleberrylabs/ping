@@ -1,8 +1,8 @@
-import * as Errors from "./errors";
 import * as Event from "./event";
-
-export { Errors, Event };
-export * from "./http-client";
+import * as Result from "./result";
+import * as Errors from "./errors";
+import * as Results from "./results";
 export * from "./interfaces";
-export * from "./singletons";
 export * from "./values";
+export * from "./http";
+export { Errors, Event, Result, Results };

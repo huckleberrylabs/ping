@@ -1,3 +1,4 @@
+import * as iots from "io-ts";
 export {
   OK, // 200
   BAD_REQUEST,
@@ -7,16 +8,19 @@ export {
   INTERNAL_SERVER_ERROR, // 500
 } from "http-status-codes";
 
-export type T = 200 | 400 | 401 | 403 | 404 | 500;
+export const Codec = iots.union([
+  iots.literal(200),
+  iots.literal(400),
+  iots.literal(401),
+  iots.literal(403),
+  iots.literal(404),
+  iots.literal(500),
+]);
 
-export const Is = (input: unknown): input is T =>
-  input === 200 ||
-  input === 400 ||
-  input === 401 ||
-  input === 403 ||
-  input === 404 ||
-  input === 500;
+export type T = iots.TypeOf<typeof Codec>;
 
 export const IsSuccess = (input: T): boolean => input <= 299 && input >= 200;
 
 export const IsError = (input: T): boolean => !IsSuccess(input);
+
+export const Is = Codec.is;

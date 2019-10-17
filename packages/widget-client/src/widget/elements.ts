@@ -45,19 +45,19 @@ export type Elements = {
 };
 
 export const ElementIDs = (): ElementIDs => ({
-  container: `container-${UUID()}`,
-  form: `form-${UUID()}`,
-  create: `create-button-${UUID()}`,
-  createIcon: `open-button-icon-${UUID()}`,
-  textInput: `text-input-${UUID()}`,
-  addText: `add-text-${UUID()}`,
-  phoneInput: `phone-input-${UUID()}`,
-  addPhone: `add-phone-${UUID()}`,
-  nameInput: `name-input-${UUID()}`,
-  send: `send-button-${UUID()}`,
-  loader: `loader-${UUID()}`,
-  success: `success-${UUID()}`,
-  error: `error-${UUID()}`,
+  container: `container-${UUID.C()}`,
+  form: `form-${UUID.C()}`,
+  create: `create-button-${UUID.C()}`,
+  createIcon: `open-button-icon-${UUID.C()}`,
+  textInput: `text-input-${UUID.C()}`,
+  addText: `add-text-${UUID.C()}`,
+  phoneInput: `phone-input-${UUID.C()}`,
+  addPhone: `add-phone-${UUID.C()}`,
+  nameInput: `name-input-${UUID.C()}`,
+  send: `send-button-${UUID.C()}`,
+  loader: `loader-${UUID.C()}`,
+  success: `success-${UUID.C()}`,
+  error: `error-${UUID.C()}`,
 });
 
 export const Elements = (i: ElementIDs) =>

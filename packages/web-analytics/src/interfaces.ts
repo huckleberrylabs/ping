@@ -1,5 +1,5 @@
-import { Either } from "fp-ts/lib/Either";
-import { UUID } from "@huckleberryai/core";
+import { TaskEither } from "fp-ts/lib/TaskEither";
+import { UUID, Errors } from "@huckleberryai/core";
 import { Logging, UseCases } from "./client";
 import * as Server from "./server";
 
@@ -17,6 +17,8 @@ export type Logger = (
 ) => void;
 
 export interface Repository {
-  get(id: UUID.T): Promise<Either<Error, Event>>;
-  getByCorrID(corr: UUID.T): Promise<Event[]>;
+  save(id: UUID.T, event: Event): TaskEither<Errors.Adapter, true>;
+  delete(id: UUID.T): TaskEither<Errors.Adapter, true>;
+  get(id: UUID.T): TaskEither<Errors.Adapter | Errors.NotFound, Event>;
+  getByCorrID(corr: UUID.T): TaskEither<Errors.Adapter, Event[]>;
 }

@@ -27,11 +27,9 @@ export const Codec = iots.type(
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (input: string): Either<Errors.Validation, T> =>
+export const C = (input: string): Either<Errors.Validation.T, T> =>
   pipe(
-    NonEmptyString.Is(input)
-      ? right(input)
-      : left(new Errors.Validation("cannot be empty")),
+    NonEmptyString.Is(input) ? right(input) : left(Errors.Validation.C()),
     map(parseName),
     map(parsed => Map(input, parsed))
   );

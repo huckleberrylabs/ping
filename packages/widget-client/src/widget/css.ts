@@ -1,20 +1,20 @@
 import { UUID } from "@huckleberryai/core";
-import { WidgetSettings } from "@huckleberryai/widget";
+import { Settings } from "@huckleberryai/widget";
 import { ElementIDs } from "./elements";
 
 export const InsertCSS = (css: string) => {
   const style = document.createElement("style");
-  style.id = `css-${UUID()}`;
+  style.id = `css-${UUID.C()}`;
   style.type = "text/css";
   style.innerHTML = css;
   const head = document.getElementsByTagName("head")[0];
   head.appendChild(style);
 };
 
-export const GenerateCSS = (e: ElementIDs) => (w: WidgetSettings) =>
+export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
   `:root {
-  --huckleberry-text-main-color: ${w.mainColor};
-  --huckleberry-text-accent-color: ${w.accentColor};
+  --huckleberry-text-accent-color: ${w.color};
+  --huckleberry-text-main-color:  white;
   --huckleberry-text-success-color: #00ae4e;
   --huckleberry-text-fail-color: #ae0034;
 }

@@ -13,7 +13,7 @@ import { AttachToWindow } from "./window";
  * @param setUnloadListener
  * defaults to enabled
  */
-export type Options = {
+type Options = {
   log?: {
     attachToWindow?: boolean;
   };
@@ -29,7 +29,7 @@ const DefaultOptions: Options = {
   setUnloadListener: true,
 };
 
-export const SDK = (options: Options = DefaultOptions) => async (
+export default (options: Options = DefaultOptions) => async (
   app?: UUID.T,
   corr?: UUID.T,
   parent?: UUID.T

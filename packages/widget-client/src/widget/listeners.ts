@@ -1,12 +1,7 @@
 import { pipe } from "fp-ts/lib/pipeable";
 import { map, mapLeft } from "fp-ts/lib/Either";
-import {
-  UUID,
-  Phone,
-  NonEmptyStringCodec,
-  PersonName,
-} from "@huckleberryai/core";
-import { WidgetSDK } from "@huckleberryai/widget";
+import { UUID, Phone, NonEmptyString, PersonName } from "@huckleberryai/core";
+import { SDK } from "@huckleberryai/widget";
 import { Elements } from "./elements";
 
 export const onCreateMessage = (e: Elements) => (
@@ -19,7 +14,7 @@ export const onCreateMessage = (e: Elements) => (
   e.addText.classList.add("shown");
   e.textInput.classList.add("shown");
   e.textInput.focus();
-  WidgetSDK.Message.Create(widget, corr, parent);
+  SDK.Message.Create(widget, corr, parent);
 };
 
 export const onAddTextToMessage = (e: Elements) => (
@@ -28,7 +23,7 @@ export const onAddTextToMessage = (e: Elements) => (
   parent?: UUID.T
 ) => async () =>
   pipe(
-    NonEmptyStringCodec.decode(e.textInput.value),
+    NonEmptyString.Codec.decode(e.textInput.value),
     mapLeft(() => {
       e.textInput.setCustomValidity("Invalid");
     }),
@@ -39,7 +34,7 @@ export const onAddTextToMessage = (e: Elements) => (
       e.phoneInput.classList.add("shown");
       e.addPhone.classList.add("shown");
       e.phoneInput.focus();
-      WidgetSDK.Message.AddText(message.trim(), widget, corr, parent);
+      SDK.Message.AddText(message.trim(), widget, corr, parent);
     })
   );
 
@@ -49,7 +44,7 @@ export const onAddPhoneToMessage = (e: Elements) => (
   parent?: UUID.T
 ) => async () =>
   pipe(
-    Phone(e.phoneInput.value),
+    Phone.C(e.phoneInput.value),
     mapLeft(() => {
       e.phoneInput.setCustomValidity("Invalid");
     }),
@@ -60,7 +55,7 @@ export const onAddPhoneToMessage = (e: Elements) => (
       e.nameInput.classList.add("shown");
       e.send.classList.add("shown");
       e.nameInput.focus();
-      WidgetSDK.Message.AddPhone(phone, widget, corr, parent);
+      SDK.Message.AddPhone(phone, widget, corr, parent);
     })
   );
 
@@ -70,7 +65,7 @@ export const onAddNameToMessageAndSend = (e: Elements) => (
   parent?: UUID.T
 ) => async () =>
   pipe(
-    PersonName(e.nameInput.value),
+    PersonName.C(e.nameInput.value),
     mapLeft(() => {
       e.nameInput.setCustomValidity("Invalid");
     }),
@@ -79,10 +74,10 @@ export const onAddNameToMessageAndSend = (e: Elements) => (
       e.send.classList.remove("shown");
       e.container.style.width = "";
       e.loader.classList.add("shown");
-      return WidgetSDK.Message.AddName(name, widget, corr, parent);
+      return SDK.Message.AddName(name, widget, corr, parent);
     }),
     map(res => {
-      return WidgetSDK.Message.Send(widget, corr, parent);
+      return SDK.Message.Send(widget, corr, parent);
     }),
     mapLeft(() => {
       e.loader.classList.remove("shown");

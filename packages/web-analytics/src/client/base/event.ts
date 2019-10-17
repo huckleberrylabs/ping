@@ -1,4 +1,3 @@
-import { pipe } from "fp-ts/lib/pipeable";
 import { none, some } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
 import {
@@ -21,8 +20,6 @@ export const C = (type: Type.T) => (
   app?: UUID.T,
   corr?: UUID.T,
   parent?: UUID.T
-): T =>
-  pipe(
-    Base.C(type, corr, parent),
-    event => ({ ...event, app: app ? some(app) : none })
-  );
+): T => ({ ...Base.C(type, corr, parent), app: app ? some(app) : none });
+
+export const Is = Codec.is;

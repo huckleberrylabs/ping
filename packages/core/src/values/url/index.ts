@@ -28,11 +28,9 @@ export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (
   input: string
-): Either<Errors.Validation | Errors.Parsing, T> =>
+): Either<Errors.Validation.T | Errors.Parsing.T, T> =>
   pipe(
-    NonEmptyString.Is(input)
-      ? right(input)
-      : left(new Errors.Validation("cannot be empty")),
+    NonEmptyString.Is(input) ? right(input) : left(Errors.Validation.C()),
     map(Parse),
     flatten,
     map(Normalize),
@@ -45,7 +43,7 @@ export const C = (
   - removes default port
 */
 export const Parse = (input: string) =>
-  tryCatch(() => new URL(input).toString(), () => new Errors.Parsing());
+  tryCatch(() => new URL(input).toString(), () => Errors.Parsing.C());
 
 /*
   - removes trailing slash

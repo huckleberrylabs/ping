@@ -1,4 +1,4 @@
-import * as Queries from "./queries";
+import * as UseCases from "./use-cases";
 
-export { Queries };
+export { UseCases };
 export * from "./entity";

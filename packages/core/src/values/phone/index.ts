@@ -27,11 +27,9 @@ export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (
   input: string
-): Either<Errors.Validation | Errors.Parsing, T> =>
+): Either<Errors.Validation.T | Errors.Parsing.T, T> =>
   pipe(
-    NonEmptyString.Is(input)
-      ? right(input)
-      : left(new Errors.Validation("cannot be empty")),
+    NonEmptyString.Is(input) ? right(input) : left(Errors.Validation.C()),
     map(Parse),
     flatten,
     map(IsPossible),
@@ -40,12 +38,12 @@ export const C = (
   );
 
 export const Parse = (input: string) =>
-  tryCatch(() => parsePhoneNumber(input, "CA"), () => new Errors.Parsing());
+  tryCatch(() => parsePhoneNumber(input, "CA"), () => Errors.Parsing.C());
 
 export const IsPossible = (
   input: PhoneNumber
-): Either<Errors.Validation, PhoneNumber> =>
-  input.isPossible() ? right(input) : left(new Errors.Validation());
+): Either<Errors.Validation.T, PhoneNumber> =>
+  input.isPossible() ? right(input) : left(Errors.Validation.C());
 
 export const Format = (phone: PhoneNumber) => phone.format("E.164") as T;
 

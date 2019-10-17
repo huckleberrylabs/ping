@@ -7,25 +7,25 @@ import {
   fromOption,
   Either,
 } from "fp-ts/lib/Either";
-import { UUID, IsUUID } from "@huckleberryai/core";
-import { Logger } from "@huckleberryai/log";
-import { WidgetSettings } from "@huckleberryai/widget";
+import { UUID, Errors } from "@huckleberryai/core";
+import WebAnalytics from "@huckleberryai/web-analytics";
+import { Settings } from "@huckleberryai/widget";
 import { GetElementById } from "./helpers";
 import { ElementIDs, Elements } from "./elements";
 import { InsertCSS, GenerateCSS } from "./css";
 import { InsertHTML, GenerateHTML } from "./html";
 import { AddEventListeners } from "./listeners";
 
-export const GetWidgetID = (insertScriptID: string): Either<Error, UUID> =>
+export const GetWidgetID = (insertScriptID: string): Either<Error, UUID.T> =>
   pipe(
-    fromOption(() => new Error("element not found"))(
+    fromOption(() => new Errors.Environment("element not found"))(
       GetElementById(insertScriptID)
     ),
     map(script => script.getAttribute("src")),
     map(urlOrNull =>
       urlOrNull
         ? right(urlOrNull)
-        : left(new Error("script src attribute missing"))
+        : left(new Errors.Environment("script src attribute missing"))
     ),
     flatten,
     map(urlString => {
@@ -33,30 +33,28 @@ export const GetWidgetID = (insertScriptID: string): Either<Error, UUID> =>
       a.href = urlString;
       const url = new URL(a.href);
       const id = url.searchParams.get("widget_id");
-      return IsUUID(id)
+      return UUID.Is(id)
         ? right(id)
-        : left(new Error("widget id was not provided"));
+        : left(new Errors.Environment("widget id was not provided"));
     }),
     flatten
   );
 
-export const InitializeWidget = (log: Logger) => (
-  settings: WidgetSettings,
-  corr: UUID.T,
-  parent?: UUID.T
+export const InitializeWidget = (log: WebAnalytics.Interfaces.Logger) => (
+  settings: Settings.T
 ) =>
   pipe(
     ElementIDs(),
     ids => {
       InsertCSS(GenerateCSS(ids)(settings));
-      log("info", "css inserted", ["widget-client"], corr, parent);
+      log("info", "css inserted", ["widget-client"]);
       InsertHTML(GenerateHTML(ids));
-      log("info", "html inserted", ["widget-client"], corr, parent);
+      log("info", "html inserted", ["widget-client"]);
       return Elements(ids);
     },
     map(elems => {
       AddEventListeners(elems);
-      log("info", "listeners loaded", ["widget-client"], corr, parent);
-      log("info", "initialized", ["widget-client"], corr, parent);
+      log("info", "listeners loaded", ["widget-client"]);
+      log("info", "initialized", ["widget-client"]);
     })
   );

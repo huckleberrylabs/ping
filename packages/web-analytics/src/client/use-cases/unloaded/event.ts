@@ -1,5 +1,4 @@
 import * as iots from "io-ts";
-import { pipe } from "fp-ts/lib/pipeable";
 import { some, none } from "fp-ts/lib/Option";
 import { Type, UUID, optionFromNullable } from "@huckleberryai/core";
 import * as Base from "../../base";
@@ -24,15 +23,11 @@ export const C = (
   app?: UUID.T,
   corr?: UUID.T,
   parent?: UUID.T
-): T =>
-  pipe(
-    Base.Event.C(Name)(app, corr, parent),
-    event => ({
-      ...event,
-      log,
-      fingerprint: fingerprint ? some(fingerprint) : none,
-    })
-  );
+): T => ({
+  ...Base.Event.C(Name)(app, corr, parent),
+  fingerprint: fingerprint ? some(fingerprint) : none,
+  log,
+});
 
 export const NormalizedCodec = iots.intersection([
   Base.Event.Codec,

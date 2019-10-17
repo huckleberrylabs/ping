@@ -19,3 +19,5 @@ export const C = (type: Type.T, corr?: UUID.T, parent?: UUID.T): T => ({
   corr: corr ? corr : UUID.C(),
   parent: parent ? some(parent) : none,
 });
+
+export const Is = Codec.is;

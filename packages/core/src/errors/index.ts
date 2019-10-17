@@ -1,16 +1,7 @@
-import { Type } from "../values";
+import * as Adapter from "./adapter";
+import * as Environment from "./environment";
+import * as NotFound from "./not-found";
+import * as Parsing from "./parsing";
+import * as Validation from "./validation";
 
-export class Validation extends Error {
-  name = "core:error:validation" as Type.T;
-}
-export class Parsing extends Error {
-  name = "core:error:parsing" as Type.T;
-}
-
-export class Adapter extends Error {
-  name = "core:error:adapter" as Type.T;
-}
-
-export class Environment extends Error {
-  name = "core:error:environment" as Type.T;
-}
+export { Adapter, Environment, NotFound, Parsing, Validation };

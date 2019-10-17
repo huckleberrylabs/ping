@@ -58,7 +58,7 @@ export const HuckleberryTextWidget = () => {
   );
   const errorMessage = <HTMLImageElement>getElementById(ELEMENT_IDS.errorID);
 
-  async function onOpenedEvent(): Promise<void> {
+  async function onOpenedEvent() {
     container.style.width = "37rem";
     openButton.classList.remove("shown");
     messageButton.classList.add("shown");

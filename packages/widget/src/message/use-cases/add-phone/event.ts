@@ -5,15 +5,12 @@ import * as Command from "./command";
 
 export const Name = "widget:event:phone-added-to-message" as Type.T;
 
-export const Codec = iots.intersection(
-  [
-    Base.Codec,
-    iots.type({
-      phone: Phone.Codec,
-    }),
-  ],
-  Name
-);
+export const Codec = iots.intersection([
+  Base.Codec,
+  iots.type({
+    phone: Phone.Codec,
+  }),
+]);
 
 export type T = iots.TypeOf<typeof Codec>;
 

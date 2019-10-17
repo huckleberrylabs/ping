@@ -1,10 +1,12 @@
-import { Either } from "fp-ts/lib/Either";
+import { TaskEither } from "fp-ts/lib/TaskEither";
+import { Task } from "fp-ts/lib/Task";
 import * as Event from "./event";
+import * as Result from "./result";
 import { Phone, NonEmptyString } from "./values";
 
-export type IDispatch = (event: Event.T) => Promise<void>;
-export type IHandler = (event: Event.T) => Promise<Either<Event.T, Event.T>>;
+export type IHandler = <Event extends Event.T>(event: Event) => Task<Result.T>;
+
 export type ISMSClient = (
   body: NonEmptyString.T,
   to: Phone.T
-) => Promise<Either<Error, void>>;
+) => TaskEither<Error, void>;
