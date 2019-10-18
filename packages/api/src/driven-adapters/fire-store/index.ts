@@ -1,3 +1,5 @@
+// @ts-ignore
+import * as iots from "io-ts";
 import { pipe } from "fp-ts/lib/pipeable";
 import { right, left, map, Either } from "fp-ts/lib/Either";
 import { Firestore } from "@google-cloud/firestore";

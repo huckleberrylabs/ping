@@ -1,15 +1,28 @@
+// @ts-ignore
+import * as iots from "io-ts";
 import WebAnalytics from "@huckleberryai/web-analytics";
+import { WebAnalyticsRepository } from "../driven-ports";
+import { FireStore } from "../driven-adapters";
+import { isLeft } from "fp-ts/lib/Either";
 // import Widget from "@huckleberryai/widget";
+
+const fireStore = FireStore.C();
+if (isLeft(fireStore)) throw new Error("shit");
+const webAnalyticsRepository = WebAnalyticsRepository(fireStore.right);
 
 export const Container = {
   [WebAnalytics.Client.UseCases.Loaded.Event
-    .Name]: WebAnalytics.Client.UseCases.Loaded.Handler(),
+    .Name]: WebAnalytics.Client.UseCases.Loaded.Handler(webAnalyticsRepository),
 
   [WebAnalytics.Client.UseCases.Unloaded.Event
-    .Name]: WebAnalytics.Client.UseCases.Unloaded.Handler(),
+    .Name]: WebAnalytics.Client.UseCases.Unloaded.Handler(
+    webAnalyticsRepository
+  ),
 
   [WebAnalytics.Server.UseCases.HTTPAccess.Event
-    .Name]: WebAnalytics.Client.UseCases.Unloaded.Handler(),
+    .Name]: WebAnalytics.Client.UseCases.Unloaded.Handler(
+    webAnalyticsRepository
+  ),
 };
 
 export const HandlerMap = (container: typeof Container) => {
