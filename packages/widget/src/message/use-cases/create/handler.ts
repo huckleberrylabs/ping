@@ -1,3 +1,5 @@
+// @ts-ignore
+import * as iots from "io-ts";
 import { MessageRepository } from "../../../interfaces";
 import * as Command from "./command";
 import * as Event from "./event";

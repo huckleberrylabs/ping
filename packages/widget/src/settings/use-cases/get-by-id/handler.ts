@@ -1,3 +1,5 @@
+// @ts-ignore
+import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
 import { Results } from "@huckleberryai/core";
 import { SettingsRepository } from "../../../interfaces";

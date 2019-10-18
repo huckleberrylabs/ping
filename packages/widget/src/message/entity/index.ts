@@ -1,3 +1,5 @@
+// @ts-ignore
+import * as iots from "io-ts";
 import * as Created from "../use-cases/create/event";
 import * as TextAdded from "../use-cases/add-text/event";
 import * as NameAdded from "../use-cases/add-name/event";
