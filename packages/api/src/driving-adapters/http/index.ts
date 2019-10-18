@@ -3,11 +3,11 @@ import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
 import { NowRequest, NowResponse } from "@now/node";
 import { StatusCode, TypeFromPathName, Results } from "@huckleberryai/core";
-import * as WA from "@huckleberryai/web-analytics";
-import DrivingPorts from "../../driving-ports";
-import Mappers from "../../mappers";
+import WebAnalytics from "@huckleberryai/web-analytics";
+import Container from "../../container";
+import Codecs from "../../codecs";
 
-const ports = DrivingPorts();
+const ports = Container();
 
 export const Controller = async (req: NowRequest, res: NowResponse) => {
   if (!req.url) {
@@ -20,36 +20,36 @@ export const Controller = async (req: NowRequest, res: NowResponse) => {
     return;
   }
   const type = maybeType.right;
-  const mapper = Mappers[type];
-  if (!mapper) {
+  const dtoCodec = Codecs.get(type);
+  if (!dtoCodec) {
     res.status(StatusCode.NOT_FOUND).send(null);
     return;
   }
-  const maybeEvent = mapper.decode(req.body);
+  const maybeEvent = dtoCodec.decode(req.body);
   if (isLeft(maybeEvent)) {
     res.status(StatusCode.BAD_REQUEST).send(null);
     return;
   }
   const event = maybeEvent.right;
-  const port = ports[event.type];
+  const port = ports.get(event.type);
   if (!port) {
     res.status(StatusCode.NOT_FOUND).send(null);
     return;
   }
   const result = await port(event);
-  const encoder = Results.encoders.get(result.type);
-  if (!encoder) {
+  const resultCodec = Codecs.get(result.type);
+  if (!resultCodec) {
     const error = Results.Error.C(event);
     res.status(error.status).send(error);
     return;
   }
-  encoder(result);
+  resultCodec.encode(result);
 };
 
 export const HTTP = async (req: NowRequest, res: NowResponse) => {
   // Access Filtering
-  const accessEvent = WA.Server.UseCases.HTTPAccess.Event.C(req);
-  const accessPort = ports[accessEvent.type];
+  const accessEvent = WebAnalytics.Server.UseCases.HTTPAccess.Event.C(req);
+  const accessPort = ports.get(accessEvent.type);
   if (!accessPort) {
     res.status(StatusCode.NOT_FOUND).send(null);
     return;

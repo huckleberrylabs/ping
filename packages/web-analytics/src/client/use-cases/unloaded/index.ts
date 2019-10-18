@@ -1,3 +1,4 @@
+import * as Command from "./command";
 import * as Event from "./event";
-export { Event };
+export { Command, Event };
 export * from "./handler";

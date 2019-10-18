@@ -1,7 +1,6 @@
 import { isLeft, right } from "fp-ts/lib/Either";
 import { UUID, Beacon, EndpointFromEvent } from "@huckleberryai/core";
 import { UseCases, Logging, FingerPrint } from "../client";
-import { Logger as ILogger } from "../interfaces";
 import { AttachToWindow } from "./window";
 
 /**
@@ -40,8 +39,7 @@ export default (options: Options = DefaultOptions) => async (
 
   // Logging
   const log = Logging.Log.C();
-  const logger: ILogger = (level, message, tags, parent) =>
-    Logging.Logger.C(log)(level, message, tags, corr, parent);
+  const logger = Logging.Logger.C(log, corr);
 
   // Fingerprint
   const fingerprint =
@@ -50,17 +48,17 @@ export default (options: Options = DefaultOptions) => async (
       : undefined;
 
   const unload = () => {
-    const event = UseCases.Unloaded.Event.C(
+    const command = UseCases.Unloaded.Command.C(
       log,
       fingerprint,
       app,
       corr,
       parent
     );
-    const url = EndpointFromEvent(event);
+    const url = EndpointFromEvent(command);
     if (isLeft(url)) return url;
     return right(
-      Beacon(url.right, UseCases.Unloaded.Event.Codec.encode(event))
+      Beacon(url.right, UseCases.Unloaded.Command.Codec.encode(command))
     );
   };
 

@@ -1,13 +1,13 @@
-import * as iots from "io-ts";
-import { right, left, Either, isLeft } from "fp-ts/lib/Either";
-import { isSome } from "fp-ts/lib/Option";
 import axios from "axios";
-import { Url, Type } from "../values";
+import { isSome } from "fp-ts/lib/Option";
+import { right, left, Either, isLeft } from "fp-ts/lib/Either";
+import * as iots from "io-ts";
 import * as Env from "../env";
+import * as Json from "../json";
 import * as Event from "../event";
 import * as Errors from "../errors";
-import * as Json from "../json";
-import { Results } from "..";
+import * as Results from "../results";
+import { Url, Type } from "../values";
 
 export const GetAPIURL = () => {
   const env = Env.Get();
@@ -73,8 +73,8 @@ export async function Post<T>(
       validateStatus: () => true,
     });
     if (!res.data.type) return left(Errors.Adapter.C());
-    const responseType: Results.Name = res.data.type;
-    const returnValue = Results.returnValues.get(responseType);
+    const responseType: Results.Names = res.data.type;
+    const returnValue = Results.ReturnValues.get(responseType);
     if (decoder && returnValue) throw new Error("");
     if (returnValue) return returnValue;
     if (decoder) {

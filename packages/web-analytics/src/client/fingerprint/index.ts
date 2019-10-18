@@ -7,13 +7,18 @@ import * as Accounts from "./accounts";
 
 export { Geo, Device, Network, Browser, Accounts };
 
-export const Codec = iots.type({
-  geo: Geo.Codec,
-  device: Device.Codec,
-  network: Network.Codec,
-  browser: Browser.Codec,
-  accounts: Accounts.Codec,
-});
+export const Name = "web-analyitics:client:fingerprint";
+
+export const Codec = iots.type(
+  {
+    geo: Geo.Codec,
+    device: Device.Codec,
+    network: Network.Codec,
+    browser: Browser.Codec,
+    accounts: Accounts.Codec,
+  },
+  Name
+);
 export type T = iots.TypeOf<typeof Codec>;
 
 export const Generate = async (): Promise<T> => ({

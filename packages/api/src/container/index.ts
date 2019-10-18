@@ -1,13 +1,15 @@
 // @ts-ignore
 import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
-import { Results } from "@huckleberryai/core";
+import { Results, Type } from "@huckleberryai/core";
 import WebAnalytics from "@huckleberryai/web-analytics";
 import * as DrivenAdapters from "../driven-adapters";
 import * as DrivenPorts from "../driven-ports";
 
 type Handler = (event: any) => Promise<Results.T>;
-export default (): { [key: string]: undefined | Handler } => {
+type Names = "";
+
+export default (): Map<Names | Type.T, Handler> => {
   const maybeFireStore = DrivenAdapters.FireStore.C();
   const maybeTwilio = DrivenAdapters.Twilio.C();
 
@@ -21,18 +23,18 @@ export default (): { [key: string]: undefined | Handler } => {
   const smsClient = DrivenPorts.Send(twilio);
   const webAnalyticsRepository = DrivenPorts.WebAnalyticsRepository(fireStore);
 
-  return {
-    [WebAnalytics.Client.UseCases.Loaded.Event
-      .Name]: WebAnalytics.Client.UseCases.Loaded.Handler(
-      webAnalyticsRepository
-    ),
-    [WebAnalytics.Client.UseCases.Unloaded.Event
-      .Name]: WebAnalytics.Client.UseCases.Unloaded.Handler(
-      webAnalyticsRepository
-    ),
-    [WebAnalytics.Server.UseCases.HTTPAccess.Event
-      .Name]: WebAnalytics.Server.UseCases.HTTPAccess.Handler(
-      webAnalyticsRepository
-    ),
-  };
+  return new Map<Names | Type.T, Handler>([
+    [
+      WebAnalytics.Client.UseCases.Loaded.Event.Name,
+      WebAnalytics.Client.UseCases.Loaded.Handler(webAnalyticsRepository),
+    ],
+    [
+      WebAnalytics.Client.UseCases.Unloaded.Event.Name,
+      WebAnalytics.Client.UseCases.Unloaded.Handler(webAnalyticsRepository),
+    ],
+    [
+      WebAnalytics.Server.UseCases.HTTPAccess.Event.Name,
+      WebAnalytics.Server.UseCases.HTTPAccess.Handler(webAnalyticsRepository),
+    ],
+  ]);
 };

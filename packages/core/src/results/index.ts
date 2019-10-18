@@ -1,3 +1,4 @@
+import * as iots from "io-ts";
 import * as BadRequest from "./bad-request";
 import * as Forbidden from "./forbidden";
 import * as Error from "./internal-error";
@@ -9,7 +10,7 @@ import { Left, Right, left, right } from "fp-ts/lib/Either";
 
 export type T = BadRequest.T | Error.T | NotFound.T | OK.T | OKWithData.T<any>;
 
-export type Name =
+export type Names =
   | typeof BadRequest.Name
   | typeof Forbidden.Name
   | typeof Error.Name
@@ -17,30 +18,24 @@ export type Name =
   | typeof OK.Name
   | typeof OKWithData.Name;
 
-export type Encoder =
-  | typeof BadRequest.Codec.encode
-  | typeof Forbidden.Codec.encode
-  | typeof Error.Codec.encode
-  | typeof NotFound.Codec.encode
-  | typeof OK.Codec.encode;
-// not OKWithData not included, must do manually
-
-export const encoders = new Map<Name, Encoder | null>([
-  [BadRequest.Name, BadRequest.Codec.encode],
-  [Forbidden.Name, Forbidden.Codec.encode],
-  [Error.Name, Error.Codec.encode],
-  [NotFound.Name, NotFound.Codec.encode],
-  [OK.Name, OK.Codec.encode],
+export const Codecs = new Map<Names, iots.Mixed | null>([
+  [BadRequest.Name, BadRequest.Codec],
+  [Forbidden.Name, Forbidden.Codec],
+  [Error.Name, Error.Codec],
+  [NotFound.Name, NotFound.Codec],
+  [OK.Name, OK.Codec],
   [OKWithData.Name, null],
 ]);
 
-export const returnValues = new Map<Name, Left<Errors.T> | Right<null> | null>([
-  [BadRequest.Name, left(Errors.Validation.C())],
-  [Forbidden.Name, left(Errors.Forbidden.C())],
-  [Error.Name, left(Errors.Adapter.C())],
-  [NotFound.Name, left(Errors.NotFound.C())],
-  [OK.Name, right(null)],
-  [OKWithData.Name, null],
-]);
+export const ReturnValues = new Map<Names, Left<Errors.T> | Right<null> | null>(
+  [
+    [BadRequest.Name, left(Errors.Validation.C())],
+    [Forbidden.Name, left(Errors.Forbidden.C())],
+    [Error.Name, left(Errors.Adapter.C())],
+    [NotFound.Name, left(Errors.NotFound.C())],
+    [OK.Name, right(null)],
+    [OKWithData.Name, null],
+  ]
+);
 
-export { BadRequest, Error, NotFound, OK, OKWithData };
+export { BadRequest, Error, NotFound, Forbidden, OK, OKWithData };

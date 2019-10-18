@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "downlevelIteration": true,
     "noErrorTruncation": true,
     "rootDir": "./src",
     "outDir": "./lib",

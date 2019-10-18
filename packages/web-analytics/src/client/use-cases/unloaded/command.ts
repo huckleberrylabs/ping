@@ -1,16 +1,17 @@
 import * as iots from "io-ts";
+import { some, none } from "fp-ts/lib/Option";
 import { UUID, OptionFromNullable } from "@huckleberryai/core";
 import { Event } from "../../base";
 import * as FingerPrint from "../../fingerprint";
-import * as Command from "./command";
+import * as Logging from "../../logging";
 
-export const Name = "web-analytics:client:unloaded";
+export const Name = "web-analytics:client:unload";
 
 export const Codec = iots.intersection(
   [
     iots.type({
       type: iots.literal(Name),
-      log: iots.array(UUID.Codec),
+      log: Logging.Log.Codec,
       fingerprint: OptionFromNullable.Codec(FingerPrint.Codec),
     }),
     Event.Codec,
@@ -20,8 +21,15 @@ export const Codec = iots.intersection(
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (input: Command.T): T => ({
-  ...input,
+export const C = (
+  log: Logging.Log.T,
+  fingerprint?: FingerPrint.T,
+  app?: UUID.T,
+  corr?: UUID.T,
+  parent?: UUID.T
+): T => ({
+  ...Event.C(app, corr, parent),
   type: Name,
-  log: input.log.map(event => event.id),
+  fingerprint: fingerprint ? some(fingerprint) : none,
+  log,
 });

@@ -4,12 +4,12 @@ import { Env, UUID, NonEmptyString, Errors } from "@huckleberryai/core";
 import * as Event from "../event";
 import * as Log from "../log";
 import * as Level from "../level";
+import { Logger } from "../../../interfaces";
 
-export const C = (log: Log.T) => (
+export const C = (log: Log.T, corr?: UUID.T): Logger => (
   level: Level.T,
   message: string,
   tags: string[],
-  corr?: UUID.T,
   parent?: UUID.T
 ) => {
   if (!NonEmptyString.Codec.is(message)) return left(Errors.Validation.C());

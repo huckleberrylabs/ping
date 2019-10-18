@@ -1,11 +1,21 @@
 import * as Env from "./env";
 import * as Errors from "./errors";
 import * as Event from "./event";
-export * from "./http";
+import * as HTTP from "./http";
+export * from "./interfaces";
 import * as Json from "./json";
 import * as Result from "./result";
 import * as Results from "./results";
 import * as Runtime from "./runtime";
+import * as Values from "./values";
 export * from "./values";
-export * from "./interfaces";
-export { Env, Errors, Event, Json, Result, Results, Runtime };
+
+export type Names = Errors.Names | Results.Names | Values.Names;
+
+export const Codecs = new Map([
+  ...Errors.Codecs,
+  ...Results.Codecs,
+  ...Values.Codecs,
+]);
+
+export { Env, Errors, Event, HTTP, Json, Result, Results, Runtime };
