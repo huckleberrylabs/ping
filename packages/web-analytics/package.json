@@ -68,8 +68,6 @@
   },
   "dependencies": {
     "@huckleberryai/core": "^0.2.7",
-    "@huckleberryai/web-analytics": "^0.2.7",
-    "@huckleberryai/widget": "^0.2.7",
     "@now/node": "^1.0.0",
     "fp-ts": "^2.1.0",
     "io-ts": "^2.0.1"

@@ -1,3 +1,3 @@
 import * as FireStore from "./fire-store";
-export * from "./twillio-client";
-export { FireStore };
+import * as Twilio from "./twillio";
+export { FireStore, Twilio };

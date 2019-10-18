@@ -2,24 +2,61 @@
 import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
 import { NowRequest, NowResponse } from "@now/node";
-import { StatusCode } from "@huckleberryai/core";
-import WebAnalytics from "@huckleberryai/web-analytics";
-import { HandlerMap } from "../../driving-ports";
+import { StatusCode, TypeFromPathName, Results } from "@huckleberryai/core";
+import * as WA from "@huckleberryai/web-analytics";
+import DrivingPorts from "../../driving-ports";
+import Mappers from "../../mappers";
 
-export const PingController = async (req: NowRequest, res: NowResponse) =>
-  res.status(StatusCode.OK).send(null);
+const ports = DrivingPorts();
 
-export const http = (handlers: ReturnType<typeof HandlerMap>) => async (
-  req: NowRequest,
-  res: NowResponse
-) => {
-  // HTTP Access Filtering
-  const accessEvent = WebAnalytics.Server.UseCases.HTTPAccess.Event.C(req);
-  const accessResult = await handlers["web-analytics:client:loaded"](
-    accessEvent
-  );
-  if (isLeft(accessResult)) {
-    res.status(accessResult.left.status).send(accessResult.left);
+export const Controller = async (req: NowRequest, res: NowResponse) => {
+  if (!req.url) {
+    res.status(StatusCode.BAD_REQUEST).send(null);
+    return;
+  }
+  const maybeType = TypeFromPathName(req.url);
+  if (isLeft(maybeType)) {
+    res.status(StatusCode.BAD_REQUEST).send(null);
+    return;
+  }
+  const type = maybeType.right;
+  const mapper = Mappers[type];
+  if (!mapper) {
+    res.status(StatusCode.NOT_FOUND).send(null);
+    return;
+  }
+  const maybeEvent = mapper.decode(req.body);
+  if (isLeft(maybeEvent)) {
+    res.status(StatusCode.BAD_REQUEST).send(null);
+    return;
+  }
+  const event = maybeEvent.right;
+  const port = ports[event.type];
+  if (!port) {
+    res.status(StatusCode.NOT_FOUND).send(null);
+    return;
+  }
+  const result = await port(event);
+  const encoder = Results.encoders.get(result.type);
+  if (!encoder) {
+    const error = Results.Error.C(event);
+    res.status(error.status).send(error);
+    return;
+  }
+  encoder(result);
+};
+
+export const HTTP = async (req: NowRequest, res: NowResponse) => {
+  // Access Filtering
+  const accessEvent = WA.Server.UseCases.HTTPAccess.Event.C(req);
+  const accessPort = ports[accessEvent.type];
+  if (!accessPort) {
+    res.status(StatusCode.NOT_FOUND).send(null);
+    return;
+  }
+  const accessResult = await accessPort(accessEvent);
+  if (accessResult.type === Results.Forbidden.Name) {
+    res.status(accessResult.status).send(accessResult);
     return;
   }
 
@@ -33,46 +70,10 @@ export const http = (handlers: ReturnType<typeof HandlerMap>) => async (
     return;
   }
 
-  switch (req.url) {
-    case "/ping":
-      PingController(req, res);
-      break;
-    default:
-      break;
-  }
-  /* 
-  if (!req.url) {
-    res.status(StatusCode.BAD_REQUEST).send(null);
+  if (req.url === "/ping") {
+    res.status(StatusCode.OK).send(null);
     return;
   }
-  const type = TypeFromPathName(req.url);
-  const decoder = DecoderContainer(type);
-   if (!decoder) {
-    res.status(StatusCode.NOT_FOUND).send(null);
-    return;
-  }
-  const event = decoder(req.body);
-  if(isLeft(event)) {
-    res.status(StatusCode.BAD_REQUEST).send(null);
-    return;
-  }
-  const decoder
 
-  pipe(
-    map(async useCase =>
-      pipe(
-        useCase.codec.decode(req.body),
-        
-        map((event) => await useCase.handler(event)),
-        map(result =>
-          pipe(
-            Container,
-            map(map => map.codec.encode(result))
-            map(() => res.status(result).send(null))
-          )
-        )
-        // TODO Either<Error, Result> => encode => res.status.send
-      )
-    )
-  ); */
+  Controller(req, res);
 };
