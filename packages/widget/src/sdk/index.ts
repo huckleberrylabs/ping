@@ -1,5 +1,3 @@
-// @ts-ignore
-import * as iots from "io-ts";
 import { left, isLeft } from "fp-ts/lib/Either";
 import {
   UUID,
@@ -18,7 +16,7 @@ const GetSettingsByID = (widget: UUID.T, corr?: UUID.T) => async () => {
   const query = Queries.GetByID.Query.C(widget, corr);
   const url = EndpointFromEvent(query);
   if (isLeft(url)) return url;
-  const res = await Post<Settings.T>(url.right, query, Settings.Codec.decode);
+  const res = await Post(url.right, query, Settings.Codec.decode);
   return res;
 };
 
@@ -27,7 +25,7 @@ const CreateMessage = (widget: UUID.T, corr: UUID.T) => async () => {
   const command = Create.Command.C(message, widget, corr);
   const url = EndpointFromEvent(command);
   if (isLeft(url)) return url;
-  const res = await Post(url.right, command);
+  const res = await Post(url.right, command, UUID.Codec.decode);
   return res;
 };
 

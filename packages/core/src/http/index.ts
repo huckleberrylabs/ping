@@ -54,17 +54,27 @@ export const AddEventParamsToURL = (url: Url.T, event: Event.T) => {
   return Url.C(urlCopy.toString());
 };
 
-export const Post = async <T>(
+export async function Post(
+  url: Url.T,
+  dto: Json.T
+): Promise<Either<Errors.T, null>>;
+export async function Post<T>(
+  url: Url.T,
+  dto: Json.T,
+  decoder: iots.Decode<any, T>
+): Promise<Either<Errors.T, T>>;
+export async function Post<T>(
   url: Url.T,
   dto: Json.T,
   decoder?: iots.Decode<any, T>
-): Promise<Either<Errors.T, null | T>> => {
+) {
   try {
     const res = await axios.post(url, dto, {
       validateStatus: () => true,
     });
     const responseType: Results.Name = res.data.type;
     const returnValue = Results.returnValues.get(responseType);
+    if (decoder && returnValue) throw new Error("");
     if (returnValue) return returnValue;
     if (decoder) {
       const result = decoder(res.data);
@@ -75,7 +85,7 @@ export const Post = async <T>(
   } catch (error) {
     return left(Errors.Adapter.C());
   }
-};
+}
 
 export const Beacon = (url: Url.T, dto: Json.T) =>
   navigator.sendBeacon(url, JSON.stringify(dto));
