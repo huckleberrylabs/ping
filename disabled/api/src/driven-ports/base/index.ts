@@ -1,14 +1,7 @@
-import * as iots from "io-ts";
-import { pipe } from "fp-ts/lib/pipeable";
+/* import { pipe } from "fp-ts/lib/pipeable";
 import { tryCatch, map } from "fp-ts/lib/Either";
 import { FireStore } from "../../driven-adapters";
-import {
-  KebabCaseString,
-  UUID,
-  Json,
-  Errors,
-  Results,
-} from "@huckleberryai/core";
+import { KebabCaseString, UUID, Json, Errors } from "@huckleberryai/core";
 
 export const add = (store: FireStore.T) => (
   collection: KebabCaseString.T
@@ -22,7 +15,7 @@ export const add = (store: FireStore.T) => (
           .create(data),
       () => Errors.Adapter.C()
     ),
-    map(() => true)
+    map(() => null)
   );
 export const get = (store: FireStore.T) => (collection: KebabCaseString.T) => <
   Type
@@ -47,4 +40,6 @@ export const getByProperty = (store: FireStore.T) => (
   return queryRef.empty
     ? null
     : queryRef.docs.map(doc => doc.data()).filter(isType);
-};
+}; */
+
+export const NULL = null;

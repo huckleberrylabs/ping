@@ -4,4 +4,4 @@ import { Phone, NonEmptyString } from "../values";
 export type ISMSClient = (
   body: NonEmptyString.T,
   to: Phone.T
-) => Promise<Either<Error, true>>;
+) => Promise<Either<Error, null>>;

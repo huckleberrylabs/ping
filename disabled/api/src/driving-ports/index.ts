@@ -1,32 +1,26 @@
-import { fromNullable } from "fp-ts/lib/Either";
-import { pipe } from "fp-ts/lib/pipeable";
-import * as iots from "io-ts";
-import { Type, IHandler, Errors } from "@huckleberryai/core";
 import WebAnalytics from "@huckleberryai/web-analytics";
-import Widget from "@huckleberryai/widget";
+// import Widget from "@huckleberryai/widget";
 
-const map = new Map<Type.T, { codec: iots.Any; handler: IHandler }>([
-  [
-    WebAnalytics.Client.UseCases.Loaded.Event.Name,
-    {
-      codec: WebAnalytics.Client.UseCases.Loaded.Event.Codec,
-      handler: WebAnalytics.Client.UseCases.Loaded.Handler(),
-    },
-  ],
-  [
-    WebAnalytics.Client.UseCases.Unloaded.Event.Name,
-    {
-      codec: WebAnalytics.Client.UseCases.Unloaded.Event.Codec,
-      handler: WebAnalytics.Client.UseCases.Unloaded.Handler(),
-    },
-  ],
-  [
-    WebAnalytics.Server.UseCases.HTTPAccess.Event.Name,
-    {
-      codec: WebAnalytics.Client.UseCases.Unloaded.Command.Codec,
-      handler: WebAnalytics.Client.UseCases.Unloaded.Handler(),
-    },
-  ],
+export const Container = {
+  [WebAnalytics.Client.UseCases.Loaded.Event
+    .Name]: WebAnalytics.Client.UseCases.Loaded.Handler(),
+
+  [WebAnalytics.Client.UseCases.Unloaded.Event
+    .Name]: WebAnalytics.Client.UseCases.Unloaded.Handler(),
+
+  [WebAnalytics.Server.UseCases.HTTPAccess.Event
+    .Name]: WebAnalytics.Client.UseCases.Unloaded.Handler(),
+};
+
+export const HandlerMap = (container: typeof Container) => {
+  return {
+    [WebAnalytics.Client.UseCases.Loaded.Event.Name]:
+      container[WebAnalytics.Client.UseCases.Loaded.Event.Name],
+  };
+};
+
+/* 
+export const Contain = new Map<Type.T, { codec: iots.Any; handler: Handler }>([
   [
     Widget.Message.UseCases.AddName.Command.Name,
     {
@@ -70,9 +64,4 @@ const map = new Map<Type.T, { codec: iots.Any; handler: IHandler }>([
     },
   ],
 ]);
-
-export const Container = (type: Type.T) =>
-  pipe(
-    map.get(type),
-    fromNullable(Errors.Adapter.C())
-  );
+ */

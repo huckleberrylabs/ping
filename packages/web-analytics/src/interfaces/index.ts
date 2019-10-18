@@ -17,8 +17,8 @@ export type Logger = (
 ) => void;
 
 export interface Repository {
-  save(id: UUID.T, event: Event): Promise<Either<Errors.Adapter.T, true>>;
-  delete(id: UUID.T): Promise<Either<Errors.Adapter.T, true>>;
-  get(id: UUID.T): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Event>>;
-  getByCorrID(corr: UUID.T): Promise<Either<Errors.Adapter.T, Event[]>>;
+  save(id: UUID.T, event: Event): Promise<Either<Errors.Adapter.T, null>>;
+  // remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
+  // get(id: UUID.T): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Event>>;
+  // getByCorrID(corr: UUID.T): Promise<Either<Errors.Adapter.T, Event[]>>;
 }

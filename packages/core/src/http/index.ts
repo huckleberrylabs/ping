@@ -72,6 +72,7 @@ export async function Post<T>(
     const res = await axios.post(url, dto, {
       validateStatus: () => true,
     });
+    if (!res.data.type) return left(Errors.Adapter.C());
     const responseType: Results.Name = res.data.type;
     const returnValue = Results.returnValues.get(responseType);
     if (decoder && returnValue) throw new Error("");

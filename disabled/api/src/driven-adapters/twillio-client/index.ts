@@ -13,7 +13,7 @@ export const TwilioClient = () =>
     env =>
       env.sid && env.auth_token && Phone.Is(env.phone_number)
         ? right(env)
-        : left(new Errors.Environment("twillio")),
+        : left(Errors.Environment.C()),
     map(env =>
       pipe(
         twilio(env.sid, env.auth_token),

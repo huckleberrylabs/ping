@@ -5,13 +5,11 @@ import { Errors } from "@huckleberryai/core";
 
 export type T = Firestore;
 
-export const C = (): Either<Errors.Environment, Firestore> =>
+export const C = (): Either<Errors.Environment.T, Firestore> =>
   pipe(
     process.env.GCLOUD_CREDENTIALS,
     credentials =>
-      credentials
-        ? right(credentials)
-        : left(new Errors.Environment("google cloud service account")),
+      credentials ? right(credentials) : left(Errors.Environment.C()),
     map(credentials =>
       JSON.parse(Buffer.from(credentials, "base64").toString())
     ),

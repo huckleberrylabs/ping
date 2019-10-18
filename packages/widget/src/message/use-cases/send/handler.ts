@@ -46,8 +46,8 @@ export const Handler = (
     settings.right.phone
   );
   if (isLeft(res)) {
-    const deleted = await messageRepo.delete(sent.id);
-    if (isLeft(deleted)) {
+    const removed = await messageRepo.remove(sent.id);
+    if (isLeft(removed)) {
       console.error(
         `couldn't rollback saved event ${sent.id} in message repository`
       );
