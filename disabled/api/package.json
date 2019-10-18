@@ -71,20 +71,15 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^2.2.6",
-    "@google/maps": "^0.5.5",
     "@huckleberryai/core": "^0.2.7",
     "@huckleberryai/web-analytics": "^0.2.7",
     "@huckleberryai/widget": "^0.2.7",
     "@now/node": "^0.12.1",
     "fp-ts": "^2.1.0",
-    "inversify": "^5.0.1",
     "io-ts": "^2.0.1",
-    "reflect-metadata": "^0.1.13",
     "twilio": "^3.33.2"
   },
   "devDependencies": {
-    "@types/color": "^3.0.0",
-    "@types/google__maps": "^0.5.5",
     "@types/jest": "^24.0.17",
     "@types/node": "^12.6.8",
     "jest": "^24.8.0",

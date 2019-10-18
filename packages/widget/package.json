@@ -68,10 +68,8 @@
   },
   "dependencies": {
     "@huckleberryai/core": "^0.2.7",
-    "fp-ts": "^2.0.4",
-    "io-ts": "^2.0.1",
-    "io-ts-types": "^0.5.1",
-    "moment": "^2.24.0"
+    "fp-ts": "^2.1.0",
+    "io-ts": "^2.0.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.17",
@@ -82,7 +80,7 @@
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-jest": "^1.0.5",
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.4"
   },
   "gitHead": "62a71a063a7992eb35f5a1be639ebe138876d8f6"
 }
