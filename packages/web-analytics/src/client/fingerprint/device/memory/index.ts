@@ -1,8 +1,8 @@
 import * as iots from "io-ts";
 import { none, some } from "fp-ts/lib/Option";
-import { optionFromNullable } from "@huckleberryai/core";
+import { OptionFromNullable } from "@huckleberryai/core";
 
-export const Codec = optionFromNullable(iots.number);
+export const Codec = OptionFromNullable.Codec(iots.number);
 
 export type T = iots.TypeOf<typeof Codec>;
 

@@ -1,7 +1,6 @@
 // @ts-ignore
 import * as iots from "io-ts";
-import { pipe } from "fp-ts/lib/pipeable";
-import { map, left, right } from "fp-ts/lib/Either";
+import { left, isLeft } from "fp-ts/lib/Either";
 import {
   UUID,
   Post,
@@ -11,150 +10,70 @@ import {
   NonEmptyString,
   Errors,
 } from "@huckleberryai/core";
+import * as Settings from "../settings/entity";
 import * as Queries from "../settings/use-cases";
 import { Create, AddText, AddPhone, AddName, Send } from "../message/use-cases";
 
-const GetSettingsByID = (widget: UUID.T, corr?: UUID.T) => async () =>
-  pipe(
-    Queries.GetByID.Query.C(widget, corr),
-    query =>
-      pipe(
-        EndpointFromEvent(query),
-        map(async url =>
-          pipe(
-            await Post(url, query),
-            map(res => {
-              /* 
-                TODO:
-                - flatten
-                - figure out async
-                - decode for all Result Types
-              */
-            })
-          )
-        )
-      )
-  );
+const GetSettingsByID = (widget: UUID.T, corr?: UUID.T) => async () => {
+  const query = Queries.GetByID.Query.C(widget, corr);
+  const url = EndpointFromEvent(query);
+  if (isLeft(url)) return url;
+  const res = await Post<Settings.T>(url.right, query, Settings.Codec.decode);
+  return res;
+};
 
-const CreateMessage = (widget: UUID.T, corr: UUID.T) => async () =>
-  pipe(
-    Create.Command.C(widget, corr),
-    command =>
-      pipe(
-        EndpointFromEvent(command),
-        map(async url =>
-          pipe(
-            await Post(url, Create.Command.Codec.encode(command)),
-            map(res => {
-              /* 
-                  TODO:
-                  - flatten
-                  - figure out async
-                  - decode for all Result Types
-                */
-            })
-          )
-        )
-      )
-  );
+const CreateMessage = (widget: UUID.T, corr: UUID.T) => async () => {
+  const message = UUID.C();
+  const command = Create.Command.C(message, widget, corr);
+  const url = EndpointFromEvent(command);
+  if (isLeft(url)) return url;
+  const res = await Post(url.right, command);
+  return res;
+};
 
 const AddTextToMessage = (widget: UUID.T, corr: UUID.T) => async (
-  message: string
-) =>
-  pipe(
-    NonEmptyString.Is(message) ? right(message) : left(new Errors.Validation()),
-    map(message => AddText.Command.C(message, widget, corr)),
-    map(command => {
-      pipe(
-        EndpointFromEvent(command),
-        map(async url => {
-          pipe(
-            await Post(url, command),
-            map(res => {
-              /* 
-                    TODO:
-                    - flatten
-                    - figure out async
-                    - decode for all Result Types
-                  */
-            })
-          );
-        })
-      );
-    })
-  );
+  message: UUID.T,
+  text: string
+) => {
+  if (!NonEmptyString.Is(text)) return left(Errors.Validation.C());
+  const command = AddText.Command.C(text, message, widget, corr);
+  const url = EndpointFromEvent(command);
+  if (isLeft(url)) return url;
+  const res = await Post(url.right, command);
+  return res;
+};
 
-const AddPhoneToMessage = (
-  widget: UUID.T,
-
-  corr: UUID.T
-) => async (phone: Phone.T) =>
-  pipe(
-    AddPhone.Command.C(phone, widget, corr),
-    command =>
-      pipe(
-        EndpointFromEvent(command),
-        map(async url =>
-          pipe(
-            await Post(url, command),
-            map(res => {
-              /* 
-                    TODO:
-                    - flatten
-                    - figure out async
-                    - decode for all Result Types
-                  */
-            })
-          )
-        )
-      )
-  );
+const AddPhoneToMessage = (widget: UUID.T, corr: UUID.T) => async (
+  message: UUID.T,
+  phone: Phone.T
+) => {
+  const command = AddPhone.Command.C(phone, message, widget, corr);
+  const url = EndpointFromEvent(command);
+  if (isLeft(url)) return url;
+  const res = await Post(url.right, command);
+  return res;
+};
 
 const AddNameToMessage = (widget: UUID.T, corr: UUID.T) => async (
+  message: UUID.T,
   name: PersonName.T
-) =>
-  pipe(
-    AddName.Command.C(name, widget, corr),
-    command =>
-      pipe(
-        EndpointFromEvent(command),
-        map(async url =>
-          pipe(
-            await Post(url, command),
-            map(res => {
-              /* 
-                      TODO:
-                      - flatten
-                      - figure out async
-                      - decode for all Result Types
-                    */
-            })
-          )
-        )
-      )
-  );
+) => {
+  const command = AddName.Command.C(name, message, widget, corr);
+  const url = EndpointFromEvent(command);
+  if (isLeft(url)) return url;
+  const res = await Post(url.right, command);
+  return res;
+};
 
-const SendMessage = (widget: UUID.T, corr: UUID.T) => async () =>
-  pipe(
-    Send.Command.C(widget, corr),
-    command =>
-      pipe(
-        EndpointFromEvent(command),
-        map(async url =>
-          pipe(
-            await Post(url, command),
-            map(res => {
-              /* 
-                    TODO:
-                    - flatten
-                    - figure out async
-                    - decode for all Result Types
-                  */
-            })
-          )
-        )
-      )
-  );
+const SendMessage = (widget: UUID.T, corr: UUID.T) => async (
+  message: UUID.T
+) => {
+  const command = Send.Command.C(message, widget, corr);
+  const url = EndpointFromEvent(command);
+  if (isLeft(url)) return url;
+  const res = await Post(url.right, command);
+  return res;
+};
 
 export default (widget: UUID.T, corr: UUID.T) => ({
   Message: {

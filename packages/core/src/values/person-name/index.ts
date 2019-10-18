@@ -1,14 +1,15 @@
-import { pipe } from "fp-ts/lib/pipeable";
-import { Either, right, left, map } from "fp-ts/lib/Either";
+import { parseName, NameOutput } from "humanparser";
+import { right, left } from "fp-ts/lib/Either";
 import { some, none } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
 import * as Errors from "../../errors";
-import { parseName, NameOutput } from "humanparser";
 import * as NonEmptyString from "../non-empty-string";
-import { optionFromNullable } from "../option-from-nullable";
+import * as OptionFromNullable from "../option-from-nullable";
 // Try parse-full-name as well if not working well
 
-export const NameStringCodec = optionFromNullable(NonEmptyString.Codec);
+export const Name = "core:value:person-name";
+
+export const NameStringCodec = OptionFromNullable.Codec(NonEmptyString.Codec);
 
 export type NameString = iots.TypeOf<typeof NameStringCodec>;
 
@@ -22,17 +23,15 @@ export const Codec = iots.type(
     prefix: NameStringCodec,
     suffix: NameStringCodec,
   },
-  "PersonName"
+  Name
 );
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (input: string): Either<Errors.Validation.T, T> =>
-  pipe(
-    NonEmptyString.Is(input) ? right(input) : left(Errors.Validation.C()),
-    map(parseName),
-    map(parsed => Map(input, parsed))
-  );
+export const C = (input: string) =>
+  NonEmptyString.Is(input)
+    ? right(Map(input, parseName(input)))
+    : left(Errors.Validation.C());
 
 const Map = (original: string, input: NameOutput) =>
   ({

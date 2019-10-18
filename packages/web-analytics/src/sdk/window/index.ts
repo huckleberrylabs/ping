@@ -1,28 +1,19 @@
-import { map } from "fp-ts/lib/Either";
-import { pipe } from "fp-ts/lib/pipeable";
-import { GetEnv, GetRuntime } from "@huckleberryai/core";
+import { isLeft, right } from "fp-ts/lib/Either";
+import { Env, Runtime } from "@huckleberryai/core";
 import { Logging } from "../../client";
 import { Logger } from "../../interfaces";
 
-export const AttachToWindow = (log: Logging.Log.T, logger: Logger) =>
-  pipe(
-    GetEnv(),
-    map(env =>
-      pipe(
-        GetRuntime(),
-        map(runtime =>
-          pipe(
-            map(() => {
-              const { HUCKLEBERRY } =
-                runtime === "browser" ? (window as any) : global;
-              HUCKLEBERRY.ENV = env;
-              HUCKLEBERRY.RUNTIME = runtime;
-              HUCKLEBERRY.log = log;
-              logger("info", `ENV: ${env}`, ["web-analytics"]);
-              logger("info", `RUNTIME: ${runtime}`, ["web-analytics"]);
-            })
-          )
-        )
-      )
-    )
-  );
+export const AttachToWindow = (log: Logging.Log.T, logger: Logger) => {
+  const env = Env.Get();
+  const runtime = Runtime.Get();
+  if (isLeft(env)) return env;
+  if (isLeft(runtime)) return runtime;
+  const { HUCKLEBERRY } =
+    runtime.right === "browser" ? (window as any) : global;
+  HUCKLEBERRY.ENV = env;
+  HUCKLEBERRY.RUNTIME = runtime;
+  HUCKLEBERRY.log = log;
+  logger("info", `ENV: ${env}`, ["web-analytics"]);
+  logger("info", `RUNTIME: ${runtime}`, ["web-analytics"]);
+  return right(true);
+};

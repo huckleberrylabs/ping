@@ -1,38 +1,27 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import {
-  tryCatch,
-  isRight,
-  Either,
-  right,
-  left,
-  map,
-  flatten,
-} from "fp-ts/lib/Either";
+import { tryCatch, isRight, map } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
 import { URL } from "url";
 import normalize from "normalize-url";
 import * as Errors from "../../errors";
-import * as NonEmptyString from "../non-empty-string";
+
+export const Name = "core:value:url";
 
 export interface Brand {
-  readonly Url: unique symbol;
+  readonly [Name]: unique symbol;
 }
 
 export const Codec = iots.brand(
   iots.string,
   (input): input is iots.Branded<string, Brand> => isRight(C(input)),
-  "Url"
+  Name
 );
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (
-  input: string
-): Either<Errors.Validation.T | Errors.Parsing.T, T> =>
+export const C = (input: string) =>
   pipe(
-    NonEmptyString.Is(input) ? right(input) : left(Errors.Validation.C()),
-    map(Parse),
-    flatten,
+    Parse(input),
     map(Normalize),
     map(Format)
   );
@@ -52,12 +41,11 @@ export const Parse = (input: string) =>
   - alphabetically sorts query parameters
   - removes utm parameters
 */
-export const Normalize = (input: string): string =>
-  pipe(
-    normalize(input),
-    // Remove unecessary question mark
-    url => (url = url.endsWith("?") ? url.slice(0, -1) : url)
-  );
+export const Normalize = (input: string): string => {
+  const url = normalize(input);
+  // Remove trailing question mark
+  return url.endsWith("?") ? url.slice(0, -1) : url;
+};
 
 export const Format = (input: string) => input as T;
 

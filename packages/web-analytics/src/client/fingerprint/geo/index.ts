@@ -1,5 +1,4 @@
 import * as iots from "io-ts";
-import { pipe } from "fp-ts/lib/pipeable";
 
 /* 
   Older Browsers
@@ -18,15 +17,14 @@ export const Codec = iots.type({
 });
 export type T = iots.TypeOf<typeof Codec>;
 
-export const Detect = (): T =>
-  pipe(
-    Intl.DateTimeFormat().resolvedOptions(),
-    intl => ({
-      locale: intl.locale,
-      language: window.navigator.language,
-      languages: window.navigator.languages,
-      timezone: intl.timeZone,
-      calendar: intl.calendar,
-      numberingSystem: intl.numberingSystem,
-    })
-  );
+export const Detect = (): T => {
+  const intl = Intl.DateTimeFormat().resolvedOptions();
+  return {
+    locale: intl.locale,
+    language: window.navigator.language,
+    languages: window.navigator.languages,
+    timezone: intl.timeZone,
+    calendar: intl.calendar,
+    numberingSystem: intl.numberingSystem,
+  };
+};

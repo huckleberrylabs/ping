@@ -1,50 +1,39 @@
-import { pipe } from "fp-ts/lib/pipeable";
 import {
   Either,
   right,
   left,
   isRight,
-  map,
   tryCatch,
-  flatten,
+  isLeft,
 } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
-import { parsePhoneNumber, PhoneNumber } from "libphonenumber-js/max";
+import { parsePhoneNumber } from "libphonenumber-js/max";
 import * as Errors from "../../errors";
-import * as NonEmptyString from "../non-empty-string";
+
+export const Name = "core:value:phone";
 
 export interface Brand {
-  readonly Phone: unique symbol;
+  readonly [Name]: unique symbol;
 }
 
 export const Codec = iots.brand(
   iots.string,
   (input): input is iots.Branded<string, Brand> => isRight(C(input)),
-  "Phone"
+  Name
 );
 
 export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (
   input: string
-): Either<Errors.Validation.T | Errors.Parsing.T, T> =>
-  pipe(
-    NonEmptyString.Is(input) ? right(input) : left(Errors.Validation.C()),
-    map(Parse),
-    flatten,
-    map(IsPossible),
-    flatten,
-    map(Format)
-  );
+): Either<Errors.Validation.T | Errors.Parsing.T, T> => {
+  const parsed = Parse(input);
+  if (isLeft(parsed)) return parsed;
+  if (!parsed.right.isPossible()) return left(Errors.Validation.C());
+  return right(parsed.right.format("E.164") as T);
+};
 
 export const Parse = (input: string) =>
   tryCatch(() => parsePhoneNumber(input, "CA"), () => Errors.Parsing.C());
-
-export const IsPossible = (
-  input: PhoneNumber
-): Either<Errors.Validation.T, PhoneNumber> =>
-  input.isPossible() ? right(input) : left(Errors.Validation.C());
-
-export const Format = (phone: PhoneNumber) => phone.format("E.164") as T;
 
 export const Is = Codec.is;

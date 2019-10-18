@@ -1,19 +1,25 @@
 import { none, some } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
-import { UUID, Type, TimeStamp, optionFromNullable } from "../values";
+import { UUID, Type, TimeStamp, OptionFromNullable } from "../values";
 
-export const Codec = iots.type({
-  id: UUID.Codec,
-  type: Type.Codec,
-  timestamp: TimeStamp.Codec,
-  corr: UUID.Codec,
-  parent: optionFromNullable(UUID.Codec),
-});
+export const Name = "core:abstract:event";
+export const Codec = iots.type(
+  {
+    id: UUID.Codec,
+    timestamp: TimeStamp.Codec,
+    corr: UUID.Codec,
+    parent: OptionFromNullable.Codec(UUID.Codec),
+  },
+  Name
+);
 
-export type T = iots.TypeOf<typeof Codec>;
+export type CodecType = iots.TypeOf<typeof Codec>;
 
-export const C = (type: Type.T, corr?: UUID.T, parent?: UUID.T): T => ({
-  type,
+export type T = {
+  type: Type.T;
+} & CodecType;
+
+export const C = (corr?: UUID.T, parent?: UUID.T): CodecType => ({
   timestamp: TimeStamp.C(),
   id: UUID.C(),
   corr: corr ? corr : UUID.C(),

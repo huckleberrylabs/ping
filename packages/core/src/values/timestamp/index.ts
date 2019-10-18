@@ -2,14 +2,16 @@ import * as iots from "io-ts";
 import moment from "moment";
 import * as NonEmptyString from "../non-empty-string";
 
+export const Name = "core:value:time-stamp";
+
 export interface Brand {
-  readonly TimeStamp: unique symbol;
+  readonly [Name]: unique symbol;
 }
 
 export const Codec = iots.brand(
   iots.string,
   (input): input is iots.Branded<string, Brand> => Is(input),
-  "TimeStamp"
+  Name
 );
 
 export type T = iots.TypeOf<typeof Codec>;

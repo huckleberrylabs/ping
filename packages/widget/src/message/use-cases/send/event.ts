@@ -1,15 +1,17 @@
 import * as iots from "io-ts";
-import { Type } from "@huckleberryai/core";
 import * as Command from "./command";
-import { Event as Base } from "../base";
+import { Event } from "../base";
 
-export const Name = "widget:event:message-sent" as Type.T;
+export const Name = "widget:message:sent";
 
-export const Codec = Base.Codec;
+export const Codec = iots.intersection(
+  [iots.type({ type: iots.literal(Name) }), Event.Codec],
+  Name
+);
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (command: Command.T) => ({
+export const C = (command: Command.T): T => ({
   ...command,
   type: Name,
 });

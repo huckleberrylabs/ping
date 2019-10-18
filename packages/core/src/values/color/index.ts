@@ -1,39 +1,38 @@
-import { pipe } from "fp-ts/lib/pipeable";
-import {
-  tryCatch,
-  map,
-  right,
-  left,
-  isRight,
-  flatten,
-  Either,
-} from "fp-ts/lib/Either";
+import { tryCatch, isRight, isLeft, right } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
 import ColorLib from "color";
 import * as Errors from "../../errors";
-import * as NonEmptyString from "../non-empty-string";
 
+export const Name = "core:value:color";
 export interface Brand {
-  readonly Color: unique symbol;
+  readonly [Name]: unique symbol;
 }
 
 export const Codec = iots.brand(
   iots.string,
   (input): input is iots.Branded<string, Brand> => isRight(C(input)),
-  "Color"
+  Name
 );
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (
-  input: string
-): Either<Errors.Validation.T | Errors.Parsing.T, T> =>
+/* 
+
+Can Also be written as:
+
+export const C = (input: string) =>
   pipe(
-    NonEmptyString.Is(input) ? right(input) : left(Errors.Validation.C()),
-    map(Parse),
-    flatten,
+    Parse(input),
     map(Format)
   );
+
+  But Pipes are not very legible and difficult for n00bs
+*/
+export const C = (input: string) => {
+  const parsed = Parse(input);
+  if (isLeft(parsed)) return parsed;
+  return right(Format(parsed.right));
+};
 
 export const Parse = (input: string) =>
   tryCatch(() => ColorLib(input, "hex"), () => Errors.Parsing.C());

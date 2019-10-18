@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { optionFromNullable } from "@huckleberryai/core";
+import { OptionFromNullable } from "@huckleberryai/core";
 import { get } from "../helper";
 import * as GPU from "./gpu";
 import * as Memory from "./memory";
@@ -11,10 +11,10 @@ import * as Fonts from "./fonts";
 export { GPU, Memory, Battery, Keyboard, MediaDevices, Fonts };
 
 export const Codec = iots.type({
-  platform: optionFromNullable(iots.string),
-  oscpu: optionFromNullable(iots.string),
-  hardwareConcurrency: optionFromNullable(iots.number),
-  maxTouchPoints: optionFromNullable(iots.number),
+  platform: OptionFromNullable.Codec(iots.string),
+  oscpu: OptionFromNullable.Codec(iots.string),
+  hardwareConcurrency: OptionFromNullable.Codec(iots.number),
+  maxTouchPoints: OptionFromNullable.Codec(iots.number),
   screen: iots.type({
     width: iots.number,
     height: iots.number,

@@ -1,9 +1,14 @@
 import * as iots from "io-ts";
-import * as Base from "../../error";
-import { Type } from "../../values";
+import * as Event from "../../event";
 
-export const Name = "core:error:adapter" as Type.T;
-export const Codec = Base.Codec;
+export const Name = "core:error:adapter";
+export const Codec = iots.intersection(
+  [iots.type({ type: iots.literal(Name) }), Event.Codec],
+  Name
+);
 export type T = iots.TypeOf<typeof Codec>;
-export const C = () => Base.C(Name);
+export const C = (): T => ({
+  ...Event.C(),
+  type: Name,
+});
 export const Is = Codec.is;

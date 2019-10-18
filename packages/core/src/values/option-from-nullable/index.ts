@@ -2,29 +2,27 @@ import { either } from "fp-ts/lib/Either";
 import { none, Option, option, some, toNullable } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
 
-export const None = iots.strict({
+export const NoneCodec = iots.strict({
   _tag: iots.literal("None"),
 });
 
-export const someLiteral = iots.literal("Some");
-
-export interface OptionC<C extends iots.Mixed>
+export interface InnerT<Codec extends iots.Mixed>
   extends iots.Type<
-    Option<iots.TypeOf<C>>,
-    Option<iots.OutputOf<C>>,
+    Option<iots.TypeOf<Codec>>,
+    Option<iots.OutputOf<Codec>>,
     unknown
   > {}
 
-export function o<C extends iots.Mixed>(
-  codec: C,
+export const innerCodec = <Codec extends iots.Mixed>(
+  codec: Codec,
   name: string = `Option<${codec.name}>`
-): OptionC<C> {
-  return iots.union(
+): InnerT<Codec> =>
+  iots.union(
     [
-      None,
+      NoneCodec,
       iots.strict(
         {
-          _tag: someLiteral,
+          _tag: iots.literal("Some"),
           value: codec,
         },
         `Some<${codec.name}>`
@@ -32,20 +30,22 @@ export function o<C extends iots.Mixed>(
     ],
     name
   );
-}
 
-export interface OptionFromNullableC<C extends iots.Mixed>
-  extends iots.Type<Option<iots.TypeOf<C>>, iots.OutputOf<C> | null, unknown> {}
+export interface T<Codec extends iots.Mixed>
+  extends iots.Type<
+    Option<iots.TypeOf<Codec>>,
+    iots.OutputOf<Codec> | null,
+    unknown
+  > {}
 
-export function optionFromNullable<C extends iots.Mixed>(
-  codec: C,
+export const Codec = <Codec extends iots.Mixed>(
+  codec: Codec,
   name: string = `Option<${codec.name}>`
-): OptionFromNullableC<C> {
-  return new iots.Type(
+): T<Codec> =>
+  new iots.Type(
     name,
-    o(codec).is,
+    innerCodec(codec).is,
     (u, c) =>
       u == null ? iots.success(none) : either.map(codec.validate(u, c), some),
     a => toNullable(option.map(a, codec.encode))
   );
-}

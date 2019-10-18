@@ -1,26 +1,21 @@
 import * as iots from "io-ts";
-import * as Base from "../event";
-import { StatusCode, UUID, Type } from "../values";
-import { isSome } from "fp-ts/lib/Option";
+import * as Event from "../event";
+import { UUID } from "../values";
+import { toUndefined } from "fp-ts/lib/Option";
 
-export const Codec = iots.intersection([
-  Base.Codec,
-  iots.type({
-    status: StatusCode.Codec,
-    req: UUID.Codec,
-  }),
-]);
-
+export const Name = "core:abstract:result";
+export const Codec = iots.intersection(
+  [
+    iots.type({
+      req: UUID.Codec,
+    }),
+    Event.Codec,
+  ],
+  Name
+);
 export type T = iots.TypeOf<typeof Codec>;
-
-export const C = (type: Type.T) => (status: StatusCode.T) => (
-  event: Base.T
-) => ({
-  ...Base.C(
-    type,
-    event.corr,
-    isSome(event.parent) ? event.parent.value : undefined
-  ),
-  status,
+export const C = (event: Event.T): T => ({
+  ...Event.C(event.corr, toUndefined(event.parent)),
   req: event.id,
 });
+export const Is = Codec.is;

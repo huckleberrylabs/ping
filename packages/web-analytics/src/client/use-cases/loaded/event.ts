@@ -1,8 +1,21 @@
 import * as iots from "io-ts";
-import { Type } from "@huckleberryai/core";
-import * as Base from "../../base";
+import { Event } from "../../base";
+import { UUID } from "@huckleberryai/core";
 
-export const Name = "web-analytics:event:client-loaded" as Type.T;
-export const Codec = Base.Event.Codec;
+export const Name = "web-analytics:client:loaded";
+
+export const Codec = iots.intersection(
+  [
+    iots.type({
+      type: iots.literal(Name),
+    }),
+    Event.Codec,
+  ],
+  Name
+);
+
 export type T = iots.TypeOf<typeof Codec>;
-export const C = Base.Event.C(Name);
+export const C = (app?: UUID.T, corr?: UUID.T, parent?: UUID.T): T => ({
+  ...Event.C(app, corr, parent),
+  type: Name,
+});

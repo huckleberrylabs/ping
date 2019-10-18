@@ -1,18 +1,22 @@
 import * as iots from "io-ts";
-import { Type, UUID, NonEmptyString } from "@huckleberryai/core";
-import * as Base from "../../base";
+import { UUID, NonEmptyString } from "@huckleberryai/core";
+import { Event } from "../../base";
 import * as Level from "../level";
 
-export const Name = "web-analytics:event:log" as Type.T;
+export const Name = "web-analytics:client:logged";
 
-export const Codec = iots.intersection([
-  Base.Event.Codec,
-  iots.type({
-    level: Level.Codec,
-    message: NonEmptyString.Codec,
-    tags: iots.array(NonEmptyString.Codec),
-  }),
-]);
+export const Codec = iots.intersection(
+  [
+    iots.type({
+      type: iots.literal(Name),
+      level: Level.Codec,
+      message: NonEmptyString.Codec,
+      tags: iots.array(NonEmptyString.Codec),
+    }),
+    Event.Codec,
+  ],
+  Name
+);
 
 export type T = iots.TypeOf<typeof Codec>;
 
@@ -24,7 +28,8 @@ export const C = (
   corr?: UUID.T,
   parent?: UUID.T
 ): T => ({
-  ...Base.Event.C(Name)(app, corr, parent),
+  ...Event.C(app, corr, parent),
+  type: Name,
   level,
   message,
   tags,

@@ -2,14 +2,16 @@ import * as iots from "io-ts";
 import * as Kebab from "../kebab-case-string";
 import * as NonEmptyString from "../non-empty-string";
 
+export const Name = "core:value:namespace-case-string";
+
 export interface Brand {
-  readonly NameSpaceCaseString: unique symbol;
+  readonly [Name]: unique symbol;
 }
 
 export const Codec = iots.brand(
   iots.string,
   (input): input is iots.Branded<string, Brand> => Is(input),
-  "NameSpaceCaseString"
+  Name
 );
 
 export type T = iots.TypeOf<typeof Codec>;

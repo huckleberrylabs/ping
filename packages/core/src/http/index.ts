@@ -1,73 +1,77 @@
-import { right, left, map, flatten } from "fp-ts/lib/Either";
-import { TaskEither } from "fp-ts/lib/TaskEither";
-import { pipe } from "fp-ts/lib/pipeable";
-import { fold } from "fp-ts/lib/Option";
+import * as iots from "io-ts";
+import { right, left, Either, isLeft } from "fp-ts/lib/Either";
+import { isSome } from "fp-ts/lib/Option";
 import axios from "axios";
-import { Json, Url, StatusCode, Env, Type } from "../values";
+import { Url, Type } from "../values";
+import * as Env from "../env";
 import * as Event from "../event";
 import * as Errors from "../errors";
+import * as Json from "../json";
+import { Results } from "..";
 
-export const GetAPIURL = () =>
-  pipe(
-    Env.Get(),
-    map(env => {
-      const APIURLS: {
-        [P in Env.T]: Url.T;
-      } = {
-        development: "http://localhost:8000" as Url.T,
-        staging: "https://staging.huckleberry.app" as Url.T,
-        production: "https://api.huckleberry.app" as Url.T,
-        test: "http://localhost:8000" as Url.T,
-      };
-      return APIURLS[env];
-    })
-  );
+export const GetAPIURL = () => {
+  const env = Env.Get();
+  if (isLeft(env)) return env;
+  const APIURLS: {
+    [P in Env.T]: Url.T;
+  } = {
+    development: "http://localhost:8000" as Url.T,
+    staging: "https://staging.huckleberry.app" as Url.T,
+    production: "https://api.huckleberry.app" as Url.T,
+    test: "http://localhost:8000" as Url.T,
+  };
+  return right(APIURLS[env.right]);
+};
 
-export const GetEndpoint = (input: string) =>
-  pipe(
-    GetAPIURL(),
-    map(url => new URL(url)),
-    map(url => {
-      url.pathname = input;
-      return url.toString();
-    }),
-    map(Url.C),
-    flatten
-  );
+export const GetEndpoint = (
+  input: string
+): Either<Errors.Parsing.T | Errors.Environment.T, Url.T> => {
+  const api = GetAPIURL();
+  if (isLeft(api)) return api;
+  const url = new URL(api.right);
+  url.pathname = input;
+  return Url.C(url.toString());
+};
 
-export const EndpointFromEvent = (event: Event.T) =>
-  pipe(
-    PathNameFromEvent(event),
-    GetEndpoint,
-    map(url => AddEventParamsToURL(url, event)),
-    flatten
-  );
+export const EndpointFromEvent = (event: Event.T) => {
+  const path = PathNameFromEvent(event);
+  const endpoint = GetEndpoint(path);
+  if (isLeft(endpoint)) return endpoint;
+  return AddEventParamsToURL(endpoint.right, event);
+};
 
 export const PathNameFromEvent = (event: Event.T) =>
   "/" + event.type.replace(/:/g, "/");
 
-export const EventTypeFromPathName = (input: string): Type.T =>
-  input.slice(1).replace(/\//g, ":") as Type.T;
+export const TypeFromPathName = (input: string) =>
+  Type.Codec.decode(input.slice(1).replace(/\//g, ":"));
 
 export const AddEventParamsToURL = (url: Url.T, event: Event.T) => {
   const urlCopy = new URL(url);
   urlCopy.searchParams.append("corr_id", event.corr);
-  pipe(
-    event.parent,
-    fold(() => {}, parent => urlCopy.searchParams.append("parent_id", parent))
-  );
+  if (isSome(event.parent))
+    urlCopy.searchParams.append("parent_id", event.parent.value);
   return Url.C(urlCopy.toString());
 };
 
-export const Post = (
+export const Post = async <T>(
   url: Url.T,
-  dto: Json.T
-): TaskEither<Errors.Adapter.T, Json.T> => async () => {
+  dto: Json.T,
+  decoder?: iots.Decode<any, T>
+): Promise<Either<Errors.T, null | T>> => {
   try {
     const res = await axios.post(url, dto, {
-      validateStatus: status => status < StatusCode.INTERNAL_SERVER_ERROR,
+      validateStatus: () => true,
     });
-    return right(res.data);
+    const responseType: Results.Name = res.data.type;
+    const returnValue = Results.returnValues.get(responseType);
+    if (returnValue) return returnValue;
+    if (decoder) {
+      const result = decoder(res.data);
+      if (isLeft(result)) return left(Errors.Adapter.C());
+      return result;
+    }
+    return left(Errors.Adapter.C());
   } catch (error) {
     return left(Errors.Adapter.C());
   }

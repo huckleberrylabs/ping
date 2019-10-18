@@ -1,13 +1,17 @@
 import * as iots from "io-ts";
-import { Type, UUID } from "@huckleberryai/core";
-import { Event as Base } from "../../../base";
+import { UUID } from "@huckleberryai/core";
+import { Event } from "../../../base";
 
-export const Name = "widget:query:get-settings-by-id" as Type.T;
+export const Name = "widget:settings:get-by-id";
 
-export const Codec = Base.Codec;
+export const Codec = iots.intersection(
+  [iots.type({ type: iots.literal(Name) }), Event.Codec],
+  Name
+);
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C: (widget: UUID.T, corr?: UUID.T, parent?: UUID.T) => T = Base.C(
-  Name
-);
+export const C = (widget: UUID.T, corr?: UUID.T, parent?: UUID.T): T => ({
+  ...Event.C(widget, corr, parent),
+  type: Name,
+});

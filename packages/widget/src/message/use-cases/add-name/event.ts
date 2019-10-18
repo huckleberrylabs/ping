@@ -1,16 +1,20 @@
 import * as iots from "io-ts";
-import { Type, PersonName } from "@huckleberryai/core";
-import { Event as Base } from "../base";
+import { PersonName } from "@huckleberryai/core";
+import { Event } from "../base";
 import * as Command from "./command";
 
-export const Name = "widget:event:name-added-to-message" as Type.T;
+export const Name = "widget:message:name-added";
 
-export const Codec = iots.intersection([
-  Base.Codec,
-  iots.type({
-    name: PersonName.Codec,
-  }),
-]);
+export const Codec = iots.intersection(
+  [
+    iots.type({
+      type: iots.literal(Name),
+      name: PersonName.Codec,
+    }),
+    Event.Codec,
+  ],
+  Name
+);
 
 export type T = iots.TypeOf<typeof Codec>;
 

@@ -1,15 +1,9 @@
 import * as iots from "io-ts";
 import * as NameSpaceCaseString from "../namespace-case-string";
 
-export interface Brand {
-  readonly Type: unique symbol;
-}
+export const Name = "core:value:type";
 
-export const Codec = iots.brand(
-  iots.string,
-  (input): input is iots.Branded<string, Brand> => Is(input),
-  "Type"
-);
+export const Codec = iots.string;
 
 export type T = iots.TypeOf<typeof Codec>;
 

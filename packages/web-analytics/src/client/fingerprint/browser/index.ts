@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { optionFromNullable } from "@huckleberryai/core";
+import { OptionFromNullable } from "@huckleberryai/core";
 import { get } from "../helper";
 import * as DoNotTrack from "./do-not-track";
 import * as AdBlocker from "./ad-blocker";
@@ -12,7 +12,7 @@ export const Codec = iots.type({
     name: iots.string,
     version: iots.string,
   }),
-  buildID: optionFromNullable(iots.string),
+  buildID: OptionFromNullable.Codec(iots.string),
   product: iots.string,
   productSub: iots.string,
   vendor: iots.string,

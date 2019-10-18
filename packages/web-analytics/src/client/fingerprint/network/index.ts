@@ -1,11 +1,11 @@
 import * as iots from "io-ts";
-import { optionFromNullable } from "@huckleberryai/core";
+import { OptionFromNullable } from "@huckleberryai/core";
 import * as Info from "./info";
 import * as LocalIP from "./local-ip";
 
 export const Codec = iots.type({
-  info: optionFromNullable(Info.Codec),
-  localIP: optionFromNullable(iots.string),
+  info: OptionFromNullable.Codec(Info.Codec),
+  localIP: OptionFromNullable.Codec(iots.string),
 });
 
 export type T = iots.TypeOf<typeof Codec>;

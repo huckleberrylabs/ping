@@ -1,13 +1,13 @@
 import * as iots from "io-ts";
-import { UUID, Type, Phone, Color } from "@huckleberryai/core";
+import { UUID, Phone, Color } from "@huckleberryai/core";
 
 const DEFAULT_COLOR = "#1e73be";
 
-export const Name = "widget:settings" as Type.T;
+export const Name = "widget:settings";
 
 export const Codec = iots.type(
   {
-    type: Type.Codec,
+    type: iots.literal(Name),
     id: UUID.Codec,
     phone: Phone.Codec,
     color: Color.Codec,

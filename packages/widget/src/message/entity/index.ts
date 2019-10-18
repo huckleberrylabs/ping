@@ -1,50 +1,57 @@
-import * as iots from "io-ts";
-import {
-  Phone,
-  PersonName,
-  NonEmptyString,
-  UUID,
-  TimeStamp,
-  optionFromNullable,
-} from "@huckleberryai/core";
-import * as Create from "../use-cases/create/event";
+import * as Created from "../use-cases/create/event";
 import * as TextAdded from "../use-cases/add-text/event";
 import * as NameAdded from "../use-cases/add-name/event";
 import * as PhoneAdded from "../use-cases/add-phone/event";
 import * as Sent from "../use-cases/send/event";
-import { pipe } from "fp-ts/lib/pipeable";
-import { left, right } from "fp-ts/lib/Either";
-import { isSome, isNone } from "fp-ts/lib/Option";
 
-export const Codec = iots.type({
-  id: UUID.Codec,
-  created: TimeStamp.Codec,
-  text: optionFromNullable(NonEmptyString.Codec),
-  name: optionFromNullable(PersonName.Codec),
-  phone: optionFromNullable(Phone.Codec),
-  sent: optionFromNullable(TimeStamp.Codec),
-});
+export type Event =
+  | Created.T
+  | TextAdded.T
+  | NameAdded.T
+  | PhoneAdded.T
+  | Sent.T;
+export type T = Event[];
 
-export type T = iots.TypeOf<typeof Codec>;
+export const Text = (message: T) => message.filter(TextAdded.Is)[0].text;
+export const Name = (message: T) => message.filter(NameAdded.Is)[0].name;
+export const Phone = (message: T) => message.filter(PhoneAdded.Is)[0].phone;
+
+export const IsValid = (message: T) =>
+  HasOneID(message) &&
+  WasCreatedOnce(message) &&
+  WasSentOnceOrNever(message) &&
+  WasSentAfterCreated(message);
+
+export const HasOneID = (message: T) =>
+  new Set(message.map(event => event.message)).size === 1;
+
+export const WasCreatedOnce = (message: T) =>
+  message.filter(Created.Is).length === 1;
+
+export const WasSent = (message: T) => message.filter(Sent.Is).length === 1;
+
+export const WasSentOnceOrNever = (message: T) =>
+  message.filter(Sent.Is).length === 0 || WasSent(message);
+
+export const WasSentAfterCreated = (message: T) =>
+  WasSent(message)
+    ? message.filter(Sent.Is)[0].timestamp >
+      message.filter(Created.Is)[0].timestamp
+    : true;
 
 export const CanSend = (message: T) =>
-  isSome(message.text) &&
-  isSome(message.name) &&
-  isSome(message.phone) &&
-  isNone(message.sent);
+  message.filter(TextAdded.Is).length === 1 &&
+  message.filter(NameAdded.Is).length === 1 &&
+  message.filter(PhoneAdded.Is).length === 1 &&
+  message.filter(Sent.Is).length === 0;
 
-export const Aggregate = (
-  events: (Create.T | TextAdded.T | NameAdded.T | PhoneAdded.T | Sent.T)[]
-) =>
-  pipe(
-    {
-      id: events.filter(Create.Is)[0].message,
-      created: events.filter(Create.Is)[0].timestamp,
-      text: events.filter(TextAdded.Is)[0].text,
-      name: events.filter(NameAdded.Is)[0].name,
-      phone: events.filter(PhoneAdded.Is)[0].phone,
-      sent: events.filter(Sent.Is)[0].timestamp,
-    },
-    message =>
-      message.id ? right(message) : left(new Error("message does not exist"))
-  );
+/* export const Codec = iots.type({
+  id: UUID.Codec,
+  created: TimeStamp.Codec,
+  text: OptionFromNullable.Codec(NonEmptyString.Codec),
+  name: OptionFromNullable.Codec(PersonName.Codec),
+  phone: OptionFromNullable.Codec(Phone.Codec),
+  sent: OptionFromNullable.Codec(TimeStamp.Codec),
+}); */
+
+/* export type T = iots.TypeOf<typeof Codec>; */
