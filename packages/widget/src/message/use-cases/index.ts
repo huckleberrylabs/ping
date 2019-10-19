@@ -18,7 +18,7 @@ export type Names =
   | typeof Send.Command.Name;
 
 export const Codecs = new Map<Names, iots.Mixed>([
-  /*   [AddName.Event.Name, AddName.Event.Codec],
+  [AddName.Event.Name, AddName.Event.Codec],
   [AddName.Command.Name, AddName.Command.Codec],
   [AddPhone.Event.Name, AddPhone.Event.Codec],
   [AddPhone.Command.Name, AddPhone.Command.Codec],
@@ -26,7 +26,7 @@ export const Codecs = new Map<Names, iots.Mixed>([
   [AddText.Command.Name, AddText.Command.Codec],
   [Create.Event.Name, Create.Event.Codec],
   [Create.Command.Name, Create.Command.Codec],
-  [Send.Event.Name, Send.Event.Codec], */
+  [Send.Event.Name, Send.Event.Codec],
   [Send.Command.Name, Send.Command.Codec],
 ]);
 

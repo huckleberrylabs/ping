@@ -10,7 +10,7 @@ export const WidgetSettingsRepository = (
     id: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Settings.T>> => {
     const json = (await store
-      .collection(Settings.Name)
+      .collection("text-widget-settings")
       .doc(id)
       .get()).data();
     if (!json) return left(Errors.NotFound.C());

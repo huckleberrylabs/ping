@@ -11,7 +11,8 @@ export type T = iots.TypeOf<typeof Codec>;
 
 export const Detect = async (): Promise<T> => {
   // @ts-ignore
-  if (!window.navigator.keyboard) return none;
+  if (!window.navigator.keyboard && !window.navigator.keyboard.getLayoutMap)
+    return none;
   // @ts-ignore
   const map = await window.navigator.keyboard.getLayoutMap();
   const result: Record = {};

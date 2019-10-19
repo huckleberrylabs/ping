@@ -1,47 +1,49 @@
 import { pipe } from "fp-ts/lib/pipeable";
 import { map, mapLeft } from "fp-ts/lib/Either";
-import { UUID, Phone, NonEmptyString, PersonName } from "@huckleberryai/core";
-import { SDK } from "@huckleberryai/widget";
+import { UUID, NonEmptyString, Phone, PersonName } from "@huckleberryai/core";
+import { Interfaces } from "@huckleberryai/widget";
 import { Elements } from "./elements";
 
-export const onCreateMessage = (e: Elements) => (
-  widget: UUID.T,
-  corr: UUID.T,
-  parent?: UUID.T
+let message: UUID.T;
+
+export const onCreateMessage = (
+  e: Elements,
+  sdk: Interfaces.SDK
 ) => async () => {
   e.container.style.width = "37rem";
   e.create.classList.remove("shown");
   e.addText.classList.add("shown");
   e.textInput.classList.add("shown");
   e.textInput.focus();
-  SDK.Message.Create(widget, corr, parent);
+  pipe(
+    await sdk.Message.Create(),
+    map(id => (message = id))
+  );
 };
 
-export const onAddTextToMessage = (e: Elements) => (
-  widget: UUID.T,
-  corr: UUID.T,
-  parent?: UUID.T
+export const onAddTextToMessage = (
+  e: Elements,
+  sdk: Interfaces.SDK
 ) => async () =>
   pipe(
     NonEmptyString.Codec.decode(e.textInput.value),
     mapLeft(() => {
       e.textInput.setCustomValidity("Invalid");
     }),
-    map(message => {
+    map(text => {
       e.container.style.width = "23rem";
       e.addText.classList.remove("shown");
       e.textInput.classList.remove("shown");
       e.phoneInput.classList.add("shown");
       e.addPhone.classList.add("shown");
       e.phoneInput.focus();
-      SDK.Message.AddText(message.trim(), widget, corr, parent);
+      sdk.Message.AddText(message, text.trim());
     })
   );
 
-export const onAddPhoneToMessage = (e: Elements) => (
-  widget: UUID.T,
-  corr: UUID.T,
-  parent?: UUID.T
+export const onAddPhoneToMessage = (
+  e: Elements,
+  sdk: Interfaces.SDK
 ) => async () =>
   pipe(
     Phone.C(e.phoneInput.value),
@@ -55,14 +57,13 @@ export const onAddPhoneToMessage = (e: Elements) => (
       e.nameInput.classList.add("shown");
       e.send.classList.add("shown");
       e.nameInput.focus();
-      SDK.Message.AddPhone(phone, widget, corr, parent);
+      sdk.Message.AddPhone(message, phone);
     })
   );
 
-export const onAddNameToMessageAndSend = (e: Elements) => (
-  widget: UUID.T,
-  corr: UUID.T,
-  parent?: UUID.T
+export const onAddNameToMessageAndSend = (
+  e: Elements,
+  sdk: Interfaces.SDK
 ) => async () =>
   pipe(
     PersonName.C(e.nameInput.value),
@@ -74,10 +75,10 @@ export const onAddNameToMessageAndSend = (e: Elements) => (
       e.send.classList.remove("shown");
       e.container.style.width = "";
       e.loader.classList.add("shown");
-      return SDK.Message.AddName(name, widget, corr, parent);
+      return sdk.Message.AddName(message, name);
     }),
-    map(res => {
-      return SDK.Message.Send(widget, corr, parent);
+    map(() => {
+      return sdk.Message.Send(message);
     }),
     mapLeft(() => {
       e.loader.classList.remove("shown");
@@ -92,25 +93,12 @@ export const nextOnEnter = (button: HTMLButtonElement) => (
   if (event.keyCode === 13) button.click();
 };
 
-export const AddEventListeners = (e: Elements) => (
-  widget: UUID.T,
-  corr: UUID.T,
-  parent?: UUID.T
-) => {
-  e.create.addEventListener("click", onCreateMessage(e)(widget, corr, parent));
+export const AddEventListeners = (e: Elements, sdk: Interfaces.SDK) => {
+  e.create.addEventListener("click", onCreateMessage(e, sdk));
   e.textInput.addEventListener("keyup", nextOnEnter(e.addText));
-  e.addText.addEventListener(
-    "click",
-    onAddTextToMessage(e)(widget, corr, parent)
-  );
+  e.addText.addEventListener("click", onAddTextToMessage(e, sdk));
   e.phoneInput.addEventListener("keyup", nextOnEnter(e.addPhone));
-  e.addPhone.addEventListener(
-    "click",
-    onAddPhoneToMessage(e)(widget, corr, parent)
-  );
+  e.addPhone.addEventListener("click", onAddPhoneToMessage(e, sdk));
   e.nameInput.addEventListener("keyup", nextOnEnter(e.send));
-  e.send.addEventListener(
-    "click",
-    onAddNameToMessageAndSend(e)(widget, corr, parent)
-  );
+  e.send.addEventListener("click", onAddNameToMessageAndSend(e, sdk));
 };

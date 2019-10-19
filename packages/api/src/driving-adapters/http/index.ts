@@ -25,11 +25,6 @@ export const Controller = async (req: NowRequest, res: NowResponse) => {
     res.status(StatusCode.NOT_FOUND).send(null);
     return;
   }
-  if (typeof dtoCodec === "function") {
-    // shouldn't ever happen because Result.OKWithData shouldn't be received
-    res.status(StatusCode.BAD_REQUEST).send(null);
-    return;
-  }
   const maybeDto = dtoCodec.decode(req.body);
   if (isLeft(maybeDto)) {
     res.status(StatusCode.BAD_REQUEST).send(null);
@@ -43,17 +38,17 @@ export const Controller = async (req: NowRequest, res: NowResponse) => {
   }
   const result = await port(dto);
   let resultCodec = Codecs.get(result.type);
-  if (typeof resultCodec === "function") {
-    const innerCodec = Codecs.get((result as any).dataType);
-    if (!resultCodec || !innerCodec || typeof innerCodec === "function") {
-      res.status(StatusCode.INTERNAL_SERVER_ERROR).send(null);
-      return;
-    }
-    resultCodec = resultCodec(innerCodec);
-  }
   if (!resultCodec) {
     res.status(StatusCode.INTERNAL_SERVER_ERROR).send(null);
     return;
+  }
+  if (typeof resultCodec === null) {
+    const innerCodec = Codecs.get((result as any).dataType);
+    if (!innerCodec) {
+      res.status(StatusCode.INTERNAL_SERVER_ERROR).send(null);
+      return;
+    }
+    resultCodec = Results.OKWithData.Codec(innerCodec);
   }
   res.status(result.status).send(resultCodec.encode(result));
 };

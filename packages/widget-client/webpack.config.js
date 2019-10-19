@@ -27,9 +27,8 @@ module.exports = {
       NODE_ENV: "development",
     }),
     new HtmlWebpackPlugin({
-      title: "Text, By Huckleberry (Staging)",
+      title: "Ping (Staging)",
       widget_id: process.env.WIDGET_ID,
-      node_env: process.env.NODE_ENV,
       template: "index.html",
     }),
     new JavaScriptObfuscator({

@@ -61,12 +61,12 @@ export async function Post(
 export async function Post<T>(
   url: Url.T,
   dto: Json.T,
-  decoder: iots.Decode<any, T>
+  codec: iots.Type<T, unknown, any>
 ): Promise<Either<Errors.T, T>>;
 export async function Post<T>(
   url: Url.T,
   dto: Json.T,
-  decoder?: iots.Decode<any, T>
+  codec?: iots.Type<T, unknown, any>
 ) {
   try {
     const res = await axios.post(url, dto, {
@@ -75,10 +75,9 @@ export async function Post<T>(
     if (!res.data.type) return left(Errors.Adapter.C());
     const responseType: Results.Names = res.data.type;
     const returnValue = Results.ReturnValues.get(responseType);
-    if (decoder && returnValue) throw new Error("");
     if (returnValue) return returnValue;
-    if (decoder) {
-      const result = decoder(res.data);
+    if (codec) {
+      const result = Results.OKWithData.Codec(codec).decode(res.data);
       if (isLeft(result)) return left(Errors.Adapter.C());
       return result;
     }

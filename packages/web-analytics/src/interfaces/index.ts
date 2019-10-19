@@ -22,3 +22,8 @@ export interface Repository {
   // get(id: UUID.T): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Event>>;
   // getByCorrID(corr: UUID.T): Promise<Either<Errors.Adapter.T, Event[]>>;
 }
+
+export interface SDK {
+  log: Logger;
+  unload: () => boolean;
+}
