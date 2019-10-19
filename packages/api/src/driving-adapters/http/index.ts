@@ -3,7 +3,7 @@ import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
 import { NowRequest, NowResponse } from "@now/node";
 import { StatusCode, HTTP, Results } from "@huckleberryai/core";
-import WebAnalytics from "@huckleberryai/web-analytics";
+import * as WebAnalytics from "@huckleberryai/web-analytics";
 import Container from "../../container";
 import Codecs, { Names } from "../../codecs";
 
