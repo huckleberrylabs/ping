@@ -31,8 +31,8 @@ module.exports = {
       widget_id: process.env.WIDGET_ID,
       template: "index.html",
     }),
-    new JavaScriptObfuscator({
+    /* new JavaScriptObfuscator({
       rotateUnicodeArray: true,
-    }),
+    }), */
   ],
 };
