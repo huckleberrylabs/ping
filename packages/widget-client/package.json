@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Text, By Huckleberry",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -73,9 +73,9 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.3.1",
-    "@huckleberryai/web-analytics": "^0.3.1",
-    "@huckleberryai/widget": "^0.3.1",
+    "@huckleberryai/core": "^0.3.2",
+    "@huckleberryai/web-analytics": "^0.3.2",
+    "@huckleberryai/widget": "^0.3.2",
     "axios": "^0.19.0",
     "fp-ts": "^2.1.0",
     "io-ts": "^2.0.1"
