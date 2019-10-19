@@ -1,10 +1,11 @@
 // @ts-ignore
 import * as iots from "io-ts";
+// @ts-ignore
+import { Option } from "fp-ts/lib/Option";
 import { pipe } from "fp-ts/lib/pipeable";
 import { right, left, map, tryCatch, isLeft, Either } from "fp-ts/lib/Either";
 import { Firestore } from "@google-cloud/firestore";
 import { Errors } from "@huckleberryai/core";
-
 export type T = Firestore;
 
 export const GetCredentials = () =>

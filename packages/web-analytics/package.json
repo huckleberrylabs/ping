@@ -67,7 +67,7 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.3.3",
+    "@huckleberryai/core": "^0.3.9",
     "fp-ts": "^2.1.0",
     "io-ts": "^2.0.1"
   },
@@ -85,5 +85,5 @@
     "tslint-jest": "^1.0.5",
     "typescript": "^3.6.4"
   },
-  "gitHead": "93dc18f1d9e461b379fdaa3ecf91e7239d8b1592"
+  "gitHead": "03bfe86fa1b28c8f71a028d00b22bc5e5b718fdd"
 }

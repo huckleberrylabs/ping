@@ -1,3 +1,5 @@
+// @ts-ignore
+import * as iots from "io-ts";
 import * as Core from "@huckleberryai/core";
 import * as WebAnalytics from "@huckleberryai/web-analytics";
 import * as Widget from "@huckleberryai/widget";
