@@ -1,4 +1,4 @@
-import { left, isLeft, right } from "fp-ts/lib/Either";
+import { left, right } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
 import { Env, UUID, NonEmptyString, Errors } from "@huckleberryai/core";
 import * as Event from "../event";
@@ -18,12 +18,7 @@ export const C = (log: Log.T, corr?: UUID.T): Logger => (
   const event = Event.C(level, message, tags, corr, parent);
   log.push(event);
   const env = Env.Get();
-  if (isLeft(env)) return env;
-  if (
-    env.right === "development" ||
-    env.right === "test" ||
-    env.right === "staging"
-  ) {
+  if (env === "development" || env === "test" || env === "staging") {
     console.log(
       event.timestamp.toString(),
       event.level,

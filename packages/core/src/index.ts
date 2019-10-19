@@ -6,7 +6,6 @@ export * from "./interfaces";
 import * as Json from "./json";
 import * as Result from "./result";
 import * as Results from "./results";
-import * as Runtime from "./runtime";
 import * as Values from "./values";
 export * from "./values";
 
@@ -18,4 +17,4 @@ export const Codecs = new Map([
   ...Array.from(Values.Codecs.entries()),
 ]);
 
-export { Env, Errors, Event, HTTP, Json, Result, Results, Runtime };
+export { Env, Errors, Event, HTTP, Json, Result, Results };

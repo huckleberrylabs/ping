@@ -1,4 +1,10 @@
-import { Errors, UUID, Phone, PersonName } from "@huckleberryai/core";
+import {
+  Errors,
+  UUID,
+  NonEmptyString,
+  Phone,
+  PersonName,
+} from "@huckleberryai/core";
 import { Either } from "fp-ts/lib/Either";
 import * as Settings from "../settings";
 import * as Message from "../message";
@@ -27,8 +33,11 @@ export interface MessageRepository {
 
 export interface SDK {
   Message: {
-    Create: () => Promise<Either<Errors.T, UUID.T>>;
-    AddText: (message: UUID.T, text: string) => Promise<Either<Errors.T, null>>;
+    Create: () => Promise<UUID.T>;
+    AddText: (
+      message: UUID.T,
+      text: NonEmptyString.T
+    ) => Promise<Either<Errors.T, null>>;
     AddPhone: (
       message: UUID.T,
       phone: Phone.T

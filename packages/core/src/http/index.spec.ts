@@ -8,19 +8,14 @@ import { Post, Beacon, GetEndpoint, EndpointFromEvent, GetAPIURL } from ".";
 describe.only("http-client", () => {
   const testURL = "http://localhost:8000";
   test(`api url should be ${testURL}`, () => {
-    pipe(
-      GetAPIURL(),
-      map(a => expect(a).toBe(testURL))
-    );
+    expect(GetAPIURL()).toBe(testURL);
   });
   test(`should return correct output`, () => {
-    pipe(
-      GetEndpoint("/test-endpoint"),
-      map(a => {
-        const url = new URL(testURL);
-        url.pathname = "/test-endpoint";
-        expect(a.toString()).toBe(url.toString());
-      })
+    expect(new URL(GetEndpoint("/test-endpoint")).pathname).toBe(
+      "/test-endpoint"
+    );
+    expect(GetEndpoint("/test-endpoint")).toBe(
+      new URL(testURL + "/test-endpoint").toString()
     );
   });
   test("it posts", async () => {
@@ -50,11 +45,11 @@ describe.only("http-client", () => {
         type: "module:domain-entity:event-name" as Type.T,
       },
       EndpointFromEvent,
-      map(url =>
+      url =>
         expect(url).toBe(
-          "http://localhost:8000/module/domain-entity/event-name?corr_id=my-test-corr-id&parent_id=my-test-parent-id"
+          testURL +
+            "/module/domain-entity/event-name?corr_id=my-test-corr-id&parent_id=my-test-parent-id"
         )
-      )
     );
   });
 });

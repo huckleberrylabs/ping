@@ -15,10 +15,7 @@ export const onCreateMessage = (
   e.addText.classList.add("shown");
   e.textInput.classList.add("shown");
   e.textInput.focus();
-  pipe(
-    await sdk.Message.Create(),
-    map(id => (message = id))
-  );
+  message = await sdk.Message.Create();
 };
 
 export const onAddTextToMessage = (
@@ -26,7 +23,7 @@ export const onAddTextToMessage = (
   sdk: Interfaces.SDK
 ) => async () =>
   pipe(
-    NonEmptyString.Codec.decode(e.textInput.value),
+    NonEmptyString.Codec.decode(e.textInput.value.trim()),
     mapLeft(() => {
       e.textInput.setCustomValidity("Invalid");
     }),
@@ -37,7 +34,7 @@ export const onAddTextToMessage = (
       e.phoneInput.classList.add("shown");
       e.addPhone.classList.add("shown");
       e.phoneInput.focus();
-      sdk.Message.AddText(message, text.trim());
+      sdk.Message.AddText(message, text);
     })
   );
 

@@ -1,4 +1,3 @@
-import { isLeft } from "fp-ts/lib/Either";
 import { UUID, HTTP } from "@huckleberryai/core";
 import { SDK } from "../interfaces";
 import { UseCases, Logging, FingerPrint } from "../client";
@@ -39,8 +38,7 @@ export const C: SDKC = (options: Options = DefaultOptions) => (
 ): SDK => {
   const event = UseCases.Loaded.Event.C(app, corr, parent);
   const url = HTTP.EndpointFromEvent(event);
-  if (isLeft(url)) throw new Error("TODO");
-  HTTP.Beacon(url.right, UseCases.Loaded.Event.Codec.encode(event));
+  HTTP.Beacon(url, UseCases.Loaded.Event.Codec.encode(event));
 
   // Logging
   const log = Logging.Log.C();
@@ -61,11 +59,7 @@ export const C: SDKC = (options: Options = DefaultOptions) => (
       parent
     );
     const url = HTTP.EndpointFromEvent(command);
-    if (isLeft(url)) throw new Error("TODO");
-    return HTTP.Beacon(
-      url.right,
-      UseCases.Unloaded.Command.Codec.encode(command)
-    );
+    return HTTP.Beacon(url, UseCases.Unloaded.Command.Codec.encode(command));
   };
 
   if (options.log && options.log.attachToWindow) AttachToWindow(log, logger);

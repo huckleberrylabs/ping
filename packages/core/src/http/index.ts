@@ -1,44 +1,25 @@
 import axios from "axios";
 import { isSome } from "fp-ts/lib/Option";
-import { right, left, Either, isLeft } from "fp-ts/lib/Either";
+import { left, Either, isLeft } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
-import * as Env from "../env";
 import * as Json from "../json";
 import * as Event from "../event";
 import * as Errors from "../errors";
 import * as Results from "../results";
 import { Url, Type } from "../values";
 
-export const GetAPIURL = () => {
-  const env = Env.Get();
-  if (isLeft(env)) return env;
-  const APIURLS: {
-    [P in Env.T]: Url.T;
-  } = {
-    development: "http://localhost:8000" as Url.T,
-    staging: "https://staging.huckleberry.app" as Url.T,
-    production: "https://api.huckleberry.app" as Url.T,
-    test: "http://localhost:8000" as Url.T,
-  };
-  return right(APIURLS[env.right]);
-};
+export const GetAPIURL = () =>
+  process.env.API_URL ? process.env.API_URL : "http://localhost:8000";
 
-export const GetEndpoint = (
-  input: string
-): Either<Errors.Parsing.T | Errors.Environment.T, Url.T> => {
+export const GetEndpoint = (input: string) => {
   const api = GetAPIURL();
-  if (isLeft(api)) return api;
-  const url = new URL(api.right);
+  const url = new URL(api);
   url.pathname = input;
-  return Url.C(url.toString());
+  return url.toString() as Url.T;
 };
 
-export const EndpointFromEvent = (event: Event.T) => {
-  const path = PathNameFromEvent(event);
-  const endpoint = GetEndpoint(path);
-  if (isLeft(endpoint)) return endpoint;
-  return AddEventParamsToURL(endpoint.right, event);
-};
+export const EndpointFromEvent = (event: Event.T) =>
+  AddEventParamsToURL(GetEndpoint(PathNameFromEvent(event)), event);
 
 export const PathNameFromEvent = (event: Event.T) =>
   "/" + event.type.replace(/:/g, "/");
@@ -51,7 +32,7 @@ export const AddEventParamsToURL = (url: Url.T, event: Event.T) => {
   urlCopy.searchParams.append("corr_id", event.corr);
   if (isSome(event.parent))
     urlCopy.searchParams.append("parent_id", event.parent.value);
-  return Url.C(urlCopy.toString());
+  return urlCopy.toString() as Url.T;
 };
 
 export async function Post(
