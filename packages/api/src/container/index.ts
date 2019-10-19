@@ -2,8 +2,8 @@
 import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
 import { Results, Type } from "@huckleberryai/core";
-import WebAnalytics from "@huckleberryai/web-analytics";
-import Widget from "@huckleberryai/widget";
+import * as WebAnalytics from "@huckleberryai/web-analytics";
+import * as Widget from "@huckleberryai/widget";
 import * as DrivenAdapters from "../driven-adapters";
 import * as DrivenPorts from "../driven-ports";
 

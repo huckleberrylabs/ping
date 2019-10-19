@@ -1,6 +1,6 @@
-import Core from "@huckleberryai/core";
-import WebAnalytics from "@huckleberryai/web-analytics";
-import Widget from "@huckleberryai/widget";
+import * as Core from "@huckleberryai/core";
+import * as WebAnalytics from "@huckleberryai/web-analytics";
+import * as Widget from "@huckleberryai/widget";
 
 export type Names = Core.Names | WebAnalytics.Names | Widget.Names;
 
