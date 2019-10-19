@@ -23,9 +23,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   plugins: [
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: "development",
-    }),
+    new webpack.EnvironmentPlugin(["NODE_ENV", "API_URL"]),
     new HtmlWebpackPlugin({
       title: "Ping (Staging)",
       widget_id: process.env.WIDGET_ID,
