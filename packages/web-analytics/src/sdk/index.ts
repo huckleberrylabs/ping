@@ -62,7 +62,7 @@ export const C: SDKC = (options: Options = DefaultOptions) => (
     return HTTP.Beacon(url, UseCases.Unloaded.Command.Codec.encode(command));
   };
 
-  if (options.log && options.log.attachToWindow) AttachToWindow(log, logger);
+  if (options.log && options.log.attachToWindow) AttachToWindow(log);
 
   // auto-set unload event listener
   if (options.setUnloadListener) {
