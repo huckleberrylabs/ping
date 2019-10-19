@@ -5,6 +5,9 @@ import SDK from "./sdk";
 
 export type Names = Client.Names | Server.Names;
 
-export const Codecs = new Map([...Client.Codecs, ...Server.Codecs]);
+export const Codecs = new Map([
+  ...Array.from(Client.Codecs.entries()),
+  ...Array.from(Server.Codecs.entries()),
+]);
 
 export { Client, Server, SDK, Interfaces };

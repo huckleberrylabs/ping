@@ -13,9 +13,9 @@ export * from "./values";
 export type Names = Errors.Names | Results.Names | Values.Names;
 
 export const Codecs = new Map([
-  ...Errors.Codecs,
-  ...Results.Codecs,
-  ...Values.Codecs,
+  ...Array.from(Errors.Codecs.entries()),
+  ...Array.from(Results.Codecs.entries()),
+  ...Array.from(Values.Codecs.entries()),
 ]);
 
 export { Env, Errors, Event, HTTP, Json, Result, Results, Runtime };

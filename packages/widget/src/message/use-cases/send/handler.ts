@@ -1,7 +1,7 @@
 // @ts-ignore
 import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
-import { Results, NonEmptyString, ISMSClient } from "@huckleberryai/core";
+import { Results, NonEmptyString, SMSClient } from "@huckleberryai/core";
 import { SettingsRepository, MessageRepository } from "../../../interfaces";
 import * as Message from "../../entity";
 import * as Command from "./command";
@@ -10,7 +10,7 @@ import * as Event from "./event";
 export const Handler = (
   settingsRepo: SettingsRepository,
   messageRepo: MessageRepository,
-  sms: ISMSClient
+  sms: SMSClient
 ) => async (command: Command.T) => {
   const settings = await settingsRepo.get(command.widget);
   if (isLeft(settings)) {

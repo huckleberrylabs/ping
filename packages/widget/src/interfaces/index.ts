@@ -17,7 +17,7 @@ export interface SettingsRepository {
 export interface MessageRepository {
   add(
     id: UUID.T,
-    event: Message.Event
+    event: Message.Events
   ): Promise<Either<Errors.Adapter.T, null>>;
   remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
   get(

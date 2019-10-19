@@ -7,7 +7,7 @@ import * as Accounts from "./accounts";
 
 export { Geo, Device, Network, Browser, Accounts };
 
-export const Name = "web-analyitics:client:fingerprint";
+export const Name = "web-analytics:client:fingerprint";
 
 export const Codec = iots.type(
   {

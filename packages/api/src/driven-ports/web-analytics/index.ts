@@ -9,13 +9,13 @@ export const WebAnalyticsRepository = (
 ): Interfaces.Repository => ({
   save: async (
     id: UUID.T,
-    event: Interfaces.Event
+    event: Interfaces.Events
   ): Promise<Either<Errors.Adapter.T, null>> =>
     pipe(
       tryCatch(
         async () =>
           await store
-            .collection("my-collection")
+            .collection("web-analytics")
             .doc(UUID.Codec.encode(id))
             .create(event),
         () => Errors.Adapter.C()

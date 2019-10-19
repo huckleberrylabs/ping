@@ -1,8 +1,7 @@
 import { left, isLeft } from "fp-ts/lib/Either";
 import {
   UUID,
-  Post,
-  EndpointFromEvent,
+  HTTP,
   Phone,
   PersonName,
   NonEmptyString,
@@ -14,18 +13,18 @@ import { Create, AddText, AddPhone, AddName, Send } from "../message/use-cases";
 
 const GetSettingsByID = (widget: UUID.T, corr?: UUID.T) => async () => {
   const query = Queries.GetByID.Query.C(widget, corr);
-  const url = EndpointFromEvent(query);
+  const url = HTTP.EndpointFromEvent(query);
   if (isLeft(url)) return url;
-  const res = await Post(url.right, query, Settings.Codec.decode);
+  const res = await HTTP.Post(url.right, query, Settings.Codec.decode);
   return res;
 };
 
 const CreateMessage = (widget: UUID.T, corr: UUID.T) => async () => {
   const message = UUID.C();
   const command = Create.Command.C(message, widget, corr);
-  const url = EndpointFromEvent(command);
+  const url = HTTP.EndpointFromEvent(command);
   if (isLeft(url)) return url;
-  const res = await Post(url.right, command, UUID.Codec.decode);
+  const res = await HTTP.Post(url.right, command, UUID.Codec.decode);
   return res;
 };
 
@@ -35,9 +34,9 @@ const AddTextToMessage = (widget: UUID.T, corr: UUID.T) => async (
 ) => {
   if (!NonEmptyString.Is(text)) return left(Errors.Validation.C());
   const command = AddText.Command.C(text, message, widget, corr);
-  const url = EndpointFromEvent(command);
+  const url = HTTP.EndpointFromEvent(command);
   if (isLeft(url)) return url;
-  const res = await Post(url.right, command);
+  const res = await HTTP.Post(url.right, command);
   return res;
 };
 
@@ -46,9 +45,9 @@ const AddPhoneToMessage = (widget: UUID.T, corr: UUID.T) => async (
   phone: Phone.T
 ) => {
   const command = AddPhone.Command.C(phone, message, widget, corr);
-  const url = EndpointFromEvent(command);
+  const url = HTTP.EndpointFromEvent(command);
   if (isLeft(url)) return url;
-  const res = await Post(url.right, command);
+  const res = await HTTP.Post(url.right, command);
   return res;
 };
 
@@ -57,9 +56,9 @@ const AddNameToMessage = (widget: UUID.T, corr: UUID.T) => async (
   name: PersonName.T
 ) => {
   const command = AddName.Command.C(name, message, widget, corr);
-  const url = EndpointFromEvent(command);
+  const url = HTTP.EndpointFromEvent(command);
   if (isLeft(url)) return url;
-  const res = await Post(url.right, command);
+  const res = await HTTP.Post(url.right, command);
   return res;
 };
 
@@ -67,9 +66,9 @@ const SendMessage = (widget: UUID.T, corr: UUID.T) => async (
   message: UUID.T
 ) => {
   const command = Send.Command.C(message, widget, corr);
-  const url = EndpointFromEvent(command);
+  const url = HTTP.EndpointFromEvent(command);
   if (isLeft(url)) return url;
-  const res = await Post(url.right, command);
+  const res = await HTTP.Post(url.right, command);
   return res;
 };
 

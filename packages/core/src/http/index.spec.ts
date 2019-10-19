@@ -5,7 +5,7 @@ import * as Json from "../json";
 import { UUID, Url, Type } from "../values";
 import { Post, Beacon, GetEndpoint, EndpointFromEvent, GetAPIURL } from ".";
 
-describe("http-client", () => {
+describe.only("http-client", () => {
   const testURL = "http://localhost:8000";
   test(`api url should be ${testURL}`, () => {
     pipe(

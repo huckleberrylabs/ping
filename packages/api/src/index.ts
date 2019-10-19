@@ -1,2 +1,2 @@
-import { HTTP } from "./driving-adapters";
-export default HTTP;
+import { http } from "./driving-adapters";
+export default http;

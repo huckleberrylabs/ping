@@ -6,13 +6,13 @@ import * as NameAdded from "../use-cases/add-name/event";
 import * as PhoneAdded from "../use-cases/add-phone/event";
 import * as Sent from "../use-cases/send/event";
 
-export type Event =
+export type Events =
   | Created.T
   | TextAdded.T
   | NameAdded.T
   | PhoneAdded.T
   | Sent.T;
-export type T = Event[];
+export type T = Events[];
 
 export const Text = (message: T) => message.filter(TextAdded.Is)[0].text;
 export const Name = (message: T) => message.filter(NameAdded.Is)[0].name;

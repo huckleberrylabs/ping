@@ -1,5 +1,5 @@
 import { isLeft, right } from "fp-ts/lib/Either";
-import { UUID, Beacon, EndpointFromEvent } from "@huckleberryai/core";
+import { UUID, HTTP } from "@huckleberryai/core";
 import { UseCases, Logging, FingerPrint } from "../client";
 import { AttachToWindow } from "./window";
 
@@ -33,9 +33,9 @@ export default (options: Options = DefaultOptions) => async (
   parent?: UUID.T
 ) => {
   const event = UseCases.Loaded.Event.C(app, corr, parent);
-  const url = EndpointFromEvent(event);
+  const url = HTTP.EndpointFromEvent(event);
   if (isLeft(url)) return url;
-  Beacon(url.right, UseCases.Loaded.Event.Codec.encode(event));
+  HTTP.Beacon(url.right, UseCases.Loaded.Event.Codec.encode(event));
 
   // Logging
   const log = Logging.Log.C();
@@ -55,10 +55,10 @@ export default (options: Options = DefaultOptions) => async (
       corr,
       parent
     );
-    const url = EndpointFromEvent(command);
+    const url = HTTP.EndpointFromEvent(command);
     if (isLeft(url)) return url;
     return right(
-      Beacon(url.right, UseCases.Unloaded.Command.Codec.encode(command))
+      HTTP.Beacon(url.right, UseCases.Unloaded.Command.Codec.encode(command))
     );
   };
 

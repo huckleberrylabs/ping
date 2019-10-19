@@ -1,14 +1,13 @@
-import * as iots from "io-ts";
+import Core from "@huckleberryai/core";
 import WebAnalytics from "@huckleberryai/web-analytics";
-import { Type } from "@huckleberryai/core";
+import Widget from "@huckleberryai/widget";
 
-export type Name = typeof WebAnalytics.Client.UseCases.Loaded.Event.Name;
+export type Names = Core.Names | WebAnalytics.Names | Widget.Names;
 
-export const Codecs = new Map<Name | Type.T, iots.Mixed | null>([
-  [
-    WebAnalytics.Client.UseCases.Loaded.Event.Name,
-    WebAnalytics.Client.UseCases.Loaded.Event.Codec,
-  ],
+export const Codecs = new Map([
+  ...Array.from(Core.Codecs.entries()),
+  ...Array.from(WebAnalytics.Codecs.entries()),
+  ...Array.from(Widget.Codecs.entries()),
 ]);
 
 export default Codecs;

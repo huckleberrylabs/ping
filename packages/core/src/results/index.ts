@@ -5,10 +5,16 @@ import * as Error from "./internal-error";
 import * as NotFound from "./not-found";
 import * as OK from "./ok";
 import * as OKWithData from "./ok-with-data";
-import { Errors } from "..";
+import * as Errors from "../errors";
 import { Left, Right, left, right } from "fp-ts/lib/Either";
 
-export type T = BadRequest.T | Error.T | NotFound.T | OK.T | OKWithData.T<any>;
+export type T =
+  | BadRequest.T
+  | Forbidden.T
+  | Error.T
+  | NotFound.T
+  | OK.T
+  | OKWithData.T<any>;
 
 export type Names =
   | typeof BadRequest.Name
@@ -18,13 +24,13 @@ export type Names =
   | typeof OK.Name
   | typeof OKWithData.Name;
 
-export const Codecs = new Map<Names, iots.Mixed | null>([
+export const Codecs = new Map<Names, iots.Mixed | typeof OKWithData.Codec>([
   [BadRequest.Name, BadRequest.Codec],
   [Forbidden.Name, Forbidden.Codec],
   [Error.Name, Error.Codec],
   [NotFound.Name, NotFound.Codec],
   [OK.Name, OK.Codec],
-  [OKWithData.Name, null],
+  [OKWithData.Name, OKWithData.Codec],
 ]);
 
 export const ReturnValues = new Map<Names, Left<Errors.T> | Right<null> | null>(
