@@ -1,7 +1,6 @@
 import { UUID, HTTP } from "@huckleberryai/core";
 import { SDK } from "../interfaces";
 import { UseCases, Logging, FingerPrint } from "../client";
-import { AttachToWindow } from "./window";
 
 /**
  * @param log.attachToWindow
