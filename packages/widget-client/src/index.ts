@@ -11,7 +11,10 @@ export const onLoad = async () => {
   const maybeID = Widget.GetID(INSERT_SCRIPT_ID);
   const id = isRight(maybeID) ? maybeID.right : undefined;
 
-  const analytics = AnalyticsSDK.C()(id, corr);
+  const analytics = AnalyticsSDK.C({ fingerPrint: { enabled: true } })(
+    id,
+    corr
+  );
 
   if (!id) return;
 
