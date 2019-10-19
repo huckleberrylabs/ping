@@ -1,6 +1,5 @@
 import * as iots from "io-ts";
 import { none, some } from "fp-ts/lib/Option";
-import { NowRequest } from "@now/node";
 import {
   UUID,
   Event,
@@ -28,7 +27,7 @@ export const Codec = iots.intersection(
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (req: NowRequest): T => {
+export const C = (req: any): T => {
   const corrParam = req.query["corr_id"];
   const parentParam = req.query["parent_id"];
   return {

@@ -75,7 +75,10 @@
     "@huckleberryai/web-analytics": "^0.3.8",
     "@huckleberryai/widget": "^0.3.3",
     "@now/node": "^0.12.1",
+    "@types/aws-serverless-express": "^3.3.1",
     "@types/color": "^3.0.0",
+    "aws-serverless-express": "^3.3.6",
+    "express": "^4.17.1",
     "fp-ts": "^2.1.0",
     "io-ts": "^2.0.1",
     "twilio": "^3.33.2"

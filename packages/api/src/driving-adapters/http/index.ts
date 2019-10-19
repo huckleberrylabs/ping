@@ -1,15 +1,15 @@
 // @ts-ignore
 import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
-import { NowRequest, NowResponse } from "@now/node";
 import { StatusCode, HTTP, Results } from "@huckleberryai/core";
 import * as WebAnalytics from "@huckleberryai/web-analytics";
 import Container from "../../container";
 import Codecs, { Names } from "../../codecs";
+import { Request, Response } from "express";
 
 const ports = Container();
 
-export const Controller = async (req: NowRequest, res: NowResponse) => {
+export const Controller = async (req: Request, res: Response) => {
   if (!req.url) {
     res.status(StatusCode.BAD_REQUEST).send(null);
     return;
@@ -53,7 +53,7 @@ export const Controller = async (req: NowRequest, res: NowResponse) => {
   res.status(result.status).send(resultCodec.encode(result));
 };
 
-export const http = async (req: NowRequest, res: NowResponse) => {
+export const http = async (req: Request, res: Response) => {
   // Access Filtering
   const accessEvent = WebAnalytics.Server.UseCases.HTTPAccess.Event.C(req);
   const accessPort = ports.get(accessEvent.type);
@@ -78,7 +78,6 @@ export const http = async (req: NowRequest, res: NowResponse) => {
     res.status(204).send(null);
     return;
   }
-
   if (req.url === "/ping") {
     res.status(StatusCode.OK).send(null);
     return;
