@@ -1,0 +1,36 @@
+.widget-list-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.grid > * {
+  margin: 20px;
+}
+
+.controls {
+  display: inline-flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.new-widget-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 21rem;
+  height: 18rem;
+}
+
+.new-widget-button {
+  width: 75%;
+  height: 75%;
+}

@@ -1,2 +1,4 @@
-export * from "./aggregate";
-export * from "./commands";
+import * as UseCases from "./use-cases";
+
+export { UseCases };
+export * from "./entity";

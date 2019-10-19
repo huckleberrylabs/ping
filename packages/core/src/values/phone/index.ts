@@ -1,23 +1,39 @@
-import { parsePhoneNumberFromString } from "libphonenumber-js/max";
-import { IsNonEmptyString } from "../non-empty-string";
+import {
+  Either,
+  right,
+  left,
+  isRight,
+  tryCatch,
+  isLeft,
+} from "fp-ts/lib/Either";
+import * as iots from "io-ts";
+import { parsePhoneNumber } from "libphonenumber-js/max";
+import * as Errors from "../../errors";
 
-export type Phone = string;
+export const Name = "core:value:phone";
 
-export const ParsePhone = (input: string): Phone => {
-  const phone = parsePhoneNumberFromString(input);
-  if (phone) return phone.format("E.164");
-  throw new Error("phone input cannot be parsed");
+export interface Brand {
+  readonly [Name]: unique symbol;
+}
+
+export const Codec = iots.brand(
+  iots.string,
+  (input): input is iots.Branded<string, Brand> => isRight(C(input)),
+  Name
+);
+
+export type T = iots.TypeOf<typeof Codec>;
+
+export const C = (
+  input: string
+): Either<Errors.Validation.T | Errors.Parsing.T, T> => {
+  const parsed = Parse(input);
+  if (isLeft(parsed)) return parsed;
+  if (!parsed.right.isPossible()) return left(Errors.Validation.C());
+  return right(parsed.right.format("E.164") as T);
 };
 
-export const IsPhone = (input: unknown): input is Phone =>
-  IsNonEmptyString(input) && IsPossiblePhone(input);
+export const Parse = (input: string) =>
+  tryCatch(() => parsePhoneNumber(input, "CA"), () => Errors.Parsing.C());
 
-export const IsPossiblePhone = (input: string): input is Phone => {
-  const phone = parsePhoneNumberFromString(input);
-  return phone !== undefined && phone.isPossible();
-};
-
-export const IsValidPhone = (input: string): boolean => {
-  const phone = parsePhoneNumberFromString(input);
-  return phone !== undefined && phone.isValid();
-};
+export const Is = Codec.is;

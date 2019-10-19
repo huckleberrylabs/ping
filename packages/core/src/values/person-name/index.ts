@@ -1,44 +1,47 @@
+import { parseName, NameOutput } from "humanparser";
+import { right, left } from "fp-ts/lib/Either";
+import { some, none } from "fp-ts/lib/Option";
+import * as iots from "io-ts";
+import * as Errors from "../../errors";
+import * as NonEmptyString from "../non-empty-string";
+import * as OptionFromNullable from "../option-from-nullable";
 // Try parse-full-name as well if not working well
-import { parseName } from "humanparser";
-import { IsNonNullObject } from "../non-null-object";
-import { IsNonEmptyString } from "../non-empty-string";
 
-export type NameString = string | null;
+export const Name = "core:value:person-name";
 
-export type PersonName = {
-  parsed: NameString;
-  legal: NameString;
-  first: NameString;
-  last: NameString;
-  middle: NameString;
-  prefix: NameString;
-  suffix: NameString;
-};
+export const NameStringCodec = OptionFromNullable.Codec(NonEmptyString.Codec);
 
-export const ParsePersonName = (input: string): PersonName => {
-  const { firstName, lastName, middleName, salutation, suffix } = parseName(
-    input
-  );
-  return {
-    parsed: input,
-    legal: null,
-    first: firstName && firstName.length > 0 ? firstName : null,
-    last: lastName && lastName.length > 0 ? lastName : null,
-    middle: middleName && middleName.length > 0 ? middleName : null,
-    prefix: salutation && salutation.length > 0 ? salutation : null,
-    suffix: suffix && suffix.length > 0 ? suffix : null,
-  };
-};
+export type NameString = iots.TypeOf<typeof NameStringCodec>;
 
-export const IsValidNameString = (input: unknown): boolean =>
-  typeof input === null || IsNonEmptyString(input);
+export const Codec = iots.type(
+  {
+    parsed: NameStringCodec,
+    legal: NameStringCodec,
+    first: NameStringCodec,
+    last: NameStringCodec,
+    middle: NameStringCodec,
+    prefix: NameStringCodec,
+    suffix: NameStringCodec,
+  },
+  Name
+);
 
-export const IsPersonName = (input: unknown): input is PersonName =>
-  IsNonNullObject(input) &&
-  IsValidNameString(input.parsed) &&
-  IsValidNameString(input.legal) &&
-  IsValidNameString(input.first) &&
-  IsValidNameString(input.last) &&
-  IsValidNameString(input.middle) &&
-  IsValidNameString(input.prefix) &&
-  IsValidNameString(input.suffix);
+export type T = iots.TypeOf<typeof Codec>;
+
+export const C = (input: string) =>
+  NonEmptyString.Is(input)
+    ? right(Map(input, parseName(input)))
+    : left(Errors.Validation.C());
+
+const Map = (original: string, input: NameOutput) =>
+  ({
+    parsed: some(original),
+    legal: none,
+    first: NonEmptyString.Is(input.firstName) ? some(input.firstName) : none,
+    last: NonEmptyString.Is(input.lastName) ? some(input.lastName) : none,
+    middle: NonEmptyString.Is(input.middleName) ? some(input.middleName) : none,
+    prefix: NonEmptyString.Is(input.salutation) ? some(input.salutation) : none,
+    suffix: NonEmptyString.Is(input.suffix) ? some(input.suffix) : none,
+  } as T);
+
+export const Is = Codec.is;

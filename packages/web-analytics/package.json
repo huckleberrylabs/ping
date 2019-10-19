@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.2.8",
+  "version": "0.3.0",
   "description": "Web Analytics",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -67,11 +67,10 @@
     "prepare": "npm run test && npm run build"
   },
   "dependencies": {
-    "@huckleberryai/core": "^0.2.7",
-    "@huckleberryai/log": "^0.2.7",
+    "@huckleberryai/core": "^0.3.0",
     "@now/node": "^1.0.0",
-    "inversify": "^5.0.1",
-    "reflect-metadata": "^0.1.13"
+    "fp-ts": "^2.1.0",
+    "io-ts": "^2.0.1"
   },
   "devDependencies": {
     "@types/color": "^3.0.0",
@@ -85,7 +84,7 @@
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-jest": "^1.0.5",
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.4"
   },
   "gitHead": "62a71a063a7992eb35f5a1be639ebe138876d8f6"
 }

@@ -1,30 +1,22 @@
-import {
-  Type,
-  UUID,
-  IsUUID,
-  IEvent,
-  Event,
-  IsEvent,
-  IsNonNullObject,
-} from "@huckleberryai/core";
+import * as iots from "io-ts";
+import { UUID, Event } from "@huckleberryai/core";
 
-export interface IWidgetEvent extends IEvent {
-  widget: UUID;
-}
+export const Name = "widget:abstract:event";
+export const Codec = iots.intersection(
+  [
+    iots.type({
+      widget: UUID.Codec,
+    }),
+    Event.Codec,
+  ],
+  Name
+);
 
-export const WidgetEvent = (type: Type) => (
-  widget: UUID,
-  origin: UUID,
-  corr?: UUID,
-  parent?: UUID,
-  agent?: UUID
-): IWidgetEvent => {
-  const event = Event(type, origin, corr, parent, agent);
-  return {
-    ...event,
-    widget,
-  };
-};
+export type T = iots.TypeOf<typeof Codec>;
 
-export const IsWidgetEvent = (input: unknown): input is IWidgetEvent =>
-  IsNonNullObject(input) && IsEvent(input) && IsUUID(input.widget);
+export const C = (widget: UUID.T, corr?: UUID.T, parent?: UUID.T): T => ({
+  ...Event.C(corr, parent),
+  widget,
+});
+
+export const Is = Codec.is;

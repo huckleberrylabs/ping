@@ -1,48 +1,27 @@
-import {
-  IsNonNullObject,
-  UUID,
-  Type,
-  Phone,
-  Color,
-  IsType,
-  IsUUID,
-  IsPhone,
-  IsColor,
-  JSON,
-} from "@huckleberryai/core";
+import * as iots from "io-ts";
+import { UUID, Phone, Color } from "@huckleberryai/core";
 
-const DEFAULT_MAIN_COLOR = "white";
-const DEFAULT_ACCENT_COLOR = "#1e73be";
+const DEFAULT_COLOR = "#1e73be";
 
-export interface IWidgetSettings {
-  [index: string]: JSON;
-  type: Type;
-  id: UUID;
-  phone: Phone;
-  mainColor: Color;
-  accentColor: Color;
-  enabled: boolean;
-}
+export const Name = "widget:settings";
 
-export const WidgetSettingsType = "widget-settings";
+export const Codec = iots.type(
+  {
+    type: iots.literal(Name),
+    id: UUID.Codec,
+    phone: Phone.Codec,
+    color: Color.Codec,
+    enabled: iots.boolean,
+  },
+  Name
+);
 
-export const WidgetSettings = (phone: Phone): IWidgetSettings => {
-  const textWidgetSettings = {
-    type: WidgetSettingsType,
-    id: UUID(),
-    phone: phone,
-    mainColor: DEFAULT_MAIN_COLOR,
-    accentColor: DEFAULT_ACCENT_COLOR,
-    enabled: true,
-  };
-  return textWidgetSettings;
-};
+export type T = iots.TypeOf<typeof Codec>;
 
-export const IsWidgetSettings = (input: unknown): input is IWidgetSettings =>
-  IsNonNullObject(input) &&
-  IsType(input.type) &&
-  IsUUID(input.id) &&
-  IsPhone(input.phone) &&
-  IsColor(input.mainColor) &&
-  IsColor(input.accentColor) &&
-  typeof input.enabled === "boolean";
+export const C = (phone: Phone.T): T => ({
+  type: Name,
+  id: UUID.C(),
+  phone: phone,
+  color: DEFAULT_COLOR as Color.T,
+  enabled: true,
+});

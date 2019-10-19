@@ -1,9 +1,21 @@
+import * as iots from "io-ts";
+import * as KebabCaseString from "../kebab-case-string";
 import uuid from "uuid/v4";
-import { IsKebabCaseString } from "../kebab-case-string";
 
-export type UUID = string;
+export const Name = "core:value:uuid";
 
-export const UUID = () => uuid();
+export interface Brand {
+  readonly [Name]: unique symbol;
+}
 
-export const IsUUID = (input: unknown): input is UUID =>
-  IsKebabCaseString(input) && input.length === 36;
+export const Codec = iots.brand(
+  iots.string,
+  (input): input is iots.Branded<string, Brand> => Is(input),
+  Name
+);
+
+export type T = iots.TypeOf<typeof Codec>;
+
+export const Is = (input: unknown): input is T => KebabCaseString.Is(input);
+
+export const C = () => uuid() as T;

@@ -1,6 +1,10 @@
-import { IsKebabCaseString } from "../kebab-case-string";
+import * as iots from "io-ts";
+import * as NameSpaceCaseString from "../namespace-case-string";
 
-export type Type = string;
+export const Name = "core:value:type";
 
-export const IsType = (input: unknown): input is Type =>
-  IsKebabCaseString(input);
+export const Codec = iots.string;
+
+export type T = iots.TypeOf<typeof Codec>;
+
+export const Is = (input: unknown): input is T => NameSpaceCaseString.Is(input);
