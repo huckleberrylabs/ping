@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Web Analytics",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
