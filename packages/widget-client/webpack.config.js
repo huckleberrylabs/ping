@@ -29,7 +29,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Ping (Staging)",
       widget_id: process.env.WIDGET_ID,
-      node_env: process.env.NODE_ENV,
       template: "index.html",
     }),
     new JavaScriptObfuscator({
