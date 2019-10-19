@@ -24,8 +24,8 @@ const CreateMessage = (widget: UUID.T, corr: UUID.T) => async () => {
   const command = Create.Command.C(message, widget, corr);
   const url = HTTP.EndpointFromEvent(command);
   if (isLeft(url)) return url;
-  const res = await HTTP.Post(url.right, command, UUID.Codec.decode);
-  return res;
+  HTTP.Post(url.right, command, UUID.Codec.decode);
+  return message;
 };
 
 const AddTextToMessage = (widget: UUID.T, corr: UUID.T) => async (
