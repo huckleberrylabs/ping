@@ -12,9 +12,6 @@ import { AttachToWindow } from "./window";
  * defaults to enabled
  */
 type Options = {
-  log?: {
-    attachToWindow?: boolean;
-  };
   fingerPrint?: {
     enabled?: boolean;
   };
@@ -22,7 +19,6 @@ type Options = {
 };
 
 const DefaultOptions: Options = {
-  log: { attachToWindow: true },
   fingerPrint: { enabled: false },
   setUnloadListener: true,
 };
@@ -61,8 +57,6 @@ export const C: SDKC = (options: Options = DefaultOptions) => (
     const url = HTTP.EndpointFromEvent(command);
     return HTTP.Beacon(url, UseCases.Unloaded.Command.Codec.encode(command));
   };
-
-  if (options.log && options.log.attachToWindow) AttachToWindow(log);
 
   // auto-set unload event listener
   if (options.setUnloadListener) {
