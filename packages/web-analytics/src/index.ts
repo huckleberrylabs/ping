@@ -1,7 +1,7 @@
 import * as Client from "./client";
 import * as Interfaces from "./interfaces";
 import * as Server from "./server";
-import SDK from "./sdk";
+import * as SDK from "./sdk";
 
 export type Names = Client.Names | Server.Names;
 

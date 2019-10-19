@@ -1,5 +1,6 @@
-import { isLeft, right } from "fp-ts/lib/Either";
+import { isLeft } from "fp-ts/lib/Either";
 import { UUID, HTTP } from "@huckleberryai/core";
+import { SDK } from "../interfaces";
 import { UseCases, Logging, FingerPrint } from "../client";
 import { AttachToWindow } from "./window";
 
@@ -27,14 +28,18 @@ const DefaultOptions: Options = {
   setUnloadListener: true,
 };
 
-export default (options: Options = DefaultOptions) => async (
+type SDKC = (
+  options?: Options
+) => (app?: UUID.T, corr?: UUID.T, parent?: UUID.T) => SDK;
+
+export const C: SDKC = (options: Options = DefaultOptions) => (
   app?: UUID.T,
   corr?: UUID.T,
   parent?: UUID.T
-) => {
+): SDK => {
   const event = UseCases.Loaded.Event.C(app, corr, parent);
   const url = HTTP.EndpointFromEvent(event);
-  if (isLeft(url)) return url;
+  if (isLeft(url)) throw new Error("TODO");
   HTTP.Beacon(url.right, UseCases.Loaded.Event.Codec.encode(event));
 
   // Logging
@@ -42,10 +47,10 @@ export default (options: Options = DefaultOptions) => async (
   const logger = Logging.Logger.C(log, corr);
 
   // Fingerprint
-  const fingerprint =
-    options.fingerPrint && options.fingerPrint.enabled
-      ? await FingerPrint.Generate()
-      : undefined;
+  let fingerprint: FingerPrint.T | undefined = undefined;
+  if (options.fingerPrint && options.fingerPrint.enabled) {
+    FingerPrint.Generate().then(print => (fingerprint = print));
+  }
 
   const unload = () => {
     const command = UseCases.Unloaded.Command.C(
@@ -56,9 +61,10 @@ export default (options: Options = DefaultOptions) => async (
       parent
     );
     const url = HTTP.EndpointFromEvent(command);
-    if (isLeft(url)) return url;
-    return right(
-      HTTP.Beacon(url.right, UseCases.Unloaded.Command.Codec.encode(command))
+    if (isLeft(url)) throw new Error("TODO");
+    return HTTP.Beacon(
+      url.right,
+      UseCases.Unloaded.Command.Codec.encode(command)
     );
   };
 
@@ -68,8 +74,8 @@ export default (options: Options = DefaultOptions) => async (
   if (options.setUnloadListener) {
     window.addEventListener("unload", () => unload());
   }
-  return right({
+  return {
     log: logger,
     unload,
-  });
+  };
 };

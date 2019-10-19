@@ -1,30 +1,29 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import { map, mapLeft, isLeft } from "fp-ts/lib/Either";
-import { Phone, NonEmptyString, PersonName, UUID } from "@huckleberryai/core";
-import { SDK } from "@huckleberryai/widget";
+import { map, mapLeft } from "fp-ts/lib/Either";
+import { UUID, NonEmptyString, Phone, PersonName } from "@huckleberryai/core";
+import { Interfaces } from "@huckleberryai/widget";
 import { Elements } from "./elements";
 
 let message: UUID.T;
 
 export const onCreateMessage = (
   e: Elements,
-  sdk: ReturnType<typeof SDK>
+  sdk: Interfaces.SDK
 ) => async () => {
   e.container.style.width = "37rem";
   e.create.classList.remove("shown");
   e.addText.classList.add("shown");
   e.textInput.classList.add("shown");
   e.textInput.focus();
-  const maybeMessage = await sdk.Message.Create();
-  if (isLeft(maybeMessage)) {
-    return;
-  }
-  message = maybeMessage.right;
+  pipe(
+    await sdk.Message.Create(),
+    map(id => (message = id))
+  );
 };
 
 export const onAddTextToMessage = (
   e: Elements,
-  sdk: ReturnType<typeof SDK>
+  sdk: Interfaces.SDK
 ) => async () =>
   pipe(
     NonEmptyString.Codec.decode(e.textInput.value),
@@ -44,7 +43,7 @@ export const onAddTextToMessage = (
 
 export const onAddPhoneToMessage = (
   e: Elements,
-  sdk: ReturnType<typeof SDK>
+  sdk: Interfaces.SDK
 ) => async () =>
   pipe(
     Phone.C(e.phoneInput.value),
@@ -64,7 +63,7 @@ export const onAddPhoneToMessage = (
 
 export const onAddNameToMessageAndSend = (
   e: Elements,
-  sdk: ReturnType<typeof SDK>
+  sdk: Interfaces.SDK
 ) => async () =>
   pipe(
     PersonName.C(e.nameInput.value),
@@ -94,7 +93,7 @@ export const nextOnEnter = (button: HTMLButtonElement) => (
   if (event.keyCode === 13) button.click();
 };
 
-export const AddEventListeners = (e: Elements, sdk: ReturnType<typeof SDK>) => {
+export const AddEventListeners = (e: Elements, sdk: Interfaces.SDK) => {
   e.create.addEventListener("click", onCreateMessage(e, sdk));
   e.textInput.addEventListener("keyup", nextOnEnter(e.addText));
   e.addText.addEventListener("click", onAddTextToMessage(e, sdk));

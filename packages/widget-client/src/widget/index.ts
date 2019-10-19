@@ -10,7 +10,7 @@ import {
 } from "fp-ts/lib/Either";
 import { UUID, Errors } from "@huckleberryai/core";
 import * as WebAnalytics from "@huckleberryai/web-analytics";
-import { Settings, SDK } from "@huckleberryai/widget";
+import { Settings, Interfaces } from "@huckleberryai/widget";
 import { GetElementById } from "./helpers";
 import { ElementIDs, Elements } from "./elements";
 import { InsertCSS, GenerateCSS } from "./css";
@@ -36,10 +36,9 @@ export const GetID = (
     flatten
   );
 
-export const C = (
-  log: WebAnalytics.Interfaces.Logger,
-  sdk: ReturnType<typeof SDK>
-) => (settings: Settings.T) =>
+export const C = (log: WebAnalytics.Interfaces.Logger, sdk: Interfaces.SDK) => (
+  settings: Settings.T
+) =>
   pipe(
     ElementIDs(),
     ids => {

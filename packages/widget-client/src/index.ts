@@ -1,4 +1,4 @@
-import { isLeft } from "fp-ts/lib/Either";
+import { isLeft, isRight } from "fp-ts/lib/Either";
 import { UUID } from "@huckleberryai/core";
 import { SDK as AnalyticsSDK } from "@huckleberryai/web-analytics";
 import { SDK as WidgetSDK } from "@huckleberryai/widget";
@@ -7,23 +7,20 @@ import * as Widget from "./widget";
 const INSERT_SCRIPT_ID = "huckleberry-text-insert-script";
 
 export const onLoad = async () => {
-  // Get Widget ID
   const corr = UUID.C();
   const maybeID = Widget.GetID(INSERT_SCRIPT_ID);
-  if (isLeft(maybeID)) throw new Error();
-  const id = maybeID.right;
+  const id = isRight(maybeID) ? maybeID.right : undefined;
 
-  // Client Loaded Event, Set Unload Listener, Check API online
-  const analyticsMaybe = await AnalyticsSDK()(id, corr);
-  if (isLeft(analyticsMaybe)) throw new Error();
-  const analytics = analyticsMaybe.right;
+  const analytics = AnalyticsSDK.C()(id, corr);
 
-  const widgetSDK = await WidgetSDK(id, corr);
+  if (!id) return;
 
-  const settingsMaybe = await widgetSDK.Settings.GetByID();
-  if (isLeft(settingsMaybe)) throw new Error();
+  const widgetSDK = WidgetSDK.C(id, corr);
+  const settingsMaybe = await widgetSDK.Settings.Get();
+
+  if (isLeft(settingsMaybe)) return;
+
   const settings = settingsMaybe.right;
-
   if (settings.enabled) Widget.C(analytics.log, widgetSDK)(settings);
 };
 
