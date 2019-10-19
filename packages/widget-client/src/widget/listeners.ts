@@ -1,5 +1,5 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import { map, mapLeft } from "fp-ts/lib/Either";
+import { map, mapLeft, isLeft } from "fp-ts/lib/Either";
 import { Phone, NonEmptyString, PersonName, UUID } from "@huckleberryai/core";
 import { SDK } from "@huckleberryai/widget";
 import { Elements } from "./elements";
@@ -15,7 +15,11 @@ export const onCreateMessage = (
   e.addText.classList.add("shown");
   e.textInput.classList.add("shown");
   e.textInput.focus();
-  message = await sdk.Message.Create();
+  const maybeMessage = await sdk.Message.Create();
+  if (isLeft(maybeMessage)) {
+    return;
+  }
+  message = maybeMessage.right;
 };
 
 export const onAddTextToMessage = (

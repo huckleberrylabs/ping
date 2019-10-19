@@ -42,9 +42,9 @@ export const WidgetMessageRepository = (
       if (queryRef.empty) return left(Errors.NotFound.C());
       const json = queryRef.docs.map(doc => doc.data());
       const maybeEvents = json.map(event => {
+        if (!event.type) return left(Errors.Validation.C());
         const codec = Codecs.get(event.type);
-        if (!codec || typeof codec === "function")
-          return left(Errors.Validation.C());
+        if (!codec) return left(Errors.Validation.C());
         const maybeDecoded = codec.decode(event);
         if (isLeft(maybeDecoded)) return left(Errors.Validation.C());
         return maybeDecoded;

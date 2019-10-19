@@ -76,7 +76,6 @@
     "@huckleberryai/widget": "^0.3.1",
     "@now/node": "^0.12.1",
     "@types/color": "^3.0.0",
-    "express": "^4.17.1",
     "fp-ts": "^2.1.0",
     "io-ts": "^2.0.1",
     "twilio": "^3.33.2"

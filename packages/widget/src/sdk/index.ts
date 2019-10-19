@@ -1,4 +1,4 @@
-import { left, isLeft } from "fp-ts/lib/Either";
+import { left, isLeft, right } from "fp-ts/lib/Either";
 import {
   UUID,
   HTTP,
@@ -15,7 +15,7 @@ const GetSettingsByID = (widget: UUID.T, corr?: UUID.T) => async () => {
   const query = Queries.GetByID.Query.C(widget, corr);
   const url = HTTP.EndpointFromEvent(query);
   if (isLeft(url)) return url;
-  const res = await HTTP.Post(url.right, query, Settings.Codec.decode);
+  const res = await HTTP.Post(url.right, query, Settings.Codec);
   return res;
 };
 
@@ -24,8 +24,8 @@ const CreateMessage = (widget: UUID.T, corr: UUID.T) => async () => {
   const command = Create.Command.C(message, widget, corr);
   const url = HTTP.EndpointFromEvent(command);
   if (isLeft(url)) return url;
-  HTTP.Post(url.right, command, UUID.Codec.decode);
-  return message;
+  HTTP.Post(url.right, command, UUID.Codec);
+  return right(message);
 };
 
 const AddTextToMessage = (widget: UUID.T, corr: UUID.T) => async (

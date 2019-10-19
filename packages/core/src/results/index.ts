@@ -24,13 +24,13 @@ export type Names =
   | typeof OK.Name
   | typeof OKWithData.Name;
 
-export const Codecs = new Map<Names, iots.Mixed | typeof OKWithData.Codec>([
+export const Codecs = new Map<Names, iots.Mixed | null>([
   [BadRequest.Name, BadRequest.Codec],
   [Forbidden.Name, Forbidden.Codec],
   [Error.Name, Error.Codec],
   [NotFound.Name, NotFound.Codec],
   [OK.Name, OK.Codec],
-  [OKWithData.Name, OKWithData.Codec],
+  [OKWithData.Name, null],
 ]);
 
 export const ReturnValues = new Map<Names, Left<Errors.T> | Right<null> | null>(
