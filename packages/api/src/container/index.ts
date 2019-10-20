@@ -15,18 +15,20 @@ export default () => {
   const maybeFireStore = DrivenAdapters.FireStore.C();
   const maybeTwilio = DrivenAdapters.Twilio.C();
 
-  if (isLeft(maybeFireStore)) throw new Error("shit");
-  if (isLeft(maybeTwilio)) throw new Error("shit");
+  if (isLeft(maybeFireStore)) throw new Error("firestore credentials missing");
+  if (isLeft(maybeTwilio)) throw new Error("twilio credentials missing");
 
   const fireStore = maybeFireStore.right;
   const twilio = maybeTwilio.right;
 
   const smsClient = DrivenPorts.Send(twilio);
-  const webAnalyticsRepository = DrivenPorts.WebAnalyticsRepository(fireStore);
-  const widgetSettingsRepository = DrivenPorts.WidgetSettingsRepository(
+  const webAnalyticsRepository = DrivenPorts.WebAnalyticsRepository.C(
     fireStore
   );
-  const widgetMessageRepository = DrivenPorts.WidgetMessageRepository(
+  const widgetSettingsRepository = DrivenPorts.WidgetSettingsRepository.C(
+    fireStore
+  );
+  const widgetMessageRepository = DrivenPorts.WidgetMessageRepository.C(
     fireStore
   );
 

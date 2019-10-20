@@ -1,4 +1,4 @@
-import { WidgetSettingsRepository } from ".";
+import { C } from ".";
 import { FireStore } from "../../driven-adapters";
 import { isRight } from "fp-ts/lib/Either";
 import { UUID } from "@huckleberryai/core";
@@ -8,7 +8,7 @@ describe("widget-settings repository", () => {
   test("it retrieves by id", async () => {
     const store = FireStore.C();
     if (isRight(store)) {
-      const repo = WidgetSettingsRepository(store.right);
+      const repo = C(store.right);
       const maybeWidgetSettings = await repo.get(
         "e67baf99-ccdf-4f96-8cc7-84d62dde25d4" as UUID.T
       );

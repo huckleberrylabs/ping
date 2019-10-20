@@ -1,4 +1,9 @@
 export * from "./sms-client";
-export * from "./web-analytics";
-export * from "./widget-settings";
-export * from "./widget-message";
+import * as WebAnalyticsRepository from "./web-analytics";
+import * as WidgetSettingsRepository from "./widget-settings";
+import * as WidgetMessageRepository from "./widget-message";
+export {
+  WebAnalyticsRepository,
+  WidgetSettingsRepository,
+  WidgetMessageRepository,
+};

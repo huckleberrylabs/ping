@@ -1,4 +1,4 @@
-import { WebAnalyticsRepository } from ".";
+import { C } from ".";
 import { FireStore } from "../../driven-adapters";
 import { isRight, isLeft } from "fp-ts/lib/Either";
 import * as WA from "@huckleberryai/web-analytics";
@@ -15,7 +15,7 @@ describe("web-analytics repository", () => {
     expect(true).toBeTruthy();
   });
   if (isLeft(store)) return;
-  const repo = WebAnalyticsRepository(store.right);
+  const repo = C(store.right);
   test("it saves a new event", async () => {
     const maybeSaved = await repo.save(event.id, event);
     expect(isRight(maybeSaved)).toBeTruthy();

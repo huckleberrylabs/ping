@@ -6,9 +6,7 @@ import { Codecs } from "../../codecs";
 
 export const Name = "widget:message";
 
-export const WidgetMessageRepository = (
-  store: FireStore.T
-): Interfaces.MessageRepository => ({
+export const C = (store: FireStore.T): Interfaces.MessageRepository => ({
   add: async (
     id: UUID.T,
     event: Message.Events

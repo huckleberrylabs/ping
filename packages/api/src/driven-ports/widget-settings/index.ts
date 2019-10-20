@@ -5,9 +5,7 @@ import { FireStore } from "../../driven-adapters";
 
 export const Name = "widget:settings";
 
-export const WidgetSettingsRepository = (
-  store: FireStore.T
-): Interfaces.SettingsRepository => ({
+export const C = (store: FireStore.T): Interfaces.SettingsRepository => ({
   get: async (
     id: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Settings.T>> => {

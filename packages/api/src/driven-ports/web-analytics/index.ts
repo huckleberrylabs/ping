@@ -5,7 +5,7 @@ import { FireStore } from "../../driven-adapters";
 
 export const Name = "web-analytics";
 
-export const WebAnalyticsRepository = (
+export const C = (
   store: FireStore.T
 ): Interfaces.Repository => ({
   save: async (
