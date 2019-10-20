@@ -1,17 +1,10 @@
-import {
-  Either,
-  left,
-  isLeft,
-  isRight,
-  right,
-  tryCatch,
-  map,
-} from "fp-ts/lib/Either";
+import { Either, left, isLeft, isRight, right } from "fp-ts/lib/Either";
 import { UUID, Errors } from "@huckleberryai/core";
 import { Interfaces, Message } from "@huckleberryai/widget";
 import { FireStore } from "../../driven-adapters";
 import { Codecs } from "../../codecs";
-import { pipe } from "fp-ts/lib/pipeable";
+
+export const Name = "widget:message";
 
 export const WidgetMessageRepository = (
   store: FireStore.T
@@ -19,24 +12,23 @@ export const WidgetMessageRepository = (
   add: async (
     id: UUID.T,
     event: Message.Events
-  ): Promise<Either<Errors.Adapter.T, null>> =>
-    pipe(
-      tryCatch(
-        async () =>
-          await store
-            .collection("widget:message")
-            .doc(UUID.Codec.encode(id))
-            .create(event),
-        () => Errors.Adapter.C()
-      ),
-      map(() => null)
-    ),
+  ): Promise<Either<Errors.Adapter.T, null>> => {
+    try {
+      await store
+        .collection(Name)
+        .doc(UUID.Codec.encode(id))
+        .create(event);
+      return right(null);
+    } catch (error) {
+      return left(Errors.Adapter.C());
+    }
+  },
   get: async (
     id: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Message.T>> => {
     try {
       const queryRef = await store
-        .collection("widget:message")
+        .collection(Name)
         .where("message", "==", id)
         .get();
       if (queryRef.empty) return left(Errors.NotFound.C());
@@ -58,7 +50,7 @@ export const WidgetMessageRepository = (
   remove: async (id: UUID.T): Promise<Either<Errors.Adapter.T, null>> => {
     try {
       await store
-        .collection("widget:message")
+        .collection(Name)
         .doc(UUID.Codec.encode(id))
         .delete();
       return right(null);

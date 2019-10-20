@@ -3,6 +3,8 @@ import { UUID, Errors } from "@huckleberryai/core";
 import { Interfaces, Settings } from "@huckleberryai/widget";
 import { FireStore } from "../../driven-adapters";
 
+export const Name = "widget:settings";
+
 export const WidgetSettingsRepository = (
   store: FireStore.T
 ): Interfaces.SettingsRepository => ({
@@ -10,7 +12,7 @@ export const WidgetSettingsRepository = (
     id: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Settings.T>> => {
     const json = (await store
-      .collection("text-widget-settings")
+      .collection(Name)
       .doc(id)
       .get()).data();
     if (!json) return left(Errors.NotFound.C());
