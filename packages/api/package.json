@@ -71,9 +71,9 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^2.2.6",
-    "@huckleberryai/core": "^0.3.10",
+    "@huckleberryai/core": "^0.3.11",
     "@huckleberryai/web-analytics": "^0.3.11",
-    "@huckleberryai/widget": "^0.3.10",
+    "@huckleberryai/widget": "^0.3.11",
     "@now/node": "^0.12.1",
     "@types/aws-serverless-express": "^3.3.1",
     "@types/color": "^3.0.0",
@@ -95,5 +95,5 @@
     "tslint-jest": "^1.0.5",
     "typescript": "^3.5.3"
   },
-  "gitHead": "03bfe86fa1b28c8f71a028d00b22bc5e5b718fdd"
+  "gitHead": "ec649b6f7b3457d529216efefd57808be3f133e4"
 }
