@@ -27,3 +27,5 @@ export const C = (phone: Phone.T, homePage: Url.T): T => ({
   color: DEFAULT_COLOR as Color.T,
   enabled: true,
 });
+
+export const Is = Codec.is;

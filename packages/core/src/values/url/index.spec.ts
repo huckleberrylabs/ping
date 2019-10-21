@@ -31,6 +31,10 @@ describe("type", () => {
       result => expect(isLeft(result)).toBeTruthy()
     );
   });
+  test("it decodes", () => {
+    const decoded = Codec.decode("http://localhost.com");
+    expect(isRight(decoded)).toBeTruthy();
+  });
   test("it encodes/decodes", () => {
     pipe(
       C("https://example.com"),

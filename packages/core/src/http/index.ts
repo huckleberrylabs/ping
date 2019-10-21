@@ -59,7 +59,6 @@ export async function Post<T>(
     if (returnValue) return returnValue;
     if (!codec) return left(Errors.Adapter.C());
     const result = Results.OKWithData.Codec(codec).decode(res.data);
-    console.log(result);
     if (isLeft(result)) return left(Errors.Adapter.C());
     return right(result.right.data);
   } catch (error) {

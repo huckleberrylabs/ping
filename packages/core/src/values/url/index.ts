@@ -1,7 +1,6 @@
 import { pipe } from "fp-ts/lib/pipeable";
 import { tryCatch, isRight, map } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
-import { URL } from "url";
 import normalize from "normalize-url";
 import * as Errors from "../../errors";
 

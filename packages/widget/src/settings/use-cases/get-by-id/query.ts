@@ -15,3 +15,5 @@ export const C = (widget: UUID.T, corr?: UUID.T, parent?: UUID.T): T => ({
   ...Event.C(widget, corr, parent),
   type: Name,
 });
+
+export const Is = Codec.is;

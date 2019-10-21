@@ -17,7 +17,6 @@ export const onLoad = async () => {
   if (!id) return;
   const widgetSDK = WidgetSDK.C(id, corr);
   const settingsMaybe = await widgetSDK.Settings.Get();
-  console.log(settingsMaybe);
   if (isLeft(settingsMaybe)) return;
   const settings = settingsMaybe.right;
   if (settings.enabled) Widget.C(analytics.log, widgetSDK)(settings);
