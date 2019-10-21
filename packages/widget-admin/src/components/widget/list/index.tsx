@@ -5,7 +5,7 @@ import { Button } from "@rmwc/button";
 import "@material/select/dist/mdc.select.css";
 import "@material/button/dist/mdc.button.css";
 import "./style.css";
-import { IWidgetSettings } from "@huckleberryai/widget";
+import { Settings } from "@huckleberryai/widget";
 import { Link } from "react-router-dom";
 
 // const RESULTS_PER_PAGE = 21;
@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 } */
 
 type Props = {
-  widgets: IWidgetSettings[];
+  widgets: Settings.T[];
 };
 type State = {
   //  sort: SortOptions;

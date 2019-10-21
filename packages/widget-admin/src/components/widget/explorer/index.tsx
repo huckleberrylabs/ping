@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { IWidgetSettings, WidgetSettings } from "@huckleberryai/widget";
+import { Settings } from "@huckleberryai/widget";
 import { WidgetList } from "../list";
 import "./style.css";
-import { ParsePhone } from "@huckleberryai/core";
+import { Phone, Url } from "@huckleberryai/core";
 
 type Props = {};
 
 type State = {
   error: boolean;
-  widgets: IWidgetSettings[];
+  widgets: Settings.T[];
 };
 
 export class WidgetExplorer extends Component<Props, State> {
@@ -22,8 +22,8 @@ export class WidgetExplorer extends Component<Props, State> {
   async componentDidMount() {
     this.setState({
       widgets: [
-        WidgetSettings(ParsePhone("+1 647 295 1647")),
-        WidgetSettings(ParsePhone("+1 647 295 1647"))
+        Settings.C("+1 647 295 1647" as Phone.T, "http://localhost" as Url.T),
+        Settings.C("+1 647 295 1647" as Phone.T, "http://localhost" as Url.T)
       ]
     });
   }

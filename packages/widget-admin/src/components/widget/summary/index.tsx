@@ -6,10 +6,10 @@ import "@material/icon-button/dist/mdc.icon-button.css";
 import "@material/typography/dist/mdc.typography.css";
 import { Card, CardPrimaryAction, CardMedia } from "@rmwc/card";
 import { Typography } from "@rmwc/typography";
-import { IWidgetSettings } from "@huckleberryai/widget";
+import { Settings } from "@huckleberryai/widget";
 
 type Props = {
-  widget: IWidgetSettings;
+  widget: Settings.T;
 };
 
 export const WidgetSummary = (props: Props) => (
@@ -20,12 +20,12 @@ export const WidgetSummary = (props: Props) => (
           sixteenByNine
           style={{
             backgroundImage:
-              "url(https://lh3.googleusercontent.com/4hZCrzldrLs4n0raLZo2-wmZXR8J8MKpIm3QM7i3bhaUtzwmyjj_xd6QrA8qCEmnyZSzfRWA6tMYEjNl--5ZsD-2GQligxIm2FEzqcY)"
+              "url(https://files.slack.com/files-pri/TGZ5VJ67K-FP9NPVB0B/screen_shot_2019-10-21_at_12.46.54_pm.png)"
           }}
         />
         <div style={{ padding: "0 1rem 1rem 1rem" }}>
           <Typography use="headline6" tag="h2">
-            google.com
+            {new URL(props.widget.homePage).host}
           </Typography>
         </div>
       </CardPrimaryAction>

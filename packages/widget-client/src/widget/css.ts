@@ -102,7 +102,6 @@ export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
 }
 
 #${e.createIcon} path {
-  fill: var(--huckleberry-text-main-color);
 }
 
 #${e.success} rect { 

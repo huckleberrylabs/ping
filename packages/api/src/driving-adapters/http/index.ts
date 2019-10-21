@@ -73,7 +73,7 @@ export const C = () => {
     }
     console.log("request: ", dto);
     const result = await port(dto);
-    console.log("result status: ", result.status);
+    console.log("result: ", result);
     let resultCodec = Codecs.get(result.type);
     if (resultCodec === undefined) {
       console.log("Result Codec Not Found", result);

@@ -18,27 +18,17 @@ import { Ripple } from "@rmwc/ripple";
 import { Switch } from "@rmwc/switch";
 import { TextField } from "@rmwc/textfield";
 import "./style.css";
-import {
-  IWidgetSettings,
-  /*   WidgetGetSettingsQuery,
-  IsWidgetSettings, */
-  WidgetSettings
-  generateHTML, 
-  generateCSS,
-  ELEMENT_IDs
-} from "@huckleberryai/widget";
-import { IsColor, UUID } from "@huckleberryai/core";
-//import { postEvent } from "../../../api";
-
+import { Settings } from "@huckleberryai/widget";
+import { Color, UUID, Phone, Url } from "@huckleberryai/core";
 
 interface Props extends RouteComponentProps {}
 type State = {
   error: boolean;
   displayColorPicker: boolean;
-  widget: IWidgetSettings | undefined;
+  widget: Settings.T | undefined;
 };
 
-const codeString = (id: UUID) =>
+const codeString = (id: UUID.T) =>
   `
   <script src="https://static.huckleberry.app/text.min.js?widget_id=${id}" id="huckleberry-text-insert-script"></script>
   `;
@@ -53,7 +43,7 @@ export class WidgetDetail extends React.Component<Props, State> {
     };
   }
 
-  onToggleEnabled = (input: boolean) =>
+  onToggleEnabled = () =>
     this.setState(prevState => {
       const newState = { ...prevState };
       if (newState.widget && prevState.widget)
@@ -73,14 +63,14 @@ export class WidgetDetail extends React.Component<Props, State> {
   onDomainChange = (input: string) =>
     this.setState(prevState => {
       const newState = { ...prevState };
-      if (newState.widget) newState.widget.phone = input;
+      if (newState.widget) newState.widget.homePage = input as Url.T;
       return newState;
     });
 
   onPhoneChange = (input: string) =>
     this.setState(prevState => {
       const newState = { ...prevState };
-      if (newState.widget) newState.widget.phone = input;
+      if (newState.widget) newState.widget.phone = input as Phone.T;
       return newState;
     });
 
@@ -88,8 +78,7 @@ export class WidgetDetail extends React.Component<Props, State> {
     this.setState({ displayColorPicker: !this.state.displayColorPicker });
   onCloseColorPicker = () => this.setState({ displayColorPicker: false });
   onChangeColor = (input: string) => {
-    console.log(input);
-    if (IsColor(input)) {
+    if (Color.Is(input)) {
       this.setState(prevState => {
         const newState = { ...prevState };
         if (newState.widget) newState.widget.color = input;
@@ -103,25 +92,67 @@ export class WidgetDetail extends React.Component<Props, State> {
   onDeleteWidget = () => null;
 
   async componentDidMount() {
-    this.setState({ widget: WidgetSettings("+1 647 295 1647") });
+    this.setState({
+      widget: Settings.C(
+        "+1 647 295 1647" as Phone.T,
+        "http://localhost" as Url.T
+      )
+    });
   }
   render() {
-    console.log(this.props);
     const { widget, error, displayColorPicker } = this.state;
     if (widget) {
       return (
         <div className="detail-container">
+          <div className="controls-container">
+            <Button
+              onClick={this.onGoBack}
+              icon="keyboard_arrow_left"
+              theme={["textPrimaryOnLight"]}
+            >
+              Back
+            </Button>
+          </div>
           <h1>Widget Settings</h1>
+          <div className="code-snippet-container">
+            <h2>Setup</h2>
+            <div className="verified-container">
+              <label>Installation Verified</label>
+              <Icon
+                icon={{ icon: "check", size: "small" }}
+                theme="textPrimaryOnDark"
+                className="verified"
+              />
+            </div>
+            <p>
+              Copy this code and insert it as high as possible inside the head
+              tag of your website. If you'd like assistance, please reach out to
+              us at support@ping.buzz.
+            </p>
+            <Ripple primary>
+              <div
+                className="code-snippet-inner-container"
+                onClick={() => this.onClickCodeSnippet(codeString(widget.id))}
+              >
+                <SyntaxHighlighter language="html" style={docco}>
+                  {codeString(widget.id)}
+                </SyntaxHighlighter>
+                <Icon
+                  className="code-snippet-copy-icon"
+                  icon="file_copy"
+                  theme="textSecondaryOnLight"
+                />
+              </div>
+            </Ripple>
+          </div>
+
           <div className="configuration-container">
             <h2>Configuration</h2>
             <div className="enabled-container">
               <label>Enabled</label>
               <Switch
                 checked={widget.enabled}
-                // @ts-ignore
-                onChange={evt =>
-                  this.onToggleEnabled(evt.currentTarget.checked)
-                }
+                onChange={() => this.onToggleEnabled()}
                 theme={"primary"}
               />
             </div>
@@ -129,7 +160,7 @@ export class WidgetDetail extends React.Component<Props, State> {
             <div className="url-container">
               <label>Homepage</label>
               <TextField
-                value={"https://"}
+                value={widget.homePage}
                 placeholder={"https://example.com"}
                 fullwidth
                 // @ts-ignore
@@ -147,38 +178,6 @@ export class WidgetDetail extends React.Component<Props, State> {
                 onChange={evt => this.onPhoneChange(evt.target.value)}
               />
             </div>
-          </div>
-
-          <div className="code-snippet-container">
-            <h2>Setup</h2>
-            <div className="verified-container">
-              <label>Installation Verified</label>
-              <Icon
-                icon={{ icon: "check", size: "small" }}
-                theme="textPrimaryOnDark"
-                className="verified"
-              />
-            </div>
-            <p>
-              Copy this code and insert it as high as possible inside the head
-              tag of your website. If you'd like assistance, please reach out to
-              us!
-            </p>
-            <Ripple primary>
-              <div
-                className="code-snippet-inner-container"
-                onClick={() => this.onClickCodeSnippet(codeString(widget.id))}
-              >
-                <SyntaxHighlighter language="html" style={docco}>
-                  {codeString(widget.id)}
-                </SyntaxHighlighter>
-                <Icon
-                  className="code-snippet-copy-icon"
-                  icon="file_copy"
-                  theme="textSecondaryOnLight"
-                />
-              </div>
-            </Ripple>
           </div>
 
           <div>
@@ -205,19 +204,15 @@ export class WidgetDetail extends React.Component<Props, State> {
           </div>
 
           <div className="delete-container">
+            <h2>Danger Zone</h2>
             <Button onClick={this.onDeleteWidget} outlined danger>
               Delete
             </Button>
           </div>
-
+          <br />
+          <br />
+          <br />
           <div className="controls-container">
-            <Button
-              onClick={this.onGoBack}
-              icon="keyboard_arrow_left"
-              theme={["textPrimaryOnLight"]}
-            >
-              Back
-            </Button>
             <Button onClick={this.onSaveChanges} outlined>
               Save Changes
             </Button>
@@ -230,8 +225,3 @@ export class WidgetDetail extends React.Component<Props, State> {
     return <div>Loading...</div>;
   }
 }
-
-/* 
-live widget
-replace phone with user
-*/

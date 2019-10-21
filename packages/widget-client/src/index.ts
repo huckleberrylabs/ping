@@ -10,20 +10,15 @@ export const onLoad = async () => {
   const corr = UUID.C();
   const maybeID = Widget.GetID(INSERT_SCRIPT_ID);
   const id = isRight(maybeID) ? maybeID.right : undefined;
-
   const analytics = AnalyticsSDK.C({ fingerPrint: { enabled: true } })(
     id,
     corr
   );
-
   if (!id) return;
-
   const widgetSDK = WidgetSDK.C(id, corr);
   const settingsMaybe = await widgetSDK.Settings.Get();
   console.log(settingsMaybe);
-
   if (isLeft(settingsMaybe)) return;
-
   const settings = settingsMaybe.right;
   if (settings.enabled) Widget.C(analytics.log, widgetSDK)(settings);
 };

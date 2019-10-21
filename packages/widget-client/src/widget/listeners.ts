@@ -1,5 +1,4 @@
-import { pipe } from "fp-ts/lib/pipeable";
-import { map, mapLeft, isLeft, isRight } from "fp-ts/lib/Either";
+import { isLeft, isRight } from "fp-ts/lib/Either";
 import { UUID, NonEmptyString, Phone, PersonName } from "@huckleberryai/core";
 import { Interfaces } from "@huckleberryai/widget";
 import { Elements } from "./elements";
@@ -21,42 +20,40 @@ export const onCreateMessage = (
 export const onAddTextToMessage = (
   e: Elements,
   sdk: Interfaces.SDK
-) => async () =>
-  pipe(
-    NonEmptyString.Codec.decode(e.textInput.value.trim()),
-    mapLeft(() => {
-      e.textInput.setCustomValidity("Invalid");
-    }),
-    map(text => {
-      e.container.style.width = "23rem";
-      e.addText.classList.remove("shown");
-      e.textInput.classList.remove("shown");
-      e.phoneInput.classList.add("shown");
-      e.addPhone.classList.add("shown");
-      e.phoneInput.focus();
-      sdk.Message.AddText(message, text);
-    })
-  );
+) => async () => {
+  const textMaybe = NonEmptyString.Codec.decode(e.textInput.value.trim());
+  if (isLeft(textMaybe)) {
+    e.textInput.setCustomValidity("Invalid");
+    return;
+  }
+  const text = textMaybe.right;
+  e.container.style.width = "23rem";
+  e.addText.classList.remove("shown");
+  e.textInput.classList.remove("shown");
+  e.phoneInput.classList.add("shown");
+  e.addPhone.classList.add("shown");
+  e.phoneInput.focus();
+  sdk.Message.AddText(message, text);
+};
 
 export const onAddPhoneToMessage = (
   e: Elements,
   sdk: Interfaces.SDK
-) => async () =>
-  pipe(
-    Phone.C(e.phoneInput.value),
-    mapLeft(() => {
-      e.phoneInput.setCustomValidity("Invalid");
-    }),
-    map(phone => {
-      e.container.style.width = "27rem";
-      e.addPhone.classList.remove("shown");
-      e.phoneInput.classList.remove("shown");
-      e.nameInput.classList.add("shown");
-      e.send.classList.add("shown");
-      e.nameInput.focus();
-      sdk.Message.AddPhone(message, phone);
-    })
-  );
+) => async () => {
+  const phoneMaybe = Phone.C(e.phoneInput.value);
+  if (isLeft(phoneMaybe)) {
+    e.phoneInput.setCustomValidity("Invalid");
+    return;
+  }
+  const phone = phoneMaybe.right;
+  e.container.style.width = "27rem";
+  e.addPhone.classList.remove("shown");
+  e.phoneInput.classList.remove("shown");
+  e.nameInput.classList.add("shown");
+  e.send.classList.add("shown");
+  e.nameInput.focus();
+  sdk.Message.AddPhone(message, phone);
+};
 
 export const onAddNameToMessageAndSend = (
   e: Elements,
@@ -67,6 +64,7 @@ export const onAddNameToMessageAndSend = (
     e.nameInput.setCustomValidity("Invalid");
     return;
   }
+  const name = maybeName.right;
   e.nameInput.classList.remove("shown");
   e.send.classList.remove("shown");
   e.container.style.width = "";

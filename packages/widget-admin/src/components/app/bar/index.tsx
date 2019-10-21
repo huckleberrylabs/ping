@@ -14,7 +14,7 @@ export const AppBar = (props: { logout: () => void }) => (
   <TopAppBar fixed className="app-bar">
     <TopAppBarRow>
       <TopAppBarSection alignStart>
-        <TopAppBarTitle>Text, by Huckleberry</TopAppBarTitle>
+        <TopAppBarTitle>ping</TopAppBarTitle>
       </TopAppBarSection>
       <TopAppBarSection alignEnd>
         <Button onClick={props.logout} outlined theme={["onPrimary"]}>

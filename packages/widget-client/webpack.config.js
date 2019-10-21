@@ -10,15 +10,13 @@ function getEnv() {
       throw new Error(".env file couldn't be parsed");
     }
     process.env = dotenv.parsed;
-    return new webpack.DefinePlugin({
-      "process.env": dotenv.parsed,
-    });
   }
   return new webpack.EnvironmentPlugin(["NODE_ENV", "API_URL"]);
 }
 
 const options = {
-  mode: "production",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
+  devtool: "cheap-module-source-map",
   entry: "./src/index.ts",
   module: {
     rules: [
