@@ -13,6 +13,7 @@ export const Handler = (repo: MessageRepository) => async (
   const res = await repo.get(command.message);
   if (isLeft(res)) return Results.Error.C(command);
   const message = res.right;
+  console.log(message);
   if (Message.Text(message)) return Results.BadRequest.C(command);
   const event = Event.C(command);
   const saved = await repo.add(event.id, event);

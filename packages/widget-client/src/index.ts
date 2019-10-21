@@ -20,6 +20,7 @@ export const onLoad = async () => {
 
   const widgetSDK = WidgetSDK.C(id, corr);
   const settingsMaybe = await widgetSDK.Settings.Get();
+  console.log(settingsMaybe);
 
   if (isLeft(settingsMaybe)) return;
 

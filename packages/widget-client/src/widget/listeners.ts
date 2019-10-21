@@ -1,5 +1,5 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import { map, mapLeft } from "fp-ts/lib/Either";
+import { map, mapLeft, isLeft, isRight } from "fp-ts/lib/Either";
 import { UUID, NonEmptyString, Phone, PersonName } from "@huckleberryai/core";
 import { Interfaces } from "@huckleberryai/widget";
 import { Elements } from "./elements";
@@ -61,27 +61,25 @@ export const onAddPhoneToMessage = (
 export const onAddNameToMessageAndSend = (
   e: Elements,
   sdk: Interfaces.SDK
-) => async () =>
-  pipe(
-    PersonName.C(e.nameInput.value),
-    mapLeft(() => {
-      e.nameInput.setCustomValidity("Invalid");
-    }),
-    map(name => {
-      e.nameInput.classList.remove("shown");
-      e.send.classList.remove("shown");
-      e.container.style.width = "";
-      e.loader.classList.add("shown");
-      return sdk.Message.AddName(message, name);
-    }),
-    map(() => {
-      return sdk.Message.Send(message);
-    }),
-    mapLeft(() => {
-      e.loader.classList.remove("shown");
-      e.error.classList.add("shown");
-    })
-  );
+) => async () => {
+  const maybeName = PersonName.C(e.nameInput.value);
+  if (isLeft(maybeName)) {
+    e.nameInput.setCustomValidity("Invalid");
+    return;
+  }
+  e.nameInput.classList.remove("shown");
+  e.send.classList.remove("shown");
+  e.container.style.width = "";
+  e.loader.classList.add("shown");
+  await sdk.Message.AddName(message, name);
+  const res = await sdk.Message.Send(message);
+  e.loader.classList.remove("shown");
+  if (isRight(res)) {
+    e.success.classList.add("shown");
+  } else {
+    e.error.classList.add("shown");
+  }
+};
 
 export const nextOnEnter = (button: HTMLButtonElement) => (
   event: KeyboardEvent

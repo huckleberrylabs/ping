@@ -14,9 +14,18 @@ export type Events =
   | Sent.T;
 export type T = Events[];
 
-export const Text = (message: T) => message.filter(TextAdded.Is)[0].text;
-export const Name = (message: T) => message.filter(NameAdded.Is)[0].name;
-export const Phone = (message: T) => message.filter(PhoneAdded.Is)[0].phone;
+export const Text = (message: T) => {
+  const event = message.filter(TextAdded.Is)[0];
+  return event ? event.text : undefined;
+};
+export const Name = (message: T) => {
+  const event = message.filter(NameAdded.Is)[0];
+  return event ? event.name : undefined;
+};
+export const Phone = (message: T) => {
+  const event = message.filter(PhoneAdded.Is)[0];
+  return event ? event.phone : undefined;
+};
 
 export const IsValid = (message: T) =>
   HasOneID(message) &&

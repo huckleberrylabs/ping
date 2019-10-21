@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script
-      src="staging_fake_file.js?widget_id=<%= htmlWebpackPlugin.options.widget_id %>"
+      src="fake_file.js?widget_id=<%= htmlWebpackPlugin.options.widget_id %>"
       id="huckleberry-text-insert-script"
     ></script>
     <style>
@@ -18,5 +18,6 @@
   </head>
   <body>
     <h1><%= htmlWebpackPlugin.options.title %></h1>
+    <h2><%= htmlWebpackPlugin.options.api_url %></h2>
   </body>
 </html>

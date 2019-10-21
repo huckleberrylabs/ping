@@ -3,12 +3,9 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna clean -y && lerna bootstrap",
-    "clean": "lerna clean",
     "start": "lerna run start --stream",
     "build": "lerna run build --stream",
-    "build:watch": "lerna run build:watch --stream",
-    "test": "lerna run test  --stream",
-    "test:watch": "lerna run test:watch  --stream"
+    "test": "lerna run test  --stream"
   },
   "devDependencies": {
     "lerna": "^3.18.1"

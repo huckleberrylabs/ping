@@ -11,7 +11,7 @@ export const C = (store: FireStore.T): Interfaces.SettingsRepository => ({
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Settings.T>> => {
     const json = (await store
       .collection(Name)
-      .doc(id)
+      .doc(UUID.Codec.encode(id))
       .get()).data();
     if (!json) return left(Errors.NotFound.C());
     const settings = Settings.Codec.decode(json);

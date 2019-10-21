@@ -1,17 +1,16 @@
-import express from "express";
 import awsServerlessExpress from "aws-serverless-express";
 import { Env } from "@huckleberryai/core";
-import { http as handler } from "./driving-adapters";
+import { C } from "./driving-adapters";
 
-const app = express();
-app.get("/", handler);
-const server = awsServerlessExpress.createServer(app);
 const env = Env.Get();
 
+const app = C();
+
 if (env === "development") {
-  app.listen(8000, () => console.log(`Example app listening on port ${8000}!`));
+  app.listen(8000, () => console.log(`listening on port ${8000}!`));
 }
 
+const server = awsServerlessExpress.createServer(app);
 exports.handler = (event: any, context: any) => {
   awsServerlessExpress.proxy(server, event, context);
 };

@@ -12,10 +12,14 @@ export const C = (store: FireStore.T): Interfaces.MessageRepository => ({
     event: Message.Events
   ): Promise<Either<Errors.Adapter.T, null>> => {
     try {
+      const codec = Codecs.get(event.type);
+      if (!codec) {
+        return left(Errors.Adapter.C());
+      }
       await store
         .collection(Name)
         .doc(UUID.Codec.encode(id))
-        .create(event);
+        .create(codec.encode(event));
       return right(null);
     } catch (error) {
       return left(Errors.Adapter.C());

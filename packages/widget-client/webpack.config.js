@@ -3,7 +3,21 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const JavaScriptObfuscator = require("webpack-obfuscator");
 
-module.exports = {
+function getEnv() {
+  if (process.env.NODE_ENV === "development") {
+    const dotenv = require("dotenv").config();
+    if (dotenv.error) {
+      throw new Error(".env file couldn't be parsed");
+    }
+    process.env = dotenv.parsed;
+    return new webpack.DefinePlugin({
+      "process.env": dotenv.parsed,
+    });
+  }
+  return new webpack.EnvironmentPlugin(["NODE_ENV", "API_URL"]);
+}
+
+const options = {
   mode: "production",
   entry: "./src/index.ts",
   module: {
@@ -22,15 +36,27 @@ module.exports = {
     filename: "text.min.js",
     path: path.resolve(__dirname, "dist"),
   },
-  plugins: [
-    new webpack.EnvironmentPlugin(["NODE_ENV", "API_URL"]),
+  plugins: [getEnv()],
+};
+
+// development, staging, testing
+if (process.env.NODE_ENV !== "production") {
+  options.plugins.push(
     new HtmlWebpackPlugin({
-      title: "Ping (Staging)",
+      title: process.env.NODE_ENV,
+      api_url: process.env.API_URL,
       widget_id: process.env.WIDGET_ID,
       template: "index.html",
-    }),
-    /* new JavaScriptObfuscator({
+    })
+  );
+}
+
+if (process.env.NODE_ENV === "production") {
+  options.plugins.push(
+    new JavaScriptObfuscator({
       rotateUnicodeArray: true,
-    }), */
-  ],
-};
+    })
+  );
+}
+
+module.exports = options;

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { isSome } from "fp-ts/lib/Option";
-import { left, Either, isLeft } from "fp-ts/lib/Either";
+import { left, Either, isLeft, right } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
 import * as Json from "../json";
 import * as Event from "../event";
@@ -57,12 +57,10 @@ export async function Post<T>(
     const responseType: Results.Names = res.data.type;
     const returnValue = Results.ReturnValues.get(responseType);
     if (returnValue) return returnValue;
-    if (codec) {
-      const result = Results.OKWithData.Codec(codec).decode(res.data);
-      if (isLeft(result)) return left(Errors.Adapter.C());
-      return result;
-    }
-    return left(Errors.Adapter.C());
+    if (!codec) return left(Errors.Adapter.C());
+    const result = Results.OKWithData.Codec(codec).decode(res.data);
+    if (isLeft(result)) return left(Errors.Adapter.C());
+    return right(result.right.data);
   } catch (error) {
     return left(Errors.Adapter.C());
   }

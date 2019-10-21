@@ -10,7 +10,7 @@ describe("widget-settings repository", () => {
     if (isRight(store)) {
       const repo = C(store.right);
       const maybeWidgetSettings = await repo.get(
-        "e67baf99-ccdf-4f96-8cc7-84d62dde25d4" as UUID.T
+        "d805c6fa-44c4-412c-b6d7-2828da2aba2d" as UUID.T
       );
       expect(isRight(maybeWidgetSettings)).toBeTruthy();
       if (isRight(maybeWidgetSettings))
