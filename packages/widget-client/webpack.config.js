@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const JavaScriptObfuscator = require("webpack-obfuscator");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 function getEnv() {
   if (process.env.NODE_ENV === "development") {
@@ -16,13 +17,20 @@ function getEnv() {
 
 const options = {
   mode: process.env.NODE_ENV === "production" ? "production" : "development",
-  devtool: "cheap-module-source-map",
+  devtool: "inline-source-map",
   entry: "./src/index.ts",
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
     ],
@@ -34,7 +42,7 @@ const options = {
     filename: "text.min.js",
     path: path.resolve(__dirname, "dist"),
   },
-  plugins: [getEnv()],
+  plugins: [new ForkTsCheckerWebpackPlugin(), getEnv()],
 };
 
 // development, staging, testing

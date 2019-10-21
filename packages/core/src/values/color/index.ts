@@ -40,3 +40,6 @@ export const Parse = (input: string) =>
 export const Format = (color: ColorLib) => color.hex().toLowerCase() as T;
 
 export const Is = Codec.is;
+
+export const IsLight = (color: T): boolean => ColorLib(color).isLight();
+export const IsDark = (color: T): boolean => ColorLib(color).isDark();

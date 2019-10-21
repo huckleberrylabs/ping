@@ -1,4 +1,4 @@
-import { UUID } from "@huckleberryai/core";
+import { UUID, Color } from "@huckleberryai/core";
 import { Settings } from "@huckleberryai/widget";
 import { ElementIDs } from "./elements";
 
@@ -13,10 +13,11 @@ export const InsertCSS = (css: string) => {
 
 export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
   `:root {
-  --huckleberry-text-accent-color: ${w.color};
-  --huckleberry-text-main-color:  white;
-  --huckleberry-text-success-color: #00ae4e;
-  --huckleberry-text-fail-color: #ae0034;
+  --huckleberry-ping-accent-color: ${w.color};
+  --huckleberry-ping-text-color:  ${Color.IsLight(w.color) ? "black" : "white"};
+  --huckleberry-ping-background-color: #f7f7f7;
+  --huckleberry-ping-success-color: #00ae4e;
+  --huckleberry-ping-fail-color: #ae0034;
 }
 #${e.container} * {
   font-size: 14px;
@@ -27,13 +28,12 @@ export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
   z-index: 2147483647;
   bottom: 24px;
   right: 24px;
-  width: 64px;
+  width: 54px;
   max-width: 90vw;
-  height: 64px;
-  border-radius: 5px;
-  overflow: hidden;
+  height: 54px;
+  border-radius: 8px;
   transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  background-color: var(--huckleberry-text-main-color);
+  background-color: var(--huckleberry-ping-background-color);
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25);
 }
 #${e.form} {
@@ -60,13 +60,13 @@ export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
   padding: 0;
   border-radius: 5px;
   cursor: pointer;
-  background-color: var(--huckleberry-text-accent-color);
-  color: var(--huckleberry-text-main-color);
+  background-color: var(--huckleberry-ping-accent-color);
+  color: var(--huckleberry-ping-text-color);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 #${e.form} input {
   width: 100%;
-  background-color: var(--huckleberry-text-main-color);
+  background-color: var(--huckleberry-ping-background-color);
   box-sizing: border-box;
   padding: 0 20px;
 }
@@ -79,6 +79,10 @@ export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
   transition: all 0.4s ease 0.4s;
   transform: scale(1);
   opacity: 1;
+}
+
+#${e.container} > #${e.form} button.shown {
+  transform: scale(1.2);
 }
 
 #${e.container} > #${e.form} #${e.loader}.shown,
@@ -97,20 +101,39 @@ export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
 #${e.loader},
 #${e.success},
 #${e.error} {
-  width: 64px;
-  height: 64px;
+  width: 54px;
+  height: 54px;
 }
 
 #${e.createIcon} path {
+  stroke: var(--huckleberry-ping-text-color);
+  stroke-width: 10;
 }
 
+#${e.createIcon} #ping-text {
+  stroke: none;
+  fill: var(--huckleberry-ping-text-color);
+}
+
+#${e.createIcon} circle,
+#${e.createIcon} rect {
+  fill: var(--huckleberry-ping-text-color);
+}
+
+#${e.createIcon} #phone-outline {
+  fill: none;
+  stroke-width: 10;
+  stroke: var(--huckleberry-ping-text-color);
+}
+
+
 #${e.success} rect { 
-  fill: var(--huckleberry-text-success-color);
+  fill: var(--huckleberry-ping-success-color);
 }
 
 #${e.success} polyline {
   fill: none;
-  stroke: var(--huckleberry-text-main-color);
+  stroke: var(--huckleberry-ping-text-color);
   stroke-linecap: round;
   stroke-miterlimit: 10;
   stroke-width: 6;
@@ -125,12 +148,12 @@ export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
 }
 
 #${e.error} rect { 
-  fill: var(--huckleberry-text-fail-color);
+  fill: var(--huckleberry-ping-fail-color);
 }
 
 #${e.error} line {
   fill: none;
-  stroke: var(--huckleberry-text-main-color);
+  stroke: var(--huckleberry-ping-text-color);
   stroke-linecap: round;
   stroke-miterlimit: 10;
   stroke-width: 6;
@@ -156,7 +179,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Settings.T) =>
 
 #${e.loader} circle {
   fill: transparent;
-  stroke: var(--huckleberry-text-accent-color);
+  stroke: var(--huckleberry-ping-accent-color);
   stroke-width: 0.128em;
   stroke-linecap: round;
   stroke-dasharray: 1.5056em 0.30112em;
