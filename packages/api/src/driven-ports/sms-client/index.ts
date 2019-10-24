@@ -1,5 +1,3 @@
-// @ts-ignore
-import * as iots from "io-ts";
 import { Twilio } from "twilio";
 import { left, right } from "fp-ts/lib/Either";
 import { Phone, NonEmptyString, Errors, SMSClient } from "@huckleberryai/core";

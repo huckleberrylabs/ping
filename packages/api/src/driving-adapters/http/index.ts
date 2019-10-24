@@ -1,5 +1,3 @@
-// @ts-ignore
-import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
 import express from "express";
 import cors from "cors";
@@ -12,7 +10,11 @@ export const C = () => {
   const ports = Container();
   const app = express();
   app.use(cors());
-  app.use(express.json());
+  app.use(
+    express.json({
+      type: ["*/json", "text/plain"],
+    })
+  );
   app.use((req, res, next) => {
     console.log(req.url);
     next();

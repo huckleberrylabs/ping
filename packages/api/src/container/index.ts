@@ -1,15 +1,13 @@
-// @ts-ignore
-import * as iots from "io-ts";
 import { isLeft } from "fp-ts/lib/Either";
 import { Results, Type } from "@huckleberryai/core";
 import * as WebAnalytics from "@huckleberryai/web-analytics";
-import * as Widget from "@huckleberryai/widget";
+import * as Ping from "@huckleberryai/ping";
 import * as DrivenAdapters from "../driven-adapters";
 import * as DrivenPorts from "../driven-ports";
 
 type Handler = (event: any) => Promise<Results.T>;
 
-type Names = WebAnalytics.Names | Widget.Names;
+type Names = WebAnalytics.Names | Ping.Names;
 
 export default () => {
   const maybeFireStore = DrivenAdapters.FireStore.C();
@@ -25,12 +23,10 @@ export default () => {
   const webAnalyticsRepository = DrivenPorts.WebAnalyticsRepository.C(
     fireStore
   );
-  const widgetSettingsRepository = DrivenPorts.WidgetSettingsRepository.C(
-    fireStore
-  );
-  const widgetMessageRepository = DrivenPorts.WidgetMessageRepository.C(
-    fireStore
-  );
+
+  const accountRepository = DrivenPorts.AccountRepository.C(fireStore);
+  const widgetRepository = DrivenPorts.WidgetRepository.C(fireStore);
+  const messageRepository = DrivenPorts.MessageRepository.C(fireStore);
 
   return new Map<Names | Type.T, Handler>([
     [
@@ -46,32 +42,47 @@ export default () => {
       WebAnalytics.Server.UseCases.HTTPAccess.Handler(webAnalyticsRepository),
     ],
     [
-      Widget.Message.UseCases.AddName.Command.Name,
-      Widget.Message.UseCases.AddName.Handler(widgetMessageRepository),
+      Ping.UseCases.RegisterAccount.Command.Name,
+      Ping.UseCases.RegisterAccount.Handler(accountRepository),
     ],
     [
-      Widget.Message.UseCases.AddText.Command.Name,
-      Widget.Message.UseCases.AddText.Handler(widgetMessageRepository),
+      Ping.Account.UseCases.GetByID.Query.Name,
+      Ping.Account.UseCases.GetByID.Handler(accountRepository),
     ],
     [
-      Widget.Message.UseCases.AddPhone.Command.Name,
-      Widget.Message.UseCases.AddPhone.Handler(widgetMessageRepository),
-    ],
-    [
-      Widget.Message.UseCases.Create.Command.Name,
-      Widget.Message.UseCases.Create.Handler(widgetMessageRepository),
-    ],
-    [
-      Widget.Message.UseCases.Send.Command.Name,
-      Widget.Message.UseCases.Send.Handler(
-        widgetSettingsRepository,
-        widgetMessageRepository,
-        smsClient
+      Ping.Account.UseCases.AddWidget.Command.Name,
+      Ping.Account.UseCases.AddWidget.Handler(
+        accountRepository,
+        widgetRepository
       ),
     ],
     [
-      Widget.Settings.UseCases.GetByID.Query.Name,
-      Widget.Settings.UseCases.GetByID.Handler(widgetSettingsRepository),
+      Ping.Widget.UseCases.CreateMessage.Command.Name,
+      Ping.Widget.UseCases.CreateMessage.Handler(messageRepository),
+    ],
+    [
+      Ping.Widget.UseCases.GetByID.Query.Name,
+      Ping.Widget.UseCases.GetByID.Handler(widgetRepository),
+    ],
+    [
+      Ping.Message.UseCases.AddName.Command.Name,
+      Ping.Message.UseCases.AddName.Handler(messageRepository),
+    ],
+    [
+      Ping.Message.UseCases.AddText.Command.Name,
+      Ping.Message.UseCases.AddText.Handler(messageRepository),
+    ],
+    [
+      Ping.Message.UseCases.AddPhone.Command.Name,
+      Ping.Message.UseCases.AddPhone.Handler(messageRepository),
+    ],
+    [
+      Ping.Message.UseCases.Send.Command.Name,
+      Ping.Message.UseCases.Send.Handler(
+        widgetRepository,
+        messageRepository,
+        smsClient
+      ),
     ],
   ]);
 };

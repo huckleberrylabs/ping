@@ -1,0 +1,41 @@
+.sign-up-container {
+  display: flex;
+  line-height: 1.5;
+  width: 100vw;
+  height: 100vh;
+  background: var(--mdc-theme-primary);
+}
+
+.sign-up-modal {
+  margin: auto;
+  background: var(--mdc-theme-background);
+  padding: 40px;
+  max-width: 300px;
+  min-height: 350px;
+  border-radius: 7px;
+}
+
+.sign-up-design {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  padding: 20px 0;
+  justify-content: space-between;
+}
+
+.sign-up-activate {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  padding: 20px 0;
+  justify-content: space-between;
+}
+
+.sign-up-loader {
+  display: flex;
+  height: 200px;
+}
+
+.sign-up-loader > * {
+  margin: auto;
+}

@@ -73,7 +73,7 @@
     "@google-cloud/firestore": "^2.2.6",
     "@huckleberryai/core": "^0.3.18",
     "@huckleberryai/web-analytics": "^0.3.18",
-    "@huckleberryai/widget": "^0.3.18",
+    "@huckleberryai/ping": "^0.3.18",
     "@now/node": "^0.12.1",
     "@types/aws-serverless-express": "^3.3.1",
     "@types/color": "^3.0.0",
