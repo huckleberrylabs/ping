@@ -29,6 +29,19 @@ export const C = (store: FireStore.T): Interfaces.WidgetRepository => ({
       return left(Errors.Adapter.C());
     }
   },
+  update: async (
+    widget: Widget.T
+  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>> => {
+    try {
+      await store
+        .collection(Name)
+        .doc(UUID.Codec.encode(widget.id))
+        .update(Widget.Codec.encode(widget));
+      return right(null);
+    } catch (error) {
+      return left(Errors.Adapter.C());
+    }
+  },
   remove: async (id: UUID.T): Promise<Either<Errors.Adapter.T, null>> => {
     try {
       await store

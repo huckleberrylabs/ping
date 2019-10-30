@@ -1,0 +1,16 @@
+.account-viewer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10vh 5vw 10vh 5vw;
+  min-width: 500px;
+  min-height: 500px;
+}
+
+.account-viewer-save-changes-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50vw;
+}

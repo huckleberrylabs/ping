@@ -14,8 +14,8 @@ export const Codec = iots.intersection(
     iots.type({
       type: iots.literal(Name),
       stripeToken: NonEmptyString.Codec,
-      userName: PersonName.Codec,
       email: NonEmptyString.Codec,
+      userName: PersonName.Codec,
       billingEmail: OptionFromNullable.Codec(NonEmptyString.Codec),
       name: OptionFromNullable.Codec(NonEmptyString.Codec),
     }),

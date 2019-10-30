@@ -31,4 +31,12 @@ export const Codecs = new Map<Names, iots.Mixed>([
   [Validation.Name, Validation.Codec],
 ]);
 
+export const Is = (input: unknown): input is T =>
+  Adapter.Is(input) ||
+  Environment.Is(input) ||
+  NotFound.Is(input) ||
+  Forbidden.Is(input) ||
+  Parsing.Is(input) ||
+  Validation.Is(input);
+
 export { Adapter, Environment, NotFound, Forbidden, Parsing, Validation };

@@ -1,5 +1,5 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Results } from "@huckleberryai/core";
+import { Results, UUID } from "@huckleberryai/core";
 import { AccountRepository, WidgetRepository } from "../../../../interfaces";
 import * as Account from "../../../../account";
 import * as Command from "../command";
@@ -41,5 +41,5 @@ export const Handler = (
     return Results.Error.C(command);
   }
 
-  return Results.OK.C(command);
+  return Results.OKWithData.C(command, newWidget.id, UUID.Name);
 };

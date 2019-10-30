@@ -3,6 +3,8 @@ import { Results } from "@huckleberryai/core";
 import { WidgetRepository } from "../../../../interfaces";
 import * as Query from "../query";
 
+// TODO return simple settings (stripped of PII like Phone Numbers)
+
 export const Handler = (repo: WidgetRepository) => async (query: Query.T) => {
   const widgetMaybe = await repo.get(query.widget);
   if (isLeft(widgetMaybe)) {

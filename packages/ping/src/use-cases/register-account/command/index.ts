@@ -29,8 +29,8 @@ export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (
   stripeToken: NonEmptyString.T,
-  userName: PersonName.T,
   email: NonEmptyString.T,
+  userName: PersonName.T,
   billingEmail?: NonEmptyString.T,
   name?: NonEmptyString.T,
   corr?: UUID.T
@@ -38,8 +38,8 @@ export const C = (
   ...Event.C(corr),
   type: Name,
   stripeToken,
-  userName,
   email,
+  userName,
   billingEmail: billingEmail ? some(billingEmail) : none,
   name: name ? some(name) : none,
 });

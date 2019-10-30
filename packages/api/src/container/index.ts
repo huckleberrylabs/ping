@@ -57,6 +57,17 @@ export default () => {
       ),
     ],
     [
+      Ping.Account.UseCases.UpdateWidget.Command.Name,
+      Ping.Account.UseCases.UpdateWidget.Handler(
+        accountRepository,
+        widgetRepository
+      ),
+    ],
+    [
+      Ping.Account.UseCases.Update.Command.Name,
+      Ping.Account.UseCases.Update.Handler(accountRepository),
+    ],
+    [
       Ping.Widget.UseCases.CreateMessage.Command.Name,
       Ping.Widget.UseCases.CreateMessage.Handler(messageRepository),
     ],

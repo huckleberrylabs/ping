@@ -1,3 +1,3 @@
-import * as AdminSDK from "./admin";
-import * as ClientSDK from "./client";
-export { AdminSDK, ClientSDK };
+import * as PrivateSDK from "./private";
+import * as PublicSDK from "./public";
+export { PrivateSDK, PublicSDK };

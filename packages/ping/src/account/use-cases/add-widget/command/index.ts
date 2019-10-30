@@ -12,7 +12,7 @@ export const Codec = iots.intersection(
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (widget: Widget.T, account: UUID.T, corr?: UUID.T): T => ({
+export const C = (account: UUID.T, widget: Widget.T, corr?: UUID.T): T => ({
   ...Event.C(account, corr),
   type: Name,
   widget,

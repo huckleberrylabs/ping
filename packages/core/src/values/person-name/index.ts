@@ -1,8 +1,6 @@
 import { parseName, NameOutput } from "humanparser";
-import { right, left } from "fp-ts/lib/Either";
 import { some, none } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
-import * as Errors from "../../errors";
 import * as NonEmptyString from "../non-empty-string";
 import * as OptionFromNullable from "../option-from-nullable";
 // Try parse-full-name as well if not working well
@@ -28,10 +26,7 @@ export const Codec = iots.type(
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (input: string) =>
-  NonEmptyString.Is(input)
-    ? right(Map(input, parseName(input)))
-    : left(Errors.Validation.C());
+export const C = (input: NonEmptyString.T) => Map(input, parseName(input));
 
 const Map = (original: string, input: NameOutput) =>
   ({

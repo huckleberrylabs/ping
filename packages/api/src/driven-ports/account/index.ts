@@ -9,12 +9,15 @@ export const C = (store: FireStore.T): Interfaces.AccountRepository => ({
   get: async (
     id: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Account.T>> => {
+    console.log("ping:account:repository:get:id", id);
     const json = (await store
       .collection(Name)
       .doc(UUID.Codec.encode(id))
       .get()).data();
+    console.log("ping:account:repository:get:json ", json);
     if (!json) return left(Errors.NotFound.C());
     const settings = Account.Codec.decode(json);
+    console.log("ping:account:repository:get:decoded", settings);
     if (isLeft(settings)) return left(Errors.Adapter.C());
     return settings;
   },

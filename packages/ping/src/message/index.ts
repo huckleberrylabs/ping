@@ -1,6 +1,5 @@
 import * as UseCases from "./use-cases";
-import * as Entity from "./entity";
 export { UseCases };
 export * from "./entity";
 
-export type Names = UseCases.Names | typeof Entity.Name;
+export type Names = UseCases.Names; // dont include ping:message because its event sourced and never serialized

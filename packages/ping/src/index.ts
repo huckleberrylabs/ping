@@ -3,8 +3,8 @@ import * as Account from "./account";
 import * as Widget from "./widget";
 import * as Message from "./message";
 import * as Interfaces from "./interfaces";
-import * as SDK from "./sdk";
-export { UseCases, Account, Widget, Message, Interfaces, SDK };
+export * from "./sdk";
+export { UseCases, Account, Widget, Message, Interfaces };
 
 export type Names =
   | UseCases.Names

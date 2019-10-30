@@ -1,0 +1,31 @@
+.create-widget-container {
+  flex-direction: column;
+  padding: 10vh 5vw 10vh 5vw;
+  min-width: 500px;
+  min-height: 300px;
+}
+
+.create-widget-inner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px;
+}
+
+.create-widget-color-picker-popover {
+  position: absolute;
+  z-index: 2;
+  margin-top: 10px;
+}
+.create-widget-color-picker-cover {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.create-widget-submit-button {
+  align-self: flex-end;
+  width: 120px;
+}
