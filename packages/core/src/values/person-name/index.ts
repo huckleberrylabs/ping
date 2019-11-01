@@ -1,5 +1,5 @@
 import { parseName, NameOutput } from "humanparser";
-import { some, none } from "fp-ts/lib/Option";
+import { some, none, isSome } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
 import * as NonEmptyString from "../non-empty-string";
 import * as OptionFromNullable from "../option-from-nullable";
@@ -40,3 +40,8 @@ const Map = (original: string, input: NameOutput) =>
   } as T);
 
 export const Is = Codec.is;
+
+export const FirstLast = (input: T) =>
+  `${isSome(input.first) ? input.first.value : ""} ${
+    isSome(input.last) ? input.last.value : ""
+  }`;

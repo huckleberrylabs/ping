@@ -24,7 +24,7 @@ import { UUID } from "@huckleberryai/core";
 import { isLeft } from "fp-ts/lib/Either";
 import { AddWidget } from "../../widget";
 
-const AuthApp = (account: PingAccount.T, reload: () => void) => (
+export const AuthApp = (account: PingAccount.T, reload: () => void) => (
   <>
     <AppBar
       logout={() => {
@@ -111,7 +111,7 @@ export const ProviderHoC = (props: JSX.Element) => {
         draggable
         pauseOnHover
       />
-      <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+      <StripeProvider apiKey="pk_test_yoFeO5x15PPlisJIQdFgoWbG005bjq8KtN">
         <Router>{props}</Router>
       </StripeProvider>
     </ThemeProvider>
@@ -156,10 +156,11 @@ export class App extends Component<Props, State> {
     this.setState({ account });
   }
   render() {
-    return ProviderHoC(
+    return ProviderHoC(UnAuthApp());
+    /* return ProviderHoC(
       PingAccount.Is(this.state.account)
         ? AuthApp(this.state.account, () => this.onAccountUpdated())
         : UnAuthApp()
-    );
+    ); */
   }
 }

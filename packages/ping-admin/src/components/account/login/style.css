@@ -32,6 +32,13 @@
   margin: auto;
 }
 
+.login-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 191px;
+}
+
 .login-container a {
   color: blue; /* blue colors for links too */
   text-decoration: underline; /* no underline */

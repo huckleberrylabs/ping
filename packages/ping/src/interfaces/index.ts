@@ -4,16 +4,30 @@ import {
   UUID,
   NonEmptyString,
   PersonName,
+  EmailAddress,
   Phone,
 } from "@huckleberryai/core";
 import * as Account from "../account";
 import * as Widget from "../widget";
 import * as Message from "../message";
 
+export interface BillingService {
+  createAccount: (input: {
+    idemKey: UUID.T;
+    email: EmailAddress.T;
+    accountName?: NonEmptyString.T;
+    userName: PersonName.T;
+    paymentMethod: NonEmptyString.T;
+  }) => Promise<Either<Errors.Adapter.T, NonEmptyString.T>>;
+}
+
 export interface AccountRepository {
   get(
     id: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Account.T>>;
+  getByEmail(
+    email: EmailAddress.T
+  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Account.T[]>>;
   add(account: Account.T): Promise<Either<Errors.Adapter.T, null>>;
   update(
     account: Account.T
@@ -69,18 +83,22 @@ export interface PrivateSDK {
     ) => Promise<Either<Errors.T, Account.T>>;
     Register: (
       stripeToken: NonEmptyString.T,
-      email: NonEmptyString.T,
+      email: EmailAddress.T,
       userName: PersonName.T,
-      billingEmail?: NonEmptyString.T,
+      billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
       corr?: UUID.T
     ) => Promise<Either<Errors.T, UUID.T>>;
     Update: (
       account: UUID.T,
-      email: NonEmptyString.T,
+      email: EmailAddress.T,
       userName: PersonName.T,
-      billingEmail?: NonEmptyString.T,
+      billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
+      corr?: UUID.T
+    ) => Promise<Either<Errors.T, null>>;
+    Login: (
+      email: EmailAddress.T,
       corr?: UUID.T
     ) => Promise<Either<Errors.T, null>>;
   };

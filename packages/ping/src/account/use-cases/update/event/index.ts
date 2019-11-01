@@ -2,6 +2,7 @@ import * as iots from "io-ts";
 import {
   NonEmptyString,
   PersonName,
+  EmailAddress,
   OptionFromNullable,
 } from "@huckleberryai/core";
 import * as Event from "../../../event";
@@ -13,9 +14,9 @@ export const Codec = iots.intersection(
   [
     iots.type({
       type: iots.literal(Name),
-      email: NonEmptyString.Codec,
+      email: EmailAddress.Codec,
       userName: PersonName.Codec,
-      billingEmail: OptionFromNullable.Codec(iots.string),
+      billingEmail: OptionFromNullable.Codec(EmailAddress.Codec),
       name: OptionFromNullable.Codec(NonEmptyString.Codec),
     }),
     Event.Codec,

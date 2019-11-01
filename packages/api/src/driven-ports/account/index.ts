@@ -1,5 +1,5 @@
-import { Either, left, isLeft, right } from "fp-ts/lib/Either";
-import { UUID, Errors } from "@huckleberryai/core";
+import { Either, left, isLeft, right, isRight } from "fp-ts/lib/Either";
+import { UUID, Errors, EmailAddress } from "@huckleberryai/core";
 import { Interfaces, Account } from "@huckleberryai/ping";
 import { FireStore } from "../../driven-adapters";
 
@@ -20,6 +20,27 @@ export const C = (store: FireStore.T): Interfaces.AccountRepository => ({
     console.log("ping:account:repository:get:decoded", settings);
     if (isLeft(settings)) return left(Errors.Adapter.C());
     return settings;
+  },
+  getByEmail: async (
+    email: EmailAddress.T
+  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Account.T[]>> => {
+    try {
+      const queryRef = await store
+        .collection(Name)
+        .where("email", "==", email)
+        .get();
+      if (queryRef.empty) return left(Errors.NotFound.C());
+      const json = queryRef.docs.map(doc => doc.data());
+      const maybeAccounts = json.map(json => {
+        const maybeDecoded = Account.Codec.decode(json);
+        if (isLeft(maybeDecoded)) return left(Errors.Validation.C());
+        return maybeDecoded;
+      });
+      if (maybeAccounts.some(isLeft)) return left(Errors.Adapter.C());
+      return right(maybeAccounts.filter(isRight).map(account => account.right));
+    } catch (error) {
+      return left(Errors.Adapter.C());
+    }
   },
   add: async (account: Account.T): Promise<Either<Errors.Adapter.T, null>> => {
     try {

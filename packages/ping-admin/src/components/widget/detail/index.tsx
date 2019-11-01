@@ -1,25 +1,35 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
 import { isLeft } from "fp-ts/lib/Either";
+
+// Color
 import { ChromePicker } from "react-color";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import "@material/ripple/dist/mdc.ripple.css";
-import "@material/switch/dist/mdc.switch.css";
-import "@material/form-field/dist/mdc.form-field.css";
+
+// TextField
+import { TextField } from "@rmwc/textfield";
 import "@material/textfield/dist/mdc.textfield.css";
 import "@material/floating-label/dist/mdc.floating-label.css";
 import "@material/notched-outline/dist/mdc.notched-outline.css";
 import "@material/line-ripple/dist/mdc.line-ripple.css";
-import "@material/button/dist/mdc.button.css";
-import "@rmwc/icon/icon.css";
+
+// Button
 import { Button } from "@rmwc/button";
-import { Icon } from "@rmwc/icon";
-import { Ripple } from "@rmwc/ripple";
+import "@material/button/dist/mdc.button.css";
+
+// Switch
 import { Switch } from "@rmwc/switch";
-import { TextField } from "@rmwc/textfield";
+import "@material/switch/dist/mdc.switch.css";
+import "@material/form-field/dist/mdc.form-field.css";
+
+// Toast
 import { toast } from "react-toastify";
+
+// Style
 import "./style.css";
+
+import { WidgetCodeSnippet } from "../code-snippet";
+
+// Domain
 import { Widget, PrivateSDK, PublicSDK } from "@huckleberryai/ping";
 import { Color, UUID, Phone, Url } from "@huckleberryai/core";
 
@@ -32,16 +42,6 @@ type State = {
 };
 
 const accountID = "8bb3ea37-fb26-499d-ab1c-37901cc9d609" as UUID.T; // localStorage.getItem("accountID");
-
-export const codeStringReal = (id: UUID.T) =>
-  `
-  <script src="https://client.ping.buzz/ping.min.js?widget_id=${id}" id="huckleberry-ping-insert-script"></script>
-  `;
-
-const codeString = (id: UUID.T) =>
-  `
-  <script src="file:///Users/dado/Projects/monorepo/packages/ping-client/dist/ping.min.js?widget_id=${id}" id="huckleberry-ping-insert-script"></script>
-  `;
 
 export class WidgetViewer extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -64,15 +64,6 @@ export class WidgetViewer extends React.Component<Props, State> {
       newState.hasChanged = true;
       return newState;
     });
-
-  onClickCodeSnippet = (codeString: string) => {
-    let textarea = document.createElement("textarea");
-    textarea.setAttribute("type", "hidden");
-    textarea.textContent = codeString;
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand("copy");
-  };
 
   onDomainChange = (input: string) =>
     this.setState(prevState => {
@@ -181,7 +172,7 @@ export class WidgetViewer extends React.Component<Props, State> {
             </Button>
           </div>
           <h1>Widget Settings</h1>
-          <div className="code-snippet-container">
+          <div>
             <h2>Setup</h2>
             {/* <div className="verified-container">
               <label>Installation Verified</label>
@@ -191,26 +182,7 @@ export class WidgetViewer extends React.Component<Props, State> {
                 className="verified"
               />
             </div> */}
-            <p>
-              Copy this code and insert it as high as possible inside the head
-              tag of your website. If you'd like assistance, please reach out to
-              us at support@ping.buzz.
-            </p>
-            <Ripple primary>
-              <div
-                className="code-snippet-inner-container"
-                onClick={() => this.onClickCodeSnippet(codeString(widget.id))}
-              >
-                <SyntaxHighlighter language="html" style={docco}>
-                  {codeString(widget.id)}
-                </SyntaxHighlighter>
-                <Icon
-                  className="code-snippet-copy-icon"
-                  icon="file_copy"
-                  theme="textSecondaryOnLight"
-                />
-              </div>
-            </Ripple>
+            <WidgetCodeSnippet id={widget.id} />
           </div>
 
           <div className="configuration-container">

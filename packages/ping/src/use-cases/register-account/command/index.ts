@@ -3,6 +3,7 @@ import {
   UUID,
   Event,
   OptionFromNullable,
+  EmailAddress,
   NonEmptyString,
   PersonName,
 } from "@huckleberryai/core";
@@ -14,10 +15,10 @@ export const Codec = iots.intersection(
   [
     iots.type({
       type: iots.literal(Name),
-      stripeToken: NonEmptyString.Codec,
+      paymentMethod: NonEmptyString.Codec,
       userName: PersonName.Codec,
-      email: NonEmptyString.Codec,
-      billingEmail: OptionFromNullable.Codec(NonEmptyString.Codec),
+      email: EmailAddress.Codec,
+      billingEmail: OptionFromNullable.Codec(EmailAddress.Codec),
       name: OptionFromNullable.Codec(NonEmptyString.Codec),
     }),
     Event.Codec,
@@ -28,16 +29,16 @@ export const Codec = iots.intersection(
 export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (
-  stripeToken: NonEmptyString.T,
-  email: NonEmptyString.T,
+  paymentMethod: NonEmptyString.T,
+  email: EmailAddress.T,
   userName: PersonName.T,
-  billingEmail?: NonEmptyString.T,
+  billingEmail?: EmailAddress.T,
   name?: NonEmptyString.T,
   corr?: UUID.T
 ): T => ({
   ...Event.C(corr),
   type: Name,
-  stripeToken,
+  paymentMethod,
   email,
   userName,
   billingEmail: billingEmail ? some(billingEmail) : none,

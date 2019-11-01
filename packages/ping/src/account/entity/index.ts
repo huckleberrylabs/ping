@@ -6,6 +6,7 @@ import {
   OptionFromNullable,
   PersonName,
   Phone,
+  EmailAddress,
 } from "@huckleberryai/core";
 import * as Widget from "../../widget";
 import { some, none, Option, isSome } from "fp-ts/lib/Option";
@@ -17,12 +18,12 @@ export const Codec = iots.type(
     type: iots.literal(Name),
     registeredAt: TimeStamp.Codec,
     id: UUID.Codec,
-    stripeCustomerID: UUID.Codec,
+    stripeCustomer: NonEmptyString.Codec,
     name: OptionFromNullable.Codec(NonEmptyString.Codec),
     userName: PersonName.Codec,
-    email: iots.string,
+    email: EmailAddress.Codec,
     emailVerified: iots.boolean,
-    billingEmail: OptionFromNullable.Codec(iots.string),
+    billingEmail: OptionFromNullable.Codec(EmailAddress.Codec),
     billingEmailVerified: OptionFromNullable.Codec(iots.boolean),
     widgets: iots.array(Widget.Codec),
   },
@@ -32,16 +33,16 @@ export const Codec = iots.type(
 export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (
-  stripeCustomerID: UUID.T,
+  stripeCustomer: NonEmptyString.T,
   userName: PersonName.T,
-  email: NonEmptyString.T,
-  billingEmail: Option<NonEmptyString.T>,
+  email: EmailAddress.T,
+  billingEmail: Option<EmailAddress.T>,
   name: Option<NonEmptyString.T>
 ): T => ({
   type: Name,
   registeredAt: TimeStamp.C(),
   id: UUID.C(),
-  stripeCustomerID,
+  stripeCustomer,
   name,
   userName,
   email,

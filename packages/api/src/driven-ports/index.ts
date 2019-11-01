@@ -1,11 +1,16 @@
-export * from "./sms-client";
-import * as WebAnalyticsRepository from "./web-analytics";
+import * as SMSClient from "./sms-client";
+import * as EmailClient from "./email-client";
+import * as BillingService from "./billing-service";
 import * as AccountRepository from "./account";
-import * as WidgetRepository from "./widget";
 import * as MessageRepository from "./message";
+import * as WebAnalyticsRepository from "./web-analytics";
+import * as WidgetRepository from "./widget";
 export {
-  WebAnalyticsRepository,
+  SMSClient,
+  EmailClient,
+  BillingService,
   AccountRepository,
+  WebAnalyticsRepository,
   WidgetRepository,
   MessageRepository,
 };

@@ -1,0 +1,16 @@
+.widget-code-snippet-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.widget-code-snippet-container * {
+  margin: 0;
+}
+
+.widget-code-snippet-copy-icon {
+  padding: 0.72em;
+  background: rgb(248, 248, 255);
+}

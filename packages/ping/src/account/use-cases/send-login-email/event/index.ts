@@ -1,24 +1,14 @@
 import * as iots from "io-ts";
-import {
-  Event,
-  NonEmptyString,
-  PersonName,
-  EmailAddress,
-  OptionFromNullable,
-} from "@huckleberryai/core";
+import { EmailAddress, Event } from "@huckleberryai/core";
 import * as Command from "../command";
 
-export const Name = "ping:account-registered";
+export const Name = "ping:account:login-email-sent";
 
 export const Codec = iots.intersection(
   [
     iots.type({
       type: iots.literal(Name),
-      paymentMethod: NonEmptyString.Codec,
       email: EmailAddress.Codec,
-      userName: PersonName.Codec,
-      billingEmail: OptionFromNullable.Codec(EmailAddress.Codec),
-      name: OptionFromNullable.Codec(NonEmptyString.Codec),
     }),
     Event.Codec,
   ],

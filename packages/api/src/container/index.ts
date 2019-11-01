@@ -11,19 +11,28 @@ type Names = WebAnalytics.Names | Ping.Names;
 
 export default () => {
   const maybeFireStore = DrivenAdapters.FireStore.C();
+  const maybeSendGrid = DrivenAdapters.SendGrid.C();
+  const maybeStripe = DrivenAdapters.Stripe.C();
   const maybeTwilio = DrivenAdapters.Twilio.C();
 
   if (isLeft(maybeFireStore)) throw new Error("firestore credentials missing");
+  if (isLeft(maybeSendGrid)) throw new Error("sendgrid credentials missing");
+  if (isLeft(maybeStripe)) throw new Error("stripe credentials missing");
   if (isLeft(maybeTwilio)) throw new Error("twilio credentials missing");
 
   const fireStore = maybeFireStore.right;
+  const sendGrid = maybeSendGrid.right;
+  const stripe = maybeStripe.right;
   const twilio = maybeTwilio.right;
 
-  const smsClient = DrivenPorts.Send(twilio);
-  const webAnalyticsRepository = DrivenPorts.WebAnalyticsRepository.C(
-    fireStore
+  const smsClient = DrivenPorts.SMSClient.C(twilio);
+  const emailClient = DrivenPorts.EmailClient.C(sendGrid);
+  const billingService = DrivenPorts.BillingService.C(
+    stripe,
+    smsClient,
+    emailClient
   );
-
+  const analyticsRepository = DrivenPorts.WebAnalyticsRepository.C(fireStore);
   const accountRepository = DrivenPorts.AccountRepository.C(fireStore);
   const widgetRepository = DrivenPorts.WidgetRepository.C(fireStore);
   const messageRepository = DrivenPorts.MessageRepository.C(fireStore);
@@ -31,19 +40,23 @@ export default () => {
   return new Map<Names | Type.T, Handler>([
     [
       WebAnalytics.Client.UseCases.Loaded.Event.Name,
-      WebAnalytics.Client.UseCases.Loaded.Handler(webAnalyticsRepository),
+      WebAnalytics.Client.UseCases.Loaded.Handler(analyticsRepository),
     ],
     [
       WebAnalytics.Client.UseCases.Unloaded.Event.Name,
-      WebAnalytics.Client.UseCases.Unloaded.Handler(webAnalyticsRepository),
+      WebAnalytics.Client.UseCases.Unloaded.Handler(analyticsRepository),
     ],
     [
       WebAnalytics.Server.UseCases.HTTPAccess.Event.Name,
-      WebAnalytics.Server.UseCases.HTTPAccess.Handler(webAnalyticsRepository),
+      WebAnalytics.Server.UseCases.HTTPAccess.Handler(analyticsRepository),
     ],
     [
       Ping.UseCases.RegisterAccount.Command.Name,
-      Ping.UseCases.RegisterAccount.Handler(accountRepository),
+      Ping.UseCases.RegisterAccount.Handler(
+        accountRepository,
+        billingService,
+        emailClient
+      ),
     ],
     [
       Ping.Account.UseCases.GetByID.Query.Name,
@@ -66,6 +79,13 @@ export default () => {
     [
       Ping.Account.UseCases.Update.Command.Name,
       Ping.Account.UseCases.Update.Handler(accountRepository),
+    ],
+    [
+      Ping.Account.UseCases.SendLoginEmail.Command.Name,
+      Ping.Account.UseCases.SendLoginEmail.Handler(
+        accountRepository,
+        emailClient
+      ),
     ],
     [
       Ping.Widget.UseCases.CreateMessage.Command.Name,

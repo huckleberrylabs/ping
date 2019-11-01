@@ -1,4 +1,10 @@
-import { HTTP, UUID, NonEmptyString, PersonName } from "@huckleberryai/core";
+import {
+  HTTP,
+  UUID,
+  NonEmptyString,
+  PersonName,
+  EmailAddress,
+} from "@huckleberryai/core";
 import { PrivateSDK } from "../../interfaces";
 import { RegisterAccount } from "../../use-cases";
 import {
@@ -6,6 +12,7 @@ import {
   AddWidget,
   Update,
   UpdateWidget,
+  SendLoginEmail,
 } from "../../account/use-cases";
 import * as Account from "../../account";
 import * as Widget from "../../widget";
@@ -23,9 +30,9 @@ export const C = (): PrivateSDK => ({
     },
     Register: async (
       stripeToken: NonEmptyString.T,
-      email: NonEmptyString.T,
+      email: EmailAddress.T,
       userName: PersonName.T,
-      billingEmail?: NonEmptyString.T,
+      billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
       corr?: UUID.T
     ) => {
@@ -46,9 +53,9 @@ export const C = (): PrivateSDK => ({
     },
     Update: async (
       account: UUID.T,
-      email: NonEmptyString.T,
+      email: EmailAddress.T,
       userName: PersonName.T,
-      billingEmail?: NonEmptyString.T,
+      billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
       corr?: UUID.T
     ) => {
@@ -62,6 +69,11 @@ export const C = (): PrivateSDK => ({
       );
       const url = HTTP.EndpointFromEvent(command);
       return await HTTP.Post(url, Update.Command.Codec.encode(command));
+    },
+    Login: async (email: EmailAddress.T, corr?: UUID.T) => {
+      const command = SendLoginEmail.Command.C(email, corr);
+      const url = HTTP.EndpointFromEvent(command);
+      return await HTTP.Post(url, SendLoginEmail.Command.Codec.encode(command));
     },
   },
   Widget: {

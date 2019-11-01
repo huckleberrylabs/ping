@@ -10,23 +10,6 @@
   flex-direction: column;
 }
 
-.code-snippet-inner-container {
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 20px 0px;
-}
-
-.code-snippet-inner-container * {
-  margin: 0;
-}
-
-.code-snippet-copy-icon {
-  padding: 0.72em;
-  background: rgb(248, 248, 255);
-}
-
 .verified-container {
   display: flex;
   flex-direction: row;
