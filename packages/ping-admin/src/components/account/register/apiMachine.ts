@@ -11,7 +11,6 @@ const SendToStripe = async (
   stripe: ReactStripeElements.StripeProps,
   formData: CreateAccountFormData
 ) => {
-  console.log(formData);
   const metadata: { [key: string]: string } = {};
   if (formData.accountName) {
     metadata.accountName = formData.accountName;

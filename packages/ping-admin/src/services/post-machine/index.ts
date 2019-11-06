@@ -45,11 +45,6 @@ export const PostMachineFactory = (
           type: "final",
           data: context => context.result
         }
-      },
-      on: {
-        "*": {
-          actions: ["log"]
-        }
       }
     },
     {
@@ -59,8 +54,7 @@ export const PostMachineFactory = (
         })),
         setResult: assign((context, event) => ({
           result: event.data
-        })),
-        log: (context, event) => console.log(context)
+        }))
       },
       guards: {
         canRetry: (context, event) =>

@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { isLeft } from "fp-ts/lib/Either";
+
+// Router
 import {
   BrowserRouter as Router,
   Route,
@@ -6,29 +9,45 @@ import {
   Redirect,
   RouteComponentProps
 } from "react-router-dom";
+
+// Theme
 import { ThemeProvider } from "@rmwc/theme";
-import { ToastContainer } from "react-toastify";
 import "@material/theme/dist/mdc.theme.css";
+
+// Toasts
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+// Stripe
 import { StripeProvider } from "react-stripe-elements";
 
+// Loading
+import { CircularProgress } from "@rmwc/circular-progress";
+import "@rmwc/circular-progress/circular-progress.css";
+
+// UI Components
+import { AccountViewer, Login, RegisterAccount } from "../../account";
+import { WidgetExplorer, WidgetViewer, AddWidget } from "../../widget";
+import { LandingPage } from "../../landing-page";
+import { AppBar } from "../bar";
+import { AppMenu } from "../menu";
+
+// Style
+import "./style.css";
+
+// Services
+import * as Auth from "../../../services/authentication";
+
+// Config
+import { StripKey } from "../../../config";
+
+// Domain
+import { UUID } from "@huckleberryai/core";
 import {
   Account as PingAccount,
   PrivateSDK,
   Widget
 } from "@huckleberryai/ping";
-import * as Auth from "../../../services/authentication";
-import { AccountViewer, Login, RegisterAccount } from "../../account";
-import { WidgetExplorer, WidgetViewer } from "../../widget";
-
-import { AppBar } from "../bar";
-import { AppMenu } from "../menu";
-import "./style.css";
-import { UUID } from "@huckleberryai/core";
-import { isLeft, isRight } from "fp-ts/lib/Either";
-import { AddWidget } from "../../widget";
-import { CircularProgress } from "@rmwc/circular-progress";
-import { LandingPage } from "../../landing-page";
 
 export const AuthApp = (account: PingAccount.T, reload: () => void) => (
   <>
@@ -134,7 +153,7 @@ export const ProviderHoC = (props: JSX.Element) => {
         draggable
         pauseOnHover
       />
-      <StripeProvider apiKey="pk_test_yoFeO5x15PPlisJIQdFgoWbG005bjq8KtN">
+      <StripeProvider apiKey={StripKey}>
         <Router>{props}</Router>
       </StripeProvider>
     </ThemeProvider>
@@ -147,7 +166,7 @@ type State = {
 };
 type Props = {};
 
-const corr = UUID.C();
+const corr = UUID.C(); // TODO add corr id to all SDK calls
 const sdk = PrivateSDK.C();
 
 export class App extends Component<Props, State> {
@@ -164,7 +183,6 @@ export class App extends Component<Props, State> {
   async onAccountUpdated() {
     this.setState({ loading: true });
     const idMaybe = Auth.isLoggedIn();
-    console.log("Is Logged In: ", isRight(idMaybe));
     if (isLeft(idMaybe)) {
       this.setState({ loading: false });
       return;
@@ -180,7 +198,6 @@ export class App extends Component<Props, State> {
     this.setState({ account, loading: false });
   }
   render() {
-    console.log(this.state);
     return ProviderHoC(
       PingAccount.Is(this.state.account) ? (
         AuthApp(this.state.account, () => this.onAccountUpdated())

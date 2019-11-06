@@ -5,22 +5,21 @@ import {
   EmailTemplate,
   NonEmptyString,
   PersonName,
-  EmailAddress,
-  Env,
   Errors,
 } from "@huckleberryai/core";
 import { AccountRepository, IAMService } from "../../../../interfaces";
+import { NoReplyEmail, PingAdminURL } from "../../../../config";
 import * as Command from "../command";
 import * as Event from "../event";
 
 const LoginEmailTemplate: EmailTemplate = {
   id: "d-c0cd835132d1486d986d4c28f93219ba" as NonEmptyString.T,
   from: {
-    address: "no-reply@ping.buzz" as EmailAddress.T,
+    address: NoReplyEmail,
     name: PersonName.C("Ping" as NonEmptyString.T),
   },
   replyTo: {
-    address: "no-reply@ping.buzz" as EmailAddress.T,
+    address: NoReplyEmail,
     name: PersonName.C("Ping" as NonEmptyString.T),
   },
   unsubscribe: {
@@ -30,12 +29,7 @@ const LoginEmailTemplate: EmailTemplate = {
   categories: ["transactional" as NonEmptyString.T],
 };
 
-const GenerateLoginLink = (token: string) =>
-  `${
-    Env.Get() === "development"
-      ? "http://localhost:3000"
-      : "https://admin.ping.buzz"
-  }/login?token=${token}`;
+const LoginLink = (token: string) => `${PingAdminURL}/login?token=${token}`;
 
 export const Handler = (
   repo: AccountRepository,
@@ -62,7 +56,7 @@ export const Handler = (
       },
       dynamicTemplateData: {
         accountName: account.name,
-        loginLink: GenerateLoginLink(iam.generateOneTimeToken(account.id)),
+        loginLink: LoginLink(iam.generateOneTimeToken(account.id)),
       },
     })),
     LoginEmailTemplate

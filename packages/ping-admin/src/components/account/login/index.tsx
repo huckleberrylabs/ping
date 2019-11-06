@@ -25,7 +25,7 @@ import "./style.css";
 // Domain
 import * as Auth from "../../../services/authentication";
 import { EmailAddress, NonEmptyString, Errors } from "@huckleberryai/core";
-import { PrivateSDK } from "@huckleberryai/ping";
+import { PrivateSDK, Config } from "@huckleberryai/ping";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 type Stage = "idle" | "loading" | "sent" | "not-found" | "error";
@@ -39,14 +39,11 @@ export const Login = (props: Props) => {
   const query = new URLSearchParams(props.location.search);
   const token = query.get("token");
   if (NonEmptyString.Is(token) && stage !== "loading") {
-    console.log("Logging In With Token: ", token);
     Auth.login(token).then(result => {
       if (isLeft(result)) {
-        console.log("Login Unsuccessful: ", result.left.type);
         window.location.replace("/login");
         props.history.push("/login");
       } else {
-        console.log("Login Successful");
         window.location.reload();
       }
     });
@@ -133,7 +130,7 @@ export const Login = (props: Props) => {
               <br />
               <br />
               If that doesn't work, please email our CTO at{" "}
-              <a href="mail-to:bugs@ping.buzz">bugs@ping.buzz</a>
+              <a href={`mail-to:${Config.BugsEmail}`}>{Config.BugsEmail}</a>
             </div>
             <Button
               onClick={() => {

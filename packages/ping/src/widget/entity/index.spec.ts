@@ -4,35 +4,22 @@ import { Name, C, Is, Codec } from ".";
 import { Country } from "../../plan";
 
 describe("ping:widget", () => {
+  const TEST_PHONE = "+16479999999" as Phone.T;
+  const TEST_COUNTRY = "CA" as Country.T;
+  const TEST_HOME_PAGE = "https://example.com" as Url.T;
+  const TEST_COLOR = "#3988f5" as Color.T;
+  const TEST_WIDGET = C(TEST_PHONE, TEST_COUNTRY, TEST_HOME_PAGE, TEST_COLOR);
   test("has a name", () => {
     expect(Type.Is(Name)).toBeTruthy();
   });
   test("it constructs", () => {
-    const widget = C(
-      "+1 647 295 1647" as Phone.T,
-      "CA" as Country.T,
-      "http://localhost" as Url.T,
-      "white" as Color.T
-    );
-    expect(Is(widget)).toBeTruthy();
+    expect(Is(TEST_WIDGET)).toBeTruthy();
   });
   test("it encodes", () => {
-    const widget = C(
-      "+1 647 295 1647" as Phone.T,
-      "CA" as Country.T,
-      "http://localhost" as Url.T,
-      "white" as Color.T
-    );
-    expect(Codec.encode(widget)).toBeTruthy();
+    expect(Codec.encode(TEST_WIDGET)).toBeTruthy();
   });
   test("it decodes", () => {
-    const widget = C(
-      "+1 647 295 1647" as Phone.T,
-      "CA" as Country.T,
-      "http://localhost" as Url.T,
-      "white" as Color.T
-    );
-    const encoded = Codec.encode(widget);
+    const encoded = Codec.encode(TEST_WIDGET);
     const decoded = Codec.decode(encoded);
     expect(isRight(decoded)).toBeTruthy();
   });
@@ -40,11 +27,11 @@ describe("ping:widget", () => {
     const widget = {
       type: "ping:widget",
       id: "d805c6fa-44c4-412c-b6d7-2828da2aba2d",
-      color: "#3988f5",
-      phone: "+16472951647",
+      color: TEST_COLOR as string,
+      phone: TEST_PHONE as string,
       enabled: true,
-      country: "CA",
-      homePage: "http://localhost.com",
+      country: TEST_COUNTRY as string,
+      homePage: TEST_HOME_PAGE as string,
     };
     const decoded = Codec.decode(widget);
     expect(isRight(decoded)).toBeTruthy();

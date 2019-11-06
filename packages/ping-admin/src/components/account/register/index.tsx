@@ -38,8 +38,6 @@ type Props = RouteComponentProps & {
 
 export const RegisterAccountInner = (props: Props) => {
   const [current, send] = useMachine(RegisterAccountMachine(props.stripe));
-  console.log("current context: ", current.context);
-  console.log("current event: ", current.event);
   return (
     <div className="register-account-container">
       {current.matches("createWidget") ? (
@@ -50,10 +48,7 @@ export const RegisterAccountInner = (props: Props) => {
           showBackButton={false}
           submitButtonText="Activate"
           submitButtonIcon={"keyboard_arrow_right"}
-          onSubmit={widget => {
-            console.log(widget);
-            send({ type: "CREATE_WIDGET", value: widget });
-          }}
+          onSubmit={widget => send({ type: "CREATE_WIDGET", value: widget })}
         />
       ) : current.matches("createAccount") || current.matches("registering") ? (
         <CreateAccount

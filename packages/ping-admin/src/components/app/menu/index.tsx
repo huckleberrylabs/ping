@@ -1,13 +1,15 @@
 import React from "react";
-import "@material/drawer/dist/mdc.drawer.css";
-import "@material/list/dist/mdc.list.css";
-import { Drawer, DrawerHeader, DrawerContent } from "@rmwc/drawer";
-import { List, ListItem } from "@rmwc/list";
 import { Link } from "react-router-dom";
 
-type Props = {};
+// Drawer
+import { Drawer, DrawerHeader, DrawerContent } from "@rmwc/drawer";
+import "@material/drawer/dist/mdc.drawer.css";
 
-export const AppMenu = (props: Props) => (
+// List
+import { List, ListItem } from "@rmwc/list";
+import "@material/list/dist/mdc.list.css";
+
+export const AppMenu = () => (
   <Drawer>
     <DrawerHeader />
     <DrawerContent>

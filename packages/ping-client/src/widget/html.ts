@@ -1,3 +1,4 @@
+import { Config } from "@huckleberryai/ping";
 import { ElementIDs } from "./elements";
 
 export const InsertHTML = (html: string) => {
@@ -9,13 +10,7 @@ export const InsertHTML = (html: string) => {
 export const GenerateHTML = (e: ElementIDs) =>
   `<div id="${e.container}">
       <!--
-          ping
-          
-          made with ❤️ by Huckleberry
-          
-          https://ping.buzz
-          
-          https://huckleberry.app
+          ${Config.SecretDeveloperMessage}
       -->
       <form id="${e.form}">
         <!-- Stage 1 -->

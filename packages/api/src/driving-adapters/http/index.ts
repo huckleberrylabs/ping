@@ -154,7 +154,7 @@ export const C = () => {
       return;
     }
     const maybeType = HTTP.TypeFromPathName(
-      new URL(req.url, "http://localhost").pathname
+      new URL(req.url, "http://example.com").pathname
     );
     if (isLeft(maybeType)) {
       res.status(StatusCode.BAD_REQUEST).send(null);

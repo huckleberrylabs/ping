@@ -18,6 +18,9 @@ import { RegisterAccount } from "../account";
 import "./style.css";
 import { AppBar } from "../app";
 
+// Domain
+import { Config } from "@huckleberryai/ping";
+
 type Props = RouteComponentProps & {
   stripe: ReactStripeElements.StripeProps;
 };
@@ -178,7 +181,7 @@ export const LandingPage = (props: Props) => (
       <p>173 Roger Street Waterloo, Ontario, Canada</p>
       <p>
         We are quick to respond on email and text. Try us.{" "}
-        <a href="mail-to:help@ping.buzz">help@ping.buzz</a>
+        <a href={`mail-to:${Config.SupportEmail}`}>{Config.SupportEmail}</a>
       </p>
     </div>
   </div>

@@ -1,3 +1,5 @@
+import { DefaultEnvironment } from "../config";
+
 export type T = "development" | "test" | "staging" | "production";
 
 export const Is = (input: unknown): input is T =>
@@ -8,4 +10,4 @@ export const Is = (input: unknown): input is T =>
     input === "production");
 
 export const Get = (): T =>
-  Is(process.env.NODE_ENV) ? process.env.NODE_ENV : "development";
+  Is(process.env.NODE_ENV) ? process.env.NODE_ENV : DefaultEnvironment;

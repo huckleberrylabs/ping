@@ -16,19 +16,13 @@ import "@rmwc/icon/icon.css";
 import "./style.css";
 
 // Domain
-import { UUID, Env } from "@huckleberryai/core";
+import { UUID } from "@huckleberryai/core";
+import { Config } from "@huckleberryai/ping";
 
-export const prodCodeString = (id: UUID.T) =>
+export const CodeString = (id: UUID.T) =>
   `
-  <script src="https://client.ping.buzz/ping.min.js?widget_id=${id}" id="huckleberry-ping-insert-script"></script>
+  <script src="${Config.InsertScriptURL}?widget_id=${id}" id="${Config.InsertScriptID}"></script>
   `;
-
-const devCodeString = (id: UUID.T) =>
-  `
-  <script src="file:///Users/dado/Projects/monorepo/packages/ping-client/dist/ping.min.js?widget_id=${id}" id="huckleberry-ping-insert-script"></script>
-  `;
-
-const codeString = Env.Get() === "development" ? devCodeString : prodCodeString;
 
 type Props = {
   id: UUID.T;
@@ -39,7 +33,7 @@ export const WidgetCodeSnippet = (props: Props) => (
     <p>
       Copy this code and insert it as high as possible inside the head tag of
       your website. If you'd like assistance, please reach out to us at
-      help@ping.buzz.
+      {Config.SupportEmail}
     </p>
     <Ripple primary>
       <div
@@ -47,7 +41,7 @@ export const WidgetCodeSnippet = (props: Props) => (
         onClick={() => {
           const textarea = document.createElement("textarea");
           textarea.setAttribute("type", "hidden");
-          textarea.textContent = codeString(props.id);
+          textarea.textContent = CodeString(props.id);
           document.body.appendChild(textarea);
           textarea.select();
           document.execCommand("copy");
@@ -55,7 +49,7 @@ export const WidgetCodeSnippet = (props: Props) => (
         }}
       >
         <SyntaxHighlighter language="html" style={docco}>
-          {codeString(props.id)}
+          {CodeString(props.id)}
         </SyntaxHighlighter>
         <Icon
           className="widget-code-snippet-copy-icon"

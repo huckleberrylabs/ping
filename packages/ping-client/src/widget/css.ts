@@ -15,7 +15,9 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
   `:root {
   --huckleberry-ping-accent-color: ${w.color};
   --huckleberry-ping-text-color:  ${Color.IsLight(w.color) ? "black" : "white"};
+  --huckleberry-ping-icon-color: white;
   --huckleberry-ping-background-color: #f7f7f7;
+  --huckleberry-ping-invalid-color: #fdd;
   --huckleberry-ping-success-color: #00ae4e;
   --huckleberry-ping-fail-color: #ae0034;
 }
@@ -72,7 +74,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
 }
 
 #${e.form} input:invalid {
-  background-color: #FDD;
+  background-color: var(--huckleberry-ping-invalid);
 }
 
 #${e.container} > #${e.form} .shown {
@@ -134,7 +136,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
 
 #${e.success} polyline {
   fill: none;
-  stroke: white;
+  stroke: var(--huckleberry-ping-icon-color);
   stroke-linecap: round;
   stroke-miterlimit: 10;
   stroke-width: 6;
@@ -154,7 +156,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
 
 #${e.error} line {
   fill: none;
-  stroke: white;
+  stroke: var(--huckleberry-ping-icon-color);
   stroke-linecap: round;
   stroke-miterlimit: 10;
   stroke-width: 6;

@@ -7,9 +7,14 @@ import * as Event from "../event";
 import * as Errors from "../errors";
 import * as Results from "../results";
 import { Url, Type } from "../values";
+import { DefaultAPIURL } from "../config";
 
 export const GetAPIURL = () =>
-  process.env.API_URL ? process.env.API_URL : "http://localhost:8000";
+  process.env.API_URL
+    ? process.env.API_URL
+    : process.env.REACT_APP_API_URL
+    ? process.env.REACT_APP_API_URL
+    : DefaultAPIURL;
 
 export const GetEndpoint = (input: string) => {
   const api = GetAPIURL();

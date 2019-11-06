@@ -32,7 +32,7 @@ describe("type", () => {
     );
   });
   test("it decodes", () => {
-    const decoded = Codec.decode("http://localhost.com");
+    const decoded = Codec.decode("http://example.com");
     expect(isRight(decoded)).toBeTruthy();
   });
   test("it encodes/decodes", () => {

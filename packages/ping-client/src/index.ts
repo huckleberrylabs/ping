@@ -1,14 +1,12 @@
 import { isLeft, isRight } from "fp-ts/lib/Either";
 import { UUID } from "@huckleberryai/core";
 import { SDK as AnalyticsSDK } from "@huckleberryai/web-analytics";
-import { PublicSDK } from "@huckleberryai/ping";
+import { PublicSDK, Config } from "@huckleberryai/ping";
 import * as Widget from "./widget";
-
-const INSERT_SCRIPT_ID = "huckleberry-ping-insert-script";
 
 export const onLoad = async () => {
   const corr = UUID.C();
-  const maybeID = Widget.GetID(INSERT_SCRIPT_ID);
+  const maybeID = Widget.GetID(Config.InsertScriptID);
   const id = isRight(maybeID) ? maybeID.right : undefined;
   const analytics = AnalyticsSDK.C({
     fingerPrint: { enabled: false },

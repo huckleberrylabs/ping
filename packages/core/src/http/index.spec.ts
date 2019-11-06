@@ -6,16 +6,15 @@ import { UUID, Url, Type } from "../values";
 import { Post, Beacon, GetEndpoint, EndpointFromEvent, GetAPIURL } from ".";
 
 describe.only("http-client", () => {
-  const testURL = "http://localhost:8000";
+  const testURL = "http://example.com";
+  const testEndpoint = "/test-endpoint";
   test(`api url should be ${testURL}`, () => {
     expect(GetAPIURL()).toBe(testURL);
   });
   test(`should return correct output`, () => {
-    expect(new URL(GetEndpoint("/test-endpoint")).pathname).toBe(
-      "/test-endpoint"
-    );
-    expect(GetEndpoint("/test-endpoint")).toBe(
-      new URL(testURL + "/test-endpoint").toString()
+    expect(new URL(GetEndpoint(testEndpoint)).pathname).toBe(testEndpoint);
+    expect(GetEndpoint(testEndpoint)).toBe(
+      new URL(testURL + testEndpoint).toString()
     );
   });
   test("it posts", async () => {

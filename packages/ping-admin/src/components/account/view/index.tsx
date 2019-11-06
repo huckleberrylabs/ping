@@ -22,8 +22,8 @@ import { Button } from "@rmwc/button";
 import "@material/button/dist/mdc.button.css";
 
 // Domain
-import { Account, PrivateSDK } from "@huckleberryai/ping";
 import { NonEmptyString, PersonName, EmailAddress } from "@huckleberryai/core";
+import { Account, PrivateSDK, Config } from "@huckleberryai/ping";
 
 // Style
 import "./style.css";
@@ -118,7 +118,7 @@ export const AccountViewer = (props: Props) => {
       <p>
         If you'd like to close your account,{" "}
         <a
-          href={`https://huckleberryai.typeform.com/to/To6SXb?account_id=${
+          href={`${Config.CloseAccountFormURL}?account_id=${
             props.account.id
           }&account_name=${
             isSome(props.account.name) ? props.account.name.value : "none"

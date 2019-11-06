@@ -4,6 +4,8 @@ import { Widget, PrivateSDK } from "@huckleberryai/ping";
 import { UUID, Errors } from "@huckleberryai/core";
 import { PostMachineFactory } from "../../../services/post-machine";
 
+export const DoneEventType = "done.invoke.post";
+
 interface States {
   states: {
     add: {};
@@ -14,7 +16,7 @@ interface States {
 
 type Event =
   | { type: "ADD"; value: Widget.T }
-  | { type: "done.invoke.post"; data: Either<Errors.T, UUID.T> };
+  | { type: typeof DoneEventType; data: Either<Errors.T, UUID.T> };
 
 export const AddWidgetMachineFactory = (accountID: UUID.T) =>
   Machine<{}, States, Event>(
@@ -53,9 +55,9 @@ export const AddWidgetMachineFactory = (accountID: UUID.T) =>
     {
       guards: {
         error: (context, event) =>
-          event.type === "done.invoke.post" && isLeft(event.data),
+          event.type === DoneEventType && isLeft(event.data),
         success: (context, event) =>
-          event.type === "done.invoke.post" && isRight(event.data)
+          event.type === DoneEventType && isRight(event.data)
       },
       services: {
         postWidget: (context, event) =>

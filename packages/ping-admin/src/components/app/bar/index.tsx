@@ -1,9 +1,5 @@
 import React from "react";
 
-// Button
-import "@material/button/dist/mdc.button.css";
-import { Button } from "@rmwc/button";
-
 // Top App Bar
 import {
   TopAppBar,
@@ -12,6 +8,10 @@ import {
   TopAppBarTitle
 } from "@rmwc/top-app-bar";
 import "@material/top-app-bar/dist/mdc.top-app-bar.css";
+
+// Button
+import "@material/button/dist/mdc.button.css";
+import { Button } from "@rmwc/button";
 
 // Logo
 import Logo from "../../../media/logo-white.png";

@@ -13,11 +13,13 @@ import { toast } from "react-toastify";
 // Style
 import "./style.css";
 
+// Services
+import { showErrorToast } from "../../../services/error-toasts";
+
 // Domain
 import { UUID } from "@huckleberryai/core";
-import { showErrorToast } from "../../../services/error-toasts";
 import { CreateWidget } from "../create";
-import { AddWidgetMachineFactory } from "./machine";
+import { AddWidgetMachineFactory, DoneEventType } from "./machine";
 
 type Props = RouteComponentProps & {
   accountID: UUID.T;
@@ -26,7 +28,7 @@ type Props = RouteComponentProps & {
 
 export const AddWidget = (props: Props) => {
   const [current, send] = useMachine(AddWidgetMachineFactory(props.accountID));
-  if (current.event.type === "done.invoke.post") {
+  if (current.event.type === DoneEventType) {
     const result = current.event.data;
     if (isLeft(result)) showErrorToast(result.left);
     else {
@@ -46,7 +48,7 @@ export const AddWidget = (props: Props) => {
           ? "Add"
           : current.matches("adding")
           ? "Loading"
-          : "Added!"
+          : "Added"
       }
       submitButtonIcon={current.matches("adding") ? <CircularProgress /> : null}
       onSubmit={widget => send({ type: "ADD", value: widget })}

@@ -44,7 +44,6 @@ export const CreateWidget = (props: Props) => {
   const [country, updateCountry] = useState<string>(defaultCountry);
   const [color, updateColor] = useState<string>("#0087ff");
 
-  console.log(country);
   return (
     <div className="create-widget-container">
       {props.showBackButton ? (

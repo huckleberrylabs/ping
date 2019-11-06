@@ -158,7 +158,7 @@ export const WidgetViewer = (props: Props) => {
           />
         </div>
         <div className="country-container">
-          <label> Country </label>
+          <label>Country</label>
           <ReactFlagsSelect
             defaultCountry={defaultCountry}
             searchable={true}
