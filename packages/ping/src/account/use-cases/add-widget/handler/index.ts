@@ -1,4 +1,4 @@
-import { isLeft } from "fp-ts/lib/Either";
+import { isLeft, isRight } from "fp-ts/lib/Either";
 import { Results, UUID, Errors } from "@huckleberryai/core";
 import {
   AccountRepository,
@@ -8,6 +8,7 @@ import {
 import * as Account from "../../../../account";
 import * as Command from "../command";
 import * as Event from "../event";
+import { Plan } from "../../../../plan";
 
 export const Handler = (
   repo: AccountRepository,
@@ -31,8 +32,16 @@ export const Handler = (
   if (account.widgets.filter(widget => widget.id === newWidget.id).length > 0)
     return Results.BadRequest.C(command);
 
-  if (Account.PhoneExists(account, newWidget.phone)) {
-    // TODO stripe add seat if error return error and sysadmin
+  if (!Account.PhoneExists(account, newWidget.phone)) {
+    const addedSeatMaybe = await billing.addSeat(
+      event.id,
+      account.stripeCustomer,
+      Plan[newWidget.country]
+    );
+    if (isLeft(addedSeatMaybe)) {
+      // TODO notify engineer
+      return Results.Error.C(command);
+    }
   }
 
   account.widgets.push(newWidget);
@@ -41,7 +50,16 @@ export const Handler = (
   // TODO move to subscriber
   const savedWidget = await widgetRepo.add(newWidget);
   if (isLeft(saved) || isLeft(savedWidget)) {
-    // TODO stripe remove seat error and sysadmin
+    const removedSeatMaybe = await billing.removeSeat(
+      event.id,
+      account.stripeCustomer,
+      Plan[newWidget.country]
+    );
+    // TODO notify engineer
+    console.log(
+      "Widget could not be saved and removeSeat returned: ",
+      isRight(removedSeatMaybe)
+    );
     return Results.Error.C(command);
   }
 

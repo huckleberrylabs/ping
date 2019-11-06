@@ -50,7 +50,10 @@ export const RegisterAccountInner = (props: Props) => {
           showBackButton={false}
           submitButtonText="Activate"
           submitButtonIcon={"keyboard_arrow_right"}
-          onSubmit={widget => send({ type: "CREATE_WIDGET", value: widget })}
+          onSubmit={widget => {
+            console.log(widget);
+            send({ type: "CREATE_WIDGET", value: widget });
+          }}
         />
       ) : current.matches("createAccount") || current.matches("registering") ? (
         <CreateAccount
@@ -77,22 +80,24 @@ export const RegisterAccountInner = (props: Props) => {
       ) : current.matches("success") ? (
         <div>
           <h1>
-            Welcome to Ping
+            Welcome to Ping {"  "}
             <span role="img" aria-label="rocket ship">
               🚀
             </span>
           </h1>
           <p>Below is your website code!</p>
           <WidgetCodeSnippet id={(current.context.widget as Widget.T).id} />
-          <Link to="/login">
-            <Button
-              raised
-              className="create-widget-submit-button"
-              icon="keyboard_arrow_right"
-            >
-              Login
-            </Button>
-          </Link>
+          <div className="register-account-login-button">
+            <Link to="/login">
+              <Button
+                raised
+                className="create-widget-submit-button"
+                icon="keyboard_arrow_right"
+              >
+                Login
+              </Button>
+            </Link>
+          </div>
           <br />
           <br />
           <br />

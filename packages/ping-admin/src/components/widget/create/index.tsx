@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { RouteComponentProps } from "react-router";
 
+// Country Select
+import ReactFlagsSelect from "react-flags-select";
+import "react-flags-select/css/react-flags-select.css";
+
 // Color Picker
 import { ChromePicker } from "react-color";
 
@@ -21,7 +25,7 @@ import "./style.css";
 
 // Domain
 import { Phone, Url, Color } from "@huckleberryai/core";
-import { Widget } from "@huckleberryai/ping";
+import { Widget, Plan } from "@huckleberryai/ping";
 
 type Props = RouteComponentProps & {
   disabled: boolean;
@@ -33,10 +37,14 @@ type Props = RouteComponentProps & {
 };
 
 export const CreateWidget = (props: Props) => {
+  const defaultCountry = "US";
   const [showColorPicker, toggleColorPicker] = useState(false);
-  const [homePage, updateHomePage] = useState<string | undefined>(undefined);
-  const [phone, updatePhone] = useState<string | undefined>(undefined);
+  const [homePage, updateHomePage] = useState<string>();
+  const [phone, updatePhone] = useState<string>();
+  const [country, updateCountry] = useState<string>(defaultCountry);
   const [color, updateColor] = useState<string>("#0087ff");
+
+  console.log(country);
   return (
     <div className="create-widget-container">
       {props.showBackButton ? (
@@ -64,6 +72,12 @@ export const CreateWidget = (props: Props) => {
           onChange={event =>
             updateHomePage((event.target as HTMLInputElement).value)
           }
+        />
+        <ReactFlagsSelect
+          defaultCountry={defaultCountry}
+          searchable={true}
+          countries={["US", "CA"]}
+          onSelect={country => updateCountry(country)}
         />
         <TextField
           outlined
@@ -110,11 +124,19 @@ export const CreateWidget = (props: Props) => {
           className="create-widget-submit-button"
           disabled={
             props.disabled ||
-            (!Phone.Is(phone) || !Url.Is(homePage) || !Color.Is(color))
+            (!Phone.Is(phone) ||
+              !Plan.Country.Is(country) ||
+              !Url.Is(homePage) ||
+              !Color.Is(color))
           }
           onClick={() =>
             props.onSubmit(
-              Widget.C(phone as Phone.T, homePage as Url.T, color as Color.T)
+              Widget.C(
+                phone as Phone.T,
+                country as Plan.Country.T,
+                homePage as Url.T,
+                color as Color.T
+              )
             )
           }
           icon={props.submitButtonIcon}

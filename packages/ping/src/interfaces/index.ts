@@ -76,6 +76,16 @@ export interface BillingService {
     userName: PersonName.T;
     paymentMethod: NonEmptyString.T;
   }) => Promise<Either<Errors.Adapter.T, NonEmptyString.T>>;
+  addSeat: (
+    idemKey: UUID.T,
+    stripeCustomer: NonEmptyString.T,
+    plan: NonEmptyString.T
+  ) => Promise<Either<Errors.Adapter.T, null>>;
+  removeSeat: (
+    idemKey: UUID.T,
+    stripeCustomer: NonEmptyString.T,
+    plan: NonEmptyString.T
+  ) => Promise<Either<Errors.Adapter.T, null>>;
 }
 
 export interface AccountRepository {

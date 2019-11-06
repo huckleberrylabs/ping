@@ -21,6 +21,7 @@ import { AddWidgetMachineFactory } from "./machine";
 
 type Props = RouteComponentProps & {
   accountID: UUID.T;
+  reload: () => void;
 };
 
 export const AddWidget = (props: Props) => {
@@ -30,7 +31,8 @@ export const AddWidget = (props: Props) => {
     if (isLeft(result)) showErrorToast(result.left);
     else {
       toast.success("Widget Added Successfully");
-      props.history.push(`/widgets:${result.right}`);
+      props.history.push(`/widgets/${result.right}`);
+      props.reload();
     }
   }
   return (

@@ -1,10 +1,11 @@
 import * as UseCases from "./use-cases";
 import * as Account from "./account";
 import * as Widget from "./widget";
+import * as Plan from "./plan";
 import * as Message from "./message";
 import * as Interfaces from "./interfaces";
 export * from "./sdk";
-export { UseCases, Account, Widget, Message, Interfaces };
+export { UseCases, Account, Widget, Plan, Message, Interfaces };
 
 export type Names =
   | UseCases.Names

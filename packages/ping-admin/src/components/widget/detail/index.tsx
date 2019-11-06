@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { isLeft, Either } from "fp-ts/lib/Either";
 
+// Country Select
+import ReactFlagsSelect from "react-flags-select";
+import "react-flags-select/css/react-flags-select.css";
+
 // Color
 import { ChromePicker } from "react-color";
 
@@ -31,7 +35,7 @@ import "./style.css";
 import { WidgetCodeSnippet } from "../code-snippet";
 
 // Domain
-import { Widget } from "@huckleberryai/ping";
+import { Widget, Plan } from "@huckleberryai/ping";
 import { Color, Phone, Url, Errors } from "@huckleberryai/core";
 import { CircularProgress } from "@rmwc/circular-progress";
 
@@ -50,6 +54,9 @@ export const WidgetViewer = (props: Props) => {
   // Widget Properties
   const [enabled, setEnabled] = useState<boolean>(props.widget.enabled);
   const onToggleEnabled = () => setEnabled(!enabled);
+
+  const defaultCountry = "US";
+  const [country, updateCountry] = useState<string>(defaultCountry);
 
   const [homePage, setHomePage] = useState<string>(props.widget.homePage);
   const [phone, setPhone] = useState<string>(props.widget.phone);
@@ -71,6 +78,10 @@ export const WidgetViewer = (props: Props) => {
       toast.warn("A valid phone must be provided.");
       return;
     }
+    if (!Plan.Country.Is(country)) {
+      toast.warn("A valid country must be provided.");
+      return;
+    }
     if (!Color.Is(color)) {
       toast.warn("A valid color must be provided.");
       return;
@@ -80,6 +91,7 @@ export const WidgetViewer = (props: Props) => {
       ...props.widget,
       enabled,
       homePage,
+      country,
       phone,
       color
     };
@@ -128,11 +140,6 @@ export const WidgetViewer = (props: Props) => {
             onChange={onToggleEnabled}
             theme={"primary"}
           />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
         </div>
         <div className="url-container">
           <TextField
@@ -147,6 +154,15 @@ export const WidgetViewer = (props: Props) => {
               const homePage = (event.target as HTMLInputElement).value;
               setHomePage(homePage);
             }}
+          />
+        </div>
+        <div className="country-container">
+          <label> Country </label>
+          <ReactFlagsSelect
+            defaultCountry={defaultCountry}
+            searchable={true}
+            countries={["US", "CA"]}
+            onSelect={country => updateCountry(country)}
           />
         </div>
         <div className="phone-container">
@@ -212,6 +228,7 @@ export const WidgetViewer = (props: Props) => {
           icon={loading ? <CircularProgress /> : "keyboard_arrow_right"}
           disabled={
             !Phone.Is(phone) ||
+            !Plan.Country.Is(country) ||
             !Url.Is(homePage) ||
             !Color.Is(color) ||
             !hasChanged ||

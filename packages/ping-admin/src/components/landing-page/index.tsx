@@ -163,7 +163,7 @@ export const LandingPage = (props: Props) => (
     </div>
     <div className="landing-page-section-five">
       <div className="landing-page-section-five-text">
-        <h1>$8 a month. 2 week trial. 5 minute setup.</h1>
+        <h1>$10 CAD a month. 2 week trial. 5 minute setup.</h1>
         <p>
           Free for charities. Bulk pricing available. Ask us about our reseller
           program.

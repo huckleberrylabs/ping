@@ -82,7 +82,7 @@ export const CreateAccount = (props: Props) => {
         invalid={email !== undefined && !EmailAddress.Is(email)}
         onChange={event => setEmail((event.target as HTMLInputElement).value)}
       />
-      <p>You will be charged $8 USD a month.</p>
+      <p>You will be charged $10 CAD per month.</p>
       <CardElement
         disabled={props.disabled}
         hidePostalCode={false}

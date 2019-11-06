@@ -38,7 +38,7 @@ export const Login = (props: Props) => {
 
   const query = new URLSearchParams(props.location.search);
   const token = query.get("token");
-  if (NonEmptyString.Is(token)) {
+  if (NonEmptyString.Is(token) && stage !== "loading") {
     console.log("Logging In With Token: ", token);
     Auth.login(token).then(result => {
       if (isLeft(result)) {

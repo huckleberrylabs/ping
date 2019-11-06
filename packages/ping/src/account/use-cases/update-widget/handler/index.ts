@@ -1,13 +1,19 @@
-import { isLeft } from "fp-ts/lib/Either";
+import { isLeft, isRight } from "fp-ts/lib/Either";
 import { Results, Errors } from "@huckleberryai/core";
-import { AccountRepository, WidgetRepository } from "../../../../interfaces";
+import {
+  AccountRepository,
+  WidgetRepository,
+  BillingService,
+} from "../../../../interfaces";
 import * as Account from "../../../../account";
 import * as Command from "../command";
 import * as Event from "../event";
+import { Plan } from "../../../../plan";
 
 export const Handler = (
   repo: AccountRepository,
-  widgetRepo: WidgetRepository
+  widgetRepo: WidgetRepository,
+  billing: BillingService
 ) => async (command: Command.T) => {
   // TODO IsAuthorized
   const event = Event.C(command);
@@ -33,8 +39,21 @@ export const Handler = (
     // TODO add installation verification if new homePage
   }
 
-  if (Account.PhoneExists(account, updatedWidget.phone)) {
-    // TODO stripe add seat if error return error and sysadmin
+  if (!Account.PhoneExists(account, updatedWidget.phone)) {
+    await billing.addSeat(
+      event.id,
+      account.stripeCustomer,
+      Plan[updatedWidget.country]
+    );
+  } else if (
+    account.widgets.filter(widget => widget.phone === updatedWidget.phone)
+      .length === 1
+  ) {
+    await billing.removeSeat(
+      event.id,
+      account.stripeCustomer,
+      Plan[updatedWidget.country]
+    );
   }
 
   const widgets = account.widgets.filter(
@@ -48,7 +67,16 @@ export const Handler = (
   // TODO move to subscriber
   const savedWidget = await widgetRepo.update(updatedWidget);
   if (isLeft(saved) || isLeft(savedWidget)) {
-    // TODO stripe remove seat error and sysadmin
+    const removedSeatMaybe = await billing.removeSeat(
+      event.id,
+      account.stripeCustomer,
+      Plan[updatedWidget.country]
+    );
+    // TODO notify engineer
+    console.log(
+      "Widget could not be saved and removeSeat returned: ",
+      isRight(removedSeatMaybe)
+    );
     return Results.Error.C(command);
   }
 

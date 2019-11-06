@@ -49,7 +49,7 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
         <Route
           path="/add-widget"
           component={(props: RouteComponentProps) =>
-            AddWidget({ ...props, accountID: account.id })
+            AddWidget({ ...props, accountID: account.id, reload })
           }
         />
         <Route

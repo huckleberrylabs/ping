@@ -1,6 +1,7 @@
 import { isRight } from "fp-ts/lib/Either";
 import { Type, Phone, Url, Color } from "@huckleberryai/core";
 import { Name, C, Is, Codec } from ".";
+import { Country } from "../../plan";
 
 describe("ping:widget", () => {
   test("has a name", () => {
@@ -9,6 +10,7 @@ describe("ping:widget", () => {
   test("it constructs", () => {
     const widget = C(
       "+1 647 295 1647" as Phone.T,
+      "CA" as Country.T,
       "http://localhost" as Url.T,
       "white" as Color.T
     );
@@ -17,6 +19,7 @@ describe("ping:widget", () => {
   test("it encodes", () => {
     const widget = C(
       "+1 647 295 1647" as Phone.T,
+      "CA" as Country.T,
       "http://localhost" as Url.T,
       "white" as Color.T
     );
@@ -25,6 +28,7 @@ describe("ping:widget", () => {
   test("it decodes", () => {
     const widget = C(
       "+1 647 295 1647" as Phone.T,
+      "CA" as Country.T,
       "http://localhost" as Url.T,
       "white" as Color.T
     );
