@@ -55,7 +55,8 @@
     "react-syntax-highlighter": "^11.0.2",
     "react-toastify": "^5.4.0",
     "rmwc": "^5.7.1",
-    "xstate": "^4.6.7"
+    "xstate": "^4.6.7",
+    "typescript": "^3.7.2"
   },
   "devDependencies": {
     "@types/node": "^12.12.6",
