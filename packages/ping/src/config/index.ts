@@ -32,6 +32,7 @@ export const CloseAccountFormURL =
   "https://huckleberryai.typeform.com/to/To6SXb";
 
 export const SecretDeveloperMessage = `
+
 Ping, by Huckleberry
           
 made with ❤️in Waterloo, Canada
