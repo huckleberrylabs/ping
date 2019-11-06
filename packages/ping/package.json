@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Ping",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -66,7 +66,7 @@
     "prepublishOnly": "npm run test"
   },
   "dependencies": {
-    "@huckleberryai/core": "^1.0.2",
+    "@huckleberryai/core": "^1.0.4",
     "fp-ts": "^2.1.0",
     "io-ts": "^2.0.1"
   },
