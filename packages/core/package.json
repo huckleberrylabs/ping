@@ -83,6 +83,7 @@
     "@types/humanparser": "^1.1.1",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.6.8",
+    "@types/normalize-url": "^4.2.0",
     "@types/uuid": "^3.4.5",
     "jest": "^24.8.0",
     "prettier": "^1.17.0",
@@ -92,5 +93,5 @@
     "tslint-jest": "^1.0.5",
     "typescript": "^3.6.4"
   },
-  "gitHead": "2972e4a39bfe62003cb2c842bee4f7a9c6e9c679"
+  "gitHead": "4bdd66536991960e8a1b0735dc2a9089b8804de0"
 }
