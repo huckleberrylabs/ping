@@ -1,0 +1,8 @@
+.app-bar {
+  z-index: 10;
+}
+
+.app-bar-logo {
+  height: 45px;
+  padding-top: 10px;
+}

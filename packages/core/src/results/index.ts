@@ -3,6 +3,7 @@ import * as BadRequest from "./bad-request";
 import * as Forbidden from "./forbidden";
 import * as Error from "./internal-error";
 import * as NotFound from "./not-found";
+import * as Unauthorized from "./unauthorized";
 import * as OK from "./ok";
 import * as OKWithData from "./ok-with-data";
 import * as Errors from "../errors";
@@ -13,6 +14,7 @@ export type T =
   | Forbidden.T
   | Error.T
   | NotFound.T
+  | Unauthorized.T
   | OK.T
   | OKWithData.T<any>;
 
@@ -21,6 +23,7 @@ export type Names =
   | typeof Forbidden.Name
   | typeof Error.Name
   | typeof NotFound.Name
+  | typeof Unauthorized.Name
   | typeof OK.Name
   | typeof OKWithData.Name;
 
@@ -29,6 +32,7 @@ export const Codecs = new Map<Names, iots.Mixed | null>([
   [Forbidden.Name, Forbidden.Codec],
   [Error.Name, Error.Codec],
   [NotFound.Name, NotFound.Codec],
+  [Unauthorized.Name, Unauthorized.Codec],
   [OK.Name, OK.Codec],
   [OKWithData.Name, null],
 ]);
@@ -39,9 +43,10 @@ export const ReturnValues = new Map<Names, Left<Errors.T> | Right<null> | null>(
     [Forbidden.Name, left(Errors.Forbidden.C())],
     [Error.Name, left(Errors.Adapter.C())],
     [NotFound.Name, left(Errors.NotFound.C())],
+    [Unauthorized.Name, left(Errors.Unauthorized.C())],
     [OK.Name, right(null)],
     [OKWithData.Name, null],
   ]
 );
 
-export { BadRequest, Error, NotFound, Forbidden, OK, OKWithData };
+export { BadRequest, Error, NotFound, Forbidden, Unauthorized, OK, OKWithData };

@@ -20,3 +20,5 @@ export const Is = (input: unknown): input is T =>
   NonEmptyString.Is(input) && moment(input, moment.ISO_8601).isValid();
 
 export const C = () => moment().toISOString() as T;
+
+export const ToUnix = (input: T) => moment(input).unix();

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "name": "@huckleberryai/ping-admin",
+  "scope": "huckleberryai",
+  "alias": ["text-admin.huckleberry.app"],
+  "public": false,
+  "build": {
+    "env": {
+      "REACT_APP_PUBLIC_STRIPE_API_KEY": "@public-stripe-api-key",
+      "PUBLIC_URL": "@widget-admin-public-url",
+      "NPM_TOKEN": "@npm-token",
+      "NODE_ENV": "@node-env"
+    }
+  }
+}
