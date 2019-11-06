@@ -20,6 +20,12 @@ const iamMaybe = IAMService.C();
 if (isLeft(iamMaybe)) throw new Error("iam private key missing");
 const iam = iamMaybe.right;
 
+const NetlifyUrlPreProcess = (input: string) =>
+  input.replace("/.netlify/functions/index", "");
+
+const NetlifyUrlPostProcess = (input: string) =>
+  "/.netlify/functions/index" + input;
+
 export const C = () => {
   const ports = Container();
   const app = express();
@@ -33,7 +39,7 @@ export const C = () => {
 
   // Logging
   app.use((req, res, next) => {
-    console.log(req.url);
+    console.log(NetlifyUrlPreProcess(req.url));
     next();
   });
 
@@ -67,7 +73,9 @@ export const C = () => {
 
   // Login
   app.post(
-    HTTP.PathNameFromType(Ping.Account.UseCases.LoginWithToken.Command.Name),
+    NetlifyUrlPostProcess(
+      HTTP.PathNameFromType(Ping.Account.UseCases.LoginWithToken.Command.Name)
+    ),
     async (req, res) => {
       const commandMaybe = Ping.Account.UseCases.LoginWithToken.Command.Codec.decode(
         req.body
@@ -120,7 +128,9 @@ export const C = () => {
 
   // Logout
   app.post(
-    HTTP.PathNameFromType(Ping.Account.UseCases.Logout.Command.Name),
+    NetlifyUrlPostProcess(
+      HTTP.PathNameFromType(Ping.Account.UseCases.Logout.Command.Name)
+    ),
     async (req, res) => {
       const commandMaybe = Ping.Account.UseCases.Logout.Command.Codec.decode(
         req.body
@@ -143,19 +153,13 @@ export const C = () => {
     }
   );
   // Health
-  app.get("/ping", (req, res) => {
+  app.get(NetlifyUrlPostProcess("/ping"), (req, res) => {
     res.status(StatusCode.OK).send(null);
   });
 
   // Handlers
   app.use(async (req, res) => {
-    if (!req.url) {
-      res.status(StatusCode.BAD_REQUEST).send(null);
-      return;
-    }
-    const maybeType = HTTP.TypeFromPathName(
-      new URL(req.url, "http://example.com").pathname
-    );
+    const maybeType = HTTP.TypeFromPathName(NetlifyUrlPreProcess(req.url));
     if (isLeft(maybeType)) {
       res.status(StatusCode.BAD_REQUEST).send(null);
       return;
