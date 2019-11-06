@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "1.0.8",
+  "version": "1.0.7",
   "description": "Text, By Huckleberry",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -97,5 +97,5 @@
     "webpack-cli": "^3.3.9",
     "webpack-obfuscator": "^0.18.3"
   },
-  "gitHead": "e2ed6a551d2eb27a46cc8a09783cd5c5f57eab35"
+  "gitHead": "4448a1ebce3de627b94f3f408c9c922d6b6221e9"
 }
