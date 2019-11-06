@@ -24,7 +24,7 @@
     "src"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=12.8.0"
   },
   "jest": {
     "preset": "ts-jest",
