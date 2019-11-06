@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Huckleberry API",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -71,9 +71,9 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^2.2.6",
-    "@huckleberryai/core": "^1.0.0",
-    "@huckleberryai/ping": "^1.0.0",
-    "@huckleberryai/web-analytics": "^1.0.0",
+    "@huckleberryai/core": "^1.0.1",
+    "@huckleberryai/ping": "^1.0.1",
+    "@huckleberryai/web-analytics": "^1.0.1",
     "@now/node": "^0.12.1",
     "@sendgrid/mail": "^6.4.0",
     "@types/aws-serverless-express": "^3.3.1",
