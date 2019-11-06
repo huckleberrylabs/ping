@@ -1,6 +1,6 @@
 import { some, isSome, none } from "fp-ts/lib/Option";
 import { isLeft } from "fp-ts/lib/Either";
-import { Results } from "@huckleberryai/core";
+import { Results, Errors } from "@huckleberryai/core";
 import { AccountRepository } from "../../../../interfaces";
 import * as Command from "../command";
 import * as Event from "../event";
@@ -14,9 +14,8 @@ export const Handler = (repo: AccountRepository) => async (
   const acccountMaybe = await repo.get(event.account);
   if (isLeft(acccountMaybe)) {
     switch (acccountMaybe.left.type) {
-      case "core:error:not-found":
+      case Errors.NotFound.Name:
         return Results.NotFound.C(command);
-      case "core:error:adapter":
       default:
         return Results.Error.C(command);
     }
@@ -26,22 +25,21 @@ export const Handler = (repo: AccountRepository) => async (
   account.name = name;
   account.userName = userName;
 
+  // TODO Send Verify Emails
+  // TODO Update Stripe Billing Email when these are updated
   if (account.email !== email) {
     account.email = email;
     account.emailVerified = false;
-    // TODO Send Verify Email
   }
 
   if (account.billingEmail !== billingEmail) {
     account.billingEmail = billingEmail;
     account.billingEmailVerified = isSome(billingEmail) ? some(false) : none;
-    // TODO Send Verify Email
   }
 
   const saved = await repo.update(account);
 
   if (isLeft(saved)) {
-    // TODO Clean up email verification
     return Results.Error.C(command);
   }
 

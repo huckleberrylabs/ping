@@ -1,5 +1,5 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Results } from "@huckleberryai/core";
+import { Results, Errors } from "@huckleberryai/core";
 import { AccountRepository, WidgetRepository } from "../../../../interfaces";
 import * as Account from "../../../../account";
 import * as Command from "../command";
@@ -14,9 +14,8 @@ export const Handler = (
   const acccountMaybe = await repo.get(event.account);
   if (isLeft(acccountMaybe)) {
     switch (acccountMaybe.left.type) {
-      case "core:error:not-found":
+      case Errors.NotFound.Name:
         return Results.NotFound.C(command);
-      case "core:error:adapter":
       default:
         return Results.Error.C(command);
     }

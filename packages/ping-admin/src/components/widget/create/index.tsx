@@ -36,7 +36,7 @@ export const CreateWidget = (props: Props) => {
   const [showColorPicker, toggleColorPicker] = useState(false);
   const [homePage, updateHomePage] = useState<string | undefined>(undefined);
   const [phone, updatePhone] = useState<string | undefined>(undefined);
-  const [color, updateColor] = useState<string>("black");
+  const [color, updateColor] = useState<string>("#0087ff");
   return (
     <div className="create-widget-container">
       {props.showBackButton ? (

@@ -32,6 +32,11 @@ export default () => {
     smsClient,
     emailClient
   );
+
+  const iamServiceMaybe = DrivenPorts.IAMService.C();
+  if (isLeft(iamServiceMaybe)) throw new Error("iam private key missing");
+  const iamService = iamServiceMaybe.right;
+
   const analyticsRepository = DrivenPorts.WebAnalyticsRepository.C(fireStore);
   const accountRepository = DrivenPorts.AccountRepository.C(fireStore);
   const widgetRepository = DrivenPorts.WidgetRepository.C(fireStore);
@@ -84,8 +89,20 @@ export default () => {
       Ping.Account.UseCases.SendLoginEmail.Command.Name,
       Ping.Account.UseCases.SendLoginEmail.Handler(
         accountRepository,
-        emailClient
+        emailClient,
+        iamService
       ),
+    ],
+    [
+      Ping.Account.UseCases.LoginWithToken.Command.Name,
+      Ping.Account.UseCases.LoginWithToken.Handler(
+        accountRepository,
+        iamService
+      ),
+    ],
+    [
+      Ping.Account.UseCases.Logout.Command.Name,
+      Ping.Account.UseCases.Logout.Handler(accountRepository),
     ],
     [
       Ping.Widget.UseCases.CreateMessage.Command.Name,

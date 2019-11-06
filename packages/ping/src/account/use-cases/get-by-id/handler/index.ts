@@ -1,5 +1,5 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Results } from "@huckleberryai/core";
+import { Results, Errors } from "@huckleberryai/core";
 import { AccountRepository } from "../../../../interfaces";
 import * as Query from "../query";
 
@@ -10,9 +10,8 @@ export const Handler = (repo: AccountRepository) => async (query: Query.T) => {
   if (isLeft(accountMaybe)) {
     console.log("couldn't get account: ", accountMaybe.left.type);
     switch (accountMaybe.left.type) {
-      case "core:error:not-found":
+      case Errors.NotFound.Name:
         return Results.NotFound.C(query);
-      case "core:error:adapter":
       default:
         return Results.Error.C(query);
     }

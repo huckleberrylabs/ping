@@ -115,6 +115,26 @@ export const AccountViewer = (props: Props) => {
           setBillingEmail(billingEmail);
         }}
       />
+      <p>
+        If you'd like to close your account,{" "}
+        <a
+          href={`https://huckleberryai.typeform.com/to/To6SXb?account_id=${
+            props.account.id
+          }&account_name=${
+            isSome(props.account.name) ? props.account.name.value : "none"
+          }&stripe_customer=${
+            props.account.stripeCustomer
+          }&account_age=${Math.floor(
+            (Date.now() - Date.parse(props.account.registeredAt)) / 86400000
+          )}&user_name=${PersonName.FirstLast(props.account.userName)}&email=${
+            props.account.email
+          }&unique_phones=${
+            new Set(props.account.widgets.map(widget => widget.phone)).size
+          }`}
+        >
+          click this link
+        </a>
+      </p>
       <br />
       <br />
       <div className="account-viewer-save-changes-container">
@@ -122,36 +142,15 @@ export const AccountViewer = (props: Props) => {
           onClick={async () => {
             const sdk = PrivateSDK.C();
             if (isNone(userName.first) || isNone(userName.last)) {
-              toast.warn("first and last name must be provided", {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-              });
+              toast.warn("Both first and last names must be provided");
               return;
             }
             if (!EmailAddress.Is(email)) {
-              toast.warn("email must be provided", {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-              });
+              toast.warn("A valid email must be provided");
               return;
             }
             if (isSome(billingEmail) && !EmailAddress.Is(billingEmail.value)) {
-              toast.warn("billing email is invalid", {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true
-              });
+              toast.warn("The billing email provided is invalid");
               return;
             }
             const maybeUpdated = await sdk.Account.Update(
@@ -163,26 +162,11 @@ export const AccountViewer = (props: Props) => {
             );
             if (isLeft(maybeUpdated)) {
               toast.error(
-                "cannot update account at this time, please try again later.",
-                {
-                  position: "bottom-right",
-                  autoClose: 3000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true
-                }
+                "Cannot update account at this time, please try again later."
               );
               return;
             }
-            toast.success("account updated.", {
-              position: "bottom-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true
-            });
+            toast.success("Account updated.");
             props.reload();
           }}
           raised

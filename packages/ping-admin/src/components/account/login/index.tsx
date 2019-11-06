@@ -23,30 +23,52 @@ import "@rmwc/circular-progress/circular-progress.css";
 import "./style.css";
 
 // Domain
-import { EmailAddress } from "@huckleberryai/core";
+import * as Auth from "../../../services/authentication";
+import { EmailAddress, NonEmptyString, Errors } from "@huckleberryai/core";
 import { PrivateSDK } from "@huckleberryai/ping";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps } from "react-router-dom";
 
-type Stage = "idle" | "loading" | "sent" | "error";
+type Stage = "idle" | "loading" | "sent" | "not-found" | "error";
 
-export const Login = () => {
+type Props = RouteComponentProps & {};
+
+export const Login = (props: Props) => {
   const [email, setEmail] = useState<string>("");
   const [stage, setStage] = useState<Stage>("idle");
 
+  const query = new URLSearchParams(props.location.search);
+  const token = query.get("token");
+  if (NonEmptyString.Is(token)) {
+    console.log("Logging In With Token: ", token);
+    Auth.login(token).then(result => {
+      if (isLeft(result)) {
+        console.log("Login Unsuccessful: ", result.left.type);
+        window.location.replace("/login");
+        props.history.push("/login");
+      } else {
+        console.log("Login Successful");
+        window.location.reload();
+      }
+    });
+    setStage("loading");
+  }
+
   const submitForm = async () => {
     if (!EmailAddress.Is(email)) {
-      toast.warn("Valid email must be provided.", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      });
+      toast.warn("Valid email must be provided.");
       return;
     }
-    const loginMaybe = await PrivateSDK.C().Account.Login(email);
-    isLeft(loginMaybe) ? setStage("error") : setStage("sent");
+    const loginMaybe = await PrivateSDK.C().Account.SendLoginEmail(email);
+
+    if (isLeft(loginMaybe)) {
+      if (Errors.NotFound.Is(loginMaybe.left)) {
+        setStage("not-found");
+        return;
+      }
+      setStage("error");
+      return;
+    }
+    setStage("sent");
   };
   return (
     <div className="login-container">
@@ -90,6 +112,19 @@ export const Login = () => {
           </div>
         ) : stage === "sent" ? (
           <div>Success! Please check your inbox for our email.</div>
+        ) : stage === "not-found" ? (
+          <div className="login-error">
+            <div>We couldn't find an account associated with that email.</div>
+            <Button
+              onClick={() => {
+                setStage("idle");
+              }}
+              raised
+              icon="keyboard_arrow_left"
+            >
+              Try another email
+            </Button>
+          </div>
         ) : (
           <div className="login-error">
             <div>

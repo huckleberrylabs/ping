@@ -1,7 +1,7 @@
 .create-widget-container {
   flex-direction: column;
   padding: 10vh 5vw 10vh 5vw;
-  min-width: 500px;
+  min-width: 200px;
   min-height: 300px;
 }
 

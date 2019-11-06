@@ -39,7 +39,7 @@ export const WidgetCodeSnippet = (props: Props) => (
     <p>
       Copy this code and insert it as high as possible inside the head tag of
       your website. If you'd like assistance, please reach out to us at
-      support@ping.buzz.
+      help@ping.buzz.
     </p>
     <Ripple primary>
       <div

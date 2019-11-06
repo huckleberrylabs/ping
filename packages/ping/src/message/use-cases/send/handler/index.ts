@@ -5,6 +5,7 @@ import {
   NonEmptyString,
   SMSClient,
   PersonName,
+  Errors,
 } from "@huckleberryai/core";
 import { WidgetRepository, MessageRepository } from "../../../../interfaces";
 import * as Message from "../../../entity";
@@ -19,9 +20,8 @@ export const Handler = (
   const widgetMaybe = await widgetRepo.get(command.widget);
   if (isLeft(widgetMaybe)) {
     switch (widgetMaybe.left.type) {
-      case "core:error:not-found":
+      case Errors.NotFound.Name:
         return Results.NotFound.C(command);
-      case "core:error:adapter":
       default:
         return Results.Error.C(command);
     }
@@ -30,9 +30,8 @@ export const Handler = (
   const messageMaybe = await messageRepo.get(command.message);
   if (isLeft(messageMaybe)) {
     switch (messageMaybe.left.type) {
-      case "core:error:not-found":
+      case Errors.NotFound.Name:
         return Results.NotFound.C(command);
-      case "core:error:adapter":
       default:
         return Results.Error.C(command);
     }
@@ -53,9 +52,13 @@ export const Handler = (
         }`
       : "anonymous";
   const res = await sms(
-    `New Message from ${printName(
-      name
-    )}: ${text}\n Reply to them at ${phone}` as NonEmptyString.T,
+    `You have a new message from ping:\n
+    
+    Name: ${printName(name)}\n
+    
+    Message: ${text}\n
+    
+    Reply to them at ${phone}` as NonEmptyString.T,
     widget.phone
   );
   if (isLeft(res)) {

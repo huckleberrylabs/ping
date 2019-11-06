@@ -22,7 +22,9 @@ export const EndpointFromEvent = (event: Event.T) =>
   AddEventParamsToURL(GetEndpoint(PathNameFromEvent(event)), event);
 
 export const PathNameFromEvent = (event: Event.T) =>
-  "/" + event.type.replace(/:/g, "/");
+  PathNameFromType(event.type);
+
+export const PathNameFromType = (type: Type.T) => "/" + type.replace(/:/g, "/");
 
 export const TypeFromPathName = (input: string) =>
   Type.Codec.decode(input.slice(1).replace(/\//g, ":"));

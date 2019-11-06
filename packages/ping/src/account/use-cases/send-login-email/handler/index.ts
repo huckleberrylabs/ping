@@ -7,8 +7,9 @@ import {
   PersonName,
   EmailAddress,
   Env,
+  Errors,
 } from "@huckleberryai/core";
-import { AccountRepository } from "../../../../interfaces";
+import { AccountRepository, IAMService } from "../../../../interfaces";
 import * as Command from "../command";
 import * as Event from "../event";
 
@@ -32,21 +33,21 @@ const LoginEmailTemplate: EmailTemplate = {
 const GenerateLoginLink = (token: string) =>
   `${
     Env.Get() === "development"
-      ? "http://localhost:3000/login?token="
-      : "https://ping.buzz/login?token="
-  }${token}`;
+      ? "http://localhost:3000"
+      : "https://admin.ping.buzz"
+  }/login?token=${token}`;
 
 export const Handler = (
   repo: AccountRepository,
-  emailClient: EmailClient
+  emailClient: EmailClient,
+  iam: IAMService
 ) => async (command: Command.T) => {
   const event = Event.C(command);
   const acccountsMaybe = await repo.getByEmail(event.email);
   if (isLeft(acccountsMaybe)) {
     switch (acccountsMaybe.left.type) {
-      case "core:error:not-found":
+      case Errors.NotFound.Name:
         return Results.NotFound.C(command);
-      case "core:error:adapter":
       default:
         return Results.Error.C(command);
     }
@@ -61,7 +62,7 @@ export const Handler = (
       },
       dynamicTemplateData: {
         accountName: account.name,
-        loginLink: GenerateLoginLink(account.id),
+        loginLink: GenerateLoginLink(iam.generateOneTimeToken(account.id)),
       },
     })),
     LoginEmailTemplate

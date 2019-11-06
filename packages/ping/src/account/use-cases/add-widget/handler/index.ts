@@ -1,22 +1,26 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Results, UUID } from "@huckleberryai/core";
-import { AccountRepository, WidgetRepository } from "../../../../interfaces";
+import { Results, UUID, Errors } from "@huckleberryai/core";
+import {
+  AccountRepository,
+  WidgetRepository,
+  BillingService,
+} from "../../../../interfaces";
 import * as Account from "../../../../account";
 import * as Command from "../command";
 import * as Event from "../event";
 
 export const Handler = (
   repo: AccountRepository,
-  widgetRepo: WidgetRepository
+  widgetRepo: WidgetRepository,
+  billing: BillingService
 ) => async (command: Command.T) => {
   // TODO IsAuthorized
   const event = Event.C(command);
   const acccountMaybe = await repo.get(event.account);
   if (isLeft(acccountMaybe)) {
     switch (acccountMaybe.left.type) {
-      case "core:error:not-found":
+      case Errors.NotFound.Name:
         return Results.NotFound.C(command);
-      case "core:error:adapter":
       default:
         return Results.Error.C(command);
     }

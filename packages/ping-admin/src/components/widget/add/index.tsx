@@ -29,14 +29,7 @@ export const AddWidget = (props: Props) => {
     const result = current.event.data;
     if (isLeft(result)) showErrorToast(result.left);
     else {
-      toast.success("Widget Added Successfully", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      });
+      toast.success("Widget Added Successfully");
       props.history.push(`/widgets:${result.right}`);
     }
   }

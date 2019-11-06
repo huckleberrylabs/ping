@@ -12,8 +12,8 @@ export const C = (client: SendGrid.T): EmailClient => async (
   emails: Email[],
   template: EmailTemplate,
   options?: EmailOptions
-) => {
-  return client({
+) =>
+  client({
     personalizations: emails.map(email => ({
       to: {
         email: email.to.address,
@@ -48,4 +48,3 @@ export const C = (client: SendGrid.T): EmailClient => async (
     categories: template.categories,
     ...options,
   });
-};

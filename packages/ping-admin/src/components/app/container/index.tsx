@@ -12,8 +12,12 @@ import "@material/theme/dist/mdc.theme.css";
 import "react-toastify/dist/ReactToastify.css";
 import { StripeProvider } from "react-stripe-elements";
 
-import { Account as PingAccount, PrivateSDK } from "@huckleberryai/ping";
-
+import {
+  Account as PingAccount,
+  PrivateSDK,
+  Widget
+} from "@huckleberryai/ping";
+import * as Auth from "../../../services/authentication";
 import { AccountViewer, Login, RegisterAccount } from "../../account";
 import { WidgetExplorer, WidgetViewer } from "../../widget";
 
@@ -21,18 +25,14 @@ import { AppBar } from "../bar";
 import { AppMenu } from "../menu";
 import "./style.css";
 import { UUID } from "@huckleberryai/core";
-import { isLeft } from "fp-ts/lib/Either";
+import { isLeft, isRight } from "fp-ts/lib/Either";
 import { AddWidget } from "../../widget";
+import { CircularProgress } from "@rmwc/circular-progress";
+import { LandingPage } from "../../landing-page";
 
 export const AuthApp = (account: PingAccount.T, reload: () => void) => (
   <>
-    <AppBar
-      logout={() => {
-        localStorage.removeItem("accountID");
-        window.location.reload();
-        console.log("Woot");
-      }}
-    />
+    <AppBar logout={() => Auth.logout(account.id)} isLoggedIn fixed />
     <div className="app-container">
       <AppMenu />
       <Switch>
@@ -52,7 +52,30 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
             AddWidget({ ...props, accountID: account.id })
           }
         />
-        <Route path="/widgets/:id" component={WidgetViewer} />
+        <Route
+          path="/widgets/:id"
+          component={(props: RouteComponentProps<{ id: UUID.T }>) => {
+            const id = props.match.params.id;
+            const widget = account.widgets.filter(
+              widget => widget.id === id
+            )[0];
+            if (widget)
+              return WidgetViewer({
+                ...props,
+                widget,
+                onSave: async (widget: Widget.T) => {
+                  const result = await sdk.Widget.Update(
+                    account.id,
+                    widget,
+                    UUID.C()
+                  );
+                  reload();
+                  return result;
+                }
+              });
+            return <div>Widget Not Found</div>;
+          }}
+        />
         <Route
           path="/account"
           component={() => AccountViewer({ account, reload })}
@@ -67,7 +90,7 @@ const UnAuthApp = () => (
   <Switch>
     <Route path="/register" component={RegisterAccount} />
     <Route path="/login" component={Login} />
-    <Route render={() => <Redirect to="/login" />} />
+    <Route component={LandingPage} />
   </Switch>
 );
 
@@ -103,7 +126,7 @@ export const ProviderHoC = (props: JSX.Element) => {
     >
       <ToastContainer
         position="bottom-right"
-        autoClose={2000}
+        autoClose={3500}
         hideProgressBar
         newestOnTop={false}
         closeOnClick
@@ -120,47 +143,54 @@ export const ProviderHoC = (props: JSX.Element) => {
 
 type State = {
   account: PingAccount.T | undefined;
+  loading: boolean;
 };
 type Props = {};
 
 const corr = UUID.C();
 const sdk = PrivateSDK.C();
-const accountID = "8bb3ea37-fb26-499d-ab1c-37901cc9d609" as UUID.T; // localStorage.getItem("accountID");
-if (!UUID.Is(accountID)) {
-  localStorage.removeItem("accountID");
-}
 
 export class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      account: undefined
+      account: undefined,
+      loading: true
     };
   }
-  async onAccountUpdated() {
-    const accountMaybe = await sdk.Account.Get(accountID, corr);
-    if (isLeft(accountMaybe)) {
-      localStorage.removeItem("accountID");
-      return;
-    }
-    const account = accountMaybe.right;
-    this.setState({ account });
+  componentDidMount() {
+    this.onAccountUpdated();
   }
-  async componentDidMount() {
-    const accountMaybe = await sdk.Account.Get(accountID, corr);
+  async onAccountUpdated() {
+    this.setState({ loading: true });
+    const idMaybe = Auth.isLoggedIn();
+    console.log("Is Logged In: ", isRight(idMaybe));
+    if (isLeft(idMaybe)) {
+      this.setState({ loading: false });
+      return;
+    }
+    const id = idMaybe.right;
+    const accountMaybe = await sdk.Account.Get(id, corr);
     if (isLeft(accountMaybe)) {
-      localStorage.removeItem("accountID");
+      Auth.logout(id); // Unauthenticated clean up and auto redirect
+      this.setState({ loading: false });
       return;
     }
     const account = accountMaybe.right;
-    this.setState({ account });
+    this.setState({ account, loading: false });
   }
   render() {
-    return ProviderHoC(UnAuthApp());
-    /* return ProviderHoC(
-      PingAccount.Is(this.state.account)
-        ? AuthApp(this.state.account, () => this.onAccountUpdated())
-        : UnAuthApp()
-    ); */
+    console.log(this.state);
+    return ProviderHoC(
+      PingAccount.Is(this.state.account) ? (
+        AuthApp(this.state.account, () => this.onAccountUpdated())
+      ) : this.state.loading ? (
+        <div>
+          <CircularProgress />
+        </div>
+      ) : (
+        UnAuthApp()
+      )
+    );
   }
 }

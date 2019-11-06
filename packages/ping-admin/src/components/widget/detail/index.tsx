@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { RouteComponentProps } from "react-router";
-import { isLeft } from "fp-ts/lib/Either";
+import { isLeft, Either } from "fp-ts/lib/Either";
 
 // Color
 import { ChromePicker } from "react-color";
@@ -27,154 +27,87 @@ import { toast } from "react-toastify";
 // Style
 import "./style.css";
 
+// Code Snippet
 import { WidgetCodeSnippet } from "../code-snippet";
 
 // Domain
-import { Widget, PrivateSDK, PublicSDK } from "@huckleberryai/ping";
-import { Color, UUID, Phone, Url } from "@huckleberryai/core";
+import { Widget } from "@huckleberryai/ping";
+import { Color, Phone, Url, Errors } from "@huckleberryai/core";
+import { CircularProgress } from "@rmwc/circular-progress";
 
-interface Props extends RouteComponentProps<{ id: UUID.T }> {}
-type State = {
-  error: boolean;
-  displayColorPicker: boolean;
-  widget: Widget.T | undefined;
-  hasChanged: boolean;
+type Props = RouteComponentProps & {
+  widget: Widget.T;
+  onSave: (widget: Widget.T) => Promise<Either<Errors.T, null>>;
 };
 
-const accountID = "8bb3ea37-fb26-499d-ab1c-37901cc9d609" as UUID.T; // localStorage.getItem("accountID");
+export const WidgetViewer = (props: Props) => {
+  // UI
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
+  const onToggleColorPicker = () => setShowColorPicker(!showColorPicker);
+  const onGoBack = () => props.history.goBack();
 
-export class WidgetViewer extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      error: false,
-      displayColorPicker: false,
-      widget: undefined,
-      hasChanged: false
-    };
-  }
+  // Widget Properties
+  const [enabled, setEnabled] = useState<boolean>(props.widget.enabled);
+  const onToggleEnabled = () => setEnabled(!enabled);
 
-  onGoBack = () => this.props.history.goBack();
+  const [homePage, setHomePage] = useState<string>(props.widget.homePage);
+  const [phone, setPhone] = useState<string>(props.widget.phone);
+  const [color, setColor] = useState<string>(props.widget.color);
 
-  onToggleEnabled = () =>
-    this.setState(prevState => {
-      const newState = { ...prevState };
-      if (newState.widget && prevState.widget)
-        newState.widget.enabled = !prevState.widget.enabled;
-      newState.hasChanged = true;
-      return newState;
-    });
+  const hasChanged =
+    props.widget.enabled !== enabled ||
+    props.widget.homePage !== homePage ||
+    props.widget.homePage !== homePage ||
+    props.widget.color !== color;
 
-  onDomainChange = (input: string) =>
-    this.setState(prevState => {
-      const newState = { ...prevState };
-      if (newState.widget) newState.widget.homePage = input as Url.T;
-      newState.hasChanged = true;
-      return newState;
-    });
-
-  onPhoneChange = (input: string) =>
-    this.setState(prevState => {
-      const newState = { ...prevState };
-      if (newState.widget) newState.widget.phone = input as Phone.T;
-      newState.hasChanged = true;
-      return newState;
-    });
-
-  onToggleColorPicker = () =>
-    this.setState(prevState => ({
-      displayColorPicker: !prevState.displayColorPicker
-    }));
-
-  onChangeColor = (input: string) => {
-    if (Color.Is(input)) {
-      this.setState(prevState => {
-        const newState = { ...prevState };
-        if (newState.widget) newState.widget.color = input as Color.T;
-        newState.hasChanged = true;
-        return newState;
-      });
-    }
-  };
-
-  /* onDeleteWidget = () => null; */
-  onSaveChanges = async () => {
-    if (!this.state.widget) return;
-    const { homePage, phone, color } = this.state.widget;
+  const onSubmit = async () => {
+    if (!hasChanged) return;
     if (!Url.Is(homePage)) {
-      toast.warn("Invalid Home Page URL", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      });
+      toast.warn("A valid home page url must be provided.");
       return;
     }
     if (!Phone.Is(phone)) {
-      toast.warn("Invalid Phone", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      });
+      toast.warn("A valid phone must be provided.");
       return;
     }
     if (!Color.Is(color)) {
-      toast.warn("Invalid Color", {
-        position: "bottom-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true
-      });
+      toast.warn("A valid color must be provided.");
       return;
     }
-    const sdk = PrivateSDK.C();
-    const maybeUpdated = await sdk.Widget.Update(
-      accountID,
-      this.state.widget,
-      UUID.C()
-    );
+    setLoading(true);
+    const newWidget: Widget.T = {
+      ...props.widget,
+      enabled,
+      homePage,
+      phone,
+      color
+    };
+    const maybeUpdated = await props.onSave(newWidget);
+    setLoading(false);
     if (isLeft(maybeUpdated)) {
-      this.setState({ error: true });
+      toast.error("Cannot update the widget at this time");
       return;
     }
-    this.setState({ hasChanged: false });
+    toast.success("Widget updated.");
   };
 
-  async componentDidMount() {
-    // TODO replace with widget passed through props
-    const sdk = PublicSDK.C(this.props.match.params.id, UUID.C());
-    const settingsMaybe = await sdk.Widget.Get();
-    if (isLeft(settingsMaybe)) {
-      this.setState({ error: true });
-      return;
-    }
-    this.setState({ widget: settingsMaybe.right });
-  }
-  render() {
-    const { widget, error, displayColorPicker } = this.state;
-    if (widget) {
-      return (
-        <div className="detail-container">
-          <div className="controls-container">
-            <Button
-              onClick={this.onGoBack}
-              icon="keyboard_arrow_left"
-              theme={["textPrimaryOnLight"]}
-            >
-              Back
-            </Button>
-          </div>
-          <h1>Widget Settings</h1>
-          <div>
-            <h2>Setup</h2>
-            {/* <div className="verified-container">
+  return (
+    <div className="detail-container">
+      <div className="controls-container">
+        <Button
+          disabled={loading}
+          onClick={onGoBack}
+          icon="keyboard_arrow_left"
+          theme={["textPrimaryOnLight"]}
+        >
+          Back
+        </Button>
+      </div>
+      <h1>Widget Settings</h1>
+      <div>
+        <h2>Setup</h2>
+        {/* <div className="verified-container">
               <label>Installation Verified</label>
               <Icon
                 icon={{ icon: "check", size: "small" }}
@@ -182,102 +115,112 @@ export class WidgetViewer extends React.Component<Props, State> {
                 className="verified"
               />
             </div> */}
-            <WidgetCodeSnippet id={widget.id} />
-          </div>
+        <WidgetCodeSnippet id={props.widget.id} />
+      </div>
 
-          <div className="configuration-container">
-            <h2>Configuration</h2>
-            <div className="enabled-container">
-              <label>Enabled</label>
-              <Switch
-                checked={widget.enabled}
-                onChange={() => this.onToggleEnabled()}
-                theme={"primary"}
+      <div className="configuration-container">
+        <h2>Configuration</h2>
+        <div className="enabled-container">
+          <label>Enabled</label>
+          <Switch
+            disabled={loading}
+            checked={enabled}
+            onChange={onToggleEnabled}
+            theme={"primary"}
+          />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+        <div className="url-container">
+          <TextField
+            disabled={loading}
+            outlined
+            label="Home Page"
+            placeholder={"https://example.com"}
+            required
+            value={homePage}
+            invalid={!Url.Is(homePage)}
+            onChange={event => {
+              const homePage = (event.target as HTMLInputElement).value;
+              setHomePage(homePage);
+            }}
+          />
+        </div>
+        <div className="phone-container">
+          <TextField
+            disabled={loading}
+            outlined
+            label="Phone"
+            required
+            value={phone}
+            placeholder={"+1 123 456 7890"}
+            invalid={!Phone.Is(phone)}
+            onChange={event =>
+              setPhone((event.target as HTMLInputElement).value)
+            }
+          />
+        </div>
+      </div>
+
+      <div>
+        <h2>Style</h2>
+        <div className="color-container">
+          <Button
+            disabled={loading}
+            onClick={onToggleColorPicker}
+            raised
+            dense
+            style={{
+              backgroundColor: color,
+              color: Color.IsLight(color as Color.T) ? "black" : "white"
+            }}
+          >
+            Change Color
+          </Button>
+          {showColorPicker ? (
+            <div className="color-picker-popover">
+              <div
+                className="color-picker-cover"
+                onClick={onToggleColorPicker}
               />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-            </div>
-            <div className="url-container">
-              <TextField
-                outlined
-                label="Home Page"
-                value={widget.homePage}
-                placeholder={"https://example.com"}
-                onChange={event =>
-                  this.onDomainChange((event.target as HTMLInputElement).value)
+              <ChromePicker
+                color={color}
+                onChangeComplete={(input: { hex: string }) =>
+                  setColor(input.hex)
                 }
               />
             </div>
-            <div className="phone-container">
-              <TextField
-                outlined
-                label="Phone"
-                value={widget.phone}
-                placeholder={"+1 123 456 7890"}
-                onChange={event =>
-                  this.onPhoneChange((event.target as HTMLInputElement).value)
-                }
-              />
-            </div>
-          </div>
+          ) : null}
+        </div>
+      </div>
 
-          <div>
-            <h2>Style</h2>
-            <div className="color-container">
-              <Button
-                onClick={this.onToggleColorPicker}
-                raised
-                dense
-                style={{
-                  backgroundColor: widget.color,
-                  color: Color.IsLight(widget.color) ? "black" : "white"
-                }}
-              >
-                Change Color
-              </Button>
-              {displayColorPicker ? (
-                <div className="color-picker-popover">
-                  <div
-                    className="color-picker-cover"
-                    onClick={this.onToggleColorPicker}
-                  />
-                  <ChromePicker
-                    color={widget.color as string}
-                    onChangeComplete={(input: { hex: string }) =>
-                      this.onChangeColor(input.hex)
-                    }
-                  />
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          {/* <div className="delete-container">
+      {/* <div className="delete-container">
             <h2>Danger Zone</h2>
             <Button onClick={this.onDeleteWidget} outlined danger>
               Delete
             </Button>
           </div> */}
-          <br />
-          <br />
-          <div className="controls-container">
-            <Button
-              onClick={this.onSaveChanges}
-              raised
-              disabled={!this.state.hasChanged}
-            >
-              Save Changes
-            </Button>
-          </div>
-        </div>
-      );
-    }
-    if (error) {
-      return <div>An error occured, please try again later</div>;
-    }
-    return <div>Loading...</div>;
-  }
-}
+      <br />
+      <br />
+      <div className="controls-container">
+        <Button
+          onClick={onSubmit}
+          raised
+          icon={loading ? <CircularProgress /> : "keyboard_arrow_right"}
+          disabled={
+            !Phone.Is(phone) ||
+            !Url.Is(homePage) ||
+            !Color.Is(color) ||
+            !hasChanged ||
+            loading
+          }
+        >
+          {loading ? "Loading" : "Save Changes"}
+        </Button>
+      </div>
+    </div>
+  );
+};

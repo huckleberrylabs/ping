@@ -13,6 +13,8 @@ import {
   Update,
   UpdateWidget,
   SendLoginEmail,
+  LoginWithToken,
+  Logout,
 } from "../../account/use-cases";
 import * as Account from "../../account";
 import * as Widget from "../../widget";
@@ -70,10 +72,24 @@ export const C = (): PrivateSDK => ({
       const url = HTTP.EndpointFromEvent(command);
       return await HTTP.Post(url, Update.Command.Codec.encode(command));
     },
-    Login: async (email: EmailAddress.T, corr?: UUID.T) => {
+    SendLoginEmail: async (email: EmailAddress.T, corr?: UUID.T) => {
       const command = SendLoginEmail.Command.C(email, corr);
       const url = HTTP.EndpointFromEvent(command);
       return await HTTP.Post(url, SendLoginEmail.Command.Codec.encode(command));
+    },
+    LoginWithToken: async (token: NonEmptyString.T, corr?: UUID.T) => {
+      const command = LoginWithToken.Command.C(token, corr);
+      const url = HTTP.EndpointFromEvent(command);
+      return await HTTP.Post(
+        url,
+        LoginWithToken.Command.Codec.encode(command),
+        UUID.Codec
+      );
+    },
+    Logout: async (id: UUID.T, corr?: UUID.T) => {
+      const command = Logout.Command.C(id, corr);
+      const url = HTTP.EndpointFromEvent(command);
+      return await HTTP.Post(url, Logout.Command.Codec.encode(command));
     },
   },
   Widget: {

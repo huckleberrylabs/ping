@@ -15,25 +15,6 @@ import {
   Env,
 } from "@huckleberryai/core";
 import { Interfaces } from "@huckleberryai/ping";
-/* 
-creditNotes
-refunds
-disputes
-coupons
-
-events
-webhooks
-
-plans
-subscriptionItems
-subscriptions
-invoiceItems
-invoices
-customers
-
-paymentMethods, paymentIntents, setupIntents
-
-*/
 
 const StripeError = (error: errors.StripeError) => {
   /*
