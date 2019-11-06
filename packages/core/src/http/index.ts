@@ -31,7 +31,7 @@ export const GetEndpoint = (input: string) => {
 };
 
 export const EndpointFromEvent = (event: Event.T) =>
-  AddEventParamsToURL(GetEndpoint(PathNameFromEvent(event)), event);
+  AddEventParamsToURL(GetNetlifyEndpoint(PathNameFromEvent(event)), event);
 
 export const PathNameFromEvent = (event: Event.T) =>
   PathNameFromType(event.type);
