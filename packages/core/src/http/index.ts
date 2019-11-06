@@ -16,6 +16,13 @@ export const GetAPIURL = () =>
     ? process.env.REACT_APP_API_URL
     : DefaultAPIURL;
 
+export const GetNetlifyEndpoint = (input: string) => {
+  const api = GetAPIURL();
+  const url = new URL(api);
+  url.pathname = url.pathname + input;
+  return url.toString() as Url.T;
+};
+
 export const GetEndpoint = (input: string) => {
   const api = GetAPIURL();
   const url = new URL(api);
