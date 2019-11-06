@@ -1,5 +1,7 @@
 # Ping Admin
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/12980c82-4e75-4e7b-9b9d-f3990750d2a6/deploy-status)](https://app.netlify.com/sites/ping-admin/deploys)
+
 # Production Environment
 
 NODE_ENV
