@@ -19,7 +19,7 @@ export const GetAPIURL = () =>
 export const GetNetlifyEndpoint = (input: string) => {
   const api = GetAPIURL();
   const url = new URL(api);
-  url.pathname = url.pathname + input;
+  url.pathname = url.pathname.substring(1) + input;
   return url.toString() as Url.T;
 };
 
