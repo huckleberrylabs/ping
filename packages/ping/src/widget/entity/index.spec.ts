@@ -43,6 +43,7 @@ describe("ping:widget", () => {
       color: "#3988f5",
       phone: "+16472951647",
       enabled: true,
+      country: "CA",
       homePage: "http://localhost.com",
     };
     const decoded = Codec.decode(widget);

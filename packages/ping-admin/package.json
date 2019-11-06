@@ -67,5 +67,6 @@
     "@types/react-stripe-elements": "^1.3.4",
     "@types/react-syntax-highlighter": "^11.0.1",
     "typescript": "^3.4.5"
-  }
+  },
+  "gitHead": "b8d341a85ae35d591081b289e55d181a29064f60"
 }
