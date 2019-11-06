@@ -7,14 +7,14 @@ import { Post, Beacon, GetEndpoint, EndpointFromEvent, GetAPIURL } from ".";
 import { DefaultAPIURL } from "../config";
 
 describe.only("http-client", () => {
-  const testURL = "http://example.com";
-  test(`api url should be ${testURL}`, () => {
+  const testEndpoint = "/test-endpoint";
+  test(`api url should be ${DefaultAPIURL}`, () => {
     expect(GetAPIURL()).toBe(DefaultAPIURL);
   });
   test(`should return correct output`, () => {
-    expect(new URL(GetEndpoint(DefaultAPIURL)).pathname).toBe(DefaultAPIURL);
-    expect(GetEndpoint(DefaultAPIURL)).toBe(
-      new URL(testURL + DefaultAPIURL).toString()
+    expect(new URL(GetEndpoint(testEndpoint)).pathname).toBe(testEndpoint);
+    expect(GetEndpoint(testEndpoint)).toBe(
+      new URL(DefaultAPIURL + testEndpoint).toString()
     );
   });
   test("it posts", async () => {
@@ -46,7 +46,7 @@ describe.only("http-client", () => {
       EndpointFromEvent,
       url =>
         expect(url).toBe(
-          testURL +
+          DefaultAPIURL +
             "/module/domain-entity/event-name?corr_id=my-test-corr-id&parent_id=my-test-parent-id"
         )
     );

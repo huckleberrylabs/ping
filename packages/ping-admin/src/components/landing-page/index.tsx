@@ -11,12 +11,12 @@ import Button from "../../media/button.png";
 import Illustration from "../../media/illustration.png";
 import WhiteLogo from "../../media/huckleberry-white-logo.png";
 
-// Registration
+// UI Components
+import { AppBar } from "../app";
 import { RegisterAccount } from "../account";
 
 // Style
 import "./style.css";
-import { AppBar } from "../app";
 
 // Domain
 import { Config } from "@huckleberryai/ping";
