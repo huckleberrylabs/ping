@@ -4,17 +4,17 @@ import * as Event from "../event";
 import * as Json from "../json";
 import { UUID, Url, Type } from "../values";
 import { Post, Beacon, GetEndpoint, EndpointFromEvent, GetAPIURL } from ".";
+import { DefaultAPIURL } from "../config";
 
 describe.only("http-client", () => {
   const testURL = "http://example.com";
-  const testEndpoint = "/test-endpoint";
   test(`api url should be ${testURL}`, () => {
-    expect(GetAPIURL()).toBe(testURL);
+    expect(GetAPIURL()).toBe(DefaultAPIURL);
   });
   test(`should return correct output`, () => {
-    expect(new URL(GetEndpoint(testEndpoint)).pathname).toBe(testEndpoint);
-    expect(GetEndpoint(testEndpoint)).toBe(
-      new URL(testURL + testEndpoint).toString()
+    expect(new URL(GetEndpoint(DefaultAPIURL)).pathname).toBe(DefaultAPIURL);
+    expect(GetEndpoint(DefaultAPIURL)).toBe(
+      new URL(testURL + DefaultAPIURL).toString()
     );
   });
   test("it posts", async () => {
