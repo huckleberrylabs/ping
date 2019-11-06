@@ -159,7 +159,9 @@ export const C = () => {
 
   // Handlers
   app.use(async (req, res) => {
-    const maybeType = HTTP.TypeFromPathName(NetlifyUrlPreProcess(req.url));
+    const maybeType = HTTP.TypeFromPathName(
+      NetlifyUrlPreProcess(req.url.split("?")[0])
+    );
     if (isLeft(maybeType)) {
       res.status(StatusCode.BAD_REQUEST).send(null);
       return;
