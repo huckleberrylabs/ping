@@ -64,7 +64,8 @@ export const WidgetViewer = (props: Props) => {
 
   const hasChanged =
     props.widget.enabled !== enabled ||
-    props.widget.homePage !== homePage ||
+    props.widget.phone !== phone ||
+    props.widget.country !== country ||
     props.widget.homePage !== homePage ||
     props.widget.color !== color;
 
