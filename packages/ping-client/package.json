@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Text, By Huckleberry",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
