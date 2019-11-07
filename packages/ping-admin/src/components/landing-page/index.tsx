@@ -33,14 +33,14 @@ export const LandingPage = (props: Props) => (
         <h1>Introducing Ping, the world's most effective contact button.</h1>
       </div>
       <div>
-        <img src={Button} />
+        <img src={Button} alt="Ping Widget" />
       </div>
       <div>
         <h2>Q: What is Ping?</h2>
         <h2>A: Ping is text messaging for your website.</h2>
       </div>
       <div>
-        <img src={Illustration} />
+        <img src={Illustration} alt="" />
       </div>
     </div>
     <div className="landing-page-section-one">
@@ -175,7 +175,7 @@ export const LandingPage = (props: Props) => (
       <RegisterAccount {...props} />
     </div>
     <div className="landing-page-footer">
-      <img src={WhiteLogo} />
+      <img src={WhiteLogo} alt="Huckleberry Logo" />
       <p>Ping, by Huckleberry.</p>
       <p>Made with ♥ in Waterloo.</p>
       <p>173 Roger Street Waterloo, Ontario, Canada</p>

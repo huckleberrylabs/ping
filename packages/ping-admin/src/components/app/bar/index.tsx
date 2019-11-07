@@ -30,7 +30,7 @@ export const AppBar = (props: Props) => (
     <TopAppBarRow>
       <TopAppBarSection alignStart>
         <TopAppBarTitle>
-          <img src={Logo} className="app-bar-logo" />
+          <img src={Logo} className="app-bar-logo" alt="Ping" />
         </TopAppBarTitle>
       </TopAppBarSection>
       <TopAppBarSection alignEnd>
