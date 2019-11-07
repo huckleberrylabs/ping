@@ -180,7 +180,7 @@ export const LandingPage = (props: Props) => (
       <p>Made with ♥ in Waterloo.</p>
       <p>173 Roger Street Waterloo, Ontario, Canada</p>
       <p>
-        We are quick to respond on email and text. Try us.{" "}
+        We are quick to respond via email and text. Try us.{" "}
         <a href={`mail-to:${Config.SupportEmail}`}>{Config.SupportEmail}</a>
       </p>
     </div>
