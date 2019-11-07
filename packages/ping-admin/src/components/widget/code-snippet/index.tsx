@@ -4,6 +4,9 @@ import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
+// Toast
+import { toast } from "react-toastify";
+
 // Ripple
 import { Ripple } from "@rmwc/ripple";
 import "@material/ripple/dist/mdc.ripple.css";
@@ -46,6 +49,7 @@ export const WidgetCodeSnippet = (props: Props) => (
           textarea.select();
           document.execCommand("copy");
           textarea.remove();
+          toast.info("Code Copied!");
         }}
       >
         <SyntaxHighlighter language="html" style={docco}>

@@ -129,8 +129,10 @@ export const Login = (props: Props) => {
               minutes.
               <br />
               <br />
-              If that doesn't work, please email our CTO at{" "}
-              <a href={`mail-to:${Config.BugsEmail}`}>{Config.BugsEmail}</a>
+              If that doesn't work, please email us at{" "}
+              <a href={`mail-to:${Config.SupportEmail}`}>
+                {Config.SupportEmail}
+              </a>
             </div>
             <Button
               onClick={() => {

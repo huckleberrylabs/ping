@@ -18,7 +18,6 @@ export const HuckleberryURL = `https://${HuckleberryDomain}`;
 
 export const NoReplyEmail = ("no-reply@" + PrimaryDomain) as EmailAddress.T;
 export const SupportEmail = ("help@" + PrimaryDomain) as EmailAddress.T;
-export const BugsEmail = ("bugs@" + PrimaryDomain) as EmailAddress.T;
 
 export const InsertScriptID = "huckleberry-ping-insert-script";
 
@@ -31,12 +30,4 @@ export const InsertScriptURL =
 export const CloseAccountFormURL =
   "https://huckleberryai.typeform.com/to/To6SXb";
 
-export const SecretDeveloperMessage = `
-
-Ping, by Huckleberry
-          
-made with ❤️in Waterloo, Canada
-          
-${PrimaryURL}
-          
-${HuckleberryURL}`;
+export const SecretDeveloperMessage = `Ping. Made with <3 in Waterloo, Canada by Huckleberry. ${PrimaryURL}`;

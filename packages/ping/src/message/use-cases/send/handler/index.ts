@@ -52,13 +52,13 @@ export const Handler = (
         }`
       : "anonymous";
   const res = await sms(
-    `You have a new message from ping:\n
-    
+    `
+    You have a new message from ping:\n    
     Name: ${printName(name)}\n
-    
-    Message: ${text}\n
-    
-    Reply to them at ${phone}` as NonEmptyString.T,
+    Number: ${phone}\n
+    Message:\n
+    ${text}\n
+    ` as NonEmptyString.T,
     widget.phone
   );
   if (isLeft(res)) {
