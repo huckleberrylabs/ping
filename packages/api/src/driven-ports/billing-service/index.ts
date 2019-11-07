@@ -93,10 +93,13 @@ export const C = (
   ): Promise<Either<Errors.Adapter.T, null>> => {
     try {
       const customer = await client.customers.retrieve(stripeCustomer);
-      const item = customer.subscriptions.data.map(subscription =>
-        subscription.items.data.filter(item => item.plan.id === plan)
-      )[0][0];
-      if (item) {
+      const subscriptionItems = customer.subscriptions.data
+        .map(subscription =>
+          subscription.items.data.filter(item => item.plan.id === plan)
+        )
+        .filter(items => items.length > 0)[0];
+      if (subscriptionItems && subscriptionItems[0]) {
+        const item = subscriptionItems[0];
         await client.subscriptionItems.update(
           item.id,
           {
@@ -133,10 +136,13 @@ export const C = (
   ): Promise<Either<Errors.Adapter.T, null>> => {
     try {
       const customer = await client.customers.retrieve(stripeCustomer);
-      const item = customer.subscriptions.data.map(subscription =>
-        subscription.items.data.filter(item => item.plan.id === plan)
-      )[0][0];
-      if (item) {
+      const subscriptionItems = customer.subscriptions.data
+        .map(subscription =>
+          subscription.items.data.filter(item => item.plan.id === plan)
+        )
+        .filter(items => items.length > 0)[0];
+      if (subscriptionItems && subscriptionItems[0]) {
+        const item = subscriptionItems[0];
         if (item.quantity && item.quantity > 1) {
           await client.subscriptionItems.update(
             item.id,
