@@ -6,9 +6,8 @@ export const C = (client: Twilio): SMSClient => async (
   body: NonEmptyString.T,
   to: Phone.T
 ) => {
-  const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
-  if (messagingServiceSid) return left(Errors.Adapter.C());
   try {
+    const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
     await client.messages.create({
       body,
       to,
@@ -16,6 +15,7 @@ export const C = (client: Twilio): SMSClient => async (
     });
     return right(null);
   } catch (error) {
+    console.log("sms-client", JSON.stringify(error));
     return left(Errors.Adapter.C());
   }
 };

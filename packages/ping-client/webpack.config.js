@@ -7,9 +7,7 @@ const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 function getEnv() {
   if (process.env.NODE_ENV === "development") {
     const dotenv = require("dotenv").config();
-    if (dotenv.error) {
-      throw new Error(".env file couldn't be parsed");
-    }
+    if (dotenv.error) throw new Error(".env file couldn't be parsed");
     process.env = dotenv.parsed;
   }
   return new webpack.EnvironmentPlugin(["NODE_ENV", "API_URL"]);
