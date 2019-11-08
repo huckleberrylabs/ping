@@ -47,7 +47,7 @@ export const C = () => {
     const service: Interfaces.IAMService = {
       generateOneTimeToken(agent: UUID.T): NonEmptyString.T {
         return jwt.sign({ agent, oneTime: true, type: DecodedTokenName }, key, {
-          expiresIn: "12h",
+          expiresIn: "24h",
         }) as NonEmptyString.T;
       },
       generateToken(agent: UUID.T): NonEmptyString.T {
