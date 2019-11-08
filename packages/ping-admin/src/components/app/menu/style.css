@@ -1,0 +1,12 @@
+.menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding-top: 104px;
+}
+
+.menu-container .mdc-list-item {
+  font-size: 16px;
+  padding: 5px 10px;
+}

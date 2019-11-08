@@ -50,11 +50,11 @@ export const CreateAccount = (props: Props) => {
   const [card, setCard] = useState<stripe.elements.ElementChangeResponse>();
   return (
     <div className="register-account-create-container">
-      <h1>Create Account</h1>
+      <h1>create account.</h1>
       <TextField
         outlined
-        label="Business Name"
-        placeholder={"ACME Inc."}
+        label="organization"
+        placeholder={"jenny's yoga studio"}
         disabled={props.disabled}
         value={accountName}
         onChange={event =>
@@ -64,7 +64,7 @@ export const CreateAccount = (props: Props) => {
       <TextField
         outlined
         required
-        label="Person's Name"
+        label="name"
         disabled={props.disabled}
         value={userName}
         invalid={accountName !== undefined && !IsValidFirstLastName(userName)}

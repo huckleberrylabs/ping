@@ -10,10 +10,6 @@ import {
   RouteComponentProps
 } from "react-router-dom";
 
-// Theme
-import { ThemeProvider } from "@rmwc/theme";
-import "@material/theme/dist/mdc.theme.css";
-
 // Toasts
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,8 +22,12 @@ import { CircularProgress } from "@rmwc/circular-progress";
 import "@rmwc/circular-progress/circular-progress.css";
 
 // UI Components
-import { AccountViewer, Login, RegisterAccount } from "../../account";
-import { WidgetExplorer, WidgetViewer, AddWidget } from "../../widget";
+import {
+  UpdateAccountForm,
+  LoginForm,
+  RegisterAccountForm
+} from "../../account";
+import { WidgetList, UpdateWidgetForm, AddWidgetForm } from "../../widget";
 import { LandingPage } from "../../landing-page";
 import { AppBar } from "../bar";
 import { AppMenu } from "../menu";
@@ -48,27 +48,43 @@ import {
   PrivateSDK,
   Widget
 } from "@huckleberryai/ping";
+import { Billing } from "../../billing/container";
+
+const ToastProvider = ({ appBar }: { appBar?: boolean }) => (
+  <ToastContainer
+    className={appBar ? "toastify-with-app-bar" : ""}
+    position="top-right"
+    autoClose={3500}
+    hideProgressBar
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    draggable
+    pauseOnHover
+  />
+);
 
 export const AuthApp = (account: PingAccount.T, reload: () => void) => (
   <>
-    <AppBar logout={() => Auth.logout(account.id)} isLoggedIn fixed />
+    <AppBar logout={() => Auth.logout(account.id)} loggedIn fixed />
+    <ToastProvider appBar />
     <div className="app-container">
       <AppMenu />
       <Switch>
         <Route
           path="/"
           exact
-          component={() => WidgetExplorer({ widgets: account.widgets })}
+          component={() => WidgetList({ widgets: account.widgets })}
         />
         <Route
           path="/widgets"
           exact
-          component={() => WidgetExplorer({ widgets: account.widgets })}
+          component={() => WidgetList({ widgets: account.widgets })}
         />
         <Route
           path="/add-widget"
           component={(props: RouteComponentProps) =>
-            AddWidget({ ...props, accountID: account.id, reload })
+            AddWidgetForm({ ...props, accountID: account.id, reload })
           }
         />
         <Route
@@ -79,7 +95,7 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
               widget => widget.id === id
             )[0];
             if (widget)
-              return WidgetViewer({
+              return UpdateWidgetForm({
                 ...props,
                 widget,
                 onSave: async (widget: Widget.T) => {
@@ -92,13 +108,28 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
                   return result;
                 }
               });
-            return <div>Widget Not Found</div>;
+            return <div>widget not found</div>;
           }}
         />
         <Route
           path="/account"
-          component={() => AccountViewer({ account, reload })}
+          component={() => UpdateAccountForm({ account, reload })}
         />
+        <Route
+          path="/analytics"
+          component={() => (
+            <div>
+              <h1>analytics</h1>
+              <br />
+              <p>
+                analytics are actively under development, please check back by{" "}
+                <br />
+                November 15th.
+              </p>
+            </div>
+          )}
+        />
+        <Route path="/billing" component={() => <Billing />} />
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </div>
@@ -106,60 +137,21 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
 );
 
 const UnAuthApp = () => (
-  <Switch>
-    <Route path="/register" component={RegisterAccount} />
-    <Route path="/login" component={Login} />
-    <Route component={LandingPage} />
-  </Switch>
+  <div>
+    <ToastProvider />
+    <Switch>
+      <Route path="/register" component={RegisterAccountForm} />
+      <Route path="/login" component={LoginForm} />
+      <Route component={LandingPage} />
+    </Switch>
+  </div>
 );
 
-export const ProviderHoC = (props: JSX.Element) => {
-  return (
-    <ThemeProvider
-      options={{
-        primary: "#0087ff",
-        secondary: "#e1f5fe",
-        error: "#f44336",
-        background: "white",
-        surface: "#fafafa",
-        onPrimary: "rgba(255, 255, 255, 1)",
-        onSecondary: "rgba(0, 0, 0, 0.87)",
-        onSurface: "rgba(0, 0, 0, 0.87)",
-        onError: "#f44336",
-        textPrimaryOnBackground: "rgba(0, 0, 0, 0.87)",
-        textSecondaryOnBackground: "rgba(0, 0, 0, 0.54)",
-        textHintOnBackground: "rgba(0, 0, 0, 0.38)",
-        textDisabledOnBackground: "rgba(0, 0, 0, 0.38)",
-        textIconOnBackground: "rgba(0, 0, 0, 0.38)",
-        textPrimaryOnLight: "rgba(0, 0, 0, 0.87)",
-        textSecondaryOnLight: "rgba(0, 0, 0, 0.54)",
-        textHintOnLight: "rgba(0, 0, 0, 0.38)",
-        textDisabledOnLight: "rgba(0, 0, 0, 0.38)",
-        textIconOnLight: "rgba(0, 0, 0, 0.38)",
-        textPrimaryOnDark: "white",
-        textSecondaryOnDark: "rgba(255, 255, 255, 0.7)",
-        textHintOnDark: "rgba(255, 255, 255, 0.5)",
-        textDisabledOnDark: "rgba(255, 255, 255, 0.5)",
-        textIconOnDark: "rgba(255, 255, 255, 0.5)"
-      }}
-    >
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3500}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        draggable
-        pauseOnHover
-      />
-      <StripeProvider apiKey={StripKey}>
-        <Router>{props}</Router>
-      </StripeProvider>
-    </ThemeProvider>
-  );
-};
-
+export const ProvidersHoC = (props: JSX.Element) => (
+  <StripeProvider apiKey={StripKey}>
+    <Router>{props}</Router>
+  </StripeProvider>
+);
 type State = {
   account: PingAccount.T | undefined;
   loading: boolean;
@@ -198,7 +190,7 @@ export class App extends Component<Props, State> {
     this.setState({ account, loading: false });
   }
   render() {
-    return ProviderHoC(
+    return ProvidersHoC(
       PingAccount.Is(this.state.account) ? (
         AuthApp(this.state.account, () => this.onAccountUpdated())
       ) : this.state.loading ? (
