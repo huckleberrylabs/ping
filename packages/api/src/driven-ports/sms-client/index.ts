@@ -6,12 +6,13 @@ export const C = (client: Twilio): SMSClient => async (
   body: NonEmptyString.T,
   to: Phone.T
 ) => {
-  const phone_number = process.env.TWILIO_PHONE_NUMBER;
+  const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
+  if (messagingServiceSid) return left(Errors.Adapter.C());
   try {
     await client.messages.create({
       body,
       to,
-      from: phone_number,
+      messagingServiceSid,
     });
     return right(null);
   } catch (error) {
