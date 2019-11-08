@@ -3,7 +3,23 @@
   flex-direction: column;
   margin: 0;
   padding: 0;
-  line-height: 1.5;
+}
+
+.landing-page-container > h1 {
+  max-width: 50vw;
+}
+
+.landing-page-header > img {
+  height: 60px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.landing-page-header > button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .landing-page-above-fold {
@@ -11,12 +27,18 @@
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  padding: 10vh 10vw;
-  height: 80vh;
+  padding: 18vh 10vw 18vh 10vw;
+  min-height: 120vh;
 }
 
-.landing-page-above-fold img {
-  height: 150px;
+.landing-page-above-fold .button-image {
+  height: 100px;
+  margin: 40px 0;
+}
+.landing-page-above-fold .illustration {
+  margin-top: 40px;
+  max-height: 250px;
+  max-width: 100%;
 }
 
 .landing-page-section-one {
@@ -31,7 +53,7 @@
 
 .landing-page-grid {
   display: flex;
-  padding-top: 10vh;
+  padding-top: 5vh;
 }
 
 @media only screen and (max-width: 900px) {
@@ -45,8 +67,9 @@
   flex-basis: 100%;
 }
 
-.landing-page-section-one i {
-  font-size: 68px;
+.landing-page-section-one .checkmark-image {
+  height: 68px;
+  margin-bottom: 20px;
 }
 
 .landing-page-section-two {
@@ -57,7 +80,7 @@
 }
 
 .landing-page-section-two h3 {
-  color: #0087ff;
+  color: var(--mdc-theme-primary);
 }
 
 .landing-page-section-three {
@@ -68,7 +91,7 @@
 }
 
 .landing-page-section-three h3 {
-  color: #0087ff;
+  color: var(--mdc-theme-primary);
 }
 
 .landing-page-section-four {
@@ -90,18 +113,32 @@
 
 .landing-page-section-five-text {
   text-align: center;
-  margin-bottom: -5vh;
+  margin: 5vh 0;
 }
 
 .landing-page-footer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  text-align: center;
-  padding: 10vh 10vw;
+  padding: 0 5vw;
+  min-height: 400px;
   background-color: var(--mdc-theme-primary);
   color: var(--mdc-theme-on-primary);
+}
+
+.landing-page-footer > div {
+  flex-basis: 100%;
+}
+
+@media only screen and (max-width: 900px) {
+  .landing-page-footer {
+    flex-direction: column;
+    padding: 5vh 5vw;
+  }
+  .landing-page-footer > div {
+    width: 100%;
+  }
 }
 
 .landing-page-footer img {

@@ -32,15 +32,15 @@ type Props = {
 };
 
 export const WidgetCodeSnippet = (props: Props) => (
-  <div>
+  <div className="widget-code-snippet-container">
     <p>
-      Copy this code and insert it as high as possible inside the head tag of
-      your website. If you'd like assistance, please reach out to us at
-      {Config.SupportEmail}
+      copy this code and insert it as high as possible inside the head tag of
+      your website. if you'd like assistance, please reach out to us at{" "}
+      <a href={`mail-to:${Config.SupportEmail}`}>{Config.SupportEmail}</a>
     </p>
     <Ripple primary>
       <div
-        className="widget-code-snippet-container"
+        className="widget-code-snippet"
         onClick={() => {
           const textarea = document.createElement("textarea");
           textarea.setAttribute("type", "hidden");
@@ -49,17 +49,13 @@ export const WidgetCodeSnippet = (props: Props) => (
           textarea.select();
           document.execCommand("copy");
           textarea.remove();
-          toast.info("Code Copied!");
+          toast.info("copied!");
         }}
       >
         <SyntaxHighlighter language="html" style={docco}>
           {CodeString(props.id)}
         </SyntaxHighlighter>
-        <Icon
-          className="widget-code-snippet-copy-icon"
-          icon="file_copy"
-          theme="textSecondaryOnLight"
-        />
+        <Icon icon="file_copy" theme="textSecondaryOnLight" />
       </div>
     </Ripple>
   </div>

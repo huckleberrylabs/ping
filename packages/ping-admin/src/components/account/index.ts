@@ -1,3 +1,3 @@
-export * from "./login";
-export * from "./register";
-export * from "./view";
+export * from "./login-form";
+export * from "./register-form";
+export * from "./update-form";

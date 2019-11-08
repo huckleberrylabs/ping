@@ -14,36 +14,43 @@ import "@material/button/dist/mdc.button.css";
 import { Button } from "@rmwc/button";
 
 // Logo
-import Logo from "../../../media/logo-white.png";
+import LightLogo from "../../../media/logo-white.png";
+import DarkLogo from "../../../media/logo.png";
 
 // Style
 import "./style.css";
 
 type Props = {
-  isLoggedIn: boolean;
-  fixed: boolean;
+  loggedIn?: boolean;
+  fixed?: boolean;
+  transparent?: boolean;
   logout?: () => void;
 };
 
-export const AppBar = (props: Props) => (
-  <TopAppBar fixed={props.fixed} className="app-bar">
+export const AppBar = ({ loggedIn, fixed, transparent, logout }: Props) => (
+  <TopAppBar
+    fixed={fixed}
+    scrollTarget={null}
+    className={`app-bar ${transparent ? "transparent" : ""}`}
+  >
     <TopAppBarRow>
       <TopAppBarSection alignStart>
         <TopAppBarTitle>
-          <img src={Logo} className="app-bar-logo" alt="Ping" />
+          <img
+            src={transparent ? DarkLogo : LightLogo}
+            className="app-bar-logo"
+            alt="Ping"
+          />
         </TopAppBarTitle>
       </TopAppBarSection>
       <TopAppBarSection alignEnd>
         <Button
           onClick={() =>
-            props.isLoggedIn && props.logout
-              ? props.logout()
-              : window.location.replace("/login")
+            loggedIn && logout ? logout() : window.location.replace("/login")
           }
-          outlined
-          theme={["onPrimary"]}
+          unelevated={!transparent}
         >
-          {props.isLoggedIn ? "Logout" : "Login"}
+          {loggedIn ? "logout" : "login"}
         </Button>
       </TopAppBarSection>
     </TopAppBarRow>

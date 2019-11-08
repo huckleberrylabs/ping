@@ -1,12 +1,22 @@
 import React /* , { useState } */ from "react";
-// import { Select } from "@rmwc/select";
-import { WidgetSummary } from "../summary";
-import { Button } from "@rmwc/button";
-import "@material/select/dist/mdc.select.css";
-import "@material/button/dist/mdc.button.css";
-import "./style.css";
-import { Widget } from "@huckleberryai/ping";
 import { Link } from "react-router-dom";
+
+// Button
+import { Button } from "@rmwc/button";
+import "@material/button/dist/mdc.button.css";
+
+// Select
+// import { Select } from "@rmwc/select";
+import "@material/select/dist/mdc.select.css";
+
+// UI Components
+import { WidgetCard } from "../card";
+
+// Style
+import "./style.css";
+
+// Domain
+import { Widget } from "@huckleberryai/ping";
 
 /*
 
@@ -31,8 +41,8 @@ export const WidgetList = (props: Props) => {
   // const [page, setPage] = useState<number>(1);
   return (
     <div className="widget-list-container">
-      <div className="controls">
-        <h1>Widgets</h1>
+      <div className="widget-list-controls">
+        <h1>widgets</h1>
         {/*         <Select
           label="Sort By"
           outlined
@@ -48,19 +58,22 @@ export const WidgetList = (props: Props) => {
           }
         />
         {sort === SortOptions.DISTANCE ? "" : <></>} */}
-        <p style={{ color: "grey" }}>{props.widgets.length} Widgets Found</p>
+        <p>
+          {props.widgets.length} widget{props.widgets.length > 1 ? "s" : ""}{" "}
+          found
+        </p>
       </div>
-      <div className="grid">
+      <div className="widget-list-grid">
         {props.widgets
           //.slice(0, page * RESULTS_PER_PAGE)
           .map(widget => (
-            <WidgetSummary key={widget.id} widget={widget} />
+            <WidgetCard key={widget.id} widget={widget} />
           ))}
         <Link key="new" to={`/add-widget`}>
           <div className="new-widget-button-container">
             <Button
               className="new-widget-button"
-              label="New Widget"
+              label="new widget"
               icon="add"
               outlined
             />
