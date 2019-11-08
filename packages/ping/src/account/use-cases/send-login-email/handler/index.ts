@@ -8,18 +8,18 @@ import {
   Errors,
 } from "@huckleberryai/core";
 import { AccountRepository, IAMService } from "../../../../interfaces";
-import { NoReplyEmail, SupportEmail, PingAdminURL } from "../../../../config";
+import { SupportEmail, PingAdminURL } from "../../../../config";
 import * as Command from "../command";
 import * as Event from "../event";
 
 const LoginEmailTemplate: EmailTemplate = {
   id: "d-c0cd835132d1486d986d4c28f93219ba" as NonEmptyString.T,
   from: {
-    address: NoReplyEmail,
+    address: SupportEmail,
     name: PersonName.C("Ping" as NonEmptyString.T),
   },
   replyTo: {
-    address: NoReplyEmail,
+    address: SupportEmail,
     name: PersonName.C("Ping" as NonEmptyString.T),
   },
   unsubscribe: {
@@ -80,7 +80,6 @@ export const Handler = (
       dynamicTemplateData: {
         greeting: getEmailIntro(),
         loginLink: LoginLink(iam.generateOneTimeToken(account.id)),
-        supportEmail: SupportEmail,
       },
     })),
     LoginEmailTemplate
