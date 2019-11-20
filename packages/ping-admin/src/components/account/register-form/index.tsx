@@ -98,7 +98,7 @@ export const RegisterAccountInner = (props: Props) => {
           <br />
         </div>
       ) : current.matches("error") ? (
-        <div>where was an error, please try again later.</div>
+        <div>There was an error, please try again later.</div>
       ) : (
         <div>this should never Happen</div>
       )}

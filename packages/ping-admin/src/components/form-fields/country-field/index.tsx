@@ -11,7 +11,7 @@ import "./style.css";
 import { Country } from "@huckleberryai/ping/lib/plan";
 
 export const DefaultCountry: Country.T = "CA";
-export const Countries: Country.T[] = ["US", "CA"];
+export const Countries: Country.T[] = ["US", "CA", "GB"];
 
 type Props = {
   className?: string;
