@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Ping",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
