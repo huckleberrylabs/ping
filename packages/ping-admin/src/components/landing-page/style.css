@@ -5,6 +5,10 @@
   padding: 0;
 }
 
+.secondary-underline {
+  border-bottom: 0.2em solid var(--mdc-theme-secondary);
+}
+
 .landing-page-container > h1 {
   max-width: 50vw;
 }
@@ -32,7 +36,7 @@
   justify-content: space-between;
   text-align: center;
   padding: 18vh 10vw 18vh 10vw;
-  min-height: 120vh;
+  min-height: 180vh;
 }
 
 .landing-page-above-fold .button-image {
@@ -40,8 +44,7 @@
   margin: 40px 0;
 }
 .landing-page-above-fold .illustration {
-  margin-top: 40px;
-  max-height: 250px;
+  max-height: 75vh;
   max-width: 100%;
 }
 
@@ -71,7 +74,7 @@
   flex-basis: 100%;
 }
 
-.landing-page-section-one .checkmark-image {
+.checkmark-image {
   height: 68px;
   margin-bottom: 20px;
 }
@@ -106,6 +109,11 @@
   padding: 10vh 10vw;
   background-color: var(--mdc-theme-primary);
   color: var(--mdc-theme-on-primary);
+}
+
+.feature-image {
+  height: 130px;
+  margin-bottom: 20px;
 }
 
 .landing-page-section-five {
