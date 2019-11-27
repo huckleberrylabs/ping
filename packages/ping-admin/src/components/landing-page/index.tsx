@@ -1,5 +1,6 @@
 import React from "react";
-import { RouteComponentProps } from "react-router";
+import { Link, RouteComponentProps } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { ReactStripeElements } from "react-stripe-elements";
 
 // Images
@@ -29,10 +30,17 @@ type Props = RouteComponentProps & {
 export const LandingPage = (props: Props) => (
   <div className="landing-page-container">
     <header className="landing-page-header">
-      <img src={Logo} alt="Ping" />
-      <Button onClick={() => window.location.replace("/login")} unelevated>
-        login
-      </Button>
+      <Link to="/">
+        <img src={Logo} alt="Ping" />
+      </Link>
+      <div>
+        <HashLink to="/#registration">
+          <Button>create my ping</Button>
+        </HashLink>
+        <Link to="/login">
+          <Button unelevated>login</Button>
+        </Link>
+      </div>
     </header>
     <div className="landing-page-above-fold">
       <div>
@@ -166,13 +174,17 @@ export const LandingPage = (props: Props) => (
         <br />
         <h3>free for charities. ask us about our reseller program.</h3>
       </div>
-      <RegisterAccountForm {...props} />
+      <div id="registration">
+        <RegisterAccountForm {...props} />
+      </div>
     </div>
     <div className="landing-page-footer">
       <div>
         <p>Ping, By Huckleberry</p>
         <br />
-        <img src={HuckleberryLogo} alt="Huckleberry Logo" />
+        <a href="https://huckleberry.app">
+          <img src={HuckleberryLogo} alt="Huckleberry Logo" />
+        </a>
       </div>
       <div>
         <p>Made with ♥ in Waterloo</p>

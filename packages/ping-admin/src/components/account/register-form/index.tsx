@@ -44,7 +44,7 @@ export const RegisterAccountInner = (props: Props) => {
         <CreateWidgetForm
           {...props}
           disabled={false}
-          title="try ping."
+          title="create my ping."
           showBackButton={false}
           forwardButtonLabel="activate"
           forwardButtonIcon={"keyboard_arrow_right"}
@@ -73,7 +73,8 @@ export const RegisterAccountInner = (props: Props) => {
           }
         />
       ) : current.matches("success") ? (
-        <div>
+        <div id="registration-complete">
+          {/* The id above is used for conversion tracking */}
           <h1>
             welcome to ping {"   "}
             <span role="img" aria-label="rocket ship">
@@ -84,11 +85,7 @@ export const RegisterAccountInner = (props: Props) => {
           <WidgetCodeSnippet id={(current.context.widget as Widget.T).id} />
           <div className="register-account-login-button">
             <Link to="/login">
-              <Button
-                raised
-                className="create-widget-submit-button"
-                icon="keyboard_arrow_right"
-              >
+              <Button raised icon="keyboard_arrow_right">
                 login
               </Button>
             </Link>
