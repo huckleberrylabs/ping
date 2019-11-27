@@ -1,13 +1,19 @@
 import React from "react";
-import { RouteComponentProps } from "react-router";
+import { Link, RouteComponentProps } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { ReactStripeElements } from "react-stripe-elements";
 
 // Images
 import PingButton from "../../media/button.png";
-import Illustration from "../../media/illustration.png";
+// import Illustration from "../../media/illustration.png";
 import HuckleberryLogo from "../../media/huckleberry-white-logo.png";
 import Logo from "../../media/logo.png";
 import CheckMark from "../../media/checkmark.png";
+import Secure from "../../media/secure.svg";
+import Analytics from "../../media/analytics.svg";
+import MultipleSites from "../../media/multiple-sites.svg";
+import WordPress from "../../media/wordpress.svg";
+import HowItWorks from "../../media/how-it-works.mp4";
 
 // Button
 import { Button } from "@rmwc/button";
@@ -29,10 +35,17 @@ type Props = RouteComponentProps & {
 export const LandingPage = (props: Props) => (
   <div className="landing-page-container">
     <header className="landing-page-header">
-      <img src={Logo} alt="Ping" />
-      <Button onClick={() => window.location.replace("/login")} unelevated>
-        login
-      </Button>
+      <Link to="/">
+        <img src={Logo} alt="Ping" />
+      </Link>
+      <div>
+        <HashLink to="/#registration">
+          <Button>create my ping</Button>
+        </HashLink>
+        <Link to="/login">
+          <Button unelevated>login</Button>
+        </Link>
+      </div>
     </header>
     <div className="landing-page-above-fold">
       <div>
@@ -43,10 +56,15 @@ export const LandingPage = (props: Props) => (
       </div>
       <div>
         <h2>Q: what is ping?</h2>
-        <h2>A: ping is text messaging for your website.</h2>
+        <h2>
+          A: ping connects you with your website visitors directly via text
+          messages.
+        </h2>
       </div>
       <div>
-        <img className="illustration" src={Illustration} alt="" />
+        <h1>How It Works</h1>
+        <video className="illustration" src={HowItWorks} autoPlay loop />
+        {/* <img className="illustration" src={Illustration} alt="" /> */}
       </div>
     </div>
     <div className="landing-page-section-one">
@@ -132,6 +150,7 @@ export const LandingPage = (props: Props) => (
       <h2>product features</h2>
       <div className="landing-page-grid">
         <div className="landing-page-grid-item">
+          <img className="feature-image" src={MultipleSites} alt="" />
           <h3>unlimited sites.</h3>
           <p>
             ping allows you to create as many widgets as you'd like. Our pricing
@@ -139,6 +158,7 @@ export const LandingPage = (props: Props) => (
           </p>
         </div>
         <div className="landing-page-grid-item">
+          <img className="feature-image" src={Secure} alt="" />
           <h3>no more spam.</h3>
           <p>
             ping never exposes your number directly on the web, protecting you
@@ -146,33 +166,42 @@ export const LandingPage = (props: Props) => (
           </p>
         </div>
         <div className="landing-page-grid-item">
+          <img className="feature-image" src={Analytics} alt="" />
           <h3>powerful analytics.</h3>
           <p>
             log in at any time to view visitor engagement analytics and reports.
           </p>
         </div>
         <div className="landing-page-grid-item">
-          <h3>smart routing.</h3>
+          <img className="feature-image" src={WordPress} alt="" />
+          <h3>compatible with any website.</h3>
           <p>
-            distribute incoming text messages to multiple phone numbers in a
-            variety of ways.
+            ping works with WordPress, Shopify, Squarespace, Weebly, Wix and any
+            other web technology.
           </p>
         </div>
       </div>
     </div>
     <div className="landing-page-section-five">
       <div className="landing-page-section-five-text">
-        <h1>2 week trial. 5 minute setup. $10 cad a month. </h1>
+        <h1>
+          2 week trial. 5 minute setup.{" "}
+          <span className="secondary-underline">$10 CAD</span> a month.
+        </h1>
         <br />
         <h3>free for charities. ask us about our reseller program.</h3>
       </div>
-      <RegisterAccountForm {...props} />
+      <div id="registration">
+        <RegisterAccountForm {...props} />
+      </div>
     </div>
     <div className="landing-page-footer">
       <div>
         <p>Ping, By Huckleberry</p>
         <br />
-        <img src={HuckleberryLogo} alt="Huckleberry Logo" />
+        <a href="https://huckleberry.app">
+          <img src={HuckleberryLogo} alt="Huckleberry Logo" />
+        </a>
       </div>
       <div>
         <p>Made with ♥ in Waterloo</p>

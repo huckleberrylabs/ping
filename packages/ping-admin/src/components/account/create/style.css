@@ -1,0 +1,15 @@
+.create-account-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 280px;
+  max-width: 500px;
+  height: 450px;
+}
+
+.create-account-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

@@ -122,9 +122,8 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
               <h1>analytics</h1>
               <br />
               <p>
-                analytics are actively under development, please check back by{" "}
-                <br />
-                November 15th.
+                analytics are actively under development, please check back
+                later.
               </p>
             </div>
           )}

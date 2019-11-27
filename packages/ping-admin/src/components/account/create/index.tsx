@@ -19,6 +19,9 @@ import "@material/line-ripple/dist/mdc.line-ripple.css";
 import { Button } from "@rmwc/button";
 import "@material/button/dist/mdc.button.css";
 
+// Style
+import "./style.css";
+
 // Domain
 import { PersonName, NonEmptyString, EmailAddress } from "@huckleberryai/core";
 
@@ -49,7 +52,7 @@ export const CreateAccount = (props: Props) => {
   const [userName, setUserName] = useState<string>();
   const [card, setCard] = useState<stripe.elements.ElementChangeResponse>();
   return (
-    <div className="register-account-create-container">
+    <div className="create-account-container">
       <h1>create account.</h1>
       <TextField
         outlined
@@ -93,10 +96,9 @@ export const CreateAccount = (props: Props) => {
         }}
         onChange={change => setCard(change)}
       />
-      <div className="register-account-create-controls">
+      <div className="create-account-controls">
         <Button
           disabled={props.disabled}
-          className="create-widget-submit-button"
           icon="keyboard_arrow_left"
           onClick={props.onBack}
         >
@@ -104,7 +106,6 @@ export const CreateAccount = (props: Props) => {
         </Button>
         <Button
           raised
-          className="create-widget-submit-button"
           disabled={
             props.disabled ||
             !IsValidFirstLastName(userName) ||
