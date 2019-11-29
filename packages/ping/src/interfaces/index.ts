@@ -10,6 +10,8 @@ import {
 import * as Account from "../account";
 import * as Widget from "../widget";
 import * as Message from "../message";
+import * as PromoCode from "../promo-code";
+
 /* 
 export type Record = {
   hash: NonEmptyString.T;
@@ -75,6 +77,7 @@ export interface BillingService {
     accountName?: NonEmptyString.T;
     userName: PersonName.T;
     paymentMethod: NonEmptyString.T;
+    promoCode?: PromoCode.T;
   }) => Promise<Either<Errors.Adapter.T, NonEmptyString.T>>;
   addSeat: (
     idemKey: UUID.T,
@@ -154,6 +157,7 @@ export interface PrivateSDK {
       userName: PersonName.T,
       billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
+      promoCode?: PromoCode.T,
       corr?: UUID.T
     ) => Promise<Either<Errors.T, UUID.T>>;
     Update: (

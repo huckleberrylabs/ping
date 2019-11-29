@@ -1,4 +1,5 @@
 import * as iots from "io-ts";
+import { some, none } from "fp-ts/lib/Option";
 import {
   UUID,
   Event,
@@ -7,7 +8,7 @@ import {
   NonEmptyString,
   PersonName,
 } from "@huckleberryai/core";
-import { some, none } from "fp-ts/lib/Option";
+import * as PromoCode from "../../../promo-code";
 
 export const Name = "ping:register-account";
 
@@ -20,6 +21,7 @@ export const Codec = iots.intersection(
       email: EmailAddress.Codec,
       billingEmail: OptionFromNullable.Codec(EmailAddress.Codec),
       name: OptionFromNullable.Codec(NonEmptyString.Codec),
+      promoCode: OptionFromNullable.Codec(PromoCode.Codec),
     }),
     Event.Codec,
   ],
@@ -34,6 +36,7 @@ export const C = (
   userName: PersonName.T,
   billingEmail?: EmailAddress.T,
   name?: NonEmptyString.T,
+  promoCode?: PromoCode.T,
   corr?: UUID.T
 ): T => ({
   ...Event.C(corr),
@@ -43,6 +46,7 @@ export const C = (
   userName,
   billingEmail: billingEmail ? some(billingEmail) : none,
   name: name ? some(name) : none,
+  promoCode: promoCode ? some(promoCode) : none,
 });
 
 export const Is = Codec.is;
