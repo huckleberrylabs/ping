@@ -20,6 +20,7 @@ export const Handler = (
     accountName: toUndefined(command.name),
     userName: command.userName,
     paymentMethod: command.paymentMethod,
+    promoCode: toUndefined(command.promoCode),
   });
   if (isLeft(stripeCustomerMaybe)) return Results.Error.C(command);
   const stripeCustomer = stripeCustomerMaybe.right;

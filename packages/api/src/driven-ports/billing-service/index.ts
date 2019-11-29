@@ -13,7 +13,7 @@ import {
   EmailClient,
   UUID,
 } from "@huckleberryai/core";
-import { Interfaces } from "@huckleberryai/ping";
+import { Interfaces, PromoCode } from "@huckleberryai/ping";
 import { AlertPhone } from "../../config";
 
 const StripeError = (error: errors.StripeError) => {
@@ -63,6 +63,9 @@ export const C = (
           invoice_settings: {
             default_payment_method: params.paymentMethod,
           },
+          coupon: params.promoCode
+            ? PromoCode.ToCoupon[params.promoCode].couponID
+            : undefined,
         },
         { idempotency_key: `idem:customer:${params.idemKey}` }
       );

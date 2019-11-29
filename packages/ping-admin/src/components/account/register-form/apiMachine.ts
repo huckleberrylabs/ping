@@ -155,7 +155,8 @@ export const PostAccountRegistrationMachine = (
               right.email,
               right.userName,
               undefined,
-              right.accountName
+              right.accountName,
+              right.promoCode
             );
           }),
         addWidget: (context, event) =>

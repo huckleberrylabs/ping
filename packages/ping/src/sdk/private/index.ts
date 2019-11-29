@@ -18,6 +18,7 @@ import {
 } from "../../account/use-cases";
 import * as Account from "../../account";
 import * as Widget from "../../widget";
+import * as PromoCode from "../../promo-code";
 
 export const C = (): PrivateSDK => ({
   Account: {
@@ -36,6 +37,7 @@ export const C = (): PrivateSDK => ({
       userName: PersonName.T,
       billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
+      promoCode?: PromoCode.T,
       corr?: UUID.T
     ) => {
       const command = RegisterAccount.Command.C(
@@ -44,6 +46,7 @@ export const C = (): PrivateSDK => ({
         userName,
         billingEmail,
         name,
+        promoCode,
         corr
       );
       const url = HTTP.EndpointFromEvent(command);

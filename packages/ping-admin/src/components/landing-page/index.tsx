@@ -223,9 +223,7 @@ export const LandingPage = (props: Props) => (
           Try us.
           <br />
           <br />
-          <p>
-            <a href={`mail-to:${Config.SupportEmail}`}>{Config.SupportEmail}</a>
-          </p>
+          <a href={`mail-to:${Config.SupportEmail}`}>{Config.SupportEmail}</a>
         </p>
       </div>
     </div>

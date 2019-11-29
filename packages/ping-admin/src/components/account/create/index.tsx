@@ -15,20 +15,23 @@ import "@material/floating-label/dist/mdc.floating-label.css";
 import "@material/notched-outline/dist/mdc.notched-outline.css";
 import "@material/line-ripple/dist/mdc.line-ripple.css";
 
-// Button
-import { Button } from "@rmwc/button";
-import "@material/button/dist/mdc.button.css";
+// Form Fields
+import { PromoCodeField } from "../../form-fields/promo-code-field";
+import { BackButton } from "../../form-fields/back-button";
+import { ForwardButton } from "../../form-fields/forward-button";
 
 // Style
 import "./style.css";
 
 // Domain
 import { PersonName, NonEmptyString, EmailAddress } from "@huckleberryai/core";
+import { PromoCode } from "@huckleberryai/ping";
 
 export type CreateAccountFormData = {
   email: EmailAddress.T;
   userName: PersonName.T;
   accountName?: NonEmptyString.T;
+  promoCode?: PromoCode.T;
 };
 
 const IsValidFirstLastName = (input: unknown) => {
@@ -47,16 +50,27 @@ type Props = RouteComponentProps & {
 };
 
 export const CreateAccount = (props: Props) => {
+  const query = new URLSearchParams(props.location.search);
+  const queryPromoCode = query.get("promo");
+  const initialPromoCode = PromoCode.Is(queryPromoCode)
+    ? queryPromoCode
+    : undefined;
+  console.log(initialPromoCode);
+
   const [accountName, setAccountName] = useState<string>();
-  const [email, setEmail] = useState<string>();
   const [userName, setUserName] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [promoCode, setPromoCode] = useState<PromoCode.T | undefined>(
+    initialPromoCode
+  );
   const [card, setCard] = useState<stripe.elements.ElementChangeResponse>();
+
   return (
     <div className="create-account-container">
       <h1>create account.</h1>
       <TextField
         outlined
-        label="organization"
+        label="organization name"
         placeholder={"jenny's yoga studio"}
         disabled={props.disabled}
         value={accountName}
@@ -67,17 +81,17 @@ export const CreateAccount = (props: Props) => {
       <TextField
         outlined
         required
-        label="name"
+        label="first and last name"
         disabled={props.disabled}
         value={userName}
-        invalid={accountName !== undefined && !IsValidFirstLastName(userName)}
+        invalid={userName !== undefined && !IsValidFirstLastName(userName)}
         onChange={event =>
           setUserName((event.target as HTMLInputElement).value)
         }
       />
       <TextField
         outlined
-        label="Email"
+        label="email"
         required
         disabled={props.disabled}
         value={email}
@@ -85,7 +99,12 @@ export const CreateAccount = (props: Props) => {
         invalid={email !== undefined && !EmailAddress.Is(email)}
         onChange={event => setEmail((event.target as HTMLInputElement).value)}
       />
-      <p>You will be charged $10 CAD per month.</p>
+      <PromoCodeField
+        disabled={props.disabled}
+        initialValue={initialPromoCode}
+        onSelect={promoCode => setPromoCode(promoCode)}
+      />
+      <br />
       <CardElement
         disabled={props.disabled}
         hidePostalCode={false}
@@ -96,16 +115,12 @@ export const CreateAccount = (props: Props) => {
         }}
         onChange={change => setCard(change)}
       />
+      <p>you will be charged $10 CAD per month, minus the applied discount.</p>
       <div className="create-account-controls">
-        <Button
-          disabled={props.disabled}
-          icon="keyboard_arrow_left"
-          onClick={props.onBack}
-        >
-          Back
-        </Button>
-        <Button
-          raised
+        <BackButton disabled={props.disabled} onClick={props.onBack} />
+        <ForwardButton
+          label={props.submitButtonText}
+          icon={props.submitButtonIcon}
           disabled={
             props.disabled ||
             !IsValidFirstLastName(userName) ||
@@ -115,15 +130,13 @@ export const CreateAccount = (props: Props) => {
           }
           onClick={() => {
             props.onSubmit({
+              promoCode: promoCode,
               email: email as EmailAddress.T,
               userName: PersonName.C(userName as NonEmptyString.T),
               accountName: accountName as NonEmptyString.T | undefined
             });
           }}
-          icon={props.submitButtonIcon}
-        >
-          {props.submitButtonText}
-        </Button>
+        />
       </div>
     </div>
   );
