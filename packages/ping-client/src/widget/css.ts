@@ -22,10 +22,12 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
   --huckleberry-ping-fail-color: #ae0034;
 }
 #${e.container} * {
+  all: revert;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
 }
 #${e.container} {
+  all: revert;
   position: fixed;
   z-index: 2147483647;
   bottom: 24px;
