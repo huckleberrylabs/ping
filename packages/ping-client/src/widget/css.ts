@@ -72,7 +72,8 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 #${e.form} input {
-  width: 100%;
+  left: 0;
+  width: 78%;
   background-color: var(--huckleberry-ping-background-color);
   box-sizing: border-box;
   padding: 0 20px;
