@@ -12,7 +12,10 @@ export const InsertCSS = (css: string) => {
 };
 
 export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
-  `:root {
+  `
+@namespace svg "http://www.w3.org/2000/svg";
+  
+:root {
   --huckleberry-ping-accent-color: ${w.color};
   --huckleberry-ping-text-color:  ${Color.IsLight(w.color) ? "black" : "white"};
   --huckleberry-ping-icon-color: white;
@@ -21,7 +24,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
   --huckleberry-ping-success-color: #00ae4e;
   --huckleberry-ping-fail-color: #ae0034;
 }
-#${e.container} * {
+#${e.container} :not(svg|*) {
   all: revert;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
