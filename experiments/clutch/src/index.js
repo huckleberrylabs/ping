@@ -80,30 +80,41 @@ const randomInt = (min, max) => {
         if (hasResults) {
           console.log("extracting page: ", pageNum);
           $("li.provider-row").map(async (i, el) => {
-            const entry = {
-              id: $(el)
-                .children(".row")
-                .attr("data-clutch-nid"),
-              name: $(el)
-                .find(".company-name")
-                .text()
-                .trim(),
-              tagline: $(el)
-                .find(".tagline")
-                .text()
-                .trim(),
-              profile: $(el)
-                .find(".company-name a")
-                .attr("href"),
-              website: new URL(
-                $(el)
-                  .find(".website-link a")
-                  .attr("href")
-              ).origin,
-              directory: directory,
-              page: pageNum
-            };
-            await dataWriter.writeRecords([entry]);
+            try {
+              const entry = {
+                id: $(el)
+                  .children(".row")
+                  .attr("data-clutch-nid"),
+                name: $(el)
+                  .find(".company-name")
+                  .text()
+                  .trim(),
+                tagline: $(el)
+                  .find(".tagline")
+                  .text()
+                  .trim(),
+                profile: $(el)
+                  .find(".company-name a")
+                  .attr("href"),
+                website: new URL(
+                  $(el)
+                    .find(".website-link a")
+                    .attr("href")
+                ).origin,
+                directory: directory,
+                page: pageNum
+              };
+              await dataWriter.writeRecords([entry]);
+            } catch (error) {
+              console.log(
+                "error on ",
+                directory,
+                "page ",
+                pageNum,
+                ", element ",
+                i
+              );
+            }
           });
           pageNum++;
         }
