@@ -9,5 +9,8 @@
   },
   "devDependencies": {
     "lerna": "^3.18.1"
+  },
+  "dependencies": {
+    "papaparse": "^5.1.1"
   }
 }
