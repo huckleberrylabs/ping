@@ -2,43 +2,15 @@ const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 
-const date = new Date().toISOString();
+const date = new Date().valueOf();
 const dataWriter = createCsvWriter({
-  path: "../" + date + "-data.csv",
+  path: date + "-index.csv",
   header: ["id", "name", "tagline", "profile", "website", "directory", "page"]
 });
 const errorWriter = createCsvWriter({
-  path: "../" + date + "-error.csv",
+  path: date + "-index-error.csv",
   header: ["directory", "page"]
 });
-
-/* 
-article#summary
-
-verified
-description = [property=description] for each p get text
-min project size = .bordered-mobile-block .field-items[0].text
-avg. hourly rate = .bordered-mobile-block .field-items[1].text
-employees = .bordered-mobile-block .field-items[2].text
-founded = .bordered-mobile-block .field-items[3].text
-
-for each .profile-map-block .vcard
-
-	headquarters = is first in index?
-	address = .street-address.text
-	locality = .locality.text
-	region = .region.text
-	postal code = .postal-code.text
-	country = .country-name.text
-	phone = .tel.text
-
-
-Later
-
-article#focus
-article#portfolio
-article#reviews
-*/
 
 const CLUTCH_URL = "https://clutch.co/";
 const DIRECTORIES = [
@@ -60,7 +32,7 @@ const randomInt = (min, max) => {
 };
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   process.once("SIGINT", () => browser.close());
   const page = await browser.newPage();
 
