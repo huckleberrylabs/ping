@@ -1,3 +1,5 @@
+// TODO dont scrape entries where file is already present
+
 /* 
 Later
 
@@ -16,6 +18,8 @@ const fileName = process.argv[2];
 if (typeof fileName !== "string" || fileName.indexOf(".csv") === -1) {
   throw new Error("invalid file name provided");
 }
+
+const files = fs.readdirSync("details/");
 
 const file = fs.readFileSync(fileName, "utf8");
 const results = Papa.parse(file);
@@ -51,7 +55,7 @@ const randomInt = (min, max) => {
   const browser = await puppeteer.launch({ headless: true });
   process.once("SIGINT", () => browser.close());
   const page = await browser.newPage();
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < index.length; i++) {
     const entry = index[i];
     const record = {
       id: entry[0],
@@ -63,7 +67,7 @@ const randomInt = (min, max) => {
       page: entry[6]
     };
     try {
-      await sleep(randomInt(1, 3));
+      await sleep(randomInt(1, 100));
       await page.goto(CLUTCH_URL + record.profile, {
         timeout: 1000000
       });
@@ -126,7 +130,14 @@ const randomInt = (min, max) => {
       });
       fs.writeFileSync(
         "details/" + record.id + "-" + date + "-details.json",
-        JSON.stringify(record)
+        JSON.stringify(record, null, 2)
+      );
+      console.log(
+        "progress: ",
+        (i / index.length).toFixed(5),
+        "%",
+        "record: ",
+        record.id
       );
     } catch (error) {
       console.log("error on ", record.profile, error);
