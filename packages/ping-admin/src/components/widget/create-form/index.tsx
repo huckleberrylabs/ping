@@ -14,8 +14,7 @@ import { ForwardButton } from "../../form-fields/forward-button";
 import "./style.css";
 
 // Domain
-import { Country } from "@huckleberryai/ping/lib/plan";
-import { Phone, Url, Color } from "@huckleberryai/core";
+import { Phone, Url, Color, Country } from "@huckleberryai/core";
 import { Widget } from "@huckleberryai/ping";
 
 type Props = RouteComponentProps & {

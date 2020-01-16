@@ -12,26 +12,19 @@ type Names = WebAnalytics.Names | Ping.Names;
 export default () => {
   const maybeFireStore = DrivenAdapters.FireStore.C();
   const maybeSendGrid = DrivenAdapters.SendGrid.C();
-  const maybeStripe = DrivenAdapters.Stripe.C();
   const maybeTwilio = DrivenAdapters.Twilio.C();
 
   if (isLeft(maybeFireStore)) throw new Error("firestore credentials missing");
   if (isLeft(maybeSendGrid)) throw new Error("sendgrid credentials missing");
-  if (isLeft(maybeStripe)) throw new Error("stripe credentials missing");
+
   if (isLeft(maybeTwilio)) throw new Error("twilio credentials missing");
 
   const fireStore = maybeFireStore.right;
   const sendGrid = maybeSendGrid.right;
-  const stripe = maybeStripe.right;
   const twilio = maybeTwilio.right;
 
   const smsClient = DrivenPorts.SMSClient.C(twilio);
   const emailClient = DrivenPorts.EmailClient.C(sendGrid);
-  const billingService = DrivenPorts.BillingService.C(
-    stripe,
-    smsClient,
-    emailClient
-  );
 
   const iamServiceMaybe = DrivenPorts.IAMService.C();
   if (isLeft(iamServiceMaybe)) throw new Error("iam private key missing");
@@ -57,11 +50,7 @@ export default () => {
     ],
     [
       Ping.UseCases.RegisterAccount.Command.Name,
-      Ping.UseCases.RegisterAccount.Handler(
-        accountRepository,
-        billingService,
-        emailClient
-      ),
+      Ping.UseCases.RegisterAccount.Handler(accountRepository, emailClient),
     ],
     [
       Ping.Account.UseCases.GetByID.Query.Name,
@@ -71,16 +60,14 @@ export default () => {
       Ping.Account.UseCases.AddWidget.Command.Name,
       Ping.Account.UseCases.AddWidget.Handler(
         accountRepository,
-        widgetRepository,
-        billingService
+        widgetRepository
       ),
     ],
     [
       Ping.Account.UseCases.UpdateWidget.Command.Name,
       Ping.Account.UseCases.UpdateWidget.Handler(
         accountRepository,
-        widgetRepository,
-        billingService
+        widgetRepository
       ),
     ],
     [

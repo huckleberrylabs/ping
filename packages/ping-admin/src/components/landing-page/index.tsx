@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import { ReactStripeElements } from "react-stripe-elements";
 
 // Images
 import PingButton from "../../media/button.png";
@@ -10,7 +9,6 @@ import HuckleberryLogo from "../../media/huckleberry-white-logo.png";
 import Logo from "../../media/logo.png";
 import CheckMark from "../../media/checkmark.png";
 import Secure from "../../media/secure.svg";
-import Analytics from "../../media/analytics.svg";
 import MultipleSites from "../../media/multiple-sites.svg";
 import WordPress from "../../media/wordpress.svg";
 import HowItWorks from "../../media/how-it-works.mp4";
@@ -28,9 +26,7 @@ import "./style.css";
 // Domain
 import { Config } from "@huckleberryai/ping";
 
-type Props = RouteComponentProps & {
-  stripe: ReactStripeElements.StripeProps;
-};
+type Props = RouteComponentProps;
 
 export const LandingPage = (props: Props) => (
   <div className="landing-page-container">
@@ -166,13 +162,6 @@ export const LandingPage = (props: Props) => (
           </p>
         </div>
         <div className="landing-page-grid-item">
-          <img className="feature-image" src={Analytics} alt="" />
-          <h3>powerful analytics.</h3>
-          <p>
-            log in at any time to view visitor engagement analytics and reports.
-          </p>
-        </div>
-        <div className="landing-page-grid-item">
           <img className="feature-image" src={WordPress} alt="" />
           <h3>compatible with any website.</h3>
           <p>
@@ -185,11 +174,9 @@ export const LandingPage = (props: Props) => (
     <div className="landing-page-section-five">
       <div className="landing-page-section-five-text">
         <h1>
-          2 week trial. 5 minute setup.{" "}
-          <span className="secondary-underline">$10 CAD</span> a month.
+          <span className="secondary-underline">$0</span> a month. 5 minute
+          setup.
         </h1>
-        <br />
-        <h3>free for charities. ask us about our reseller program.</h3>
       </div>
       <div id="registration">
         <RegisterAccountForm {...props} />

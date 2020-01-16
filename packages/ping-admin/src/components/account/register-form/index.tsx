@@ -2,13 +2,6 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 import { useMachine } from "@xstate/react";
 
-// Stripe
-import {
-  injectStripe,
-  Elements,
-  ReactStripeElements
-} from "react-stripe-elements";
-
 // Button
 import { Button } from "@rmwc/button";
 import "@material/button/dist/mdc.button.css";
@@ -32,12 +25,10 @@ import { Widget } from "@huckleberryai/ping";
 import { CreateAccount } from "../create";
 import { Link } from "react-router-dom";
 
-type Props = RouteComponentProps & {
-  stripe: ReactStripeElements.StripeProps;
-};
+type Props = RouteComponentProps;
 
-export const RegisterAccountInner = (props: Props) => {
-  const [current, send] = useMachine(RegisterAccountMachine(props.stripe));
+export const RegisterAccountForm = (props: Props) => {
+  const [current, send] = useMachine(RegisterAccountMachine());
   return (
     <div className="register-account-container">
       {current.matches("createWidget") ? (
@@ -106,9 +97,3 @@ export const RegisterAccountInner = (props: Props) => {
     </div>
   );
 };
-
-const WithStripe = injectStripe(RegisterAccountInner);
-
-export const RegisterAccountForm = (props: Props) => (
-  <Elements>{<WithStripe {...props} />}</Elements>
-);

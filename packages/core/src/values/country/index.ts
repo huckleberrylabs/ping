@@ -1,6 +1,6 @@
 import * as iots from "io-ts";
 
-export const Name = "ping:country";
+export const Name = "core:value:country";
 
 export const Codec = iots.union(
   [iots.literal("CA"), iots.literal("US"), iots.literal("GB")],

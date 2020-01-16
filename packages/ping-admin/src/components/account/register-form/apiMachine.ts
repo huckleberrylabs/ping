@@ -1,35 +1,9 @@
 import { Machine } from "xstate";
-import { isLeft, isRight, Either, left, right, Right } from "fp-ts/lib/Either";
-import { toUndefined } from "fp-ts/lib/Option";
-import { ReactStripeElements } from "react-stripe-elements";
+import { isLeft, isRight, Either, Right } from "fp-ts/lib/Either";
 import { PrivateSDK, Widget } from "@huckleberryai/ping";
-import { Errors, UUID, NonEmptyString } from "@huckleberryai/core";
+import { Errors, UUID } from "@huckleberryai/core";
 import { PostMachineFactory } from "../../../services/post-machine";
 import { CreateAccountFormData } from "../create";
-
-const SendToStripe = async (
-  stripe: ReactStripeElements.StripeProps,
-  formData: CreateAccountFormData
-) => {
-  const metadata: { [key: string]: string } = {};
-  if (formData.accountName) {
-    metadata.accountName = formData.accountName;
-  }
-  const stripeResponse = await stripe.createPaymentMethod("card", {
-    billing_details: {
-      // Can Also Add Address Object and phone
-      email: formData.email,
-      name: toUndefined(formData.userName.parsed)
-    },
-    metadata
-  });
-  if (stripeResponse.error || stripeResponse.paymentMethod === undefined)
-    return left(Errors.Adapter.C());
-  return right({
-    ...formData,
-    paymentMethod: stripeResponse.paymentMethod.id
-  });
-};
 
 type Context = {
   accountID: UUID.T | undefined;
@@ -39,21 +13,11 @@ type Context = {
 
 interface Schema {
   states: {
-    creatingPaymentMethod: {};
     registeringAccount: {};
     addingWidget: {};
     finished: {};
   };
 }
-
-type RegisterAccountDTO = CreateAccountFormData & {
-  paymentMethod: NonEmptyString.T;
-};
-
-type REGISTER_ACCOUNT_EVENT = {
-  type: "done.invoke.creatingPaymentMethod";
-  data: Either<Errors.T, RegisterAccountDTO>;
-};
 
 type ADD_WIDGET_EVENT = {
   type: "done.invoke.registeringAccount";
@@ -65,13 +29,9 @@ type ACCOUNT_REGISTRATION_COMPLETE_EVENT = {
   data: Either<Errors.T, UUID.T>;
 };
 
-type Event =
-  | REGISTER_ACCOUNT_EVENT
-  | ADD_WIDGET_EVENT
-  | ACCOUNT_REGISTRATION_COMPLETE_EVENT;
+type Event = ADD_WIDGET_EVENT | ACCOUNT_REGISTRATION_COMPLETE_EVENT;
 
 export const PostAccountRegistrationMachine = (
-  stripe: ReactStripeElements.StripeProps,
   widget: Widget.T,
   formData: CreateAccountFormData
 ) =>
@@ -83,24 +43,8 @@ export const PostAccountRegistrationMachine = (
         formData,
         widget
       },
-      initial: "creatingPaymentMethod",
+      initial: "registeringAccount",
       states: {
-        creatingPaymentMethod: {
-          invoke: {
-            id: "creatingPaymentMethod",
-            src: "createPaymentMethod",
-            onDone: [
-              {
-                target: "registeringAccount",
-                cond: "success"
-              },
-              {
-                target: "finished",
-                cond: "error"
-              }
-            ]
-          }
-        },
         registeringAccount: {
           invoke: {
             id: "registeringAccount",
@@ -145,18 +89,12 @@ export const PostAccountRegistrationMachine = (
         success: (context, event) => isRight<Errors.T, any>(event.data)
       },
       services: {
-        createPaymentMethod: (context, event) =>
-          SendToStripe(stripe, context.formData),
         registerAccount: (context, event) =>
           PostMachineFactory(() => {
-            const { right } = event.data as Right<RegisterAccountDTO>;
             return PrivateSDK.C().Account.Register(
-              right.paymentMethod,
-              right.email,
-              right.userName,
-              undefined,
-              right.accountName,
-              right.promoCode
+              context.formData.email,
+              context.formData.userName,
+              context.formData.accountName
             );
           }),
         addWidget: (context, event) =>

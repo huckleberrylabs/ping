@@ -1,6 +1,5 @@
 import * as iots from "io-ts";
-import { UUID, Phone, Color, Url } from "@huckleberryai/core";
-import { Country } from "../../plan";
+import { UUID, Phone, Color, Country, Url } from "@huckleberryai/core";
 
 export const Name = "ping:widget";
 

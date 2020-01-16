@@ -18,7 +18,6 @@ import {
 } from "../../account/use-cases";
 import * as Account from "../../account";
 import * as Widget from "../../widget";
-import * as PromoCode from "../../promo-code";
 
 export const C = (): PrivateSDK => ({
   Account: {
@@ -32,23 +31,12 @@ export const C = (): PrivateSDK => ({
       );
     },
     Register: async (
-      stripeToken: NonEmptyString.T,
       email: EmailAddress.T,
       userName: PersonName.T,
-      billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
-      promoCode?: PromoCode.T,
       corr?: UUID.T
     ) => {
-      const command = RegisterAccount.Command.C(
-        stripeToken,
-        email,
-        userName,
-        billingEmail,
-        name,
-        promoCode,
-        corr
-      );
+      const command = RegisterAccount.Command.C(email, userName, name, corr);
       const url = HTTP.EndpointFromEvent(command);
       return await HTTP.Post(
         url,
@@ -60,18 +48,10 @@ export const C = (): PrivateSDK => ({
       account: UUID.T,
       email: EmailAddress.T,
       userName: PersonName.T,
-      billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
       corr?: UUID.T
     ) => {
-      const command = Update.Command.C(
-        account,
-        email,
-        userName,
-        billingEmail,
-        name,
-        corr
-      );
+      const command = Update.Command.C(account, email, userName, name, corr);
       const url = HTTP.EndpointFromEvent(command);
       return await HTTP.Post(url, Update.Command.Codec.encode(command));
     },

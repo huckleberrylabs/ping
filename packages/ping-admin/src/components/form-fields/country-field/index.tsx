@@ -8,7 +8,7 @@ import "react-flags-select/css/react-flags-select.css";
 import "./style.css";
 
 // Domain
-import { Country } from "@huckleberryai/ping/lib/plan";
+import { Country } from "@huckleberryai/core";
 
 export const DefaultCountry: Country.T = "CA";
 export const Countries: Country.T[] = ["US", "CA", "GB"];

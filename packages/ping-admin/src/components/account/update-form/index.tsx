@@ -41,9 +41,6 @@ export const UpdateAccountForm = (props: Props) => {
     props.account.userName
   );
   const [email, setEmail] = useState<string>(props.account.email);
-  const [billingEmail, setBillingEmail] = useState<Option<NonEmptyString.T>>(
-    props.account.billingEmail as Option<NonEmptyString.T>
-  );
   const accountNameChanged =
     isNone(props.account.name) !== isNone(accountName) ||
     (isSome(props.account.name) &&
@@ -51,18 +48,8 @@ export const UpdateAccountForm = (props: Props) => {
       props.account.name.value !== accountName.value);
   const userNameChanged = props.account.userName.parsed !== userName.parsed;
   const emailChanged = props.account.email !== email;
-  const billingEmailChanged =
-    isNone(props.account.billingEmail) !== isNone(billingEmail) ||
-    (isSome(props.account.billingEmail) &&
-      isSome(billingEmail) &&
-      props.account.billingEmail.value.toString() !==
-        billingEmail.value.toString());
 
-  const hasChanged =
-    accountNameChanged ||
-    userNameChanged ||
-    emailChanged ||
-    billingEmailChanged;
+  const hasChanged = accountNameChanged || userNameChanged || emailChanged;
 
   return (
     <div className="account-viewer-container">
@@ -100,22 +87,6 @@ export const UpdateAccountForm = (props: Props) => {
         }}
       />
       <p>
-        when no billing email is provided, invoices will be sent to the email
-        above.
-      </p>
-      <TextField
-        outlined
-        label="billing email"
-        value={toUndefined(billingEmail)}
-        placeholder={"email@example.com"}
-        invalid={isSome(billingEmail) && !EmailAddress.Is(billingEmail.value)}
-        onChange={event => {
-          const value = (event.target as HTMLInputElement).value.trim();
-          const billingEmail = NonEmptyString.Is(value) ? some(value) : none;
-          setBillingEmail(billingEmail);
-        }}
-      />
-      <p>
         if you'd like to close your account,{" "}
         <a
           className="styled-hyperlink"
@@ -123,8 +94,6 @@ export const UpdateAccountForm = (props: Props) => {
             props.account.id
           }&account_name=${
             isSome(props.account.name) ? props.account.name.value : "none"
-          }&stripe_customer=${
-            props.account.stripeCustomer
           }&account_age=${Math.floor(
             (Date.now() - Date.parse(props.account.registeredAt)) / 86400000
           )}&user_name=${PersonName.FirstLast(props.account.userName)}&email=${
@@ -150,15 +119,10 @@ export const UpdateAccountForm = (props: Props) => {
               toast.warn("a valid email must be provided");
               return;
             }
-            if (isSome(billingEmail) && !EmailAddress.Is(billingEmail.value)) {
-              toast.warn("the billing email provided is invalid");
-              return;
-            }
             const maybeUpdated = await sdk.Account.Update(
               props.account.id,
               email,
               userName,
-              toUndefined(billingEmail as Option<EmailAddress.T>),
               toUndefined(accountName)
             );
             if (isLeft(maybeUpdated)) {

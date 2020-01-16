@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { isSome } from "fp-ts/lib/Option";
 import { RouteComponentProps } from "react-router";
 
-// Stripe
-import { CardElement, ReactStripeElements } from "react-stripe-elements";
-
 // Icon
 import { IconPropT } from "@rmwc/types";
 
@@ -16,7 +13,6 @@ import "@material/notched-outline/dist/mdc.notched-outline.css";
 import "@material/line-ripple/dist/mdc.line-ripple.css";
 
 // Form Fields
-import { PromoCodeField } from "../../form-fields/promo-code-field";
 import { BackButton } from "../../form-fields/back-button";
 import { ForwardButton } from "../../form-fields/forward-button";
 
@@ -25,13 +21,11 @@ import "./style.css";
 
 // Domain
 import { PersonName, NonEmptyString, EmailAddress } from "@huckleberryai/core";
-import { PromoCode } from "@huckleberryai/ping";
 
 export type CreateAccountFormData = {
   email: EmailAddress.T;
   userName: PersonName.T;
   accountName?: NonEmptyString.T;
-  promoCode?: PromoCode.T;
 };
 
 const IsValidFirstLastName = (input: unknown) => {
@@ -41,7 +35,6 @@ const IsValidFirstLastName = (input: unknown) => {
 };
 
 type Props = RouteComponentProps & {
-  stripe: ReactStripeElements.StripeProps;
   disabled: boolean;
   submitButtonText: string;
   submitButtonIcon: IconPropT;
@@ -50,20 +43,9 @@ type Props = RouteComponentProps & {
 };
 
 export const CreateAccount = (props: Props) => {
-  const query = new URLSearchParams(props.location.search);
-  const queryPromoCode = query.get("promo");
-  const initialPromoCode = PromoCode.Is(queryPromoCode)
-    ? queryPromoCode
-    : undefined;
-  console.log(initialPromoCode);
-
   const [accountName, setAccountName] = useState<string>();
   const [userName, setUserName] = useState<string>();
   const [email, setEmail] = useState<string>();
-  const [promoCode, setPromoCode] = useState<PromoCode.T | undefined>(
-    initialPromoCode
-  );
-  const [card, setCard] = useState<stripe.elements.ElementChangeResponse>();
 
   return (
     <div className="create-account-container">
@@ -99,23 +81,7 @@ export const CreateAccount = (props: Props) => {
         invalid={email !== undefined && !EmailAddress.Is(email)}
         onChange={event => setEmail((event.target as HTMLInputElement).value)}
       />
-      <PromoCodeField
-        disabled={props.disabled}
-        initialValue={initialPromoCode}
-        onSelect={promoCode => setPromoCode(promoCode)}
-      />
-      <br />
-      <CardElement
-        disabled={props.disabled}
-        hidePostalCode={false}
-        placeholderCountry="ca"
-        supportedCountries={["ca", "us"]}
-        classes={{
-          base: "register-account-stripe mdc-ripple-surface"
-        }}
-        onChange={change => setCard(change)}
-      />
-      <p>you will be charged $10 CAD per month, minus the applied discount.</p>
+
       <div className="create-account-controls">
         <BackButton disabled={props.disabled} onClick={props.onBack} />
         <ForwardButton
@@ -124,13 +90,10 @@ export const CreateAccount = (props: Props) => {
           disabled={
             props.disabled ||
             !IsValidFirstLastName(userName) ||
-            !EmailAddress.Is(email) ||
-            !card ||
-            !card.complete
+            !EmailAddress.Is(email)
           }
           onClick={() => {
             props.onSubmit({
-              promoCode: promoCode,
               email: email as EmailAddress.T,
               userName: PersonName.C(userName as NonEmptyString.T),
               accountName: accountName as NonEmptyString.T | undefined

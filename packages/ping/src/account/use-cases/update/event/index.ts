@@ -16,7 +16,6 @@ export const Codec = iots.intersection(
       type: iots.literal(Name),
       email: EmailAddress.Codec,
       userName: PersonName.Codec,
-      billingEmail: OptionFromNullable.Codec(EmailAddress.Codec),
       name: OptionFromNullable.Codec(NonEmptyString.Codec),
     }),
     Event.Codec,
