@@ -14,9 +14,6 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Stripe
-import { StripeProvider } from "react-stripe-elements";
-
 // Loading
 import { CircularProgress } from "@rmwc/circular-progress";
 import "@rmwc/circular-progress/circular-progress.css";
@@ -38,9 +35,6 @@ import "./style.css";
 // Services
 import * as Auth from "../../../services/authentication";
 
-// Config
-import { StripKey } from "../../../config";
-
 // Domain
 import { UUID } from "@huckleberryai/core";
 import {
@@ -48,7 +42,6 @@ import {
   PrivateSDK,
   Widget
 } from "@huckleberryai/ping";
-import { Billing } from "../../billing/container";
 
 const ToastProvider = ({ appBar }: { appBar?: boolean }) => (
   <ToastContainer
@@ -115,20 +108,6 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
           path="/account"
           component={() => UpdateAccountForm({ account, reload })}
         />
-        <Route
-          path="/analytics"
-          component={() => (
-            <div>
-              <h1>analytics</h1>
-              <br />
-              <p>
-                analytics are actively under development, please check back
-                later.
-              </p>
-            </div>
-          )}
-        />
-        <Route path="/billing" component={() => <Billing />} />
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </div>
@@ -146,11 +125,7 @@ const UnAuthApp = () => (
   </div>
 );
 
-export const ProvidersHoC = (props: JSX.Element) => (
-  <StripeProvider apiKey={StripKey}>
-    <Router>{props}</Router>
-  </StripeProvider>
-);
+export const ProvidersHoC = (props: JSX.Element) => <Router>{props}</Router>;
 type State = {
   account: PingAccount.T | undefined;
   loading: boolean;

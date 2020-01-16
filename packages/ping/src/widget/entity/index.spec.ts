@@ -1,7 +1,6 @@
 import { isRight } from "fp-ts/lib/Either";
-import { Type, Phone, Url, Color } from "@huckleberryai/core";
+import { Type, Phone, Url, Color, Country } from "@huckleberryai/core";
 import { Name, C, Is, Codec } from ".";
-import { Country } from "../../plan";
 
 describe("ping:widget", () => {
   const TEST_PHONE = "+16479999999" as Phone.T;

@@ -6,7 +6,6 @@ import {
   EmailAddress,
   OptionFromNullable,
 } from "@huckleberryai/core";
-import * as PromoCode from "../../../promo-code";
 import * as Command from "../command";
 
 export const Name = "ping:account-registered";
@@ -15,12 +14,9 @@ export const Codec = iots.intersection(
   [
     iots.type({
       type: iots.literal(Name),
-      paymentMethod: NonEmptyString.Codec,
       email: EmailAddress.Codec,
       userName: PersonName.Codec,
-      billingEmail: OptionFromNullable.Codec(EmailAddress.Codec),
       name: OptionFromNullable.Codec(NonEmptyString.Codec),
-      promoCode: OptionFromNullable.Codec(PromoCode.Codec),
     }),
     Event.Codec,
   ],

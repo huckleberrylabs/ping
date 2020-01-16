@@ -29,8 +29,7 @@ import { toast } from "react-toastify";
 import "./style.css";
 
 // Domain
-import { Country } from "@huckleberryai/ping/lib/plan";
-import { Phone, Url, Color, Errors } from "@huckleberryai/core";
+import { Phone, Url, Color, Country, Errors } from "@huckleberryai/core";
 import { Widget } from "@huckleberryai/ping";
 
 type Props = RouteComponentProps & {

@@ -37,6 +37,10 @@ export const C = (store: FireStore.T): Interfaces.AccountRepository => ({
         return maybeDecoded;
       });
       if (maybeAccounts.some(isLeft)) return left(Errors.Adapter.C());
+      console.log(
+        "HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+        right(maybeAccounts.filter(isRight).map(account => account.right))
+      );
       return right(maybeAccounts.filter(isRight).map(account => account.right));
     } catch (error) {
       return left(Errors.Adapter.C());

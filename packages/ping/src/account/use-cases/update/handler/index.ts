@@ -1,4 +1,3 @@
-import { some, isSome, none } from "fp-ts/lib/Option";
 import { isLeft } from "fp-ts/lib/Either";
 import { Results, Errors } from "@huckleberryai/core";
 import { AccountRepository } from "../../../../interfaces";
@@ -10,7 +9,7 @@ export const Handler = (repo: AccountRepository) => async (
 ) => {
   // TODO IsAuthorized
   const event = Event.C(command);
-  const { email, userName, billingEmail, name } = event;
+  const { email, userName, name } = event;
   const acccountMaybe = await repo.get(event.account);
   if (isLeft(acccountMaybe)) {
     switch (acccountMaybe.left.type) {
@@ -26,15 +25,9 @@ export const Handler = (repo: AccountRepository) => async (
   account.userName = userName;
 
   // TODO Send Verify Emails
-  // TODO Update Stripe Billing Email when these are updated
   if (account.email !== email) {
     account.email = email;
     account.emailVerified = false;
-  }
-
-  if (account.billingEmail !== billingEmail) {
-    account.billingEmail = billingEmail;
-    account.billingEmailVerified = isSome(billingEmail) ? some(false) : none;
   }
 
   const saved = await repo.update(account);

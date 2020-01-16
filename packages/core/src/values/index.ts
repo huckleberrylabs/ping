@@ -1,5 +1,6 @@
 import * as iots from "io-ts";
 import * as Color from "./color";
+import * as Country from "./country";
 import * as EmailAddress from "./email-address";
 import * as KebabCaseString from "./kebab-case-string";
 import * as NameSpaceCaseString from "./namespace-case-string";
@@ -15,6 +16,7 @@ import * as UUID from "./uuid";
 
 export type Names =
   | typeof Color.Name
+  | typeof Country.Name
   | typeof EmailAddress.Name
   | typeof KebabCaseString.Name
   | typeof NameSpaceCaseString.Name
@@ -29,6 +31,7 @@ export type Names =
 
 export const Codecs = new Map<Names, iots.Mixed>([
   [Color.Name, Color.Codec],
+  [Country.Name, Country.Codec],
   [EmailAddress.Name, EmailAddress.Codec],
   [KebabCaseString.Name, KebabCaseString.Codec],
   [NameSpaceCaseString.Name, NameSpaceCaseString.Codec],
@@ -44,6 +47,7 @@ export const Codecs = new Map<Names, iots.Mixed>([
 
 export {
   Color,
+  Country,
   EmailAddress,
   KebabCaseString,
   NameSpaceCaseString,

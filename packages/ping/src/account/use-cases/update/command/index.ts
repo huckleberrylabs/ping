@@ -17,7 +17,6 @@ export const Codec = iots.intersection(
       type: iots.literal(Name),
       email: EmailAddress.Codec,
       userName: PersonName.Codec,
-      billingEmail: OptionFromNullable.Codec(EmailAddress.Codec),
       name: OptionFromNullable.Codec(NonEmptyString.Codec),
     }),
     Event.Codec,
@@ -31,7 +30,6 @@ export const C = (
   account: UUID.T,
   email: EmailAddress.T,
   userName: PersonName.T,
-  billingEmail?: EmailAddress.T,
   name?: NonEmptyString.T,
   corr?: UUID.T
 ): T => ({
@@ -39,7 +37,6 @@ export const C = (
   type: Name,
   email,
   userName,
-  billingEmail: billingEmail ? some(billingEmail) : none,
   name: name ? some(name) : none,
 });
 

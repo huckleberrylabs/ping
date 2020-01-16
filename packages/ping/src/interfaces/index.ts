@@ -10,7 +10,6 @@ import {
 import * as Account from "../account";
 import * as Widget from "../widget";
 import * as Message from "../message";
-import * as PromoCode from "../promo-code";
 
 /* 
 export type Record = {
@@ -68,27 +67,6 @@ export interface IAMService {
 
   // revokeAuthorization
   */
-}
-
-export interface BillingService {
-  createAccount: (input: {
-    idemKey: UUID.T;
-    email: EmailAddress.T;
-    accountName?: NonEmptyString.T;
-    userName: PersonName.T;
-    paymentMethod: NonEmptyString.T;
-    promoCode?: PromoCode.T;
-  }) => Promise<Either<Errors.Adapter.T, NonEmptyString.T>>;
-  addSeat: (
-    idemKey: UUID.T,
-    stripeCustomer: NonEmptyString.T,
-    plan: NonEmptyString.T
-  ) => Promise<Either<Errors.Adapter.T, null>>;
-  removeSeat: (
-    idemKey: UUID.T,
-    stripeCustomer: NonEmptyString.T,
-    plan: NonEmptyString.T
-  ) => Promise<Either<Errors.Adapter.T, null>>;
 }
 
 export interface AccountRepository {
@@ -152,19 +130,15 @@ export interface PrivateSDK {
       corr?: UUID.T
     ) => Promise<Either<Errors.T, Account.T>>;
     Register: (
-      stripeToken: NonEmptyString.T,
       email: EmailAddress.T,
       userName: PersonName.T,
-      billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
-      promoCode?: PromoCode.T,
       corr?: UUID.T
     ) => Promise<Either<Errors.T, UUID.T>>;
     Update: (
       account: UUID.T,
       email: EmailAddress.T,
       userName: PersonName.T,
-      billingEmail?: EmailAddress.T,
       name?: NonEmptyString.T,
       corr?: UUID.T
     ) => Promise<Either<Errors.T, null>>;

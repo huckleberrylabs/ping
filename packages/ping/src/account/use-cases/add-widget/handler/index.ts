@@ -1,19 +1,12 @@
-import { isLeft, isRight } from "fp-ts/lib/Either";
+import { isLeft } from "fp-ts/lib/Either";
 import { Results, UUID, Errors } from "@huckleberryai/core";
-import {
-  AccountRepository,
-  WidgetRepository,
-  BillingService,
-} from "../../../../interfaces";
-import * as Account from "../../../../account";
+import { AccountRepository, WidgetRepository } from "../../../../interfaces";
 import * as Command from "../command";
 import * as Event from "../event";
-import { Plan } from "../../../../plan";
 
 export const Handler = (
   repo: AccountRepository,
-  widgetRepo: WidgetRepository,
-  billing: BillingService
+  widgetRepo: WidgetRepository
 ) => async (command: Command.T) => {
   // TODO IsAuthorized
   const event = Event.C(command);
@@ -32,34 +25,14 @@ export const Handler = (
   if (account.widgets.filter(widget => widget.id === newWidget.id).length > 0)
     return Results.BadRequest.C(command);
 
-  if (!Account.PhoneExists(account, newWidget.phone)) {
-    const addedSeatMaybe = await billing.addSeat(
-      event.id,
-      account.stripeCustomer,
-      Plan[newWidget.country]
-    );
-    if (isLeft(addedSeatMaybe)) {
-      // TODO notify engineer
-      return Results.Error.C(command);
-    }
-  }
-
   account.widgets.push(newWidget);
   const saved = await repo.update(account);
 
   // TODO move to subscriber
   const savedWidget = await widgetRepo.add(newWidget);
   if (isLeft(saved) || isLeft(savedWidget)) {
-    const removedSeatMaybe = await billing.removeSeat(
-      event.id,
-      account.stripeCustomer,
-      Plan[newWidget.country]
-    );
     // TODO notify engineer
-    console.log(
-      "Widget could not be saved and removeSeat returned: ",
-      isRight(removedSeatMaybe)
-    );
+    console.log("Widget could not be saved");
     return Results.Error.C(command);
   }
 

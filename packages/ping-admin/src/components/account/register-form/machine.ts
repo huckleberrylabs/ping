@@ -1,5 +1,4 @@
 import { Machine, assign } from "xstate";
-import { ReactStripeElements } from "react-stripe-elements";
 import { Widget } from "@huckleberryai/ping";
 import { CreateAccountFormData } from "../create";
 import { PostAccountRegistrationMachine } from "./apiMachine";
@@ -7,7 +6,7 @@ import { isLeft, Either, isRight } from "fp-ts/lib/Either";
 import { Errors, UUID } from "@huckleberryai/core";
 
 type Context = {
-  widget: undefined | Widget.T;
+  widget: Widget.T | undefined;
   stage: number;
 };
 
@@ -30,9 +29,7 @@ type Event =
       data: Either<Errors.T, UUID.T>;
     };
 
-export const RegisterAccountMachine = (
-  stripe: ReactStripeElements.StripeProps
-) =>
+export const RegisterAccountMachine = () =>
   Machine<Context, Schema, Event>(
     {
       id: "ping:register-account",
@@ -101,7 +98,6 @@ export const RegisterAccountMachine = (
       services: {
         register: (context, event) =>
           PostAccountRegistrationMachine(
-            stripe,
             context.widget as Widget.T,
             event.value
           )

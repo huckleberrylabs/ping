@@ -22,12 +22,6 @@ export const AppMenu = () => (
         <Link to="/account">
           <ListItem>account</ListItem>
         </Link>
-        <Link to="/analytics">
-          <ListItem>analytics</ListItem>
-        </Link>
-        <Link to="/billing">
-          <ListItem>billing</ListItem>
-        </Link>
       </List>
     </DrawerContent>
   </Drawer>
