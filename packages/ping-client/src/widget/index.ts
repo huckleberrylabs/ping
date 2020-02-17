@@ -45,7 +45,7 @@ export const C = (
     ids => {
       InsertCSS(GenerateCSS(ids)(widget));
       log("info", "css inserted", ["widget-client"]);
-      InsertHTML(GenerateHTML(ids));
+      InsertHTML(GenerateHTML(ids)(widget));
       log("info", "html inserted", ["widget-client"]);
       return Elements(ids);
     },

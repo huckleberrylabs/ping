@@ -105,6 +105,10 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
   width: 100%;
 }
 
+#${e.form} #${e.create}.andrew {
+  background: white;
+}
+
 #${e.createIcon},
 #${e.loader},
 #${e.success},
@@ -114,7 +118,22 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.T) =>
   height: 54px;
 }
 
-#${e.createIcon} path {
+#${e.createIcon}.andrew {
+  width: 44px;
+  height: 44px;
+  padding-top: 8px;
+  padding-left: 3px;
+}
+
+#${e.createIcon}.andrew path {
+  stroke-width: 0;
+}
+
+#${e.createIcon}.andrew .andrew-darker {
+  filter: brightness(55%);
+}
+
+#${e.createIcon}.mo path {
   stroke: var(--huckleberry-ping-text-color);
   stroke-width: 10;
 }

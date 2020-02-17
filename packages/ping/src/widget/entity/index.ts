@@ -1,5 +1,6 @@
 import * as iots from "io-ts";
 import { UUID, Phone, Color, Url } from "@huckleberryai/core";
+import * as Icon from "../icon";
 import { Country } from "../../plan";
 
 export const Name = "ping:widget";
@@ -12,6 +13,7 @@ export const Codec = iots.type(
     country: Country.Codec,
     homePage: Url.Codec,
     color: Color.Codec,
+    icon: Icon.Codec,
     enabled: iots.boolean,
   },
   Name
@@ -23,7 +25,8 @@ export const C = (
   phone: Phone.T,
   country: Country.T,
   homePage: Url.T,
-  color: Color.T
+  color: Color.T,
+  icon: Icon.T
 ): T => ({
   type: Name,
   id: UUID.C(),
@@ -31,6 +34,7 @@ export const C = (
   country,
   homePage,
   color,
+  icon,
   enabled: true,
 });
 
