@@ -40,6 +40,7 @@ describe("ping:widget", () => {
       enabled: true,
       country: TEST_COUNTRY as string,
       homePage: TEST_HOME_PAGE as string,
+      icon: 1,
     };
     const decoded = Codec.decode(widget);
     expect(isRight(decoded)).toBeTruthy();
