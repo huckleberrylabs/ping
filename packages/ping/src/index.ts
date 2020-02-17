@@ -4,6 +4,7 @@ import * as Config from "./config";
 import * as UseCases from "./use-cases";
 import * as Account from "./account";
 import * as Widget from "./widget";
+import * as Icon from "./widget/icon";
 import * as Plan from "./plan";
 import * as PromoCode from "./promo-code";
 import * as Message from "./message";
@@ -14,6 +15,7 @@ export {
   UseCases,
   Account,
   Widget,
+  Icon,
   Plan,
   PromoCode,
   Message,

@@ -31,7 +31,8 @@ import "./style.css";
 // Domain
 import { Country } from "@huckleberryai/ping/lib/plan";
 import { Phone, Url, Color, Errors } from "@huckleberryai/core";
-import { Widget } from "@huckleberryai/ping";
+import { Widget, Icon } from "@huckleberryai/ping";
+import { IconField } from "../../form-fields/icon-field";
 
 type Props = RouteComponentProps & {
   widget: Widget.T;
@@ -49,18 +50,21 @@ export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
   const [phone, updatePhone] = useState<Phone.T>(widget.phone);
   const [country, updateCountry] = useState<Country.T>(DefaultCountry);
   const [color, updateColor] = useState<Color.T>(widget.color);
+  const [icon, updateIcon] = useState<Icon.T>(widget.icon);
 
   const valid =
     Phone.Is(phone) &&
     Country.Is(country) &&
     Url.Is(homePage) &&
-    Color.Is(color);
+    Color.Is(color) &&
+    Icon.Is(icon);
   const changed =
     widget.enabled !== enabled ||
     widget.phone !== phone ||
     widget.country !== country ||
     widget.homePage !== homePage ||
-    widget.color !== color;
+    widget.color !== color ||
+    widget.icon !== icon;
 
   const onSubmit = async () => {
     if (!changed) return;
@@ -80,6 +84,10 @@ export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
       toast.warn("a valid color must be provided.");
       return;
     }
+    if (!Icon.Is(icon)) {
+      toast.warn("a valid icon must be selected.");
+      return;
+    }
     setLoading(true);
     const newWidget: Widget.T = {
       ...widget,
@@ -87,7 +95,8 @@ export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
       homePage,
       country,
       phone,
-      color
+      color,
+      icon
     };
     const maybeUpdated = await onSave(newWidget);
     setLoading(false);
@@ -139,6 +148,12 @@ export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
             disabled={loading}
             initialValue={color}
             onSelect={updateColor}
+          />
+          <IconField
+            disabled={loading}
+            initialValue={icon}
+            color={color}
+            onSelect={updateIcon}
           />
           {/* <div className="delete-container">
             <h2>Danger Zone</h2>

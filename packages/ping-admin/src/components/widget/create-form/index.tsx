@@ -7,6 +7,7 @@ import { CountryField, DefaultCountry } from "../../form-fields/country-field";
 import { PhoneField } from "../../form-fields/phone-field";
 import { UrlField } from "../../form-fields/url-field";
 import { ColorField, DefaultColor } from "../../form-fields/color-field";
+import { IconField, DefaultIcon } from "../../form-fields/icon-field";
 import { BackButton } from "../../form-fields/back-button";
 import { ForwardButton } from "../../form-fields/forward-button";
 
@@ -16,7 +17,7 @@ import "./style.css";
 // Domain
 import { Country } from "@huckleberryai/ping/lib/plan";
 import { Phone, Url, Color } from "@huckleberryai/core";
-import { Widget } from "@huckleberryai/ping";
+import { Widget, Icon } from "@huckleberryai/ping";
 
 type Props = RouteComponentProps & {
   disabled?: boolean;
@@ -40,11 +41,13 @@ export const CreateWidgetForm = ({
   const [phone, updatePhone] = useState<Phone.T>();
   const [homePage, updateHomePage] = useState<Url.T>();
   const [color, updateColor] = useState<Color.T>(DefaultColor);
+  const [icon, updateIcon] = useState<Icon.T>(DefaultIcon);
   const valid =
     Country.Is(country) &&
     Phone.Is(phone) &&
     Url.Is(homePage) &&
-    Color.Is(color);
+    Color.Is(color) &&
+    Icon.Is(icon);
 
   return (
     <div className="create-widget-form">
@@ -75,6 +78,12 @@ export const CreateWidgetForm = ({
           initialValue={color}
           onSelect={updateColor}
         />
+        <IconField
+          disabled={disabled}
+          initialValue={icon}
+          color={color}
+          onSelect={updateIcon}
+        />
       </div>
       <div className="create-widget-buttons">
         <BackButton onClick={() => history.goBack()} show={showBackButton} />
@@ -84,7 +93,13 @@ export const CreateWidgetForm = ({
           disabled={disabled || !valid}
           onClick={() => {
             onSubmit(
-              Widget.C(phone as Phone.T, country, homePage as Url.T, color)
+              Widget.C(
+                phone as Phone.T,
+                country,
+                homePage as Url.T,
+                color,
+                icon
+              )
             );
           }}
         />

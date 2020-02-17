@@ -2,13 +2,21 @@ import { isRight } from "fp-ts/lib/Either";
 import { Type, Phone, Url, Color } from "@huckleberryai/core";
 import { Name, C, Is, Codec } from ".";
 import { Country } from "../../plan";
+import * as Icon from "../icon";
 
 describe("ping:widget", () => {
   const TEST_PHONE = "+16479999999" as Phone.T;
   const TEST_COUNTRY = "CA" as Country.T;
   const TEST_HOME_PAGE = "https://example.com" as Url.T;
-  const TEST_COLOR = "#3988f5" as Color.T;
-  const TEST_WIDGET = C(TEST_PHONE, TEST_COUNTRY, TEST_HOME_PAGE, TEST_COLOR);
+  const TEST_COLOR: Color.T = "#3988f5" as Color.T;
+  const TEST_ICON: Icon.T = 1;
+  const TEST_WIDGET = C(
+    TEST_PHONE,
+    TEST_COUNTRY,
+    TEST_HOME_PAGE,
+    TEST_COLOR,
+    TEST_ICON
+  );
   test("has a name", () => {
     expect(Type.Is(Name)).toBeTruthy();
   });
