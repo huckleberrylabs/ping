@@ -72,7 +72,6 @@
   "dependencies": {
     "@huckleberryai/core": "^3.0.0",
     "@huckleberryai/ping": "^3.1.2",
-    "@huckleberryai/web-analytics": "^3.0.0",
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
     "fp-ts": "^2.1.0",

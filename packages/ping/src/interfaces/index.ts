@@ -11,6 +11,36 @@ import * as Account from "../account";
 import * as Widget from "../widget";
 import * as Message from "../message";
 import * as PromoCode from "../promo-code";
+import * as Client from "../client";
+import * as Server from "../server";
+
+export type WebAnalyticsEvents =
+  | Client.Logging.Event.T
+  | Client.UseCases.Loaded.Event.T
+  | Client.UseCases.Unloaded.Event.T
+  | Server.UseCases.HTTPAccess.Event.T;
+
+export type Logger = (
+  level: Client.Logging.Level.T,
+  message: string,
+  tags: string[],
+  parent?: UUID.T
+) => void;
+
+export interface WebAnalyticsRepository {
+  save(
+    id: UUID.T,
+    event: WebAnalyticsEvents
+  ): Promise<Either<Errors.Adapter.T, null>>;
+  remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
+  // get(id: UUID.T): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Event>>;
+  // getByCorrID(corr: UUID.T): Promise<Either<Errors.Adapter.T, Event[]>>;
+}
+
+export interface AnalyticsSDK {
+  log: Logger;
+  unload: () => boolean;
+}
 
 /* 
 export type Record = {

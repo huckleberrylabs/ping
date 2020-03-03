@@ -10,7 +10,6 @@ import {
   UUID,
   Errors,
 } from "@huckleberryai/core";
-import * as WebAnalytics from "@huckleberryai/web-analytics";
 import * as Ping from "@huckleberryai/ping";
 import Container from "../../container";
 import Codecs, { Names } from "../../codecs";
@@ -49,7 +48,7 @@ export const C = () => {
 
   // Analytics
   app.use(async (req, res, next) => {
-    const accessEvent = WebAnalytics.Server.UseCases.HTTPAccess.Event.C(req);
+    const accessEvent = Ping.Server.UseCases.HTTPAccess.Event.C(req);
     const accessPort = ports.get(accessEvent.type);
     if (accessPort) await accessPort(accessEvent);
     next();

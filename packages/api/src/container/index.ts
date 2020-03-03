@@ -1,13 +1,12 @@
 import { isLeft } from "fp-ts/lib/Either";
 import { Results, Type } from "@huckleberryai/core";
-import * as WebAnalytics from "@huckleberryai/web-analytics";
 import * as Ping from "@huckleberryai/ping";
 import * as DrivenAdapters from "../driven-adapters";
 import * as DrivenPorts from "../driven-ports";
 
 type Handler = (event: any) => Promise<Results.T>;
 
-type Names = WebAnalytics.Names | Ping.Names;
+type Names = Ping.Names;
 
 export default () => {
   const maybeFireStore = DrivenAdapters.FireStore.C();
@@ -44,16 +43,16 @@ export default () => {
 
   return new Map<Names | Type.T, Handler>([
     [
-      WebAnalytics.Client.UseCases.Loaded.Event.Name,
-      WebAnalytics.Client.UseCases.Loaded.Handler(analyticsRepository),
+      Ping.Client.UseCases.Loaded.Event.Name,
+      Ping.Client.UseCases.Loaded.Handler(analyticsRepository),
     ],
     [
-      WebAnalytics.Client.UseCases.Unloaded.Event.Name,
-      WebAnalytics.Client.UseCases.Unloaded.Handler(analyticsRepository),
+      Ping.Client.UseCases.Unloaded.Event.Name,
+      Ping.Client.UseCases.Unloaded.Handler(analyticsRepository),
     ],
     [
-      WebAnalytics.Server.UseCases.HTTPAccess.Event.Name,
-      WebAnalytics.Server.UseCases.HTTPAccess.Handler(analyticsRepository),
+      Ping.Server.UseCases.HTTPAccess.Event.Name,
+      Ping.Server.UseCases.HTTPAccess.Handler(analyticsRepository),
     ],
     [
       Ping.UseCases.RegisterAccount.Command.Name,

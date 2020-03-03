@@ -1,15 +1,15 @@
 import { Either, right, left } from "fp-ts/lib/Either";
 import { UUID, Errors } from "@huckleberryai/core";
-import { Interfaces } from "@huckleberryai/web-analytics";
+import { Interfaces } from "@huckleberryai/ping";
 import { FireStore } from "../../driven-adapters";
 import Codecs from "../../codecs";
 
 export const Name = "web-analytics";
 
-export const C = (store: FireStore.T): Interfaces.Repository => ({
+export const C = (store: FireStore.T): Interfaces.WebAnalyticsRepository => ({
   save: async (
     id: UUID.T,
-    event: Interfaces.Events
+    event: Interfaces.WebAnalyticsEvents
   ): Promise<Either<Errors.Adapter.T, null>> => {
     try {
       const codec = Codecs.get(event.type);
