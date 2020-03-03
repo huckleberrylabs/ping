@@ -28,7 +28,6 @@ import {
   RegisterAccountForm
 } from "../../account";
 import { WidgetList, UpdateWidgetForm, AddWidgetForm } from "../../widget";
-import { LandingPage } from "../../landing-page";
 import { AppBar } from "../bar";
 import { AppMenu } from "../menu";
 
@@ -141,7 +140,7 @@ const UnAuthApp = () => (
     <Switch>
       <Route path="/register" component={RegisterAccountForm} />
       <Route path="/login" component={LoginForm} />
-      <Route component={LandingPage} />
+      <Route component={LoginForm} />
     </Switch>
   </div>
 );
