@@ -3,12 +3,13 @@ import { EmailAddress, Env } from "@huckleberryai/core";
 // Domains and URLs
 
 export const PrimaryDomain = "ping.buzz";
+export const AdminDomain = "app.ping.buzz";
 export const HuckleberryDomain = "huckleberry.app";
 
 export const PingAdminURL =
   Env.Get() === "development"
     ? "http://localhost:3000"
-    : `https://${PrimaryDomain}`;
+    : `https://${AdminDomain}`;
 
 export const PrimaryURL = `https://${PrimaryDomain}`;
 
