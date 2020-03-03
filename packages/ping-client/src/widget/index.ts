@@ -9,7 +9,6 @@ import {
   chain,
 } from "fp-ts/lib/Either";
 import { UUID, Errors } from "@huckleberryai/core";
-import * as WebAnalytics from "@huckleberryai/web-analytics";
 import { Widget, Interfaces } from "@huckleberryai/ping";
 import { GetElementById } from "./helpers";
 import { ElementIDs, Elements } from "./elements";
@@ -36,10 +35,9 @@ export const GetID = (
     flatten
   );
 
-export const C = (
-  log: WebAnalytics.Interfaces.Logger,
-  sdk: Interfaces.PublicSDK
-) => (widget: Widget.T) =>
+export const C = (log: Interfaces.Logger, sdk: Interfaces.PublicSDK) => (
+  widget: Widget.T
+) =>
   pipe(
     ElementIDs(),
     ids => {

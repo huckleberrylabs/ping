@@ -1,11 +1,11 @@
 import { C } from ".";
 import { FireStore } from "../../driven-adapters";
 import { isRight, isLeft } from "fp-ts/lib/Either";
-import * as WA from "@huckleberryai/web-analytics";
+import * as Ping from "@huckleberryai/Ping";
 import { NonEmptyString } from "@huckleberryai/core";
 
 describe("web-analytics repository", () => {
-  const event = WA.Client.Logging.Event.C(
+  const event = Ping.Client.Logging.Event.C(
     "debug",
     "message" as NonEmptyString.T,
     ["test" as NonEmptyString.T, "integration" as NonEmptyString.T]

@@ -1,6 +1,6 @@
 import { UUID, HTTP } from "@huckleberryai/core";
-import { SDK } from "../interfaces";
-import { UseCases, Logging, FingerPrint } from "../client";
+import { AnalyticsSDK } from "../../interfaces";
+import { UseCases, Logging, FingerPrint } from "../../client";
 
 /**
  * @param log.attachToWindow
@@ -24,13 +24,13 @@ const DefaultOptions: Options = {
 
 type SDKC = (
   options?: Options
-) => (app?: UUID.T, corr?: UUID.T, parent?: UUID.T) => SDK;
+) => (app?: UUID.T, corr?: UUID.T, parent?: UUID.T) => AnalyticsSDK;
 
 export const C: SDKC = (options: Options = DefaultOptions) => (
   app?: UUID.T,
   corr?: UUID.T,
   parent?: UUID.T
-): SDK => {
+): AnalyticsSDK => {
   const event = UseCases.Loaded.Event.C(app, corr, parent);
   const url = HTTP.EndpointFromEvent(event);
   HTTP.Beacon(url, UseCases.Loaded.Event.Codec.encode(event));

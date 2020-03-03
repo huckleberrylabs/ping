@@ -1,10 +1,12 @@
 import { isRight } from "fp-ts/lib/Either";
 import { Results } from "@huckleberryai/core";
-import { Repository } from "../../../interfaces";
+import { WebAnalyticsRepository } from "../../../interfaces";
 import * as Command from "./command";
 import * as Event from "./event";
 
-export const Handler = (repo: Repository) => async (command: Command.T) => {
+export const Handler = (repo: WebAnalyticsRepository) => async (
+  command: Command.T
+) => {
   const events = [...command.log, Event.C(command)];
   const results = await Promise.all(
     events.map(event => repo.save(event.id, event))

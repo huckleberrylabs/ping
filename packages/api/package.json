@@ -73,7 +73,6 @@
     "@google-cloud/firestore": "^2.2.6",
     "@huckleberryai/core": "^3.0.0",
     "@huckleberryai/ping": "^3.1.2",
-    "@huckleberryai/web-analytics": "^3.0.0",
     "@sendgrid/mail": "^6.4.0",
     "aws-serverless-express": "^3.3.6",
     "cookie-parser": "^1.4.4",
