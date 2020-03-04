@@ -11,7 +11,6 @@ import {
   Errors,
   SMSClient,
   EmailClient,
-  UUID,
 } from "@huckleberryai/core";
 import { Interfaces, PromoCode } from "@huckleberryai/ping";
 import { AlertPhone } from "../../config";
@@ -69,6 +68,21 @@ export const C = (
         },
         { idempotency_key: `idem:customer:${params.idemKey}` }
       );
+      await client.subscriptions.create(
+        {
+          prorate: true,
+          trial_from_plan: false,
+          trial_period_days: 30,
+          customer: customer.id,
+          items: [
+            {
+              plan: params.plan,
+              quantity: 1,
+            },
+          ],
+        },
+        { idempotency_key: `idem:add-seat:${params.idemKey}` }
+      );
       return right(customer.id as NonEmptyString.T);
     } catch (err) {
       const error = StripeError(err);
@@ -86,82 +100,6 @@ export const C = (
         }, ${PersonName.FirstLast(params.userName)}` as NonEmptyString.T,
         AlertPhone
       );
-      return left(Errors.Adapter.C());
-    }
-  },
-  addSeat: async (
-    idemKey: UUID.T,
-    stripeCustomer: NonEmptyString.T,
-    plan: NonEmptyString.T
-  ): Promise<Either<Errors.Adapter.T, null>> => {
-    try {
-      const customer = await client.customers.retrieve(stripeCustomer);
-      const subscriptionItems = customer.subscriptions.data
-        .map(subscription =>
-          subscription.items.data.filter(item => item.plan.id === plan)
-        )
-        .filter(items => items.length > 0)[0];
-      if (subscriptionItems && subscriptionItems[0]) {
-        const item = subscriptionItems[0];
-        await client.subscriptionItems.update(
-          item.id,
-          {
-            quantity: item.quantity ? item.quantity + 1 : 1,
-          },
-          { idempotency_key: `idem:add-seat:${idemKey}` }
-        );
-      } else {
-        await client.subscriptions.create(
-          {
-            prorate: true,
-            trial_from_plan: true,
-            customer: stripeCustomer,
-            items: [
-              {
-                plan: plan,
-                quantity: 1,
-              },
-            ],
-          },
-          { idempotency_key: `idem:add-seat:${idemKey}` }
-        );
-      }
-      return right(null);
-    } catch (error) {
-      console.log(error);
-      return left(Errors.Adapter.C());
-    }
-  },
-  removeSeat: async (
-    idemKey: UUID.T,
-    stripeCustomer: NonEmptyString.T,
-    plan: NonEmptyString.T
-  ): Promise<Either<Errors.Adapter.T, null>> => {
-    try {
-      const customer = await client.customers.retrieve(stripeCustomer);
-      const subscriptionItems = customer.subscriptions.data
-        .map(subscription =>
-          subscription.items.data.filter(item => item.plan.id === plan)
-        )
-        .filter(items => items.length > 0)[0];
-      if (subscriptionItems && subscriptionItems[0]) {
-        const item = subscriptionItems[0];
-        if (item.quantity && item.quantity > 1) {
-          await client.subscriptionItems.update(
-            item.id,
-            {
-              quantity: item.quantity - 1,
-            },
-            { idempotency_key: `idem:add-seat:${idemKey}` }
-          );
-        } else {
-          await client.subscriptionItems.del(item.id, {
-            idempotency_key: `idem:add-seat:${idemKey}`,
-          });
-        }
-      }
-      return right(null);
-    } catch (error) {
       return left(Errors.Adapter.C());
     }
   },

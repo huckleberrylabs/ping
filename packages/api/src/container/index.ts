@@ -70,16 +70,14 @@ export default () => {
       Ping.Account.UseCases.AddWidget.Command.Name,
       Ping.Account.UseCases.AddWidget.Handler(
         accountRepository,
-        widgetRepository,
-        billingService
+        widgetRepository
       ),
     ],
     [
       Ping.Account.UseCases.UpdateWidget.Command.Name,
       Ping.Account.UseCases.UpdateWidget.Handler(
         accountRepository,
-        widgetRepository,
-        billingService
+        widgetRepository
       ),
     ],
     [

@@ -1,10 +1,20 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Results, UUID, EmailClient } from "@huckleberryai/core";
+import { toUndefined, isSome } from "fp-ts/lib/Option";
+import {
+  Results,
+  UUID,
+  Env,
+  NonEmptyString,
+  EmailClient,
+} from "@huckleberryai/core";
 import { AccountRepository, BillingService } from "../../../interfaces";
 import * as Account from "../../../account";
 import * as Command from "../command";
 import * as Event from "../event";
-import { toUndefined, isSome } from "fp-ts/lib/Option";
+
+const ProductionPlan = "plan_GqR7YANPMgUe0h" as NonEmptyString.T;
+const DevPlan = "plan_GqR9gjrsaG4vNV" as NonEmptyString.T;
+const Plan = Env.Get() === "production" ? ProductionPlan : DevPlan;
 
 export const Handler = (
   repo: AccountRepository,
@@ -21,6 +31,7 @@ export const Handler = (
     userName: command.userName,
     paymentMethod: command.paymentMethod,
     promoCode: toUndefined(command.promoCode),
+    plan: Plan,
   });
   if (isLeft(stripeCustomerMaybe)) return Results.Error.C(command);
   const stripeCustomer = stripeCustomerMaybe.right;

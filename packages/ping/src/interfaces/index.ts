@@ -101,24 +101,15 @@ export interface IAMService {
 }
 
 export interface BillingService {
-  createAccount: (input: {
+  createAccount: (params: {
     idemKey: UUID.T;
     email: EmailAddress.T;
     accountName?: NonEmptyString.T;
     userName: PersonName.T;
     paymentMethod: NonEmptyString.T;
     promoCode?: PromoCode.T;
+    plan: NonEmptyString.T;
   }) => Promise<Either<Errors.Adapter.T, NonEmptyString.T>>;
-  addSeat: (
-    idemKey: UUID.T,
-    stripeCustomer: NonEmptyString.T,
-    plan: NonEmptyString.T
-  ) => Promise<Either<Errors.Adapter.T, null>>;
-  removeSeat: (
-    idemKey: UUID.T,
-    stripeCustomer: NonEmptyString.T,
-    plan: NonEmptyString.T
-  ) => Promise<Either<Errors.Adapter.T, null>>;
 }
 
 export interface AccountRepository {
