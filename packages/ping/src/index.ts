@@ -1,11 +1,11 @@
 // @ts-ignore
 import * as iots from "io-ts";
 import * as Config from "./config";
+import * as Country from "./country";
 import * as UseCases from "./use-cases";
 import * as Account from "./account";
 import * as Widget from "./widget";
 import * as Icon from "./widget/icon";
-import * as Plan from "./plan";
 import * as PromoCode from "./promo-code";
 import * as Message from "./message";
 import * as Interfaces from "./interfaces";
@@ -15,11 +15,11 @@ import * as Server from "./server";
 export * from "./sdk";
 export {
   Config,
+  Country,
   UseCases,
   Account,
   Widget,
   Icon,
-  Plan,
   PromoCode,
   Message,
   Client,

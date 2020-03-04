@@ -24,17 +24,17 @@ export const ToCoupon: CouponMap = {
     couponID: "HvYlvfSS" as NonEmptyString.T,
     description: "100 % off forever" as NonEmptyString.T,
   },
-  HEADSTART: {
-    couponID: "B3xAeqrV" as NonEmptyString.T,
-    description: "3 Months Free" as NonEmptyString.T,
-  },
   SUPPORTER: {
     couponID: "a6IUP4Ms" as NonEmptyString.T,
     description: "30 % off forever" as NonEmptyString.T,
   },
+  HEADSTART: {
+    couponID: "H6YpI0Nk" as NonEmptyString.T,
+    description: "30% off for 1 year" as NonEmptyString.T,
+  },
   GIVEAWAY: {
-    couponID: "u8x9Eb7i" as NonEmptyString.T,
-    description: "15% off for 3 months" as NonEmptyString.T,
+    couponID: "xyODByWb" as NonEmptyString.T,
+    description: "15% off for 1 year" as NonEmptyString.T,
   },
 };
 

@@ -1,7 +1,7 @@
 import { isRight } from "fp-ts/lib/Either";
 import { Type, Phone, Url, Color } from "@huckleberryai/core";
 import { Name, C, Is, Codec } from ".";
-import { Country } from "../../plan";
+import * as Country from "../../country";
 import * as Icon from "../icon";
 
 describe("ping:widget", () => {
