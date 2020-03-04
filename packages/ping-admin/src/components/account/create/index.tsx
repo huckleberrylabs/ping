@@ -115,7 +115,7 @@ export const CreateAccount = (props: Props) => {
         }}
         onChange={change => setCard(change)}
       />
-      <p>you will be charged $10 CAD per month, minus the applied discount.</p>
+      <p>You will be charged $20 USD per year, minus the applied discount.</p>
       <div className="create-account-controls">
         <BackButton disabled={props.disabled} onClick={props.onBack} />
         <ForwardButton
