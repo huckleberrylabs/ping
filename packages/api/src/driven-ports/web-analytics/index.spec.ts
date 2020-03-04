@@ -1,7 +1,7 @@
 import { C } from ".";
 import { FireStore } from "../../driven-adapters";
 import { isRight, isLeft } from "fp-ts/lib/Either";
-import * as Ping from "@huckleberryai/Ping";
+import * as Ping from "@huckleberryai/ping";
 import { NonEmptyString } from "@huckleberryai/core";
 
 describe("web-analytics repository", () => {
