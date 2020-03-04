@@ -6,8 +6,6 @@ import * as DrivenPorts from "../driven-ports";
 
 type Handler = (event: any) => Promise<Results.T>;
 
-type Names = Ping.Names;
-
 export default () => {
   const maybeFireStore = DrivenAdapters.FireStore.C();
   const maybeSendGrid = DrivenAdapters.SendGrid.C();
@@ -41,7 +39,7 @@ export default () => {
   const widgetRepository = DrivenPorts.WidgetRepository.C(fireStore);
   const messageRepository = DrivenPorts.MessageRepository.C(fireStore);
 
-  return new Map<Names | Type.T, Handler>([
+  return new Map<Ping.Names | Type.T, Handler>([
     [
       Ping.Client.UseCases.Loaded.Event.Name,
       Ping.Client.UseCases.Loaded.Handler(analyticsRepository),
