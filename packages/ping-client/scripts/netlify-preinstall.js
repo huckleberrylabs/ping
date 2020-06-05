@@ -9,18 +9,18 @@ const { spawnSync } = require("child_process");
 // Only run this script on Netlify
 if (process.env.NETLIFY === "true") {
   // this is a default Netlify environment variable
-  // Check if .npmrc already exists, if it does then do nothing (otherwise we create an infinite yarn loop)
+  // Check if .npmrc already exists, if it does then do nothing (otherwise we create an infinite npm loop)
   if (!fs.existsSync(".npmrc")) {
     // Create .npmrc
     fs.writeFileSync(
       ".npmrc",
-      `//npm.pkg.github.com/:_authToken=${process.env.GITHUB_TOKEN}\n@dragosrotaru:registry=https://npm.pkg.github.com/\n`
+      `//npm.pkg.github.com/:_authToken=${process.env.GITHUB_TOKEN}\n@${process.env.GITHUB_USERNAME}:registry=https://npm.pkg.github.com/\n`
     );
     fs.chmodSync(".npmrc", 0o600);
-    // Run yarn again, because the yarn process which is executing
+    // Run npm again, because the npm process which is executing
     // this script won't pick up the .npmrc file we just created.
-    // The original yarn process will continue after this second yarn process finishes,
+    // The original npm process will continue after this second npm process finishes,
     // and when it does it will report "success Already up-to-date."
-    spawnSync("yarn", { stdio: "inherit" });
+    spawnSync("npm", { stdio: "inherit" });
   }
 }
