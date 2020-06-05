@@ -1,15 +1,15 @@
 {
   "name": "@huckleberryai/ping-admin",
   "version": "3.2.2",
-  "description": "Ping Admin Panel",
-  "author": "Dragos Rotaru <dragos@rotaru.co>",
+  "description": "Ping Admin",
+  "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/askhuckleberry/monorepo.git"
+    "url": "git+https://github.com/huckleberrylabs/ping.git"
   },
   "bugs": {
-    "url": "https://github.com/askhuckleberry/monorepo/issues"
+    "url": "https://github.com/huckleberrylabs/ping/issues"
   },
   "engines": {
     "node": ">=10"

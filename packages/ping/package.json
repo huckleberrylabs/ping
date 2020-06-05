@@ -1,18 +1,19 @@
 {
   "name": "@huckleberryai/ping",
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
   "version": "3.2.2",
-  "description": "Ping",
-  "author": "Dragos Rotaru <dragos@rotaru.co>",
+  "description": "Ping Domain",
+  "author": "Dragos Rotaru <dragos@ping.buzsz>",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/askhuckleberry/monorepo.git"
+    "url": "git+https://github.com/huckleberrylabs/ping.git"
   },
   "bugs": {
-    "url": "https://github.com/askhuckleberry/monorepo/issues"
+    "url": "https://github.com/huckleberrylabs/ping/issues"
   },
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",

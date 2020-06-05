@@ -1,6 +1,9 @@
 {
-  "name": "@huckleberryai/monorepo",
+  "name": "@huckleberrylabs/ping",
   "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "bootstrap": "lerna clean -y && lerna bootstrap",
     "start": "lerna run start --stream",
