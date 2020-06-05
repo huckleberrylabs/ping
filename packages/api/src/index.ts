@@ -1,4 +1,6 @@
-import awsServerlessExpress from "aws-serverless-express";
+import fs from "fs";
+import https from "https";
+import http, { Server } from "http";
 import { Env } from "@huckleberrylabs/core";
 import { C } from "./driving-adapters";
 
@@ -6,11 +8,24 @@ const env = Env.Get();
 
 const app = C();
 
-if (env === "development") {
-  app.listen(8000, () => console.log(`listening on port ${8000}!`));
-}
+const logPort = (server: Server) =>
+  console.log(`server started on ${server.address()?.toString()}`);
 
-const server = awsServerlessExpress.createServer(app);
-exports.handler = (event: any, context: any) => {
-  awsServerlessExpress.proxy(server, event, context);
-};
+if (env === "development") {
+  const server = http.createServer(app);
+  server.listen(8000, () => logPort(server));
+} else if (env === "production") {
+  // TLS Encryption
+  const credentials = {
+    key: fs.readFileSync(
+      "/etc/letsencrypt/live/live.ping.buzz/privkey.pem",
+      "utf8"
+    ),
+    cert: fs.readFileSync(
+      "/etc/letsencrypt/live/live.ping.buzz/fullchain.pem",
+      "utf8"
+    ),
+  };
+  const server = https.createServer(credentials, app);
+  server.listen(443, () => logPort(server));
+}

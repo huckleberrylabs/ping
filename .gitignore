@@ -1,7 +1,7 @@
-# Logs
-node_modules/
+.npmrc
 .env
 .DS_Store
+node_modules/
 packages/*/lib
 packages/*/build
 packages/*/dist
