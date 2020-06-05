@@ -65,6 +65,7 @@
   },
   "scripts": {
     "start": "npm run build && node -r dotenv/config lib/index.js",
+    "build:prod": "echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> .npmrc && npm install && npm run build",
     "build": "npx tsc",
     "test": "npx jest",
     "prepare": "npm run build",
