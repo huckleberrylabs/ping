@@ -33,6 +33,7 @@ export type Device = iots.TypeOf<typeof Codec>;
 
 export const Detect = async (): Promise<Device> => ({
   platform: get(window.navigator.platform),
+  // @ts-ignore
   oscpu: get(window.navigator.oscpu),
   hardwareConcurrency: get(window.navigator.hardwareConcurrency),
   maxTouchPoints: get(window.navigator.maxTouchPoints),

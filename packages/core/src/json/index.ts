@@ -1,7 +1,7 @@
 export type Primitive = boolean | number | string | null;
 export type T = Primitive | JObject | JArray;
 export type JObject = { [member: string]: T };
-export interface JArray extends Array<T> {}
+export interface JArray extends ReadonlyArray<T> {}
 
 export const IsPrimitive = (input: unknown): input is Primitive =>
   typeof input === "boolean" ||
