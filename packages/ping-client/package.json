@@ -4,7 +4,7 @@
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
-  "version": "3.2.5",
+  "version": "3.2.6",
   "description": "Ping Client",
   "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
@@ -71,8 +71,8 @@
     "prepublishOnly": "npm run test"
   },
   "dependencies": {
-    "@huckleberrylabs/core": "^3.2.5",
-    "@huckleberrylabs/ping": "^3.2.5",
+    "@huckleberrylabs/core": "^3.2.6",
+    "@huckleberrylabs/ping": "^3.2.6",
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
     "fp-ts": "^2.1.0",

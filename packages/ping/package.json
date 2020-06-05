@@ -4,7 +4,7 @@
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
-  "version": "3.2.5",
+  "version": "3.2.6",
   "description": "Ping Domain",
   "author": "Dragos Rotaru <dragos@ping.buzsz>",
   "license": "ISC",
@@ -67,7 +67,7 @@
     "prepublishOnly": "npm run test"
   },
   "dependencies": {
-    "@huckleberrylabs/core": "^3.2.5",
+    "@huckleberrylabs/core": "^3.2.6",
     "fp-ts": "^2.1.0",
     "io-ts": "^2.0.1"
   },

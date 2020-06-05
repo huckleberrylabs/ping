@@ -4,7 +4,7 @@
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
-  "version": "3.2.5",
+  "version": "3.2.6",
   "description": "Ping API",
   "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
@@ -72,8 +72,8 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^2.2.6",
-    "@huckleberrylabs/core": "^3.2.5",
-    "@huckleberrylabs/ping": "^3.2.5",
+    "@huckleberrylabs/core": "^3.2.6",
+    "@huckleberrylabs/ping": "^3.2.6",
     "@sendgrid/mail": "^6.4.0",
     "aws-serverless-express": "^3.3.6",
     "cookie-parser": "^1.4.4",
