@@ -1,6 +1,6 @@
 import { Either, left, isLeft, isRight, right } from "fp-ts/lib/Either";
-import { UUID, Errors } from "@huckleberryai/core";
-import { Interfaces, Message } from "@huckleberryai/ping";
+import { UUID, Errors } from "@huckleberrylabs/core";
+import { Interfaces, Message } from "@huckleberrylabs/ping";
 import { FireStore } from "../../driven-adapters";
 import { Codecs } from "../../codecs";
 

@@ -1,5 +1,5 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Results, Errors } from "@huckleberryai/core";
+import { Results, Errors } from "@huckleberrylabs/core";
 import { AccountRepository, WidgetRepository } from "../../../../interfaces";
 import * as Command from "../command";
 import * as Event from "../event";

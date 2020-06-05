@@ -16,7 +16,7 @@ import { WidgetCard } from "../card";
 import "./style.css";
 
 // Domain
-import { Widget } from "@huckleberryai/ping";
+import { Widget } from "@huckleberrylabs/ping";
 
 /*
 
@@ -66,7 +66,7 @@ export const WidgetList = (props: Props) => {
       <div className="widget-list-grid">
         {props.widgets
           //.slice(0, page * RESULTS_PER_PAGE)
-          .map(widget => (
+          .map((widget) => (
             <WidgetCard key={widget.id} widget={widget} />
           ))}
         <Link key="new" to={`/add-widget`}>

@@ -4,7 +4,7 @@ import {
   NonEmptyString,
   PersonName,
   EmailAddress,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import { PrivateSDK } from "../../interfaces";
 import { RegisterAccount } from "../../use-cases";
 import {

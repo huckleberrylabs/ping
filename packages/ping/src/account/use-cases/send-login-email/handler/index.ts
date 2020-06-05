@@ -6,7 +6,7 @@ import {
   NonEmptyString,
   PersonName,
   Errors,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import { AccountRepository, IAMService } from "../../../../interfaces";
 import { SupportEmail, PingAdminURL } from "../../../../config";
 import * as Command from "../command";

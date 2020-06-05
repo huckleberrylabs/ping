@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { UUID, OptionFromNullable } from "@huckleberryai/core";
+import { UUID, OptionFromNullable } from "@huckleberrylabs/core";
 import { Event } from "../../base";
 import * as FingerPrint from "../../fingerprint";
 import * as Command from "./command";

@@ -24,8 +24,8 @@ import "./style.css";
 
 // Domain
 import * as Auth from "../../../services/authentication";
-import { EmailAddress, NonEmptyString, Errors } from "@huckleberryai/core";
-import { PrivateSDK, Config } from "@huckleberryai/ping";
+import { EmailAddress, NonEmptyString, Errors } from "@huckleberrylabs/core";
+import { PrivateSDK, Config } from "@huckleberrylabs/ping";
 import { Link, RouteComponentProps } from "react-router-dom";
 
 type Stage = "idle" | "loading" | "sent" | "not-found" | "error";
@@ -39,7 +39,7 @@ export const LoginForm = (props: Props) => {
   const query = new URLSearchParams(props.location.search);
   const token = query.get("token");
   if (NonEmptyString.Is(token) && stage !== "loading") {
-    Auth.login(token).then(result => {
+    Auth.login(token).then((result) => {
       if (isLeft(result)) {
         window.location.replace("/login");
         props.history.push("/login");
@@ -78,10 +78,10 @@ export const LoginForm = (props: Props) => {
               label="email"
               value={email}
               invalid={email !== "" && !EmailAddress.Is(email)}
-              onChange={event =>
+              onChange={(event) =>
                 setEmail((event.target as HTMLInputElement).value)
               }
-              onKeyPress={event => {
+              onKeyPress={(event) => {
                 if (event.key === "Enter") submitForm();
               }}
             />

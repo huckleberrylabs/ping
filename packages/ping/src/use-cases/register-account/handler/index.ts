@@ -6,7 +6,7 @@ import {
   Env,
   NonEmptyString,
   EmailClient,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import { AccountRepository, BillingService } from "../../../interfaces";
 import * as Account from "../../../account";
 import * as Command from "../command";

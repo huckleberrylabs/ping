@@ -1,6 +1,6 @@
-import { PrivateSDK } from "@huckleberryai/ping";
+import { PrivateSDK } from "@huckleberrylabs/ping";
 import { isLeft, left, right, Either } from "fp-ts/lib/Either";
-import { Errors, NonEmptyString, UUID } from "@huckleberryai/core";
+import { Errors, NonEmptyString, UUID } from "@huckleberrylabs/core";
 import { toast } from "react-toastify";
 
 const LocalStorageAccountIDKey = "accountID";

@@ -1,6 +1,11 @@
 import { Twilio } from "twilio";
 import { left, right } from "fp-ts/lib/Either";
-import { Phone, NonEmptyString, Errors, SMSClient } from "@huckleberryai/core";
+import {
+  Phone,
+  NonEmptyString,
+  Errors,
+  SMSClient,
+} from "@huckleberrylabs/core";
 
 export const C = (client: Twilio): SMSClient => async (
   body: NonEmptyString.T,

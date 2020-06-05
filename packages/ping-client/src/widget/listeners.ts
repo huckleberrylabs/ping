@@ -1,6 +1,6 @@
 import { isLeft, isRight } from "fp-ts/lib/Either";
-import { UUID, NonEmptyString, Phone, PersonName } from "@huckleberryai/core";
-import { Interfaces } from "@huckleberryai/ping";
+import { UUID, NonEmptyString, Phone, PersonName } from "@huckleberrylabs/core";
+import { Interfaces } from "@huckleberrylabs/ping";
 import { Elements } from "./elements";
 
 let message: UUID.T;

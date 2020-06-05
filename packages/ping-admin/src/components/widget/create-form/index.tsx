@@ -15,8 +15,8 @@ import { ForwardButton } from "../../form-fields/forward-button";
 import "./style.css";
 
 // Domain
-import { Phone, Url, Color } from "@huckleberryai/core";
-import { Widget, Icon, Country } from "@huckleberryai/ping";
+import { Phone, Url, Color } from "@huckleberrylabs/core";
+import { Widget, Icon, Country } from "@huckleberrylabs/ping";
 
 type Props = RouteComponentProps & {
   disabled?: boolean;
@@ -34,7 +34,7 @@ export const CreateWidgetForm = ({
   showBackButton,
   forwardButtonLabel,
   forwardButtonIcon,
-  onSubmit
+  onSubmit,
 }: Props) => {
   const [country, updateCountry] = useState<Country.T>(DefaultCountry);
   const [phone, updatePhone] = useState<Phone.T>();

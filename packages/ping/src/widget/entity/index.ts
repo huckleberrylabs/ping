@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { UUID, Phone, Color, Url } from "@huckleberryai/core";
+import { UUID, Phone, Color, Url } from "@huckleberrylabs/core";
 import * as Icon from "../icon";
 import * as Country from "../../country";
 

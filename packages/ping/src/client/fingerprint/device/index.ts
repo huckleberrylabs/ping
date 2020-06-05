@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { OptionFromNullable } from "@huckleberryai/core";
+import { OptionFromNullable } from "@huckleberrylabs/core";
 import { get } from "../helper";
 import * as GPU from "./gpu";
 import * as Memory from "./memory";

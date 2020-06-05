@@ -9,7 +9,7 @@ import "@material/card/dist/mdc.card.css";
 import "./style.css";
 
 // Domain
-import { Widget } from "@huckleberryai/ping";
+import { Widget } from "@huckleberrylabs/ping";
 
 type Props = {
   widget: Widget.T;

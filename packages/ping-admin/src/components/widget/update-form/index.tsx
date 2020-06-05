@@ -29,8 +29,8 @@ import { toast } from "react-toastify";
 import "./style.css";
 
 // Domain
-import { Phone, Url, Color, Errors } from "@huckleberryai/core";
-import { Widget, Icon, Country } from "@huckleberryai/ping";
+import { Phone, Url, Color, Errors } from "@huckleberrylabs/core";
+import { Widget, Icon, Country } from "@huckleberrylabs/ping";
 import { IconField } from "../../form-fields/icon-field";
 
 type Props = RouteComponentProps & {
@@ -95,7 +95,7 @@ export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
       country,
       phone,
       color,
-      icon
+      icon,
     };
     const maybeUpdated = await onSave(newWidget);
     setLoading(false);

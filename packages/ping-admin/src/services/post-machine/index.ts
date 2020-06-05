@@ -1,6 +1,6 @@
 import { Machine, assign } from "xstate";
 import { Either, isLeft } from "fp-ts/lib/Either";
-import { Errors } from "@huckleberryai/core";
+import { Errors } from "@huckleberrylabs/core";
 
 export interface PostMachineContext {
   tries: number;
@@ -16,7 +16,7 @@ export const PostMachineFactory = (
       initial: "posting",
       context: {
         tries: 1,
-        result: undefined
+        result: undefined,
       },
       states: {
         posting: {
@@ -27,43 +27,43 @@ export const PostMachineFactory = (
               {
                 target: "retry",
                 actions: ["incrementRetries", "setResult"],
-                cond: "canRetry"
+                cond: "canRetry",
               },
               {
                 target: "posted",
-                actions: ["setResult"]
-              }
-            ]
-          }
+                actions: ["setResult"],
+              },
+            ],
+          },
         },
         retry: {
           after: {
-            BACK_OFF: "posting"
-          }
+            BACK_OFF: "posting",
+          },
         },
         posted: {
           type: "final",
-          data: context => context.result
-        }
-      }
+          data: (context) => context.result,
+        },
+      },
     },
     {
       actions: {
-        incrementRetries: assign(context => ({
-          tries: context.tries + 1
+        incrementRetries: assign((context) => ({
+          tries: context.tries + 1,
         })),
         setResult: assign((context, event) => ({
-          result: event.data
-        }))
+          result: event.data,
+        })),
       },
       guards: {
         canRetry: (context, event) =>
           context.tries < 3 &&
           isLeft(event.data) &&
-          Errors.Adapter.Is(event.data.left)
+          Errors.Adapter.Is(event.data.left),
       },
       delays: {
-        BACK_OFF: context => 350 * context.tries * context.tries
-      }
+        BACK_OFF: (context) => 350 * context.tries * context.tries,
+      },
     }
   );

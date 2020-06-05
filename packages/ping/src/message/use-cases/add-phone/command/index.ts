@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { UUID, Phone } from "@huckleberryai/core";
+import { UUID, Phone } from "@huckleberrylabs/core";
 import * as Event from "../../../event";
 
 export const Name = "ping:message:add-phone";

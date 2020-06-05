@@ -1,10 +1,10 @@
 import { Machine, assign } from "xstate";
 import { ReactStripeElements } from "react-stripe-elements";
-import { Widget } from "@huckleberryai/ping";
+import { Widget } from "@huckleberrylabs/ping";
 import { CreateAccountFormData } from "../create";
 import { PostAccountRegistrationMachine } from "./apiMachine";
 import { isLeft, Either, isRight } from "fp-ts/lib/Either";
-import { Errors, UUID } from "@huckleberryai/core";
+import { Errors, UUID } from "@huckleberrylabs/core";
 
 type Context = {
   widget: undefined | Widget.T;
@@ -39,28 +39,28 @@ export const RegisterAccountMachine = (
       initial: "createWidget",
       context: {
         widget: undefined,
-        stage: 1
+        stage: 1,
       },
       states: {
         createWidget: {
           on: {
             CREATE_WIDGET: {
               target: "createAccount",
-              actions: assign((context, event) => ({ widget: event.value }))
-            }
+              actions: assign((context, event) => ({ widget: event.value })),
+            },
           },
-          entry: assign({ stage: 1 })
+          entry: assign({ stage: 1 }),
         },
         createAccount: {
           on: {
             REGISTER_ACCOUNT: {
-              target: "registering"
+              target: "registering",
             },
             BACK: {
-              target: "createWidget"
-            }
+              target: "createWidget",
+            },
           },
-          entry: assign({ stage: 2 })
+          entry: assign({ stage: 2 }),
         },
         registering: {
           entry: assign({ stage: 3 }),
@@ -70,24 +70,24 @@ export const RegisterAccountMachine = (
             onDone: [
               {
                 target: "success",
-                cond: "success"
+                cond: "success",
               },
               {
                 target: "error",
-                cond: "error"
-              }
-            ]
-          }
+                cond: "error",
+              },
+            ],
+          },
         },
         error: {
           type: "final",
-          entry: assign({ stage: 4 })
+          entry: assign({ stage: 4 }),
         },
         success: {
           type: "final",
-          entry: assign({ stage: 4 })
-        }
-      }
+          entry: assign({ stage: 4 }),
+        },
+      },
     },
     {
       guards: {
@@ -96,7 +96,7 @@ export const RegisterAccountMachine = (
           isLeft<Errors.T, any>(event.data),
         success: (context, event) =>
           event.type === "done.invoke.registering" &&
-          isRight<Errors.T, any>(event.data)
+          isRight<Errors.T, any>(event.data),
       },
       services: {
         register: (context, event) =>
@@ -104,7 +104,7 @@ export const RegisterAccountMachine = (
             stripe,
             context.widget as Widget.T,
             event.value
-          )
-      }
+          ),
+      },
     }
   );

@@ -1,7 +1,7 @@
 // @ts-ignore
 import * as iots from "io-ts";
-import * as Core from "@huckleberryai/core";
-import * as Ping from "@huckleberryai/ping";
+import * as Core from "@huckleberrylabs/core";
+import * as Ping from "@huckleberrylabs/ping";
 
 export type Names = Core.Names | Ping.Names;
 

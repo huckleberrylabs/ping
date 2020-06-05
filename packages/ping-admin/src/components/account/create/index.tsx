@@ -24,8 +24,12 @@ import { ForwardButton } from "../../form-fields/forward-button";
 import "./style.css";
 
 // Domain
-import { PersonName, NonEmptyString, EmailAddress } from "@huckleberryai/core";
-import { PromoCode } from "@huckleberryai/ping";
+import {
+  PersonName,
+  NonEmptyString,
+  EmailAddress,
+} from "@huckleberrylabs/core";
+import { PromoCode } from "@huckleberrylabs/ping";
 
 export type CreateAccountFormData = {
   email: EmailAddress.T;
@@ -74,7 +78,7 @@ export const CreateAccount = (props: Props) => {
         placeholder={"jenny's yoga studio"}
         disabled={props.disabled}
         value={accountName}
-        onChange={event =>
+        onChange={(event) =>
           setAccountName((event.target as HTMLInputElement).value)
         }
       />
@@ -85,7 +89,7 @@ export const CreateAccount = (props: Props) => {
         disabled={props.disabled}
         value={userName}
         invalid={userName !== undefined && !IsValidFirstLastName(userName)}
-        onChange={event =>
+        onChange={(event) =>
           setUserName((event.target as HTMLInputElement).value)
         }
       />
@@ -97,12 +101,12 @@ export const CreateAccount = (props: Props) => {
         value={email}
         placeholder={"email@example.com"}
         invalid={email !== undefined && !EmailAddress.Is(email)}
-        onChange={event => setEmail((event.target as HTMLInputElement).value)}
+        onChange={(event) => setEmail((event.target as HTMLInputElement).value)}
       />
       <PromoCodeField
         disabled={props.disabled}
         initialValue={initialPromoCode}
-        onSelect={promoCode => setPromoCode(promoCode)}
+        onSelect={(promoCode) => setPromoCode(promoCode)}
       />
       <br />
       <CardElement
@@ -111,9 +115,9 @@ export const CreateAccount = (props: Props) => {
         placeholderCountry="ca"
         supportedCountries={["ca", "us"]}
         classes={{
-          base: "register-account-stripe mdc-ripple-surface"
+          base: "register-account-stripe mdc-ripple-surface",
         }}
-        onChange={change => setCard(change)}
+        onChange={(change) => setCard(change)}
       />
       <p>You will be charged $20 USD per year, minus the applied discount.</p>
       <div className="create-account-controls">
@@ -133,7 +137,7 @@ export const CreateAccount = (props: Props) => {
               promoCode: promoCode,
               email: email as EmailAddress.T,
               userName: PersonName.C(userName as NonEmptyString.T),
-              accountName: accountName as NonEmptyString.T | undefined
+              accountName: accountName as NonEmptyString.T | undefined,
             });
           }}
         />

@@ -1,5 +1,5 @@
 import awsServerlessExpress from "aws-serverless-express";
-import { Env } from "@huckleberryai/core";
+import { Env } from "@huckleberrylabs/core";
 import { C } from "./driving-adapters";
 
 const env = Env.Get();

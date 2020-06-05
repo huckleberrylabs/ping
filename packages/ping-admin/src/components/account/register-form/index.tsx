@@ -6,7 +6,7 @@ import { useMachine } from "@xstate/react";
 import {
   injectStripe,
   Elements,
-  ReactStripeElements
+  ReactStripeElements,
 } from "react-stripe-elements";
 
 // Button
@@ -28,7 +28,7 @@ import { CreateWidgetForm } from "../../widget/create-form";
 
 // Domain
 import { RegisterAccountMachine } from "./machine";
-import { Widget } from "@huckleberryai/ping";
+import { Widget } from "@huckleberrylabs/ping";
 import { CreateAccount } from "../create";
 import { Link } from "react-router-dom";
 
@@ -48,15 +48,15 @@ export const RegisterAccountInner = (props: Props) => {
           showBackButton={false}
           forwardButtonLabel="activate"
           forwardButtonIcon={"keyboard_arrow_right"}
-          onSubmit={widget => send({ type: "CREATE_WIDGET", value: widget })}
+          onSubmit={(widget) => send({ type: "CREATE_WIDGET", value: widget })}
         />
       ) : current.matches("createAccount") || current.matches("registering") ? (
         <CreateAccount
           {...props}
-          onSubmit={value =>
+          onSubmit={(value) =>
             send({
               type: "REGISTER_ACCOUNT",
-              value
+              value,
             })
           }
           onBack={() => send({ type: "BACK" })}

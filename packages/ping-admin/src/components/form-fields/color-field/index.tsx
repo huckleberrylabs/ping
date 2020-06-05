@@ -11,7 +11,7 @@ import "@material/button/dist/mdc.button.css";
 import "./style.css";
 
 // Domain
-import { Color } from "@huckleberryai/core";
+import { Color } from "@huckleberrylabs/core";
 
 type Props = {
   label?: string;
@@ -26,7 +26,7 @@ export const ColorField = ({
   label,
   disabled,
   initialValue,
-  onSelect
+  onSelect,
 }: Props) => {
   const [showColorPicker, updateColorPicker] = useState(false);
   const toggleColorPicker = () => updateColorPicker(!showColorPicker);
@@ -38,7 +38,7 @@ export const ColorField = ({
         raised
         style={{
           backgroundColor: color,
-          color: Color.IsLight(color as Color.T) ? "black" : "white"
+          color: Color.IsLight(color as Color.T) ? "black" : "white",
         }}
         disabled={disabled}
         onClick={toggleColorPicker}

@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { UUID, Event, NonEmptyString } from "@huckleberryai/core";
+import { UUID, Event, NonEmptyString } from "@huckleberrylabs/core";
 
 export const Name = "ping:account:login-with-token";
 

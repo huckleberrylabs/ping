@@ -1,6 +1,6 @@
 import { left, right } from "fp-ts/lib/Either";
 import * as iots from "io-ts";
-import { Env, UUID, NonEmptyString, Errors } from "@huckleberryai/core";
+import { Env, UUID, NonEmptyString, Errors } from "@huckleberrylabs/core";
 import * as Event from "../event";
 import * as Log from "../log";
 import * as Level from "../level";

@@ -1,6 +1,6 @@
 import { none, some } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
-import { Event, UUID, OptionFromNullable } from "@huckleberryai/core";
+import { Event, UUID, OptionFromNullable } from "@huckleberrylabs/core";
 
 export const Name = "web-analytics:client:abstract:event";
 export const Codec = iots.intersection(

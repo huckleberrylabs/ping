@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { NonEmptyString } from "@huckleberryai/core";
+import { NonEmptyString } from "@huckleberrylabs/core";
 export const Name = "ping:value:promo-code";
 
 export const Codec = iots.union(

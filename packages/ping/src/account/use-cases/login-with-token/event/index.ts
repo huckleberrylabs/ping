@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { Event, NonEmptyString } from "@huckleberryai/core";
+import { Event, NonEmptyString } from "@huckleberrylabs/core";
 import * as Command from "../command";
 
 export const Name = "ping:account:logged-in-with-token";

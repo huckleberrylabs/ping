@@ -11,7 +11,7 @@ import "@material/line-ripple/dist/mdc.line-ripple.css";
 import "./style.css";
 
 // Domain
-import { PromoCode } from "@huckleberryai/ping";
+import { PromoCode } from "@huckleberrylabs/ping";
 
 type Props = {
   label?: string;
@@ -26,7 +26,7 @@ export const PromoCodeField = ({
   disabled,
   required,
   initialValue,
-  onSelect
+  onSelect,
 }: Props) => {
   const [changed, updateChanged] = useState<boolean>(false);
   const [promoCode, updatePromoCode] = useState<string>(initialValue || "");
@@ -38,7 +38,7 @@ export const PromoCodeField = ({
         disabled={disabled}
         value={promoCode}
         invalid={required && !PromoCode.Is(promoCode) && changed}
-        onChange={event => {
+        onChange={(event) => {
           const value = (event.target as HTMLInputElement).value;
           if (PromoCode.Is(value)) {
             onSelect(value);

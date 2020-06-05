@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { PersonName } from "@huckleberryai/core";
+import { PersonName } from "@huckleberrylabs/core";
 import * as Event from "../../../event";
 import * as Command from "../command";
 

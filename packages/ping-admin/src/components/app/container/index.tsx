@@ -7,7 +7,7 @@ import {
   Route,
   Switch,
   Redirect,
-  RouteComponentProps
+  RouteComponentProps,
 } from "react-router-dom";
 
 // Toasts
@@ -25,7 +25,7 @@ import "@rmwc/circular-progress/circular-progress.css";
 import {
   UpdateAccountForm,
   LoginForm,
-  RegisterAccountForm
+  RegisterAccountForm,
 } from "../../account";
 import { WidgetList, UpdateWidgetForm, AddWidgetForm } from "../../widget";
 import { AppBar } from "../bar";
@@ -41,12 +41,12 @@ import * as Auth from "../../../services/authentication";
 import { StripKey } from "../../../config";
 
 // Domain
-import { UUID } from "@huckleberryai/core";
+import { UUID } from "@huckleberrylabs/core";
 import {
   Account as PingAccount,
   PrivateSDK,
-  Widget
-} from "@huckleberryai/ping";
+  Widget,
+} from "@huckleberrylabs/ping";
 import { Billing } from "../../billing/container";
 
 const ToastProvider = ({ appBar }: { appBar?: boolean }) => (
@@ -91,7 +91,7 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
           component={(props: RouteComponentProps<{ id: UUID.T }>) => {
             const id = props.match.params.id;
             const widget = account.widgets.filter(
-              widget => widget.id === id
+              (widget) => widget.id === id
             )[0];
             if (widget)
               return UpdateWidgetForm({
@@ -105,7 +105,7 @@ export const AuthApp = (account: PingAccount.T, reload: () => void) => (
                   );
                   reload();
                   return result;
-                }
+                },
               });
             return <div>widget not found</div>;
           }}
@@ -164,7 +164,7 @@ export class App extends Component<Props, State> {
     super(props);
     this.state = {
       account: undefined,
-      loading: true
+      loading: true,
     };
   }
   componentDidMount() {

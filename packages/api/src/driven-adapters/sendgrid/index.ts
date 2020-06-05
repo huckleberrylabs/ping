@@ -7,7 +7,7 @@ import sendGrid from "@sendgrid/mail";
 import { MailData } from "@sendgrid/helpers/classes/mail";
 import { ResponseError } from "@sendgrid/helpers/classes";
 import { left, right, Either } from "fp-ts/lib/Either";
-import { Errors } from "@huckleberryai/core";
+import { Errors } from "@huckleberrylabs/core";
 
 export type T = (data: MailData) => Promise<Either<Errors.Adapter.T, null>>;
 

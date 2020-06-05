@@ -1,6 +1,6 @@
 import * as iots from "io-ts";
 import { Event } from "../../base";
-import { UUID } from "@huckleberryai/core";
+import { UUID } from "@huckleberrylabs/core";
 
 export const Name = "web-analytics:client:loaded";
 

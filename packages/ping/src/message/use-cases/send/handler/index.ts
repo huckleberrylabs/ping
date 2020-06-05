@@ -6,7 +6,7 @@ import {
   SMSClient,
   PersonName,
   Errors,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import { WidgetRepository, MessageRepository } from "../../../../interfaces";
 import * as Message from "../../../entity";
 import * as Command from "../command";

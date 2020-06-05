@@ -6,7 +6,7 @@ import {
   EmailOptions,
   PersonName,
   TimeStamp,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 
 export const C = (client: SendGrid.T): EmailClient => async (
   emails: Email[],

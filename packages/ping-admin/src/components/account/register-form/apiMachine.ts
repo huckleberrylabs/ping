@@ -2,8 +2,8 @@ import { Machine } from "xstate";
 import { isLeft, isRight, Either, left, right, Right } from "fp-ts/lib/Either";
 import { toUndefined } from "fp-ts/lib/Option";
 import { ReactStripeElements } from "react-stripe-elements";
-import { PrivateSDK, Widget } from "@huckleberryai/ping";
-import { Errors, UUID, NonEmptyString } from "@huckleberryai/core";
+import { PrivateSDK, Widget } from "@huckleberrylabs/ping";
+import { Errors, UUID, NonEmptyString } from "@huckleberrylabs/core";
 import { PostMachineFactory } from "../../../services/post-machine";
 import { CreateAccountFormData } from "../create";
 
@@ -19,15 +19,15 @@ const SendToStripe = async (
     billing_details: {
       // Can Also Add Address Object and phone
       email: formData.email,
-      name: toUndefined(formData.userName.parsed)
+      name: toUndefined(formData.userName.parsed),
     },
-    metadata
+    metadata,
   });
   if (stripeResponse.error || stripeResponse.paymentMethod === undefined)
     return left(Errors.Adapter.C());
   return right({
     ...formData,
-    paymentMethod: stripeResponse.paymentMethod.id
+    paymentMethod: stripeResponse.paymentMethod.id,
   });
 };
 
@@ -81,7 +81,7 @@ export const PostAccountRegistrationMachine = (
       context: {
         accountID: undefined,
         formData,
-        widget
+        widget,
       },
       initial: "creatingPaymentMethod",
       states: {
@@ -92,14 +92,14 @@ export const PostAccountRegistrationMachine = (
             onDone: [
               {
                 target: "registeringAccount",
-                cond: "success"
+                cond: "success",
               },
               {
                 target: "finished",
-                cond: "error"
-              }
-            ]
-          }
+                cond: "error",
+              },
+            ],
+          },
         },
         registeringAccount: {
           invoke: {
@@ -108,14 +108,14 @@ export const PostAccountRegistrationMachine = (
             onDone: [
               {
                 target: "addingWidget",
-                cond: "success"
+                cond: "success",
               },
               {
                 target: "finished",
-                cond: "error"
-              }
-            ]
-          }
+                cond: "error",
+              },
+            ],
+          },
         },
         addingWidget: {
           invoke: {
@@ -124,25 +124,25 @@ export const PostAccountRegistrationMachine = (
             onDone: [
               {
                 target: "finished",
-                cond: "success"
+                cond: "success",
               },
               {
                 target: "finished",
-                cond: "error"
-              }
-            ]
-          }
+                cond: "error",
+              },
+            ],
+          },
         },
         finished: {
           type: "final",
-          data: (context, event) => event.data
-        }
-      }
+          data: (context, event) => event.data,
+        },
+      },
     },
     {
       guards: {
         error: (context, event) => isLeft<Errors.T, any>(event.data),
-        success: (context, event) => isRight<Errors.T, any>(event.data)
+        success: (context, event) => isRight<Errors.T, any>(event.data),
       },
       services: {
         createPaymentMethod: (context, event) =>
@@ -165,7 +165,7 @@ export const PostAccountRegistrationMachine = (
               (event.data as Right<UUID.T>).right,
               context.widget
             )
-          )
-      }
+          ),
+      },
     }
   );

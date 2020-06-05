@@ -1,6 +1,6 @@
 import { isLeft, isRight } from "fp-ts/lib/Either";
-import { UUID } from "@huckleberryai/core";
-import { PublicSDK, AnalyticsSDK, Config } from "@huckleberryai/ping";
+import { UUID } from "@huckleberrylabs/core";
+import { PublicSDK, AnalyticsSDK, Config } from "@huckleberrylabs/ping";
 import * as Widget from "./widget";
 
 export const onLoad = async () => {

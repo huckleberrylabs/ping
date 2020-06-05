@@ -1,7 +1,7 @@
 import { Machine } from "xstate";
 import { isLeft, isRight, Either } from "fp-ts/lib/Either";
-import { Widget, PrivateSDK } from "@huckleberryai/ping";
-import { UUID, Errors } from "@huckleberryai/core";
+import { Widget, PrivateSDK } from "@huckleberrylabs/ping";
+import { UUID, Errors } from "@huckleberrylabs/core";
 import { PostMachineFactory } from "../../../services/post-machine";
 
 export const DoneEventType = "done.invoke.post";
@@ -27,9 +27,9 @@ export const AddWidgetMachineFactory = (accountID: UUID.T) =>
         add: {
           on: {
             ADD: {
-              target: "adding"
-            }
-          }
+              target: "adding",
+            },
+          },
         },
         adding: {
           invoke: {
@@ -38,32 +38,32 @@ export const AddWidgetMachineFactory = (accountID: UUID.T) =>
             onDone: [
               {
                 target: "added",
-                cond: "success"
+                cond: "success",
               },
               {
                 target: "add",
-                cond: "error"
-              }
-            ]
-          }
+                cond: "error",
+              },
+            ],
+          },
         },
         added: {
-          type: "final"
-        }
-      }
+          type: "final",
+        },
+      },
     },
     {
       guards: {
         error: (context, event) =>
           event.type === DoneEventType && isLeft(event.data),
         success: (context, event) =>
-          event.type === DoneEventType && isRight(event.data)
+          event.type === DoneEventType && isRight(event.data),
       },
       services: {
         postWidget: (context, event) =>
           PostMachineFactory(() =>
             PrivateSDK.C().Widget.Add(accountID, event.value as Widget.T)
-          )
-      }
+          ),
+      },
     }
   );

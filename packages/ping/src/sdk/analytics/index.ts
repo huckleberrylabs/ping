@@ -1,4 +1,4 @@
-import { UUID, HTTP } from "@huckleberryai/core";
+import { UUID, HTTP } from "@huckleberrylabs/core";
 import { AnalyticsSDK } from "../../interfaces";
 import { UseCases, Logging, FingerPrint } from "../../client";
 

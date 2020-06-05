@@ -12,8 +12,8 @@ import "@rmwc/icon/icon.css";
 import "./style.css";
 
 // Domain
-import { Icon } from "@huckleberryai/ping";
-import { Color } from "@huckleberryai/core";
+import { Icon } from "@huckleberrylabs/ping";
+import { Color } from "@huckleberrylabs/core";
 
 type Props = {
   label?: string;
@@ -29,7 +29,7 @@ export const IconField = ({
   disabled,
   initialValue,
   color,
-  onSelect
+  onSelect,
 }: Props) => {
   const textColor = Color.IsLight(color) ? "black" : "white";
   const [icon, updateIcon] = useState<Icon.T>(initialValue || DefaultIcon);
@@ -102,7 +102,7 @@ export const IconField = ({
                   stroke={textColor}
                 />
               </svg>
-            )
+            ),
           }}
         />
       </Button>
@@ -147,7 +147,7 @@ export const IconField = ({
                   filter="brightness(55%)"
                 />
               </svg>
-            )
+            ),
           }}
         />
       </Button>

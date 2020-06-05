@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { Errors } from "@huckleberryai/core";
+import { Errors } from "@huckleberrylabs/core";
 
 export const showErrorToast = (input: unknown) => {
   if (Errors.Adapter.Is(input)) {

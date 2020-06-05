@@ -1,6 +1,6 @@
 import { Either, left, isLeft, right, isRight } from "fp-ts/lib/Either";
-import { UUID, Errors, EmailAddress } from "@huckleberryai/core";
-import { Interfaces, Account } from "@huckleberryai/ping";
+import { UUID, Errors, EmailAddress } from "@huckleberrylabs/core";
+import { Interfaces, Account } from "@huckleberrylabs/ping";
 import { FireStore } from "../../driven-adapters";
 
 export const Name = "ping:account";

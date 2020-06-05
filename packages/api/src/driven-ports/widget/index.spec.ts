@@ -1,8 +1,8 @@
 import { C } from ".";
 import { FireStore } from "../../driven-adapters";
 import { isRight } from "fp-ts/lib/Either";
-import { UUID } from "@huckleberryai/core";
-import { Widget } from "@huckleberryai/ping";
+import { UUID } from "@huckleberrylabs/core";
+import { Widget } from "@huckleberrylabs/ping";
 
 describe("ping:widget repository", () => {
   test("it retrieves by id", async () => {

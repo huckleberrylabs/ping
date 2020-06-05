@@ -7,8 +7,8 @@ import * as i from "fp-ts/lib/Either";
 import jwt from "jsonwebtoken";
 import * as iots from "io-ts";
 import { Either, right, left, isLeft } from "fp-ts/lib/Either";
-import { UUID, Errors, NonEmptyString } from "@huckleberryai/core";
-import { Interfaces } from "@huckleberryai/ping";
+import { UUID, Errors, NonEmptyString } from "@huckleberrylabs/core";
+import { Interfaces } from "@huckleberrylabs/ping";
 
 /* const Hash = (agentID: UUID.T, event: Event.T) => {
   let hash = crypto

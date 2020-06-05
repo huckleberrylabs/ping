@@ -5,7 +5,7 @@ import {
   Event,
   NonEmptyString,
   OptionFromNullable,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 
 export const Name = "web-analytics:server:http-access";
 

@@ -1,5 +1,5 @@
-import { UUID, Color } from "@huckleberryai/core";
-import { Widget } from "@huckleberryai/ping";
+import { UUID, Color } from "@huckleberrylabs/core";
+import { Widget } from "@huckleberrylabs/ping";
 import { ElementIDs } from "./elements";
 
 export const InsertCSS = (css: string) => {

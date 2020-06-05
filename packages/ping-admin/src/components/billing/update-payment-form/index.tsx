@@ -1,7 +1,7 @@
 import React from "react";
 
 // Domain
-import { Config } from "@huckleberryai/ping";
+import { Config } from "@huckleberrylabs/ping";
 
 type Props = {};
 export const UpdatePaymentForm = (props: Props) => {

@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { OptionFromNullable } from "@huckleberryai/core";
+import { OptionFromNullable } from "@huckleberrylabs/core";
 import { get } from "../helper";
 import * as DoNotTrack from "./do-not-track";
 import * as AdBlocker from "./ad-blocker";

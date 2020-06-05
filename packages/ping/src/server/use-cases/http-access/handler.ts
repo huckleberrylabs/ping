@@ -1,5 +1,5 @@
 import { isRight } from "fp-ts/lib/Either";
-import { Results } from "@huckleberryai/core";
+import { Results } from "@huckleberrylabs/core";
 import { WebAnalyticsRepository } from "../../../interfaces";
 import * as Event from "./event";
 

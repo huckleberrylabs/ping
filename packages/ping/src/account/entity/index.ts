@@ -7,7 +7,7 @@ import {
   PersonName,
   Phone,
   EmailAddress,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import * as Widget from "../../widget";
 import { some, none, Option, isSome } from "fp-ts/lib/Option";
 

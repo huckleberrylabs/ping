@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { UUID, Event } from "@huckleberryai/core";
+import { UUID, Event } from "@huckleberrylabs/core";
 
 export const Name = "ping:abstract-widget-event";
 export const Codec = iots.intersection(

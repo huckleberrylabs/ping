@@ -6,7 +6,7 @@ import {
   PersonName,
   EmailAddress,
   Phone,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import * as Account from "../account";
 import * as Widget from "../widget";
 import * as Message from "../message";

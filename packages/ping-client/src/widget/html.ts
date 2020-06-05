@@ -1,5 +1,5 @@
-import { Config, Widget } from "@huckleberryai/ping";
-import { Color } from "@huckleberryai/core";
+import { Config, Widget } from "@huckleberrylabs/ping";
+import { Color } from "@huckleberrylabs/core";
 import { ElementIDs } from "./elements";
 
 export const InsertHTML = (html: string) => {

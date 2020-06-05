@@ -11,7 +11,7 @@ import "@material/line-ripple/dist/mdc.line-ripple.css";
 import "./style.css";
 
 // Domain
-import { Url } from "@huckleberryai/core";
+import { Url } from "@huckleberrylabs/core";
 
 type Props = {
   label?: string;
@@ -26,7 +26,7 @@ export const UrlField = ({
   disabled,
   required,
   initialValue,
-  onSelect
+  onSelect,
 }: Props) => {
   const [changed, updateChanged] = useState<boolean>(false);
   const [url, updateUrl] = useState<string>(initialValue || "");
@@ -39,7 +39,7 @@ export const UrlField = ({
         disabled={disabled}
         value={url}
         invalid={required && !Url.Is(url) && changed}
-        onChange={event => {
+        onChange={(event) => {
           const value = (event.target as HTMLInputElement).value;
           updateChanged(true);
           updateUrl(value);

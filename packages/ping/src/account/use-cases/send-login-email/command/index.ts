@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { UUID, EmailAddress, Event } from "@huckleberryai/core";
+import { UUID, EmailAddress, Event } from "@huckleberrylabs/core";
 
 export const Name = "ping:account:send-login-email";
 

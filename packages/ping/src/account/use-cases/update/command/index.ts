@@ -5,7 +5,7 @@ import {
   PersonName,
   EmailAddress,
   OptionFromNullable,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import * as Event from "../../../event";
 import { some, none } from "fp-ts/lib/Option";
 

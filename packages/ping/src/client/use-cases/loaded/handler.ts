@@ -1,7 +1,7 @@
 import { isRight } from "fp-ts/lib/Either";
 import { WebAnalyticsRepository } from "../../../interfaces";
 import * as Event from "./event";
-import { Results } from "@huckleberryai/core";
+import { Results } from "@huckleberrylabs/core";
 
 export const Handler = (repo: WebAnalyticsRepository) => async (
   event: Event.T

@@ -8,8 +8,8 @@ import {
   Either,
   chain,
 } from "fp-ts/lib/Either";
-import { UUID, Errors } from "@huckleberryai/core";
-import { Widget, Interfaces } from "@huckleberryai/ping";
+import { UUID, Errors } from "@huckleberrylabs/core";
+import { Widget, Interfaces } from "@huckleberrylabs/ping";
 import { GetElementById } from "./helpers";
 import { ElementIDs, Elements } from "./elements";
 import { InsertCSS, GenerateCSS } from "./css";

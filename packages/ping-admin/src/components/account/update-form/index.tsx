@@ -7,7 +7,7 @@ import {
   none,
   isNone,
   Option,
-  isSome
+  isSome,
 } from "fp-ts/lib/Option";
 
 // Text Field
@@ -22,8 +22,12 @@ import { Button } from "@rmwc/button";
 import "@material/button/dist/mdc.button.css";
 
 // Domain
-import { NonEmptyString, PersonName, EmailAddress } from "@huckleberryai/core";
-import { Account, PrivateSDK, Config } from "@huckleberryai/ping";
+import {
+  NonEmptyString,
+  PersonName,
+  EmailAddress,
+} from "@huckleberrylabs/core";
+import { Account, PrivateSDK, Config } from "@huckleberrylabs/ping";
 
 // Style
 import "./style.css";
@@ -71,7 +75,7 @@ export const UpdateAccountForm = (props: Props) => {
         outlined
         label="organization"
         value={toUndefined(accountName)}
-        onChange={event => {
+        onChange={(event) => {
           const value = (event.target as HTMLInputElement).value.trim();
           const name = NonEmptyString.Is(value) ? some(value) : none;
           setAccountName(name);
@@ -82,7 +86,7 @@ export const UpdateAccountForm = (props: Props) => {
         label="name"
         value={toUndefined(userName.parsed)}
         invalid={isNone(userName.first) || isNone(userName.last)}
-        onChange={event => {
+        onChange={(event) => {
           const value = (event.target as HTMLInputElement).value;
           const userName = PersonName.C(value as NonEmptyString.T);
           setUserName(userName);
@@ -94,7 +98,7 @@ export const UpdateAccountForm = (props: Props) => {
         value={email}
         placeholder={"email@example.com"}
         invalid={!EmailAddress.Is(email)}
-        onChange={event => {
+        onChange={(event) => {
           const value = (event.target as HTMLInputElement).value;
           setEmail(value);
         }}
@@ -109,7 +113,7 @@ export const UpdateAccountForm = (props: Props) => {
         value={toUndefined(billingEmail)}
         placeholder={"email@example.com"}
         invalid={isSome(billingEmail) && !EmailAddress.Is(billingEmail.value)}
-        onChange={event => {
+        onChange={(event) => {
           const value = (event.target as HTMLInputElement).value.trim();
           const billingEmail = NonEmptyString.Is(value) ? some(value) : none;
           setBillingEmail(billingEmail);
@@ -130,7 +134,7 @@ export const UpdateAccountForm = (props: Props) => {
           )}&user_name=${PersonName.FirstLast(props.account.userName)}&email=${
             props.account.email
           }&unique_phones=${
-            new Set(props.account.widgets.map(widget => widget.phone)).size
+            new Set(props.account.widgets.map((widget) => widget.phone)).size
           }`}
         >
           click here

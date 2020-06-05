@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import { showErrorToast } from "../../../services/error-toasts";
 
 // Domain
-import { UUID } from "@huckleberryai/core";
+import { UUID } from "@huckleberrylabs/core";
 import { CreateWidgetForm } from "../create-form";
 import { AddWidgetMachineFactory, DoneEventType } from "./machine";
 
@@ -56,7 +56,7 @@ export const AddWidgetForm = (props: Props) => {
           "done"
         )
       }
-      onSubmit={widget => send({ type: "ADD", value: widget })}
+      onSubmit={(widget) => send({ type: "ADD", value: widget })}
     />
   );
 };

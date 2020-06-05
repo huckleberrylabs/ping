@@ -1,4 +1,4 @@
-import { Results } from "@huckleberryai/core";
+import { Results } from "@huckleberrylabs/core";
 import { AccountRepository } from "../../../../interfaces";
 import * as Command from "../command";
 

@@ -19,8 +19,8 @@ import "@rmwc/icon/icon.css";
 import "./style.css";
 
 // Domain
-import { UUID } from "@huckleberryai/core";
-import { Config } from "@huckleberryai/ping";
+import { UUID } from "@huckleberrylabs/core";
+import { Config } from "@huckleberrylabs/ping";
 
 export const CodeString = (id: UUID.T) =>
   `

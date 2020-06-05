@@ -1,6 +1,6 @@
 import { pipe } from "fp-ts/lib/pipeable";
 import { isRight } from "fp-ts/lib/Either";
-import { Type, NonEmptyString } from "@huckleberryai/core";
+import { Type, NonEmptyString } from "@huckleberrylabs/core";
 import * as Event from ".";
 
 describe("log-entry-event", () => {

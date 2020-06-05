@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { NonEmptyString } from "@huckleberryai/core";
+import { NonEmptyString } from "@huckleberrylabs/core";
 import * as Event from "../../../event";
 import * as Command from "../command";
 

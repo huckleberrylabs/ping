@@ -1,5 +1,5 @@
 import { isRight } from "fp-ts/lib/Either";
-import { Type, Phone, Url, Color } from "@huckleberryai/core";
+import { Type, Phone, Url, Color } from "@huckleberrylabs/core";
 import { Name, C, Is, Codec } from ".";
 import * as Country from "../../country";
 import * as Icon from "../icon";

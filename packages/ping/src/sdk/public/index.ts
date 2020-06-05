@@ -4,7 +4,7 @@ import {
   Phone,
   PersonName,
   NonEmptyString,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import { PublicSDK } from "../../interfaces";
 import * as Widget from "../../widget/entity";
 import { GetByID } from "../../widget/use-cases";

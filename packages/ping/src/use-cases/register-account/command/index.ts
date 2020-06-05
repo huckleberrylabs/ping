@@ -7,7 +7,7 @@ import {
   EmailAddress,
   NonEmptyString,
   PersonName,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import * as PromoCode from "../../../promo-code";
 
 export const Name = "ping:register-account";

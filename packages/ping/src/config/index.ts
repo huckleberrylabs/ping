@@ -1,4 +1,4 @@
-import { EmailAddress, Env } from "@huckleberryai/core";
+import { EmailAddress, Env } from "@huckleberrylabs/core";
 
 // Domains and URLs
 
@@ -29,6 +29,6 @@ export const InsertScriptURL =
     : "file:///Users/dado/Projects/monorepo/packages/ping-client/dist/ping.min.js";
 
 export const CloseAccountFormURL =
-  "https://huckleberryai.typeform.com/to/To6SXb";
+  "https://huckleberrylabs.typeform.com/to/To6SXb";
 
 export const SecretDeveloperMessage = `Ping. Made with <3 in Waterloo, Canada by Huckleberry. ${PrimaryURL}`;

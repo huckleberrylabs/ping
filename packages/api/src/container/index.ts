@@ -1,6 +1,6 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Results, Type } from "@huckleberryai/core";
-import * as Ping from "@huckleberryai/ping";
+import { Results, Type } from "@huckleberrylabs/core";
+import * as Ping from "@huckleberrylabs/ping";
 import * as DrivenAdapters from "../driven-adapters";
 import * as DrivenPorts from "../driven-ports";
 

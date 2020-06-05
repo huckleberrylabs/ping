@@ -11,7 +11,7 @@ import "@material/line-ripple/dist/mdc.line-ripple.css";
 import "./style.css";
 
 // Domain
-import { Phone } from "@huckleberryai/core";
+import { Phone } from "@huckleberrylabs/core";
 
 type Props = {
   label?: string;
@@ -26,7 +26,7 @@ export const PhoneField = ({
   disabled,
   required,
   initialValue,
-  onSelect
+  onSelect,
 }: Props) => {
   const [changed, updateChanged] = useState<boolean>(false);
   const [phone, updatePhone] = useState<string>(initialValue || "");
@@ -39,7 +39,7 @@ export const PhoneField = ({
         disabled={disabled}
         value={phone}
         invalid={required && !Phone.Is(phone) && changed}
-        onChange={event => {
+        onChange={(event) => {
           const value = (event.target as HTMLInputElement).value;
           updateChanged(true);
           updatePhone(value);

@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { OptionFromNullable } from "@huckleberryai/core";
+import { OptionFromNullable } from "@huckleberrylabs/core";
 import * as Info from "./info";
 import * as LocalIP from "./local-ip";
 

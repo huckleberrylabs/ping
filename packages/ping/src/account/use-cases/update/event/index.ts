@@ -4,7 +4,7 @@ import {
   PersonName,
   EmailAddress,
   OptionFromNullable,
-} from "@huckleberryai/core";
+} from "@huckleberrylabs/core";
 import * as Event from "../../../event";
 import * as Command from "../command";
 

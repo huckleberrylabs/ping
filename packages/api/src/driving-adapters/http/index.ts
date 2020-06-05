@@ -9,8 +9,8 @@ import {
   NonEmptyString,
   UUID,
   Errors,
-} from "@huckleberryai/core";
-import * as Ping from "@huckleberryai/ping";
+} from "@huckleberrylabs/core";
+import * as Ping from "@huckleberrylabs/ping";
 import Container from "../../container";
 import Codecs, { Names } from "../../codecs";
 import { IAMService } from "../../driven-ports";

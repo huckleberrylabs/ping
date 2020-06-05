@@ -11,8 +11,8 @@ import {
   Errors,
   SMSClient,
   EmailClient,
-} from "@huckleberryai/core";
-import { Interfaces, PromoCode } from "@huckleberryai/ping";
+} from "@huckleberrylabs/core";
+import { Interfaces, PromoCode } from "@huckleberrylabs/ping";
 import { AlertPhone } from "../../config";
 
 const StripeError = (error: errors.StripeError) => {

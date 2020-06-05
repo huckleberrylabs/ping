@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { UUID } from "@huckleberryai/core";
+import { UUID } from "@huckleberrylabs/core";
 import * as Event from "../../widget/event";
 
 export const Name = "ping:abstract-message-event";

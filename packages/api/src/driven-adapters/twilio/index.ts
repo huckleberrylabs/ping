@@ -5,7 +5,7 @@ import { Option } from "fp-ts/lib/Option";
 
 import twilio from "twilio";
 import { left, right, Either } from "fp-ts/lib/Either";
-import { Errors } from "@huckleberryai/core";
+import { Errors } from "@huckleberrylabs/core";
 
 export type T = twilio.Twilio;
 

@@ -8,7 +8,7 @@ import "react-flags-select/css/react-flags-select.css";
 import "./style.css";
 
 // Domain
-import { Country } from "@huckleberryai/ping";
+import { Country } from "@huckleberrylabs/ping";
 
 export const DefaultCountry: Country.T = "CA";
 export const Countries: Country.T[] = ["US", "CA", "GB"];
@@ -24,7 +24,7 @@ export const CountryField = ({
   className = "",
   showSelectedLabel = true,
   initialValue = DefaultCountry,
-  onSelect
+  onSelect,
 }: Props) => (
   <div className={`country-field ${className}`}>
     <ReactFlagsSelect
@@ -32,7 +32,7 @@ export const CountryField = ({
       defaultCountry={initialValue}
       showSelectedLabel={showSelectedLabel}
       countries={Countries}
-      onSelect={country => onSelect(country as Country.T)}
+      onSelect={(country) => onSelect(country as Country.T)}
     />
   </div>
 );

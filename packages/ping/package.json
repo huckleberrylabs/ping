@@ -1,5 +1,5 @@
 {
-  "name": "@huckleberryai/ping",
+  "name": "@huckleberrylabs/ping",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
@@ -67,7 +67,7 @@
     "prepublishOnly": "npm run test"
   },
   "dependencies": {
-    "@huckleberryai/core": "^3.2.3",
+    "@huckleberrylabs/core": "^3.2.3",
     "fp-ts": "^2.1.0",
     "io-ts": "^2.0.1"
   },
@@ -85,5 +85,5 @@
     "tslint-jest": "^1.0.5",
     "typescript": "^3.7.2"
   },
-  "gitHead": "f3a4f0b4f5d24587cfc9f288936eb8ab206ae0a9"
+  "gitHead": "c93fa7310f05e605cbccf873b8517b7d1189fc2f"
 }
