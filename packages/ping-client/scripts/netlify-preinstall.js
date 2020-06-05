@@ -16,7 +16,7 @@ if (process.env.NETLIFY === "true") {
     // Create .npmrc
     fs.writeFileSync(
       ".npmrc",
-      `//npm.pkg.github.com/:_authToken=${process.env.GITHUB_TOKEN}\n@${process.env.GITHUB_USERNAME}:registry=https://npm.pkg.github.com/\n`
+      `//npm.pkg.github.com/:_authToken=${process.env.GITHUB_TOKEN}\n@huckleberrylabs:registry=https://npm.pkg.github.com/\n`
     );
     fs.chmodSync(".npmrc", 0o600);
     // Run npm again, because the npm process which is executing
