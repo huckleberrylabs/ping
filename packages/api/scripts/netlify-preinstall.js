@@ -14,13 +14,13 @@ if (process.env.NETLIFY === "true") {
     // Create .npmrc
     fs.writeFileSync(
       ".npmrc",
-      `//npm.pkg.github.com/:_authToken=${process.env.GITHUB_TOKEN}\n@${process.env.GITHUB_USERNAME}:registry=https://npm.pkg.github.com/\n`
+      `//npm.pkg.github.com/:_authToken=${process.env.GITHUB_TOKEN}\n@huckleberrylabs:registry=https://npm.pkg.github.com/\n`
     );
     fs.chmodSync(".npmrc", 0o600);
     // Run npm again, because the npm process which is executing
     // this script won't pick up the .npmrc file we just created.
     // The original npm process will continue after this second npm process finishes,
     // and when it does it will report "success Already up-to-date."
-    spawnSync("npm", { stdio: "inherit" });
+    spawnSync("npm", ["install"], { stdio: "inherit" });
   }
 }
