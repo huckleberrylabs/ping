@@ -33,7 +33,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build:prod": "echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> .npmrc && npm install && npm run build",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"

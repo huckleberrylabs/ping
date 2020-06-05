@@ -61,8 +61,7 @@
     "rulesDirectory": []
   },
   "scripts": {
-    "build:dev": "NODE_ENV=development npm run build",
-    "build:prod": "echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> .npmrc && npm install && npm run build",
+    "build:dev": "NODE_ENV=development npx webpack --config webpack.config.js",
     "build": "npx webpack --config webpack.config.js",
     "test": "npx jest",
     "prepare": "npm run build",
