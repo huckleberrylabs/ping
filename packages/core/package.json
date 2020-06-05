@@ -4,7 +4,7 @@
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "Ping Core",
   "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
