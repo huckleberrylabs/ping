@@ -10,7 +10,9 @@ const { spawnSync } = require("child_process");
 if (process.env.NETLIFY === "true") {
   // this is a default Netlify environment variable
   // Check if .npmrc already exists, if it does then do nothing (otherwise we create an infinite npm loop)
+  console.log("script launched");
   if (!fs.existsSync(".npmrc")) {
+    console.log("npmrc doesn't exist");
     // Create .npmrc
     fs.writeFileSync(
       ".npmrc",
@@ -22,5 +24,8 @@ if (process.env.NETLIFY === "true") {
     // The original npm process will continue after this second npm process finishes,
     // and when it does it will report "success Already up-to-date."
     spawnSync("npm", { stdio: "inherit" });
+  } else {
+    const npmrc = fs.readFileSync(".npmrc");
+    console.log("npmrc:", npmrc);
   }
 }
