@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Text, By Huckleberry",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -70,8 +70,8 @@
     "prepublishOnly": "npm run test"
   },
   "dependencies": {
-    "@huckleberryai/core": "^3.0.0",
-    "@huckleberryai/ping": "^3.2.0",
+    "@huckleberryai/core": "^3.2.2",
+    "@huckleberryai/ping": "^3.2.2",
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
     "fp-ts": "^2.1.0",

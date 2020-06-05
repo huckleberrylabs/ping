@@ -1,6 +1,6 @@
 {
   "name": "@huckleberryai/ping-admin",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Ping Admin Panel",
   "author": "Dragos Rotaru <dragos@rotaru.co>",
   "license": "ISC",
@@ -37,8 +37,8 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@huckleberryai/core": "^3.0.0",
-    "@huckleberryai/ping": "^3.2.0",
+    "@huckleberryai/core": "^3.2.2",
+    "@huckleberryai/ping": "^3.2.2",
     "@types/react-flags-select": "^1.1.2",
     "@xstate/react": "^0.8.1",
     "axios": "^0.19.0",
