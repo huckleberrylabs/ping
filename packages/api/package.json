@@ -103,5 +103,5 @@
     "tslint-jest": "^1.0.5",
     "typescript": "^3.7.2"
   },
-  "gitHead": "06522318332ba5f3d80786ac31248ae82fd4dfda"
+  "gitHead": "2a1d4ee341724bbca72568fc393a96c0041c91f6"
 }

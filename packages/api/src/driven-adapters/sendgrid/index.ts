@@ -4,19 +4,21 @@ import * as iots from "io-ts";
 import { Option } from "fp-ts/lib/Option";
 
 import sendGrid from "@sendgrid/mail";
-import { MailData } from "@sendgrid/helpers/classes/mail";
+import { MailDataRequired } from "@sendgrid/helpers/classes/mail";
 import { ResponseError } from "@sendgrid/helpers/classes";
 import { left, right, Either } from "fp-ts/lib/Either";
 import { Errors } from "@huckleberrylabs/core";
 
-export type T = (data: MailData) => Promise<Either<Errors.Adapter.T, null>>;
+export type T = (
+  data: MailDataRequired
+) => Promise<Either<Errors.Adapter.T, null>>;
 
 export const C = (): Either<Errors.Environment.T, T> => {
   const key = process.env.SENDGRID_API_KEY;
   if (key) {
     try {
       sendGrid.setApiKey(key);
-      return right(async (data: MailData) => {
+      return right(async (data: MailDataRequired) => {
         try {
           await sendGrid.send(data);
           return right(null);
