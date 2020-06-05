@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/askhuckleberry/monorepo/issues"
   },
-  "main": "dist/text.min.js",
+  "main": "dist/ping.min.js",
   "directories": {
     "lib": "lib"
   },

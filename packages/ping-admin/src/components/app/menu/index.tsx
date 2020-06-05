@@ -22,9 +22,9 @@ export const AppMenu = () => (
         <Link to="/account">
           <ListItem>account</ListItem>
         </Link>
-        <Link to="/analytics">
+        {/*         <Link to="/analytics">
           <ListItem>analytics</ListItem>
-        </Link>
+        </Link> */}
         <Link to="/billing">
           <ListItem>billing</ListItem>
         </Link>
