@@ -63,9 +63,8 @@
   "scripts": {
     "build:dev": "NODE_ENV=development npx webpack --config webpack.config.js",
     "build": "npx webpack --config webpack.config.js",
-    "test": "npx jest",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm run test"
+    "preinstall": "node ./scripts/netlify-preinstall.js",
+    "test": "npx jest"
   },
   "dependencies": {
     "@huckleberrylabs/core": "^3.2.7",

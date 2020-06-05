@@ -63,9 +63,8 @@
   "scripts": {
     "start": "npm run build && node -r dotenv/config lib/index.js",
     "build": "npx tsc",
-    "test": "npx jest",
-    "prepare": "npm run build",
-    "prepublishOnly": "npm run test"
+    "preinstall": "node ./scripts/netlify-preinstall.js",
+    "test": "npx jest"
   },
   "dependencies": {
     "@google-cloud/firestore": "^2.2.6",

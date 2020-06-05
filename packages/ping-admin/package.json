@@ -34,6 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "preinstall": "node ./scripts/netlify-preinstall.js",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
