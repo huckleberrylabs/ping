@@ -1,6 +1,6 @@
 import fs from "fs";
 import https from "https";
-import http from "http";
+import http, { Server } from "http";
 import { Env } from "@huckleberrylabs/core";
 import { C } from "./driving-adapters";
 
@@ -8,12 +8,12 @@ const env = Env.Get();
 
 const app = C();
 
+const logPort = (server: Server) =>
+  console.log(`server started on ${server.address()?.toString()}`);
+
 if (env === "development") {
   const server = http.createServer(app);
-  //start our server
-  server.listen(8000, () => {
-    console.log(`server started on ${server.address()}`);
-  });
+  server.listen(8000, () => logPort(server));
 } else if (env === "production") {
   // TLS Encryption
   const credentials = {
@@ -27,7 +27,5 @@ if (env === "development") {
     ),
   };
   const server = https.createServer(credentials, app);
-  server.listen(443, () => {
-    console.log(`server started on ${server.address()}`);
-  });
+  server.listen(443, () => logPort(server));
 }
