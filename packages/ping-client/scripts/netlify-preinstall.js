@@ -23,7 +23,7 @@ if (process.env.NETLIFY === "true") {
     // this script won't pick up the .npmrc file we just created.
     // The original npm process will continue after this second npm process finishes,
     // and when it does it will report "success Already up-to-date."
-    spawnSync("npm", { stdio: "inherit" });
+    spawnSync("npm install", { stdio: "inherit" });
   } else {
     const npmrc = fs.readFileSync(".npmrc");
     console.log("npmrc:", npmrc);
