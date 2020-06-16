@@ -2,12 +2,14 @@ import { isLeft, isRight } from "fp-ts/lib/Either";
 import { UUID, NonEmptyString, Phone, PersonName } from "@huckleberrylabs/core";
 import { Interfaces } from "@huckleberrylabs/ping";
 import { Elements } from "./elements";
+import * as SDK from "../sdk";
 
 let message: UUID.T;
 
 export const onCreateMessage = (
   e: Elements,
-  sdk: Interfaces.PublicSDK
+  sdk: Interfaces.PublicSDK,
+  sdk2: SDK.T
 ) => async () => {
   e.container.style.width = "37rem";
   e.create.classList.remove("shown");
@@ -15,6 +17,7 @@ export const onCreateMessage = (
   e.textInput.classList.add("shown");
   e.textInput.focus();
   message = await sdk.Message.Create();
+  sdk2.Widget.Tracking.Open();
 };
 
 export const onAddTextToMessage = (
@@ -86,8 +89,12 @@ export const nextOnEnter = (button: HTMLButtonElement) => (
   if (event.keyCode === 13) button.click();
 };
 
-export const AddEventListeners = (e: Elements, sdk: Interfaces.PublicSDK) => {
-  e.create.addEventListener("click", onCreateMessage(e, sdk));
+export const AddEventListeners = (
+  e: Elements,
+  sdk: Interfaces.PublicSDK,
+  sdk2: SDK.T
+) => {
+  e.create.addEventListener("click", onCreateMessage(e, sdk, sdk2));
   e.textInput.addEventListener("keyup", nextOnEnter(e.addText));
   e.addText.addEventListener("click", onAddTextToMessage(e, sdk));
   e.phoneInput.addEventListener("keyup", nextOnEnter(e.addPhone));

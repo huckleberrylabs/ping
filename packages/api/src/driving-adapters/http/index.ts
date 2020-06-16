@@ -2,6 +2,8 @@ import { isLeft } from "fp-ts/lib/Either";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import helmet from "helmet";
+import morgan from "morgan";
 import {
   StatusCode,
   HTTP,
@@ -10,10 +12,13 @@ import {
   UUID,
   Errors,
 } from "@huckleberrylabs/core";
+import * as WidgetTrackingUseCases from "../../domain/widget/tracking/use-cases";
 import * as Ping from "@huckleberrylabs/ping";
 import Container from "../../container";
 import Codecs, { Names } from "../../codecs";
 import { IAMService } from "../../driven-ports";
+import * as EventStoreMock from "../../adapters/event-store-mock";
+import * as WidgetTrackingRepository from "../../domain/widget/tracking/repository";
 
 const iamMaybe = IAMService.C();
 if (isLeft(iamMaybe)) throw new Error("iam private key missing");
@@ -21,24 +26,25 @@ const iam = iamMaybe.right;
 
 export const C = () => {
   const ports = Container();
+
+  const eventStore = EventStoreMock.C();
+  const widgetTrackingRepository = WidgetTrackingRepository.C(eventStore);
+
   const app = express();
 
-  app.use(cookieParser());
   app.use(
     express.json({
       type: ["*/json", "text/plain"],
     })
   );
 
-  // Logging
-  app.use((req, res, next) => {
-    console.log(req.url);
-    next();
-  });
-
   // Security
+  app.use(helmet());
   app.use(cookieParser());
   app.use(cors());
+
+  // Logging
+  app.use(morgan("tiny"));
 
   // Analytics
   app.use(async (req, res, next) => {
@@ -145,6 +151,20 @@ export const C = () => {
   app.get("/ping", (req, res) => {
     res.status(StatusCode.OK).send(null);
   });
+
+  app.post(
+    WidgetTrackingUseCases.Open.Route,
+    WidgetTrackingUseCases.Open.Controller(
+      WidgetTrackingUseCases.Open.Handler(widgetTrackingRepository)
+    )
+  );
+
+  app.post(
+    WidgetTrackingUseCases.Close.Route,
+    WidgetTrackingUseCases.Close.Controller(
+      WidgetTrackingUseCases.Close.Handler(widgetTrackingRepository)
+    )
+  );
 
   // Handlers
   app.use(async (req, res) => {

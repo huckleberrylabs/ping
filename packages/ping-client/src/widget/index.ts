@@ -10,6 +10,7 @@ import {
 } from "fp-ts/lib/Either";
 import { UUID, Errors } from "@huckleberrylabs/core";
 import { Widget, Interfaces } from "@huckleberrylabs/ping";
+import * as SDK from "../sdk";
 import { GetElementById } from "./helpers";
 import { ElementIDs, Elements } from "./elements";
 import { InsertCSS, GenerateCSS } from "./css";
@@ -35,9 +36,11 @@ export const GetID = (
     flatten
   );
 
-export const C = (log: Interfaces.Logger, sdk: Interfaces.PublicSDK) => (
-  widget: Widget.T
-) =>
+export const C = (
+  log: Interfaces.Logger,
+  sdk: Interfaces.PublicSDK,
+  sdk2: SDK.T
+) => (widget: Widget.T) =>
   pipe(
     ElementIDs(),
     ids => {
@@ -48,7 +51,7 @@ export const C = (log: Interfaces.Logger, sdk: Interfaces.PublicSDK) => (
       return Elements(ids);
     },
     map(elems => {
-      AddEventListeners(elems, sdk);
+      AddEventListeners(elems, sdk, sdk2);
       log("info", "listeners loaded", ["widget-client"]);
       log("info", "initialized", ["widget-client"]);
     })
