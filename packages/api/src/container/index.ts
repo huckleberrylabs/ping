@@ -34,24 +34,11 @@ export default () => {
   if (isLeft(iamServiceMaybe)) throw new Error("iam private key missing");
   const iamService = iamServiceMaybe.right;
 
-  const analyticsRepository = DrivenPorts.WebAnalyticsRepository.C(fireStore);
   const accountRepository = DrivenPorts.AccountRepository.C(fireStore);
   const widgetRepository = DrivenPorts.WidgetRepository.C(fireStore);
   const messageRepository = DrivenPorts.MessageRepository.C(fireStore);
 
   return new Map<Ping.Names | Type.T, Handler>([
-    [
-      Ping.Client.UseCases.Loaded.Event.Name,
-      Ping.Client.UseCases.Loaded.Handler(analyticsRepository),
-    ],
-    [
-      Ping.Client.UseCases.Unloaded.Event.Name,
-      Ping.Client.UseCases.Unloaded.Handler(analyticsRepository),
-    ],
-    [
-      Ping.Server.UseCases.HTTPAccess.Event.Name,
-      Ping.Server.UseCases.HTTPAccess.Handler(analyticsRepository),
-    ],
     [
       Ping.UseCases.RegisterAccount.Command.Name,
       Ping.UseCases.RegisterAccount.Handler(

@@ -17,8 +17,8 @@ import * as Ping from "@huckleberrylabs/ping";
 import Container from "../../container";
 import Codecs, { Names } from "../../codecs";
 import { IAMService } from "../../driven-ports";
-import * as EventStoreMock from "../../adapters/event-store-mock";
 import * as WidgetTrackingRepository from "../../domain/widget/tracking/repository";
+import { FireStore } from "../../driven-adapters";
 
 const iamMaybe = IAMService.C();
 if (isLeft(iamMaybe)) throw new Error("iam private key missing");
@@ -27,8 +27,11 @@ const iam = iamMaybe.right;
 export const C = () => {
   const ports = Container();
 
-  const eventStore = EventStoreMock.C();
-  const widgetTrackingRepository = WidgetTrackingRepository.C(eventStore);
+  const maybeFireStore = FireStore.C();
+  if (isLeft(maybeFireStore)) throw new Error("firestore credentials missing");
+  const fireStore = maybeFireStore.right;
+
+  const widgetTrackingRepository = WidgetTrackingRepository.C(fireStore);
 
   const app = express();
 
@@ -45,14 +48,6 @@ export const C = () => {
 
   // Logging
   app.use(morgan("tiny"));
-
-  // Analytics
-  app.use(async (req, res, next) => {
-    const accessEvent = Ping.Server.UseCases.HTTPAccess.Event.C(req);
-    const accessPort = ports.get(accessEvent.type);
-    if (accessPort) await accessPort(accessEvent);
-    next();
-  });
 
   // Authenticate
   app.use(async (req, res, next) => {
@@ -153,16 +148,29 @@ export const C = () => {
   });
 
   app.post(
+    WidgetTrackingUseCases.Close.Route,
+    WidgetTrackingUseCases.Close.Controller(
+      WidgetTrackingUseCases.Close.Handler(widgetTrackingRepository)
+    )
+  );
+
+  app.post(
+    WidgetTrackingUseCases.Load.Route,
+    WidgetTrackingUseCases.Load.Controller(
+      WidgetTrackingUseCases.Load.Handler(widgetTrackingRepository)
+    )
+  );
+
+  app.post(
     WidgetTrackingUseCases.Open.Route,
     WidgetTrackingUseCases.Open.Controller(
       WidgetTrackingUseCases.Open.Handler(widgetTrackingRepository)
     )
   );
-
   app.post(
-    WidgetTrackingUseCases.Close.Route,
-    WidgetTrackingUseCases.Close.Controller(
-      WidgetTrackingUseCases.Close.Handler(widgetTrackingRepository)
+    WidgetTrackingUseCases.Unload.Route,
+    WidgetTrackingUseCases.Unload.Controller(
+      WidgetTrackingUseCases.Unload.Handler(widgetTrackingRepository)
     )
   );
 
