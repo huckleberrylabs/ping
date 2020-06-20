@@ -9,6 +9,7 @@ export const Codec = iots.intersection(
     iots.type({
       type: iots.literal(Name),
       account: UUID.Codec,
+      router: UUID.Codec,
       widget: Model.Codec,
     }),
     Event.Codec,
@@ -18,10 +19,11 @@ export const Codec = iots.intersection(
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (account: UUID.T, widget: Model.T): T => ({
+export const C = (account: UUID.T, router: UUID.T, widget: Model.T): T => ({
   ...Event.C(),
   type: Name,
   account,
+  router,
   widget,
 });
 

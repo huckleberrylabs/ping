@@ -21,7 +21,8 @@ export const onOpen = (e: Elements, sdk: SDK.T) => async () => {
   e.addText.classList.add("shown");
   e.textInput.classList.add("shown");
   e.textInput.focus();
-  sdk.Analytics.Open();
+  const analyticsEvent = "845eadfb-c8d3-499c-8ec4-b7e1b182b3d4" as UUID.T;
+  sdk.Analytics.AddEvent(analyticsEvent);
 };
 
 export const onAddText = (e: Elements, sdk: SDK.T) => async () => {
@@ -37,8 +38,8 @@ export const onAddText = (e: Elements, sdk: SDK.T) => async () => {
   e.phoneInput.classList.add("shown");
   e.addPhone.classList.add("shown");
   e.phoneInput.focus();
-  const addTextFieldID = "c1a4cb97-63bc-4f80-b913-5fa6fe1db013" as UUID.T;
-  sdk.Analytics.AddField(addTextFieldID);
+  const analyticsEvent = "c1a4cb97-63bc-4f80-b913-5fa6fe1db013" as UUID.T;
+  sdk.Analytics.AddEvent(analyticsEvent);
 };
 
 export const onAddPhone = (
@@ -58,8 +59,8 @@ export const onAddPhone = (
   e.nameInput.classList.add("shown");
   e.send.classList.add("shown");
   e.nameInput.focus();
-  const addPhoneFieldID = "d9a6feda-06fb-413c-b161-82a6bca486ac" as UUID.T;
-  sdk.Analytics.AddField(addPhoneFieldID);
+  const analyticsEvent = "d9a6feda-06fb-413c-b161-82a6bca486ac" as UUID.T;
+  sdk.Analytics.AddEvent(analyticsEvent);
 };
 
 export const onAddNameAndSend = (
@@ -78,8 +79,8 @@ export const onAddNameAndSend = (
   e.container.style.width = "";
   e.loader.classList.add("shown");
   const addNameFieldID = "179b3014-4b93-40e6-beb9-5153ddf8e3af" as UUID.T;
-  sdk.Analytics.AddField(addNameFieldID);
-  const res = await sdk.Widget.Transmit(message);
+  sdk.Analytics.AddEvent(addNameFieldID);
+  const res = await sdk.Channel.Send(message);
   e.loader.classList.remove("shown");
   if (isRight(res)) {
     if (w.liveChat) {

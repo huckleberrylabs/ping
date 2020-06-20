@@ -1,5 +1,5 @@
 import * as iots from "io-ts";
-import { UUID, Phone, NameSpaceCaseString } from "../../../values";
+import { UUID, NameSpaceCaseString } from "../../../values";
 
 export const Name = "messaging:model:router" as NameSpaceCaseString.T;
 
@@ -7,7 +7,7 @@ export const Codec = iots.type(
   {
     account: UUID.Codec,
     id: UUID.Codec,
-    phone: Phone.Codec,
+    contact: UUID.Codec,
   },
   Name
 );

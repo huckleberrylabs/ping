@@ -1,5 +1,12 @@
 # Ping
 
+## TODO
+
+- AUTH: Make Entity and Type Optional for IAuthorizationService (and remove short circuit from Widget:Create)
+- AUTH: Create Roles as Groups of Policies (Widget:Create)
+- AUTH: Complete Deactivate for Account
+- Rename Names
+
 ## Stack
 
 - Language: Typescript + NodeJS

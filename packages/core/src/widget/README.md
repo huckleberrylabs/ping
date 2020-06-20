@@ -1,11 +1,15 @@
-# Widget
+## FUTURE
 
+- Use ShadowDOM on Client
+- Widget Close Button + Listener + Analytics
 - Include Account in Analytics Event?
 - Include A Session ID in Analytics Event? What is a "Session"? How to Correlate Analytics Events correctly?
 - Change Repository to Redis
 - Check referrer in Controllers
 - Merge Logging into Analytics?
 - Send Logs back to Server?
+- Channel: Continuing a Conversation on the Website (Session Persistance)
+- Client: Make sure unload event triggers successfully
 - Remove Model from Create and Update Commands?
 - Fix Mobile Safari position:fixed
 - Accept Email instead of Phone

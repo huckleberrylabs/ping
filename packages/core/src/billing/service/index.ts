@@ -1,8 +1,9 @@
 import Stripe, { errors } from "stripe";
 import { Either, left, right } from "fp-ts/lib/Either";
-import { PersonName, NonEmptyString, Errors, PromoCode } from "../../values";
-import { ISMSService, IEmailService, IBillingService } from "../../interfaces";
+import { PersonName, NonEmptyString, Errors } from "../../values";
+import { ISMSService, IBillingService } from "../../interfaces";
 import * as Config from "../../config";
+import { PromoCode } from "../values";
 
 const StripeError = (error: errors.StripeError) => {
   /*
@@ -33,11 +34,7 @@ const StripeError = (error: errors.StripeError) => {
   return error;
 };
 
-export const C = (
-  client: Stripe,
-  sms: ISMSService,
-  email: IEmailService
-): IBillingService => ({
+export const C = (client: Stripe, sms: ISMSService): IBillingService => ({
   createAccount: async (
     params
   ): Promise<Either<Errors.Adapter.T, NonEmptyString.T>> => {

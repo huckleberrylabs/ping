@@ -15,9 +15,10 @@ export const Codec = iots.type(
     id: UUID.Codec,
     timestamp: TimeStamp.Codec,
     from: UUID.Codec,
+    channel: UUID.Codec,
     conversation: OptionFromNullable.Codec(UUID.Codec),
     content: NonEmptyString.Codec,
-    // META string any
+    // TODO META string any
   },
   Name
 );

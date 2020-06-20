@@ -4,9 +4,9 @@ import {
   PersonName,
   EmailAddress,
   UUID,
-  PromoCode,
   Errors,
 } from "../values";
+import { PromoCode } from "../billing/values";
 
 export interface IBillingService {
   createAccount: (params: {

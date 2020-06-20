@@ -3,6 +3,7 @@ import { Errors } from "../../../../values";
 import {
   IWidgetRepository,
   IAuthorizationService,
+  IMessagingService,
 } from "../../../../interfaces";
 import { Command as UpdateCommand } from "../update";
 import { Query } from "../get-by-id";
@@ -16,7 +17,8 @@ export type IHandler = (
 
 export default (
   repo: IWidgetRepository,
-  auth: IAuthorizationService
+  auth: IAuthorizationService,
+  messaging: IMessagingService
 ): IHandler => async command => {
   // Check if a widget with the same id already exists
   const widgetMaybe = await repo.exists(command.widget.id);
@@ -34,6 +36,16 @@ export default (
   // Grant Authorization
   auth.grant(command.account, command.widget.id, UpdateCommand.Name);
   auth.grant(command.account, command.widget.id, Query.Name);
+
+  // Create Channel
+  const channelMaybe = await messaging.createChannel(
+    command.account,
+    command.router,
+    command.widget.id
+  );
+  if (isLeft(channelMaybe)) {
+    return channelMaybe;
+  }
 
   // TODO atomic exist + add
 
