@@ -1,12 +1,12 @@
 import fs from "fs";
 import https from "https";
 import http, { Server } from "http";
-import { Env } from "@huckleberrylabs/core";
-import { C } from "./driving-adapters";
+import { Env } from "@huckleberrylabs/ping-core";
+import { HTTP } from "./adapters";
 
 const env = Env.Get();
 
-const app = C();
+const app = HTTP.C();
 
 const logPort = (server: Server) =>
   console.log(`server started on ${server.address()?.toString()}`);

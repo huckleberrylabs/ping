@@ -2,7 +2,7 @@ import * as iots from "io-ts";
 import * as Kebab from "../kebab-case-string";
 import * as NonEmptyString from "../non-empty-string";
 
-export const Name = "core:value:namespace-case-string";
+export const Name = "value:namespace-case-string";
 
 export interface Brand {
   readonly [Name]: unique symbol;

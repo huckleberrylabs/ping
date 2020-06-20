@@ -3,9 +3,10 @@ import { some, none, isSome } from "fp-ts/lib/Option";
 import * as iots from "io-ts";
 import * as NonEmptyString from "../non-empty-string";
 import * as OptionFromNullable from "../option-from-nullable";
+import * as NameSpaceCaseString from "../namespace-case-string";
 // Try parse-full-name as well if not working well
 
-export const Name = "core:value:person-name";
+export const Name = "value:person-name" as NameSpaceCaseString.T;
 
 export const NameStringCodec = OptionFromNullable.Codec(NonEmptyString.Codec);
 

@@ -1,8 +1,8 @@
 import * as iots from "io-ts";
-import * as KebabCaseString from "../kebab-case-string";
 import uuid from "uuid/v4";
+import * as KebabCaseString from "../kebab-case-string";
 
-export const Name = "core:value:uuid";
+export const Name = "value:uuid";
 
 export interface Brand {
   readonly [Name]: unique symbol;

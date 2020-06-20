@@ -1,4 +1,5 @@
 import * as iots from "io-ts";
+import * as NameSpaceCaseString from "../namespace-case-string";
 export {
   OK, // 200
   BAD_REQUEST,
@@ -8,7 +9,7 @@ export {
   INTERNAL_SERVER_ERROR, // 500
 } from "http-status-codes";
 
-export const Name = "core:value:status-code";
+export const Name = "value:status-code" as NameSpaceCaseString.T;
 
 export const Codec = iots.union(
   [

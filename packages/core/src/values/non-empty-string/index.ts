@@ -1,6 +1,6 @@
 import * as iots from "io-ts";
 
-export const Name = "core:value:non-empty-string";
+export const Name = "value:non-empty-string";
 export interface Brand {
   readonly [Name]: unique symbol;
 }

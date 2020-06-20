@@ -1,7 +1,7 @@
 import * as iots from "io-ts";
 import * as NonEmptyString from "../non-empty-string";
 
-export const Name = "core:value:kebab-case-string";
+export const Name = "value:kebab-case-string";
 
 export interface Brand {
   readonly [Name]: unique symbol;
