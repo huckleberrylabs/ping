@@ -1,8 +1,7 @@
 import Stripe, { errors } from "stripe";
 import { Either, left, right } from "fp-ts/lib/Either";
 import { PersonName, NonEmptyString, Errors } from "../../values";
-import { ISMSService, IBillingService } from "../../interfaces";
-import * as Config from "../../config";
+import { IBillingService } from "../../interfaces";
 import { PromoCode } from "../values";
 
 const StripeError = (error: errors.StripeError) => {
@@ -34,7 +33,7 @@ const StripeError = (error: errors.StripeError) => {
   return error;
 };
 
-export const C = (client: Stripe, sms: ISMSService): IBillingService => ({
+export const C = (client: Stripe): IBillingService => ({
   createAccount: async (
     params
   ): Promise<Either<Errors.Adapter.T, NonEmptyString.T>> => {
@@ -76,15 +75,6 @@ export const C = (client: Stripe, sms: ISMSService): IBillingService => ({
         `${error.type} with http status ${error.statusCode}
         and code ${error.code}:
         ${error.message} `
-      );
-      sms(
-        `Stripe Account Creation Failed: ${error.type} with http status ${
-          error.statusCode
-        }
-        and code ${error.code}: ${error.message}. The customers details: ${
-          params.email
-        }, ${PersonName.FirstLast(params.userName)}` as NonEmptyString.T,
-        Config.AlertPhone
       );
       return left(Errors.Adapter.C());
     }

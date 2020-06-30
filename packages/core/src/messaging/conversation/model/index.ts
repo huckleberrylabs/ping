@@ -10,8 +10,8 @@ export const Name = "messaging:model:conversation" as NameSpaceCaseString.T;
 export const Codec = iots.type(
   {
     id: UUID.Codec,
-    createdAt: TimeStamp.Codec,
-    latestMessageAt: TimeStamp.Codec,
+    created: TimeStamp.Codec,
+    lastActive: TimeStamp.Codec,
     account: UUID.Codec,
     messages: iots.array(UUID.Codec),
     contacts: iots.array(UUID.Codec),
@@ -21,11 +21,10 @@ export const Codec = iots.type(
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (account: UUID.T) => ({
+export const C = (account: UUID.T): T => ({
   id: UUID.C(),
-  // TODO this is semantically incorrect
-  latestMessageAt: TimeStamp.C(),
-  createdAt: TimeStamp.C(),
+  lastActive: TimeStamp.C(),
+  created: TimeStamp.C(),
   account,
   messages: [],
   contacts: [],
@@ -44,8 +43,8 @@ export const AddMessage = (convo: T) => (
   if (!ContainsContactID(convo)(msg.from)) return left(Errors.Validation.C());
   if (ContainsMessage(convo)(msg)) return left(Errors.Validation.C());
   convo.messages.push(msg.id);
-  if (TimeStamp.Compare(convo.latestMessageAt, msg.timestamp) > 0)
-    convo.latestMessageAt = msg.timestamp;
+  if (TimeStamp.Compare(convo.lastActive, msg.timestamp) > 0)
+    convo.lastActive = msg.timestamp;
   return right(convo);
 };
 
@@ -82,4 +81,4 @@ export const ContainsMessage = (convo: T) => (msg: Message.Model.T): boolean =>
 
 // TODO check this is correct
 export const IsExpired = (convo: T) =>
-  TimeStamp.Compare(convo.latestMessageAt, TimeStamp.C()) > DEFAULT_EXPIRY;
+  TimeStamp.Compare(convo.lastActive, TimeStamp.C()) > DEFAULT_EXPIRY;

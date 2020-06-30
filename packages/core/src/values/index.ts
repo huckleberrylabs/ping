@@ -11,6 +11,7 @@ import * as NonEmptyString from "./non-empty-string";
 import * as OptionFromNullable from "./option-from-nullable";
 import * as PersonName from "./person-name";
 import * as Phone from "./phone";
+import * as PhoneWithCountry from "./phone-with-country";
 import * as StatusCode from "./status-code";
 import * as TimeStamp from "./timestamp";
 import * as Url from "./url";
@@ -32,6 +33,7 @@ export {
   OptionFromNullable,
   PersonName,
   Phone,
+  PhoneWithCountry,
   StatusCode,
   TimeStamp,
   Url,

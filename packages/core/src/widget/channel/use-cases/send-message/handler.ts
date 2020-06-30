@@ -1,9 +1,9 @@
 import { isLeft, Either } from "fp-ts/lib/Either";
-import { Errors, UUID } from "../../../../values";
-import { IWidgetRepository, IMessagingService } from "../../../../interfaces";
-import * as Command from "./command";
-import { Message } from "../../../../messaging";
 import { none } from "fp-ts/lib/Option";
+import { IWidgetRepository, IMessagingService } from "../../../../interfaces";
+import { Errors, UUID, PhoneWithCountry } from "../../../../values";
+import { Message } from "../../../../messaging";
+import * as Command from "./command";
 
 export type IHandler = (
   command: Command.T
@@ -24,7 +24,7 @@ export default (
   const contactMaybe = await messaging.createContact({
     account: widget.account,
     name: command.message.name,
-    phone: command.message.phone,
+    phone: PhoneWithCountry.C(command.message.phone, widget.country),
   });
   if (isLeft(contactMaybe)) return contactMaybe;
   const contact = contactMaybe.right;
@@ -34,6 +34,7 @@ export default (
     id: UUID.C(),
     timestamp: command.message.timestamp,
     content: command.message.text,
+    channel: widget.id,
     from: contact,
     account: widget.account,
     conversation: none,

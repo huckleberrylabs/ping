@@ -1,5 +1,5 @@
 import { Either } from "fp-ts/lib/Either";
-import { Errors, UUID, PersonName, Phone } from "../values";
+import { Errors, UUID, PersonName, Phone, PhoneWithCountry } from "../values";
 import { Message, Conversation, Contact, Router, Channel } from "../messaging";
 
 export interface IMessagingService {
@@ -10,7 +10,7 @@ export interface IMessagingService {
   ) => Promise<Either<Errors.Adapter.T, null>>;
   createContact: (params: {
     account: UUID.T;
-    phone: Phone.T;
+    phone: PhoneWithCountry.T;
     name?: PersonName.T;
   }) => Promise<Either<Errors.Adapter.T, UUID.T>>;
   sendMessage: (
@@ -57,6 +57,7 @@ export interface IContactRepository {
     id: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Contact.Model.T>>;
   getByPhone(
+    account: UUID.T,
     phone: Phone.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Contact.Model.T>>;
   add(contact: Contact.Model.T): Promise<Either<Errors.Adapter.T, null>>;

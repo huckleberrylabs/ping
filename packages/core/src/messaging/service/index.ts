@@ -31,10 +31,13 @@ export const C = (
     return channelRepo.add(channel);
   },
   createContact: async params => {
-    // TODO include context info on Contact Create
-    const contactMaybe = await contactRepo.getByPhone(params.phone);
+    const contactMaybe = await contactRepo.getByPhone(
+      params.account,
+      params.phone.phone
+    );
     if (isLeft(contactMaybe)) {
       if (contactMaybe.left.type === Errors.NotFound.Name) {
+        // TODO include context info on Contact Create
         const contact = Contact.Model.C(
           params.account,
           params.phone,
@@ -47,17 +50,6 @@ export const C = (
       return contactMaybe;
     }
     const existingContact = contactMaybe.right;
-    // TODO check account in repo method
-    if (existingContact.account !== params.account) {
-      const contact = Contact.Model.C(
-        params.account,
-        params.phone,
-        params.name
-      );
-      const savedMaybe = await contactRepo.add(contact);
-      if (isLeft(savedMaybe)) return savedMaybe;
-      return right(contact.id);
-    }
     return right(existingContact.id);
   },
   sendMessage: async message => {
@@ -129,7 +121,7 @@ export const C = (
       recipientsMaybe.map(async recipientMaybe => {
         if (isRight(recipientMaybe)) {
           const recipient = recipientMaybe.right;
-          return await sms(message.content, recipient.phone);
+          return await sms.send(recipient.phone, message);
         }
         return recipientMaybe;
       })
