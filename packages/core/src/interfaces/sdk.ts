@@ -5,10 +5,10 @@ import {
   EmailAddress,
   UUID,
   Errors,
-  PromoCode,
 } from "../values";
 import { Account } from "../iam";
 import * as Widget from "../widget";
+import { PromoCode } from "../billing/values";
 
 export interface IPrivateSDK {
   Account: {
@@ -35,11 +35,11 @@ export interface IPrivateSDK {
   Widget: {
     Add: (
       account: UUID.T,
-      widget: Widget.Model.T
+      widget: Widget.Settings.Model.T
     ) => Promise<Either<Errors.T, UUID.T>>;
     Update: (
       account: UUID.T,
-      widget: Widget.Model.T
+      widget: Widget.Settings.Model.T
     ) => Promise<Either<Errors.T, null>>;
   };
 }

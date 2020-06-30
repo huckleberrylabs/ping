@@ -1,16 +1,16 @@
 import { isLeft, Either } from "fp-ts/lib/Either";
 import {
   IAccountRepository,
-  IEmailClient,
+  IEmailService,
   IAuthenticationService,
 } from "../../../../interfaces";
 import { ONE_TIME_ACCESS_TOKEN_EXPIRY } from "../../model";
 import * as Command from "./command";
 import {
-  getEmailIntro,
+  GetEmailIntro,
   LoginLink,
   LoginEmailTemplate,
-} from "../../../../email";
+} from "../../../../email/model";
 import { Errors } from "../../../../values";
 
 export type IHandler = (
@@ -19,7 +19,7 @@ export type IHandler = (
 
 export default (
   repo: IAccountRepository,
-  emailClient: IEmailClient,
+  email: IEmailService,
   authentication: IAuthenticationService
 ) => async (command: Command.T) => {
   // Get account
@@ -28,7 +28,7 @@ export default (
   const account = acccountMaybe.right;
 
   // Send login email
-  const emailedMaybe = await emailClient(
+  const emailedMaybe = await email(
     [
       {
         to: {
@@ -36,7 +36,7 @@ export default (
           name: account.name,
         },
         dynamicTemplateData: {
-          greeting: getEmailIntro(),
+          greeting: GetEmailIntro(),
           loginLink: LoginLink(
             authentication.generateToken(
               account.id,

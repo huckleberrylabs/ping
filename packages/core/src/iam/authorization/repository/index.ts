@@ -1,24 +1,32 @@
-import { IRedis, IAccessPolicyRepository } from "../../../interfaces";
-import { isRight, right } from "fp-ts/lib/Either";
-import { NameSpaceCaseString } from "../../../values";
+import { RedisClient } from "redis";
+import { right, left } from "fp-ts/lib/Either";
+import { IAccessPolicyRepository } from "../../../interfaces";
+import { NameSpaceCaseString, Errors } from "../../../values";
 import * as Model from "../model";
 
 export const Name = "auth:repository:access-policy" as NameSpaceCaseString.T;
 
-export const C = (redis: IRedis): IAccessPolicyRepository => ({
-  exists: async hash => {
-    const result = await redis.get(Name + ":" + hash);
-    if (isRight(result)) return right(null);
-    return result;
-  },
-  add: async record => {
-    const result = await redis.set(
-      Name + ":" + record.hash,
-      JSON.stringify(Model.Codec.encode(record))
-    );
-    return isRight(result) ? right(null) : result;
-  },
-  remove: async hash => {
-    return redis.remove(hash);
-  },
+export const C = (redis: RedisClient): IAccessPolicyRepository => ({
+  exists: async hash =>
+    new Promise(resolve =>
+      redis.exists(Name + ":" + hash, (err, exists) =>
+        resolve(
+          err !== null || exists !== 1 ? left(Errors.Adapter.C()) : right(null)
+        )
+      )
+    ),
+  add: async record =>
+    new Promise(resolve =>
+      redis.set(
+        Name + ":" + record.hash,
+        JSON.stringify(Model.Codec.encode(record)),
+        err => resolve(err ? left(Errors.Adapter.C()) : right(null))
+      )
+    ),
+  remove: async hash =>
+    new Promise(resolve =>
+      redis.del(hash, err =>
+        resolve(err ? left(Errors.Adapter.C()) : right(null))
+      )
+    ),
 });

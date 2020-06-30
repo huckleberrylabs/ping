@@ -1,15 +1,30 @@
 # Ping
 
-## TODO
+## Now
 
-3. Finish new Account + Registration models
-   1. Contact
-   2. Router
-   3. Widget + Channel
-   4. Auth
-   5. Billing
-   6. Account
-4. Clean up Billing / Email Service
+- Messaging: Review Code
+- Widget: Review Code
+- IAM: Review Code
+- Bootstrap Project
+- API: Add Controllers to HTTP Adapter
+
+* SMS: Setup Existing Phone Numbers with Callback
+* SMS: Setup Webhook Authorization
+* SMS: Test Code
+
+## Later
+
+- Finish new Account + Registration models
+  1.  Contact
+  2.  Router
+  3.  Widget + Channel
+  4.  Auth
+  5.  Billing
+  6.  Account
+- Billing: Clean up service
+- Email: Clean up Service
+- Move completely off Firebase
+- Add Phone Creation within PhoneWithCountry Creation (to ensure phone was created with the same country)
 
 - [Ping.buzz](http://ping.buzz) Certificate
 - Update Packages

@@ -8,14 +8,6 @@ export interface ITwilio extends Twilio {}
 
 export interface IFireStore extends Firestore {}
 
-export interface IRedis {
-  get: (
-    key: string
-  ) => Promise<Either<Errors.Adapter.T | Errors.NotFound.T, string>>;
-  set: (key: string, value: string) => Promise<Either<Errors.Adapter.T, null>>;
-  remove: (key: string) => Promise<Either<Errors.Adapter.T, null>>;
-}
-
 export type ISendGrid = (
   data: MailDataRequired
 ) => Promise<Either<Errors.Adapter.T, null>>;
