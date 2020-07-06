@@ -13,8 +13,7 @@ const logPort = (server: Server) =>
 
 if (env === "development") {
   const server = http.createServer(app);
-  // TODONOW change back to 8000
-  server.listen(80, () => logPort(server));
+  server.listen(8000, () => logPort(server));
 } else if (env === "production") {
   // TLS Encryption
   const credentials = {

@@ -1,7 +1,5 @@
 # Ping
 
-what happens if you are messaging yourself? (2 in 1 conversation)
-
 ## Tested Working Endpoints
 
 - /v1/auth/account/register
@@ -32,6 +30,8 @@ what happens if you are messaging yourself? (2 in 1 conversation)
 - Channel Type should be a value object of its own
 - Create SMS Channel on Setup
 - SMS Channel Settings Repo?
+- What happens if you are messaging yourself? (2 in 1 conversation)
+- Mark Contacts as Internal
 
 * Add Account AccessPolicy Grants on Creation
 * Refactor Widget (move usecases from settings to top)
