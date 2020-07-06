@@ -10,7 +10,11 @@ export const C = (redis: RedisClient): IInvalidTokenRepository => ({
     new Promise(resolve =>
       redis.exists(Name + ":" + token, (err, exists) =>
         resolve(
-          err !== null || exists !== 1 ? left(Errors.Adapter.C()) : right(null)
+          err !== null
+            ? left(Errors.Adapter.C())
+            : exists !== 1
+            ? left(Errors.NotFound.C())
+            : right(null)
         )
       )
     ),

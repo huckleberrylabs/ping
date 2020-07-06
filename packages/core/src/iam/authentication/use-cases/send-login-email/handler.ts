@@ -1,8 +1,8 @@
 import { isLeft, Either } from "fp-ts/lib/Either";
 import {
   IAccountRepository,
-  IEmailService,
   IAuthenticationService,
+  IEmailService,
 } from "../../../../interfaces";
 import { ONE_TIME_ACCESS_TOKEN_EXPIRY } from "../../model";
 import * as Command from "./command";
@@ -15,13 +15,13 @@ import { Errors } from "../../../../values";
 
 export type IHandler = (
   command: Command.T
-) => Either<Errors.Adapter.T | Errors.NotFound.T, null>;
+) => Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>>;
 
 export default (
   repo: IAccountRepository,
   email: IEmailService,
   authentication: IAuthenticationService
-) => async (command: Command.T) => {
+): IHandler => async command => {
   // Get account
   const acccountMaybe = await repo.getByEmail(command.email);
   if (isLeft(acccountMaybe)) return acccountMaybe;
@@ -32,7 +32,7 @@ export default (
     [
       {
         to: {
-          address: account.email.email,
+          address: account.email.address,
           name: account.name,
         },
         dynamicTemplateData: {

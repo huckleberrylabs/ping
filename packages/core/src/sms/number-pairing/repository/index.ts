@@ -6,13 +6,13 @@ import * as Model from "../model";
 
 export const Name = "sms:repository:number-pairing" as NameSpaceCaseString.T;
 
-const Key = (to: Phone.T, from: Phone.T) =>
-  Name + ":pair:" + Phone.Codec.encode(to) + ":" + Phone.Codec.encode(from);
+const Key = (to: Phone.T, twilio: Phone.T) =>
+  Name + ":pair:" + Phone.Codec.encode(to) + ":" + Phone.Codec.encode(twilio);
 
 export const C = (redis: RedisClient): INumberPairingRepository => ({
-  getByToAndFrom: async (to, from) =>
+  getByPhones: async (to, twilio) =>
     new Promise(resolve =>
-      redis.get(Key(to, from), (err, serialized) => {
+      redis.get(Key(to, twilio), (err, serialized) => {
         if (err) resolve(left(Errors.Adapter.C()));
         else if (serialized === null) resolve(left(Errors.NotFound.C()));
         else {
@@ -25,14 +25,17 @@ export const C = (redis: RedisClient): INumberPairingRepository => ({
   getByTo: async to =>
     new Promise(resolve =>
       redis.smembers(Name + ":to:" + Phone.Codec.encode(to), (err, set) => {
+        console.log(to, err, set);
         if (err) resolve(left(Errors.Adapter.C()));
+        else if (set.length === 0) resolve(right([]));
         else
-          redis.mget(set, (err, set) => {
+          redis.mget(set, (err, entries) => {
+            console.log(set, err, entries);
             if (err) resolve(left(Errors.Adapter.C()));
             else
               resolve(
                 right(
-                  set
+                  entries
                     .filter(e => e !== null)
                     .map(e => JSON.parse(e))
                     .map(Model.Codec.decode)

@@ -28,7 +28,7 @@ export const MoIcon = (id: string) =>
   </svg>
   `;
 
-export const GenerateHTML = (e: ElementIDs) => (w: Widget.PublicModel.T) =>
+export const GenerateHTML = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   `<div id="${e.container}">
       <!--
           ${Config.SecretDeveloperMessage}

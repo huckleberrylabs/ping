@@ -5,8 +5,8 @@ export const Name = "messaging:model:router" as NameSpaceCaseString.T;
 
 export const Codec = iots.type(
   {
-    account: UUID.Codec,
     id: UUID.Codec,
+    account: UUID.Codec,
     contact: UUID.Codec,
   },
   Name

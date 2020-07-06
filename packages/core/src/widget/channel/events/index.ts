@@ -1,3 +1,3 @@
-import * as MessageSent from "./message-sent";
+import * as MessageReceived from "./message-received";
 
-export { MessageSent };
+export { MessageReceived };

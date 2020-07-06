@@ -10,7 +10,7 @@ export const InsertCSS = (css: string) => {
   head.appendChild(style);
 };
 
-export const GenerateCSS = (e: ElementIDs) => (w: Widget.PublicModel.T) =>
+export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   `
 @namespace svg "http://www.w3.org/2000/svg";
   

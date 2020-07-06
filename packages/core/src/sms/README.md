@@ -1,6 +1,5 @@
 ## TODO
 
-- Buy Phone Number Code
 - Handler error when a new number is bought, but it wasn't successfully persisted to Number Repo.
 - A chron job in messaging to emit a Conversation Terminated Event.
 - A Subscriber in SMS to listen to ConversationTerminatedEvent and deallocateNumberPairingsByConversation.

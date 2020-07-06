@@ -15,7 +15,7 @@ interface States {
 }
 
 type Event =
-  | { type: "ADD"; value: Widget.Model.T }
+  | { type: "ADD"; value: Widget.Settings.Model.T }
   | { type: typeof DoneEventType; data: Either<Errors.T, UUID.T> };
 
 export const AddWidgetMachineFactory = (accountID: UUID.T) =>
@@ -62,7 +62,7 @@ export const AddWidgetMachineFactory = (accountID: UUID.T) =>
       services: {
         postWidget: (context, event) =>
           PostMachineFactory(() =>
-            SDK.Widget.Add(accountID, event.value as Widget.Model.T)
+            SDK.Widget.Add(accountID, event.value as Widget.Settings.Model.T)
           ),
       },
     }

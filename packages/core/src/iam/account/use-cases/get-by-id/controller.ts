@@ -20,6 +20,7 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
   }
   const query = queryMaybe.right;
 
+  console.log(req.authenticatedID);
   // Check Authorization
   if (!req.authenticatedID) {
     res
@@ -27,11 +28,11 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
       .send(Errors.Unauthorized.Codec.encode(Errors.Unauthorized.C()));
     return;
   }
-  const authMaybe = await auth.check(
-    req.authenticatedID,
-    query.account,
-    query.type
-  );
+  const authMaybe = await auth.check({
+    account: req.authenticatedID,
+    entity: query.account,
+    action: query.type,
+  });
   if (isLeft(authMaybe)) {
     switch (authMaybe.left.type) {
       case Errors.Unauthorized.Name:

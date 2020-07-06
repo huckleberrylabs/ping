@@ -1,10 +1,11 @@
-## FUTURE
+## TODONOW
 
 - Use ShadowDOM on Client
 - Widget Close Button + Listener + Analytics
-- Include Account in Analytics Event?
+
+## TODO
+
 - Include A Session ID in Analytics Event? What is a "Session"? How to Correlate Analytics Events correctly?
-- Change Repository to Redis
 - Check referrer in Controllers
 - Merge Logging into Analytics?
 - Send Logs back to Server?

@@ -37,11 +37,7 @@ import * as Auth from "../../services/auth";
 import { StripKey } from "../../config";
 
 // Domain
-import {
-  UUID,
-  Account as PingAccount,
-  Widget,
-} from "@huckleberrylabs/ping-core";
+import { UUID, Widget, IAM } from "@huckleberrylabs/ping-core";
 import { Billing } from "../billing/container";
 import { SDK } from "../../sdk";
 
@@ -59,7 +55,7 @@ const ToastProvider = ({ appBar }: { appBar?: boolean }) => (
   />
 );
 
-export const AuthApp = (account: PingAccount.Model.T, reload: () => void) => (
+export const AuthApp = (account: IAM.Account.Model.T, reload: () => void) => (
   <>
     <AppBar logout={() => Auth.logout(account.id)} loggedIn fixed />
     <ToastProvider appBar />
@@ -93,7 +89,7 @@ export const AuthApp = (account: PingAccount.Model.T, reload: () => void) => (
               return UpdateWidgetForm({
                 ...props,
                 widget,
-                onSave: async (widget: Widget.Model.T) => {
+                onSave: async (widget: Widget.Settings.Model.T) => {
                   const result = await SDK.Widget.Update(account.id, widget);
                   reload();
                   return result;
@@ -143,7 +139,7 @@ export const ProvidersHoC = (props: JSX.Element) => (
   </StripeProvider>
 );
 type State = {
-  account: PingAccount.Model.T | undefined;
+  account: IAM.Account.Model.T | undefined;
   loading: boolean;
 };
 type Props = {};
@@ -178,7 +174,7 @@ export class App extends Component<Props, State> {
   }
   render() {
     return ProvidersHoC(
-      PingAccount.Model.Is(this.state.account) ? (
+      IAM.Account.Model.Is(this.state.account) ? (
         AuthApp(this.state.account, () => this.onAccountUpdated())
       ) : this.state.loading ? (
         <div>

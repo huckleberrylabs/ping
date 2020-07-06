@@ -11,6 +11,7 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
 ) => {
   // Decode
   const commandMaybe = Command.Codec.decode(req.body);
+  console.log(commandMaybe);
   if (isLeft(commandMaybe)) {
     res
       .status(StatusCode.BAD_REQUEST)
@@ -26,31 +27,10 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
       .send(Errors.Unauthorized.Codec.encode(Errors.Unauthorized.C()));
     return;
   }
-  const authMaybe = await auth.check(
-    req.authenticatedID,
-    command.account, // TODO remove short circuit
-    command.type
-  );
-  if (isLeft(authMaybe)) {
-    switch (authMaybe.left.type) {
-      case Errors.Unauthorized.Name:
-        res
-          .status(StatusCode.FORBIDDEN)
-          .send(Errors.Unauthorized.Codec.encode(authMaybe.left));
-        return;
-      case Errors.Adapter.Name:
-        res
-          .status(StatusCode.INTERNAL_SERVER_ERROR)
-          .send(Errors.Adapter.Codec.encode(authMaybe.left));
-        return;
-      default:
-        res.status(StatusCode.INTERNAL_SERVER_ERROR).send();
-        return;
-    }
-  }
 
   // Handle
-  const successMaybe = await handler(commandMaybe.right);
+  const successMaybe = await handler(command);
+  console.log(successMaybe);
 
   // Encode
   if (isLeft(successMaybe)) {

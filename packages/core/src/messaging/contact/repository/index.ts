@@ -18,11 +18,12 @@ export const C = (store: IFireStore): IContactRepository => ({
     if (isLeft(settings)) return left(Errors.Adapter.C());
     return settings;
   },
-  getByPhone: async phone => {
+  getByPhone: async (account, phone) => {
     try {
       const queryRef = await store
         .collection(Name)
-        .where("phone", "==", phone)
+        .where("account", "==", account)
+        .where("phone.phone", "==", phone)
         .get();
       if (queryRef.empty) return left(Errors.NotFound.C());
       const json = queryRef.docs.map(doc => doc.data());

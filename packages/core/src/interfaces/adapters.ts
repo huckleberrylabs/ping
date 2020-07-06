@@ -4,7 +4,10 @@ import { Event, Errors, NameSpaceCaseString, UUID } from "../values";
 import { Firestore } from "@google-cloud/firestore";
 import { MailDataRequired } from "@sendgrid/helpers/classes/mail";
 
-export interface ITwilio extends Twilio {}
+export interface ITwilio extends Twilio {
+  TWILIO_ACCOUNT_SID: string;
+  TWILIO_AUTH_TOKEN: string;
+}
 
 export interface IFireStore extends Firestore {}
 

@@ -11,14 +11,14 @@ import "@material/line-ripple/dist/mdc.line-ripple.css";
 import "./style.css";
 
 // Domain
-import { PromoCode } from "@huckleberrylabs/ping-core";
+import { Billing } from "@huckleberrylabs/ping-core";
 
 type Props = {
   label?: string;
   disabled?: boolean;
   required?: boolean;
-  initialValue?: PromoCode.T;
-  onSelect: (input: PromoCode.T) => void;
+  initialValue?: Billing.Values.PromoCode.T;
+  onSelect: (input: Billing.Values.PromoCode.T) => void;
 };
 
 export const PromoCodeField = ({
@@ -37,10 +37,10 @@ export const PromoCodeField = ({
         label={label || "promo code"}
         disabled={disabled}
         value={promoCode}
-        invalid={required && !PromoCode.Is(promoCode) && changed}
+        invalid={required && !Billing.Values.PromoCode.Is(promoCode) && changed}
         onChange={(event) => {
           const value = (event.target as HTMLInputElement).value;
-          if (PromoCode.Is(value)) {
+          if (Billing.Values.PromoCode.Is(value)) {
             onSelect(value);
             setTimeout(() => {
               updatePromoCode(value);
@@ -52,10 +52,13 @@ export const PromoCodeField = ({
           }
         }}
       />
-      {PromoCode.Is(promoCode) ? (
-        <p>discount applied: {PromoCode.ToCoupon[promoCode].description} </p>
+      {Billing.Values.PromoCode.Is(promoCode) ? (
+        <p>
+          discount applied:{" "}
+          {Billing.Values.PromoCode.ToCoupon[promoCode].description}{" "}
+        </p>
       ) : (
-        <p>don't have a promo code? Use {PromoCode.Default}</p>
+        <p>don't have a promo code? Use {Billing.Values.PromoCode.Default}</p>
       )}
     </div>
   );

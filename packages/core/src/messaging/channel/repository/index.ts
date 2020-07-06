@@ -1,4 +1,4 @@
-import { left, isLeft, right } from "fp-ts/lib/Either";
+import { left, isLeft, right, isRight } from "fp-ts/lib/Either";
 import { UUID, Errors, NameSpaceCaseString } from "../../../values";
 import { IChannelRepository, IFireStore } from "../../../interfaces";
 import * as Model from "../model";
@@ -18,23 +18,42 @@ export const C = (store: IFireStore): IChannelRepository => ({
     if (isLeft(settings)) return left(Errors.Adapter.C());
     return settings;
   },
-  add: async widget => {
+  getByAccount: async account => {
+    try {
+      const queryRef = await store
+        .collection(Name)
+        .where("account", "==", account)
+        .get();
+      if (queryRef.empty) return left(Errors.NotFound.C());
+      const json = queryRef.docs.map(doc => doc.data());
+      const maybeChannels = json.map(json => {
+        const maybeDecoded = Model.Codec.decode(json);
+        if (isLeft(maybeDecoded)) return left(Errors.Validation.C());
+        return maybeDecoded;
+      });
+      if (maybeChannels.some(isLeft)) return left(Errors.Adapter.C());
+      return right(maybeChannels.filter(isRight).map(channel => channel.right));
+    } catch (error) {
+      return left(Errors.Adapter.C());
+    }
+  },
+  add: async channel => {
     try {
       await store
         .collection(Name)
-        .doc(UUID.Codec.encode(widget.id))
-        .create(Model.Codec.encode(widget));
+        .doc(UUID.Codec.encode(channel.id))
+        .create(Model.Codec.encode(channel));
       return right(null);
     } catch (error) {
       return left(Errors.Adapter.C());
     }
   },
-  update: async widget => {
+  update: async channel => {
     try {
       await store
         .collection(Name)
-        .doc(UUID.Codec.encode(widget.id))
-        .update(Model.Codec.encode(widget));
+        .doc(UUID.Codec.encode(channel.id))
+        .update(Model.Codec.encode(channel));
       return right(null);
     } catch (error) {
       return left(Errors.Adapter.C());

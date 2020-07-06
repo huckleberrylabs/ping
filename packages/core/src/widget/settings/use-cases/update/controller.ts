@@ -26,11 +26,11 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
       .send(Errors.Unauthorized.Codec.encode(Errors.Unauthorized.C()));
     return;
   }
-  const authMaybe = await auth.check(
-    req.authenticatedID,
-    command.widget.id,
-    command.type
-  );
+  const authMaybe = await auth.check({
+    account: req.authenticatedID,
+    entity: command.widget.id,
+    action: command.type,
+  });
   if (isLeft(authMaybe)) {
     switch (authMaybe.left.type) {
       case Errors.Unauthorized.Name:

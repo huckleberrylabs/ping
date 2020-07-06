@@ -14,9 +14,9 @@ export interface ISMSService {
 }
 
 export interface INumberPairingRepository {
-  getByToAndFrom(
+  getByPhones(
     to: Phone.T,
-    from: Phone.T
+    twilio: Phone.T
   ): Promise<
     Either<Errors.Adapter.T | Errors.NotFound.T, NumberPairing.Model.T>
   >;

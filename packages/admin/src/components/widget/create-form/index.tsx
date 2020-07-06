@@ -15,14 +15,7 @@ import { ForwardButton } from "../../form-fields/forward-button";
 import "./style.css";
 
 // Domain
-import {
-  Phone,
-  Url,
-  Color,
-  Widget,
-  Icon,
-  Country,
-} from "@huckleberrylabs/ping-core";
+import { Phone, Url, Color, Widget, Country } from "@huckleberrylabs/ping-core";
 import { DefaultCountry, DefaultIcon, DefaultColor } from "../../../config";
 
 type Props = RouteComponentProps & {
@@ -31,7 +24,7 @@ type Props = RouteComponentProps & {
   showBackButton?: boolean;
   forwardButtonLabel?: string;
   forwardButtonIcon?: IconPropT;
-  onSubmit: (widget: Widget.Model.T) => void;
+  onSubmit: (widget: Widget.Settings.Model.T) => void;
 };
 
 export const CreateWidgetForm = ({
@@ -47,13 +40,13 @@ export const CreateWidgetForm = ({
   const [phone, updatePhone] = useState<Phone.T>();
   const [homePage, updateHomePage] = useState<Url.T>();
   const [color, updateColor] = useState<Color.T>(DefaultColor);
-  const [icon, updateIcon] = useState<Icon.T>(DefaultIcon);
+  const [icon, updateIcon] = useState<Widget.Values.Icon.T>(DefaultIcon);
   const valid =
     Country.Is(country) &&
     Phone.Is(phone) &&
     Url.Is(homePage) &&
     Color.Is(color) &&
-    Icon.Is(icon);
+    Widget.Values.Icon.Is(icon);
 
   return (
     <div className="create-widget-form">
@@ -99,13 +92,8 @@ export const CreateWidgetForm = ({
           disabled={disabled || !valid}
           onClick={() => {
             onSubmit(
-              Widget.Model.C(
-                phone as Phone.T,
-                country,
-                homePage as Url.T,
-                color,
-                icon
-              )
+              // TODONOW add Account ID
+              Widget.Settings.Model.C(homePage as Url.T, country, color, icon)
             );
           }}
         />

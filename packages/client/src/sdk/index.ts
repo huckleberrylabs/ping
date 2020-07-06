@@ -4,15 +4,14 @@ import {
   UUID,
   Errors,
   Widget,
-  Analytics,
   StatusCode,
 } from "@huckleberrylabs/ping-core";
-import { Either, left, isLeft } from "fp-ts/lib/Either";
+import { Either, left, isLeft, right } from "fp-ts/lib/Either";
 
 export type T = {
-  GetByID: () => Promise<Either<Errors.T, Widget.PublicModel.T>>;
+  GetByID: () => Promise<Either<Errors.T, Widget.Settings.Model.T>>;
   Channel: {
-    Send: (message: Widget.Message.Model.T) => Promise<Either<Errors.T, null>>;
+    Send: (message: Widget.Values.Message.T) => Promise<Either<Errors.T, null>>;
   };
   Analytics: {
     AddEvent: (action: UUID.T) => void;
@@ -23,9 +22,9 @@ export const C = (widget: UUID.T): T => ({
   GetByID: async () => {
     try {
       const res = await axios.post(
-        Config.GetEndpoint(Widget.UseCases.GetByID.Route),
-        Widget.UseCases.GetByID.Query.Codec.encode(
-          Widget.UseCases.GetByID.Query.C(widget)
+        Config.GetEndpoint(Widget.Settings.UseCases.GetByID.Route),
+        Widget.Settings.UseCases.GetByID.Query.Codec.encode(
+          Widget.Settings.UseCases.GetByID.Query.C(widget)
         ),
         {
           validateStatus: () => true,
@@ -49,7 +48,7 @@ export const C = (widget: UUID.T): T => ({
           if (isLeft(notFound)) return left(Errors.Parsing.C());
           return left(notFound.right);
         case StatusCode.OK:
-          const widgetMaybe = Widget.PublicModel.Codec.decode(res.data);
+          const widgetMaybe = Widget.Settings.Model.Codec.decode(res.data);
           if (isLeft(widgetMaybe)) return left(Errors.Parsing.C());
           return widgetMaybe;
         default:
@@ -61,16 +60,29 @@ export const C = (widget: UUID.T): T => ({
   },
   Channel: {
     Send: async message => {
-      return left(Errors.Adapter.C());
+      try {
+        const res = await axios.post(
+          Config.GetEndpoint(Widget.Channel.UseCases.Receive.Route),
+          Widget.Channel.UseCases.Receive.Command.Codec.encode(
+            Widget.Channel.UseCases.Receive.Command.C(widget, message)
+          ),
+          {
+            validateStatus: () => true,
+          }
+        );
+        return res.status !== 200 ? left(Errors.Adapter.C()) : right(null); // TODO create mapping function between status codes and Errors
+      } catch (error) {
+        return left(Errors.Adapter.C());
+      }
     },
   },
   Analytics: {
     AddEvent: (action: UUID.T) => {
       navigator.sendBeacon(
-        Config.GetEndpoint(Analytics.UseCases.AddEvent.Route),
+        Config.GetEndpoint(Widget.Analytics.UseCases.AddEvent.Route),
         JSON.stringify(
-          Analytics.UseCases.AddEvent.Command.Codec.encode(
-            Analytics.UseCases.AddEvent.Command.C(widget, action)
+          Widget.Analytics.UseCases.AddEvent.Command.Codec.encode(
+            Widget.Analytics.UseCases.AddEvent.Command.C(widget, action)
           )
         )
       );

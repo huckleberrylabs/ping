@@ -1,15 +1,11 @@
 import { Request, Response } from "express";
 import { isLeft } from "fp-ts/lib/Either";
-import { IAuthorizationService } from "../../../../interfaces";
 import { StatusCode, Errors } from "../../../../values";
 import * as Query from "./query";
 import * as Model from "../../model";
 import { IHandler } from "./handler";
 
-export default (auth: IAuthorizationService, handler: IHandler) => async (
-  req: Request,
-  res: Response
-) => {
+export default (handler: IHandler) => async (req: Request, res: Response) => {
   // Decode
   const queryMaybe = Query.Codec.decode(req.body);
   if (isLeft(queryMaybe)) {
@@ -23,6 +19,7 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
   // Handle
   const result = await handler(query);
 
+  // Encode
   if (isLeft(result)) {
     switch (result.left.type) {
       case Errors.NotFound.Name:

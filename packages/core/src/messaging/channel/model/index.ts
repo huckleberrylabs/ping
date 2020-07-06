@@ -8,6 +8,7 @@ export const Codec = iots.type(
     id: UUID.Codec,
     account: UUID.Codec,
     router: UUID.Codec,
+    kind: iots.union([iots.literal("sms"), iots.literal("widget")]),
   },
   Name
 );

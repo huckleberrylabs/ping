@@ -5,7 +5,7 @@ import {
   TopAppBar,
   TopAppBarRow,
   TopAppBarSection,
-  TopAppBarTitle
+  TopAppBarTitle,
 } from "@rmwc/top-app-bar";
 import "@material/top-app-bar/dist/mdc.top-app-bar.css";
 
@@ -14,8 +14,8 @@ import "@material/button/dist/mdc.button.css";
 import { Button } from "@rmwc/button";
 
 // Logo
-import LightLogo from "../../../media/logo-white.png";
-import DarkLogo from "../../../media/logo.png";
+import LightLogo from "../../media/logo-white.png";
+import DarkLogo from "../../media/logo.png";
 
 // Style
 import "./style.css";

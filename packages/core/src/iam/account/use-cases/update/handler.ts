@@ -1,4 +1,4 @@
-import { Either, isLeft, isRight } from "fp-ts/lib/Either";
+import { Either, isLeft, isRight, left } from "fp-ts/lib/Either";
 import { IAccountRepository, IEventBus } from "../../../../interfaces";
 import { Errors } from "../../../../values";
 import * as Event from "../../events/updated";
@@ -6,7 +6,9 @@ import * as Command from "./command";
 
 export type IHandler = (
   command: Command.T
-) => Promise<Either<Errors.NotFound.T | Errors.Adapter.T, null>>;
+) => Promise<
+  Either<Errors.NotFound.T | Errors.Adapter.T | Errors.Validation.T, null>
+>;
 
 export default (
   repo: IAccountRepository,
@@ -18,11 +20,16 @@ export default (
   const account = acccountMaybe.right;
 
   // Update Name
-  account.name = name;
+  account.name = command.name;
 
-  // Reset email verification
-  if (account.email.email !== command.email) {
-    account.email.email = command.email;
+  // Update Email
+  if (account.email.address !== command.email) {
+    // Check if account with same email already exists
+    const accountMaybe = await repo.getByEmail(command.email);
+    if (isRight(accountMaybe)) return left(Errors.Validation.C());
+
+    // Reset email verification
+    account.email.address = command.email;
     account.email.verified = false;
   }
   // TODO send new verification email

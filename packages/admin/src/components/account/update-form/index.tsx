@@ -26,7 +26,7 @@ import {
   NonEmptyString,
   PersonName,
   EmailAddress,
-  Account,
+  IAM,
   Config,
 } from "@huckleberrylabs/ping-core";
 
@@ -35,7 +35,7 @@ import "./style.css";
 import { SDK } from "../../../sdk";
 
 type Props = {
-  account: Account.Model.T;
+  account: IAM.Account.Model.T;
   reload: () => void;
 };
 

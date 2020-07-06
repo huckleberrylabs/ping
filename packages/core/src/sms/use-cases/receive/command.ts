@@ -13,7 +13,7 @@ export const Codec = iots.intersection(
     iots.type({
       type: iots.literal(Name),
       content: NonEmptyString.Codec,
-      to: Phone.Codec,
+      twilio: Phone.Codec,
       from: Phone.Codec,
     }),
     Event.Codec,
@@ -25,13 +25,13 @@ export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (
   content: NonEmptyString.T,
-  to: Phone.T,
+  twilio: Phone.T,
   from: Phone.T
 ): T => ({
   ...Event.C(),
   type: Name,
   content,
-  to,
+  twilio,
   from,
 });
 

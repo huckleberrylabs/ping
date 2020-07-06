@@ -1,6 +1,10 @@
 import { Either, isRight, left } from "fp-ts/lib/Either";
 import { Errors } from "../../../../values";
-import { IAccountRepository, IEventBus } from "../../../../interfaces";
+import {
+  IAccountRepository,
+  IAuthorizationService,
+  IEventBus,
+} from "../../../../interfaces";
 import * as Model from "../../model";
 import * as Command from "./command";
 import * as Event from "../../events/registered";
@@ -34,6 +38,7 @@ export type IHandler = (
 
 export default (
   repo: IAccountRepository,
+  auth: IAuthorizationService,
   bus: IEventBus
 ): IHandler => async command => {
   // Check if account with same email already exists
@@ -48,6 +53,12 @@ export default (
 
   // Save the account
   const savedMaybe = await repo.add(account);
+
+  // Grant Authorization for all actions between account and widget
+  await auth.grant({
+    account: account.id,
+    entity: account.id,
+  });
 
   // Publish event
   if (isRight(savedMaybe)) bus.publish(Event.C(account.id, command));

@@ -20,13 +20,15 @@ export const C = (
     },
     authenticateToken: async token => {
       /* IMPORTANT Make sure that the logic is correct */
-      // Authenticate Token
       const decodedMaybe = Model.verifyAndDecode(key, token);
       if (isRight(decodedMaybe)) {
         // Check if Token is Invalidated
         const decoded = decodedMaybe.right;
         const existsMaybe = await invalidTokenRepository.exists(token);
-        if (isRight(existsMaybe)) {
+        if (
+          isLeft(existsMaybe) &&
+          existsMaybe.left.type === Errors.NotFound.Name
+        ) {
           // Invalidate Token if it is a one time use token
           if (decoded.oneTime) {
             const addedMaybe = await invalidTokenRepository.add(token);

@@ -19,6 +19,7 @@ export default (
   const widgetMaybe = await repo.get(command.widget);
   if (isLeft(widgetMaybe)) return widgetMaybe;
   const widget = widgetMaybe.right;
+  console.log(widgetMaybe);
 
   // Create The Contact (if doesnt already exist)
   const contactMaybe = await messaging.createContact({
@@ -26,6 +27,7 @@ export default (
     name: command.message.name,
     phone: PhoneWithCountry.C(command.message.phone, widget.country),
   });
+  console.log(contactMaybe);
   if (isLeft(contactMaybe)) return contactMaybe;
   const contact = contactMaybe.right;
 
@@ -38,7 +40,9 @@ export default (
     from: contact,
     account: widget.account,
     conversation: none,
+    meta: {},
   };
+  console.log(message);
 
   // Send the Message
   return messaging.sendMessage(message);

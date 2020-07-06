@@ -6,7 +6,7 @@ import { isLeft, Either, isRight } from "fp-ts/lib/Either";
 import { Errors, UUID, Widget } from "@huckleberrylabs/ping-core";
 
 type Context = {
-  widget: undefined | Widget.Model.T;
+  widget: undefined | Widget.Settings.Model.T;
   stage: number;
 };
 
@@ -22,7 +22,7 @@ type Schema = {
 
 type Event =
   | { type: "BACK" }
-  | { type: "CREATE_WIDGET"; value: Widget.Model.T }
+  | { type: "CREATE_WIDGET"; value: Widget.Settings.Model.T }
   | { type: "REGISTER_ACCOUNT"; value: CreateAccountFormData }
   | {
       type: "done.invoke.registering";
@@ -45,7 +45,9 @@ export const RegisterAccountMachine = (
           on: {
             CREATE_WIDGET: {
               target: "createAccount",
-              actions: assign((context, event) => ({ widget: event.value })),
+              actions: assign((context, event) => ({
+                widget: event.value,
+              })),
             },
           },
           entry: assign({ stage: 1 }),
@@ -101,7 +103,7 @@ export const RegisterAccountMachine = (
         register: (context, event) =>
           PostAccountRegistrationMachine(
             stripe,
-            context.widget as Widget.Model.T,
+            context.widget as Widget.Settings.Model.T,
             event.value
           ),
       },

@@ -39,7 +39,7 @@ const SendToStripe = async (
 
 type Context = {
   accountID: UUID.T | undefined;
-  widget: Widget.Model.T;
+  widget: Widget.Settings.Model.T;
   formData: CreateAccountFormData;
 };
 
@@ -78,7 +78,7 @@ type Event =
 
 export const PostAccountRegistrationMachine = (
   stripe: ReactStripeElements.StripeProps,
-  widget: Widget.Model.T,
+  widget: Widget.Settings.Model.T,
   formData: CreateAccountFormData
 ) =>
   Machine<Context, Schema, Event>(

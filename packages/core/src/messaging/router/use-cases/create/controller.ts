@@ -1,25 +1,32 @@
 import { Request, Response } from "express";
 import { isLeft } from "fp-ts/lib/Either";
-import { IAuthorizationService } from "../../../../interfaces";
 import { StatusCode, Errors } from "../../../../values";
 import * as Command from "./command";
 import { IHandler } from "./handler";
 
-export default (auth: IAuthorizationService, handler: IHandler) => async (
-  req: Request,
-  res: Response
-) => {
+export default (handler: IHandler) => async (req: Request, res: Response) => {
   // Decode
   const commandMaybe = Command.Codec.decode(req.body);
+  console.log(commandMaybe);
   if (isLeft(commandMaybe)) {
     res
       .status(StatusCode.BAD_REQUEST)
       .send(Errors.Parsing.Codec.encode(Errors.Parsing.C()));
     return;
   }
+  const command = commandMaybe.right;
+
+  // Check Authorization
+  if (!req.authenticatedID || req.authenticatedID !== command.router.account) {
+    res
+      .status(StatusCode.UNAUTHORIZED)
+      .send(Errors.Unauthorized.Codec.encode(Errors.Unauthorized.C()));
+    return;
+  }
 
   // Handle
-  const successMaybe = await handler(commandMaybe.right);
+  const successMaybe = await handler(command);
+  console.log(successMaybe);
 
   // Encode
   if (isLeft(successMaybe)) {

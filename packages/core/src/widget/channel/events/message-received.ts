@@ -1,8 +1,9 @@
 import * as iots from "io-ts";
-import { UUID, Event, NameSpaceCaseString } from "../../../../values";
-import { Message } from "../../../values";
+import { Message } from "../../values";
+import { Event, NameSpaceCaseString, UUID } from "../../../values";
+import { Command } from "../use-cases/receive";
 
-export const Name = "widget:command:send-message" as NameSpaceCaseString.T;
+export const Name = "widget:event:message-received" as NameSpaceCaseString.T;
 
 export const Codec = iots.intersection(
   [
@@ -18,11 +19,9 @@ export const Codec = iots.intersection(
 
 export type T = iots.TypeOf<typeof Codec>;
 
-export const C = (widget: UUID.T, message: Message.T): T => ({
-  ...Event.C(),
+export const C = (command: Command.T): T => ({
+  ...command,
   type: Name,
-  widget,
-  message,
 });
 
 export const Is = Codec.is;

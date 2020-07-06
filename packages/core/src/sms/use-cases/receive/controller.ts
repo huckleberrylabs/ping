@@ -2,25 +2,26 @@ import { Request, Response } from "express";
 import * as Command from "./command";
 import { IHandler } from "./handler";
 import { isLeft } from "fp-ts/lib/Either";
-import { StatusCode, Errors } from "../../../values";
+import { StatusCode, Errors, NonEmptyString, Phone } from "../../../values";
 
 export default (handler: IHandler) => async (req: Request, res: Response) => {
   // Decode
-  const commandMaybe = Command.Codec.decode({
-    type: Command.Name,
-    content: req.body.Body,
-    to: req.body.To,
-    from: req.body.From,
-  });
-  if (isLeft(commandMaybe)) {
+  // TODO Use other request information: To/FromCountry, NumSegments, NumMedia, To/FromCity
+  console.log(req.body);
+  const content = req.body.Body;
+  const twilio = req.body.To; // TWILIO
+  const from = req.body.From; // Person
+  if (!(NonEmptyString.Is(content) && Phone.Is(twilio) && Phone.Is(from))) {
     res
       .status(StatusCode.BAD_REQUEST)
       .send(Errors.Parsing.Codec.encode(Errors.Parsing.C()));
     return;
   }
+  const command = Command.C(content, twilio, from);
 
   // Handle
-  const successMaybe = await handler(commandMaybe.right);
+  const successMaybe = await handler(command);
+  console.log(successMaybe);
 
   // Encode
   if (isLeft(successMaybe)) {

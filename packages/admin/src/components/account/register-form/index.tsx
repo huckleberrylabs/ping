@@ -83,7 +83,7 @@ export const RegisterAccountInner = (props: Props) => {
           </h1>
           <p>below is your widget code.</p>
           <WidgetCodeSnippet
-            id={(current.context.widget as Widget.Model.T).id}
+            id={(current.context.widget as Widget.Settings.Model.T).id}
           />
           <div className="register-account-login-button">
             <Link to="/login">

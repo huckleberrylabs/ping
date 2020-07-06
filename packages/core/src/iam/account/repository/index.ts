@@ -22,7 +22,7 @@ export const C = (store: IFireStore): IAccountRepository => ({
     try {
       const queryRef = await store
         .collection(Name)
-        .where("email", "==", email)
+        .where("email.address", "==", email)
         .get();
       if (queryRef.empty) return left(Errors.NotFound.C());
       const json = queryRef.docs.map(doc => doc.data());

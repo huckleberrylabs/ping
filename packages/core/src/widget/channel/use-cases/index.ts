@@ -1,2 +1,2 @@
-import * as SendMessage from "./send-message";
-export { SendMessage };
+import * as Receive from "./receive";
+export { Receive };

@@ -1,21 +1,25 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Config, Logging } from "@huckleberrylabs/ping-core";
+import { Config, Widget, UUID } from "@huckleberrylabs/ping-core";
 import * as SDK from "./sdk";
-import * as Widget from "./widget";
+import * as WidgetClient from "./widget";
 
 export const onLoad = async () => {
-  const idMaybe = Widget.GetID(Config.InsertScriptID);
+  const idMaybe = WidgetClient.GetID(Config.InsertScriptID);
   if (isLeft(idMaybe)) return;
   const id = idMaybe.right;
   const sdk = SDK.C(id);
-  sdk.Analytics.Load();
-  window.addEventListener("unload", sdk.Analytics.Unload);
-  const settingsMaybe = await sdk.Widget.GetByID();
+  const loadEventID = "57db7116-a386-418a-8e24-e6668f911940" as UUID.T;
+  sdk.Analytics.AddEvent(loadEventID);
+  window.addEventListener("unload", () => {
+    const unloadEventID = "903724c3-47cc-4808-afb2-c5c0f93b5a0a" as UUID.T;
+    sdk.Analytics.AddEvent(unloadEventID);
+  });
+  const settingsMaybe = await sdk.GetByID();
   if (isLeft(settingsMaybe)) return;
   const settings = settingsMaybe.right;
-  const log = Logging.Log.C();
-  const logger = Logging.Logger.C(log);
-  if (settings.enabled) Widget.C(logger, sdk)(settings);
+  const log = Widget.Logging.Log.C();
+  const logger = Widget.Logging.Logger.C(log);
+  if (settings.enabled) WidgetClient.C(logger, sdk)(settings);
 };
 
 window.addEventListener("load", onLoad, false);

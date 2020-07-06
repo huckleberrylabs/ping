@@ -79,6 +79,6 @@ export const ContainsMessageID = (convo: T) => (id: UUID.T): boolean =>
 export const ContainsMessage = (convo: T) => (msg: Message.Model.T): boolean =>
   ContainsMessageID(convo)(msg.id);
 
-// TODO check this is correct
-export const IsExpired = (convo: T) =>
-  TimeStamp.Compare(convo.lastActive, TimeStamp.C()) > DEFAULT_EXPIRY;
+export const IsExpired = (convo: T) => {
+  return TimeStamp.Compare(TimeStamp.C(), convo.lastActive) > DEFAULT_EXPIRY;
+};

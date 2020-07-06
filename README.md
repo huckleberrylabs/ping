@@ -1,60 +1,69 @@
 # Ping
 
-## Now
+what happens if you are messaging yourself? (2 in 1 conversation)
 
-- Messaging: Review Code
-- Widget: Review Code
-- IAM: Review Code
-- Bootstrap Project
-- API: Add Controllers to HTTP Adapter
+## Tested Working Endpoints
 
-* SMS: Setup Existing Phone Numbers with Callback
-* SMS: Setup Webhook Authorization
-* SMS: Test Code
+- /v1/auth/account/register
+- /v1/auth/send-login-email
+- /v1/auth/login-with-token
+- /v1/auth/account/get-by-id
+- /v1/auth/account/update
+- /v1/auth/logout
+- /v1/widget/create
+- /v1/widget/update
+- /v1/widget/get-by-id
+- /v1/widget/analytics/add-event
+- /v1/widget/receive
+- /v1/messaging/contact/create
+- /v1/messaging/contact/update
+- /v1/messaging/contact/get-by-id
+- /v1/messaging/router/create
+- /v1/messaging/router/update
+- /v1/messaging/router/get-by-id
+- /v1/sms/receive
 
-## Later
+## TODO
 
-- Finish new Account + Registration models
-  1.  Contact
-  2.  Router
-  3.  Widget + Channel
-  4.  Auth
-  5.  Billing
-  6.  Account
-- Billing: Clean up service
-- Email: Clean up Service
-- Move completely off Firebase
-- Add Phone Creation within PhoneWithCountry Creation (to ensure phone was created with the same country)
+- Add Type property to all Object Data
+- Script to keep Twilio numbers in sync with SMSNumberRepo
+- Repositories shouldn't be accessed outside of Bounded Context
+- Invariant not enforced anywhere: Account can only have one SMS channel.
+- Channel Type should be a value object of its own
+- Create SMS Channel on Setup
+- SMS Channel Settings Repo?
 
-- [Ping.buzz](http://ping.buzz) Certificate
-- Update Packages
-- Update GSuite Email Setup
-- Update Google Business Listing with [Huckleberrylabs.ca](http://huckleberrylabs.ca) website
-- Figure out how to do lerna publish and git push together
-
-- Add All Countries to Country (and in Front End, use a common Object)
-- Create a PhoneWithCountry Value
-- Replace PhoneField with PhoneWithCountryField
-- Ask for CountryCode in Client instead of getting it from Widget
-- Remove Phone and Country from Widget Models and Place it in a new Entity:
-
-- AUTH: Make Entity and Type Optional for IAuthorizationService (and remove short circuit from Widget:Create)
-- AUTH: Create Roles as Groups of Policies (Widget:Create)
-- AUTH: Complete Deactivate for Account
-- Rename Names
-
-## FUTURE
-
-- Switch to KeyDB
-- rename SMS Number and NumberPairing Models
-
-- Throttling
-- Access Filtering
-- Monitoring
-- C/Q and Event Correlation
-- Admin: color picker bottoms out
-- Admin: collapsable drawer and center app on mobile
-- Admin: center loading icons
+* Add Account AccessPolicy Grants on Creation
+* Refactor Widget (move usecases from settings to top)
+* Admin: SDK
+* Admin: Account Create
+* Admin: Account Update
+* Admin: App
+* Admin: Widget Create add Account ID
+* Admin: Remove Phone from Widget Update
+* Billing: Clean up service
+* Email: Clean up Service
+* Move completely off Firebase
+* [Ping.buzz](http://ping.buzz) Certificate
+* Update Packages
+* Update GSuite Email Setup
+* Update Google Business Listing with [Huckleberrylabs.ca](http://huckleberrylabs.ca) website
+* Figure out how to do lerna publish and git push together
+* Add Phone Creation within PhoneWithCountry Creation (to ensure phone was created with the same country)
+* Add All Countries to Country (and in Front End, use a common Object)
+* Replace PhoneField with PhoneWithCountryField
+* Ask for CountryCode in Client instead of getting it from Widget
+* Switch to KeyDB
+* Cron Job to remove expired jwt tokens from invalidtokenrepo
+* Rename Names
+* Rename SMS Number and NumberPairing Models
+* Throttling
+* Access Filtering
+* Monitoring
+* C/Q and Event Correlation
+* Admin: color picker bottoms out
+* Admin: collapsable drawer and center app on mobile
+* Admin: center loading icons
 
 ## Stack
 

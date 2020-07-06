@@ -1,6 +1,6 @@
 import * as Command from "./command";
-import * as Controller from "./controller";
-import * as Handler from "./handler";
+import Controller from "./controller";
+import Handler from "./handler";
 
 const Route = "/v1/sms/receive";
 

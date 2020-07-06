@@ -33,7 +33,7 @@ const DEFAULT_SORT = SortOptions.RATING_DESC;
 */
 
 type Props = {
-  widgets: Widget.Model.T[];
+  widgets: Widget.Settings.Model.T[];
 };
 
 export const WidgetList = (props: Props) => {

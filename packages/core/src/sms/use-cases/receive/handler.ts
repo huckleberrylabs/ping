@@ -1,10 +1,11 @@
-import { isLeft, Either } from "fp-ts/lib/Either";
+import { isLeft, Either, left } from "fp-ts/lib/Either";
 import { Message } from "../../../messaging";
 import { Errors, UUID } from "../../../values";
 import {
   INumberPairingRepository,
   IMessagingService,
   IContactRepository,
+  IChannelRepository,
 } from "../../../interfaces";
 import * as Command from "./command";
 import { some } from "fp-ts/lib/Option";
@@ -18,16 +19,15 @@ export type IHandler = (
 export default (
   pairingRepo: INumberPairingRepository,
   contactRepo: IContactRepository,
+  channelRepo: IChannelRepository,
   messaging: IMessagingService
 ): IHandler => async command => {
-  // TODO figure out what to do with the Channel ID
-  const channelID = "b904d8c3-1238-4286-a63a-18866d3cbf3f" as UUID.T;
-
   // Get pairing
-  const pairingMaybe = await pairingRepo.getByToAndFrom(
-    command.to,
-    command.from
+  const pairingMaybe = await pairingRepo.getByPhones(
+    command.from,
+    command.twilio
   );
+  console.log(pairingMaybe);
   if (isLeft(pairingMaybe)) return pairingMaybe;
   const pairing = pairingMaybe.right;
 
@@ -36,8 +36,18 @@ export default (
     pairing.account,
     pairing.to
   );
+  console.log(contactMaybe);
   if (isLeft(contactMaybe)) return contactMaybe;
   const contact = contactMaybe.right;
+
+  // Get Channel
+  const channelsMaybe = await channelRepo.getByAccount(pairing.account);
+  console.log(channelsMaybe);
+  if (isLeft(channelsMaybe)) return channelsMaybe;
+  const channel = channelsMaybe.right.filter(
+    channel => channel.kind === "sms"
+  )[0];
+  if (!channel) return left(Errors.Adapter.C());
 
   // Create the Message
   const message: Message.Model.T = {
@@ -46,9 +56,11 @@ export default (
     content: command.content,
     from: contact.id,
     account: pairing.account,
-    channel: channelID,
+    channel: channel.id,
     conversation: some(pairing.conversation),
+    meta: {},
   };
+  console.log(message);
 
   // Send the Message
   return messaging.sendMessage(message);

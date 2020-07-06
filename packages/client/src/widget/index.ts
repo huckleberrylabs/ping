@@ -36,7 +36,7 @@ export const GetID = (
   );
 
 export const C = (log: ILogger, sdk: SDK.T) => (
-  widgetSettings: Widget.PublicModel.T
+  widgetSettings: Widget.Settings.Model.T
 ) =>
   pipe(
     ElementIDs(),

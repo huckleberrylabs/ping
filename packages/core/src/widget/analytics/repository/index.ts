@@ -14,7 +14,6 @@ export const C = (store: IFireStore): IAnalyticsRepository => ({
         .create(Model.Codec.encode(event));
       return right(null);
     } catch (error) {
-      console.log(error);
       return left(Errors.Adapter.C());
     }
   },

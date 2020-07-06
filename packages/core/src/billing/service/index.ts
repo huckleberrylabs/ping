@@ -1,11 +1,11 @@
-import Stripe, { errors } from "stripe";
+import Stripe from "stripe";
 import { Either, left, right } from "fp-ts/lib/Either";
 import { PersonName, NonEmptyString, Errors } from "../../values";
 import { IBillingService } from "../../interfaces";
 import { PromoCode } from "../values";
 
-const StripeError = (error: errors.StripeError) => {
-  /*
+/* const StripeError = (error: errors.StripeError) => {
+  
 * = not available in stripe package / typings
 *   - none - validation_error
     - none - api_connection_error - StripeConnectionError
@@ -20,7 +20,7 @@ const StripeError = (error: errors.StripeError) => {
 *   - ??? - invalid_grant - StripeInvalidGrantError (doesnt exist in typings) (bad code, token, apikey mode)
     - 5xx - api_error - StripeAPIError
     - none - none - StripeSignatureVerificationError
-  */
+  
   if (error instanceof errors.StripeConnectionError) return error;
   if (error instanceof errors.StripeInvalidRequestError) return error;
   if (error instanceof errors.StripeAuthenticationError) return error;
@@ -31,7 +31,7 @@ const StripeError = (error: errors.StripeError) => {
   if (error instanceof errors.StripeAPIError) return error;
   if (error instanceof errors.StripeSignatureVerificationError) return error;
   return error;
-};
+}; */
 
 export const C = (client: Stripe): IBillingService => ({
   createAccount: async (
@@ -69,8 +69,8 @@ export const C = (client: Stripe): IBillingService => ({
         { idempotency_key: `idem:add-seat:${params.idemKey}` }
       );
       return right(customer.id as NonEmptyString.T);
-    } catch (err) {
-      const error = StripeError(err);
+    } catch (error) {
+      // const error = StripeError(err);
       console.log(
         `${error.type} with http status ${error.statusCode}
         and code ${error.code}:

@@ -5,8 +5,6 @@ import {
   IAuthorizationService,
   IMessagingService,
 } from "../../../../interfaces";
-import { Command as UpdateCommand } from "../update";
-import { Query } from "../get-by-id";
 import * as Command from "./command";
 
 export type IHandler = (
@@ -22,32 +20,33 @@ export default (
 ): IHandler => async command => {
   // Check if a widget with the same id already exists
   const widgetMaybe = await repo.exists(command.widget.id);
-  if (isRight(widgetMaybe)) {
-    console.log("widget already exists");
-    return left(Errors.Validation.C());
-  }
+  if (isRight(widgetMaybe)) return left(Errors.Validation.C());
 
   // Save the widget
   const savedMaybe = await repo.add(command.widget);
-  if (isLeft(savedMaybe)) {
-    console.log("widget could not be saved");
-  }
+  if (isLeft(savedMaybe)) return savedMaybe;
 
-  // Grant Authorization
-  auth.grant(command.account, command.widget.id, UpdateCommand.Name);
-  auth.grant(command.account, command.widget.id, Query.Name);
+  // Grant Authorization for all actions between account and widget
+  const authMaybe = await auth.grant({
+    account: command.widget.account,
+    entity: command.widget.id,
+  });
+  if (isLeft(authMaybe)) {
+    await repo.remove(command.widget.id);
+    return authMaybe;
+  }
 
   // Create Channel
   const channelMaybe = await messaging.createChannel(
-    command.account,
+    command.widget.account,
     command.router,
-    command.widget.id
+    command.widget.id,
+    "widget"
   );
-  if (isLeft(channelMaybe)) {
-    return channelMaybe;
-  }
+  if (isLeft(channelMaybe)) return channelMaybe;
 
-  // TODO atomic exist + add
+  // TODO atomic exists + add
+  // TODO create channel and grant authorization in subscribers?
 
   return savedMaybe;
 };

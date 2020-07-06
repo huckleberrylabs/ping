@@ -6,7 +6,8 @@ export interface IMessagingService {
   createChannel: (
     account: UUID.T,
     router: UUID.T,
-    channel: UUID.T
+    channel: UUID.T,
+    kind: "widget" | "sms"
   ) => Promise<Either<Errors.Adapter.T, null>>;
   createContact: (params: {
     account: UUID.T;
@@ -76,6 +77,9 @@ export interface IChannelRepository {
   get(
     id: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Channel.Model.T>>;
+  getByAccount(
+    id: UUID.T
+  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Channel.Model.T[]>>;
   add(channel: Channel.Model.T): Promise<Either<Errors.Adapter.T, null>>;
   remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
   update(

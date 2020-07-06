@@ -1,4 +1,4 @@
-import { Color, Country, Icon } from "@huckleberrylabs/ping-core";
+import { Color, Country, Widget } from "@huckleberrylabs/ping-core";
 
 export const StripKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY
   ? process.env.REACT_APP_STRIPE_PUBLIC_KEY
@@ -6,4 +6,4 @@ export const StripKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY
 
 export const DefaultCountry = "CA" as Country.T;
 export const DefaultColor = "#0087ff" as Color.T;
-export const DefaultIcon = 1 as Icon.T;
+export const DefaultIcon = 1 as Widget.Values.Icon.T;

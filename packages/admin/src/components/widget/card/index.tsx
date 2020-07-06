@@ -12,7 +12,7 @@ import "./style.css";
 import { Widget } from "@huckleberrylabs/ping-core";
 
 type Props = {
-  widget: Widget.Model.T;
+  widget: Widget.Settings.Model.T;
 };
 
 export const WidgetCard = (props: Props) => (
@@ -22,7 +22,6 @@ export const WidgetCard = (props: Props) => (
         <CardMedia className="widget-card-image" sixteenByNine />
         <div className="widget-card-description">
           <h2>{new URL(props.widget.homePage).host}</h2>
-          <p>{props.widget.phone}</p>
         </div>
       </CardPrimaryAction>
     </Card>

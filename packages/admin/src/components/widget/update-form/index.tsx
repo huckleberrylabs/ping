@@ -36,14 +36,13 @@ import {
   Color,
   Errors,
   Widget,
-  Icon,
   Country,
 } from "@huckleberrylabs/ping-core";
 import { DefaultCountry } from "../../../config";
 
 type Props = RouteComponentProps & {
-  widget: Widget.Model.T;
-  onSave: (widget: Widget.Model.T) => Promise<Either<Errors.T, null>>;
+  widget: Widget.Settings.Model.T;
+  onSave: (widget: Widget.Settings.Model.T) => Promise<Either<Errors.T, null>>;
 };
 
 export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
@@ -53,20 +52,20 @@ export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
   const [enabled, updateEnabled] = useState<boolean>(widget.enabled);
   const toggleEnabled = () => updateEnabled(!enabled);
   const [homePage, updateHomePage] = useState<Url.T>(widget.homePage);
-  const [phone, updatePhone] = useState<Phone.T>(widget.phone);
+  const [phone, updatePhone] = useState<Phone.T>(widget.phone); // TODONOW remove Phone from Widget Update
   const [country, updateCountry] = useState<Country.T>(DefaultCountry);
   const [color, updateColor] = useState<Color.T>(widget.color);
-  const [icon, updateIcon] = useState<Icon.T>(widget.icon);
+  const [icon, updateIcon] = useState<Widget.Values.Icon.T>(widget.icon);
 
   const valid =
     Phone.Is(phone) &&
     Country.Is(country) &&
     Url.Is(homePage) &&
     Color.Is(color) &&
-    Icon.Is(icon);
+    Widget.Values.Icon.Is(icon);
   const changed =
     widget.enabled !== enabled ||
-    widget.phone !== phone ||
+    widget.phone !== phone || // TODONOW remove Phone from Widget Update Form
     widget.country !== country ||
     widget.homePage !== homePage ||
     widget.color !== color ||
@@ -90,17 +89,16 @@ export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
       toast.warn("a valid color must be provided.");
       return;
     }
-    if (!Icon.Is(icon)) {
+    if (!Widget.Values.Icon.Is(icon)) {
       toast.warn("a valid icon must be selected.");
       return;
     }
     setLoading(true);
-    const newWidget: Widget.Model.T = {
+    const newWidget: Widget.Settings.Model.T = {
       ...widget,
       enabled,
       homePage,
       country,
-      phone,
       color,
       icon,
     };
@@ -135,7 +133,7 @@ export const UpdateWidgetForm = ({ history, widget, onSave }: Props) => {
               onSelect={updateCountry}
               initialValue={widget.country}
             />
-            <PhoneField
+            <PhoneField // TODONOw remove Phone from Widget Update
               disabled={loading}
               required
               onSelect={updatePhone}

@@ -12,15 +12,15 @@ import "@rmwc/icon/icon.css";
 import "./style.css";
 
 // Domain
-import { Color, Icon } from "@huckleberrylabs/ping-core";
+import { Color, Widget } from "@huckleberrylabs/ping-core";
 import { DefaultIcon } from "../../../config";
 
 type Props = {
   label?: string;
   disabled?: boolean;
-  initialValue?: Icon.T;
+  initialValue?: Widget.Values.Icon.T;
   color: Color.T;
-  onSelect: (input: Icon.T) => void;
+  onSelect: (input: Widget.Values.Icon.T) => void;
 };
 
 export const IconField = ({
@@ -30,7 +30,9 @@ export const IconField = ({
   onSelect,
 }: Props) => {
   const textColor = Color.IsLight(color) ? "black" : "white";
-  const [icon, updateIcon] = useState<Icon.T>(initialValue || DefaultIcon);
+  const [icon, updateIcon] = useState<Widget.Values.Icon.T>(
+    initialValue || DefaultIcon
+  );
   return (
     <div className="icon-field">
       <Button

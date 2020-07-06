@@ -28,14 +28,14 @@ import {
   PersonName,
   NonEmptyString,
   EmailAddress,
-  PromoCode,
+  Billing,
 } from "@huckleberrylabs/ping-core";
 
 export type CreateAccountFormData = {
   email: EmailAddress.T;
   userName: PersonName.T;
   accountName?: NonEmptyString.T;
-  promoCode?: PromoCode.T;
+  promoCode?: Billing.Values.PromoCode.T;
 };
 
 const IsValidFirstLastName = (input: unknown) => {
@@ -56,7 +56,7 @@ type Props = RouteComponentProps & {
 export const CreateAccount = (props: Props) => {
   const query = new URLSearchParams(props.location.search);
   const queryPromoCode = query.get("promo");
-  const initialPromoCode = PromoCode.Is(queryPromoCode)
+  const initialPromoCode = Billing.Values.PromoCode.Is(queryPromoCode)
     ? queryPromoCode
     : undefined;
   console.log(initialPromoCode);
@@ -64,9 +64,9 @@ export const CreateAccount = (props: Props) => {
   const [accountName, setAccountName] = useState<string>();
   const [userName, setUserName] = useState<string>();
   const [email, setEmail] = useState<string>();
-  const [promoCode, setPromoCode] = useState<PromoCode.T | undefined>(
-    initialPromoCode
-  );
+  const [promoCode, setPromoCode] = useState<
+    Billing.Values.PromoCode.T | undefined
+  >(initialPromoCode);
   const [card, setCard] = useState<stripe.elements.ElementChangeResponse>();
 
   return (

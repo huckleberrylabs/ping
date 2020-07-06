@@ -10,8 +10,7 @@ import {
 import { Elements } from "./elements";
 import * as SDK from "../sdk";
 
-const message: Partial<Widget.Message.T> = {
-  id: UUID.C(),
+const message: Partial<Widget.Values.Message.T> = {
   timestamp: TimeStamp.C(),
 };
 
@@ -44,10 +43,10 @@ export const onAddText = (e: Elements, sdk: SDK.T) => async () => {
 
 export const onAddPhone = (
   e: Elements,
-  w: Widget.PublicModel.T,
+  w: Widget.Settings.Model.T,
   sdk: SDK.T
 ) => async () => {
-  const phoneMaybe = Phone.C(e.phoneInput.value, w.countryCode);
+  const phoneMaybe = Phone.C(e.phoneInput.value, w.country);
   if (isLeft(phoneMaybe)) {
     e.phoneInput.setCustomValidity("Invalid");
     return;
@@ -65,7 +64,7 @@ export const onAddPhone = (
 
 export const onAddNameAndSend = (
   e: Elements,
-  w: Widget.PublicModel.T,
+  w: Widget.Settings.Model.T,
   sdk: SDK.T
 ) => async () => {
   const value = e.nameInput.value.trim();
@@ -80,11 +79,11 @@ export const onAddNameAndSend = (
   e.loader.classList.add("shown");
   const addNameFieldID = "179b3014-4b93-40e6-beb9-5153ddf8e3af" as UUID.T;
   sdk.Analytics.AddEvent(addNameFieldID);
-  const res = await sdk.Channel.Send(message);
+  const res = await sdk.Channel.Send(message as Widget.Values.Message.T);
   e.loader.classList.remove("shown");
   if (isRight(res)) {
     if (w.liveChat) {
-      // TODO
+      // TODONOW imlement LiveChat
     }
     e.success.classList.add("shown");
   } else {
@@ -101,7 +100,7 @@ export const nextOnEnter = (button: HTMLButtonElement) => (
 
 export const AddEventListeners = (
   e: Elements,
-  w: Widget.PublicModel.T,
+  w: Widget.Settings.Model.T,
   sdk: SDK.T
 ) => {
   e.create.addEventListener("click", onOpen(e, sdk));

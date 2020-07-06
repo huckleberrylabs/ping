@@ -16,22 +16,17 @@ export const C = (
 ): ISMSService => ({
   send: async (to, message) => {
     try {
+      console.log("SMS SEND");
       // Cannot send a message through this channel without a conversation already created
       if (!isSome(message.conversation)) return left(Errors.Validation.C());
       const conversation = message.conversation.value;
+      console.log(conversation);
 
       // Get all existing pairings by receiving phone number
       const pairingsMaybe = await pairingRepo.getByTo(to.phone);
-      let candidatePairings: NumberPairing.Model.T[];
-      if (isLeft(pairingsMaybe)) {
-        // Set array to empty if NotFound
-        if (pairingsMaybe.left.type === Errors.NotFound.Name)
-          candidatePairings = [];
-        // Return if another error
-        else return pairingsMaybe;
-      } else {
-        candidatePairings = pairingsMaybe.right;
-      }
+      console.log(pairingsMaybe);
+      if (isLeft(pairingsMaybe)) return pairingsMaybe;
+      const candidatePairings = pairingsMaybe.right;
 
       let pairing;
 
@@ -43,21 +38,24 @@ export const C = (
       } else {
         // Get all existing numbers by country
         const numbersMaybe = await numberRepo.getByCountry(to.country);
+        console.log(numbersMaybe);
         // Return if another error
         if (isLeft(numbersMaybe)) return numbersMaybe;
         const numbers = numbersMaybe.right;
 
         // Filter out by existing pairings
-        const candidateNumbers = numbers.filter(num =>
-          candidatePairings.some(pair => pair.from === num)
+        const candidateNumbers = numbers.filter(
+          num => !candidatePairings.some(pair => pair.from === num)
         );
 
         let from = candidateNumbers[0];
 
         // If there is no number, buy one.
         if (candidateNumbers.length === 0) {
-          // TODO assign to "from" and save number to Repo
-          // client.availablePhoneNumbers().local.list()
+          // TODONOW Buy Number. assign to "from" and save number to Repo
+          /* client
+            .availablePhoneNumbers(client.TWILIO_ACCOUNT_SID)
+            .local.list({ smsEnabled: true }); */
           return left(Errors.Adapter.C());
         }
 
@@ -71,6 +69,7 @@ export const C = (
 
         // Save the new pairing
         const savedMaybe = await pairingRepo.save(pairing);
+        console.log(savedMaybe);
         if (isLeft(savedMaybe)) return left(Errors.Adapter.C());
       }
 
@@ -83,6 +82,7 @@ export const C = (
 
       return right(null);
     } catch (error) {
+      console.log(error);
       return left(Errors.Adapter.C());
     }
   },

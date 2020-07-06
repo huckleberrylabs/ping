@@ -10,6 +10,7 @@ export type IHandler = (
   Either<Errors.NotFound.T | Errors.Adapter.T | Errors.NotImplemented.T, null>
 >;
 
+// TODONOW Implement Account Deactivation
 export default (
   repo: IAccountRepository,
   bus: IEventBus
