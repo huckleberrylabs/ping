@@ -1,5 +1,5 @@
 import { isLeft } from "fp-ts/lib/Either";
-// import twilio from "twilio";
+import twilio from "twilio";
 import { createClient } from "redis";
 
 // Express
@@ -17,6 +17,7 @@ import {
   Widget,
   Email,
   SMS,
+  Env,
 } from "@huckleberrylabs/ping-core";
 import * as Adapters from "../../adapters";
 
@@ -279,10 +280,13 @@ export const C = () => {
   );
 
   /* SMS */
-
   app.post(
     SMS.UseCases.Receive.Route,
-    // twilio.webhook(), // TODO enable only in production
+    Env.Get() === "production"
+      ? twilio.webhook()
+      : (req, res, next) => {
+          next();
+        },
     SMS.UseCases.Receive.Controller(
       SMS.UseCases.Receive.Handler(
         smsNumberPairingRepo,

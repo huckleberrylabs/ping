@@ -103,6 +103,8 @@ export const AddEventListeners = (
   w: Widget.Settings.Model.T,
   sdk: SDK.T
 ) => {
+  // const ws = new WebSocket("ws://localhost:8000"); // TODO URL from ENV
+  // TODO setup WS ping pong, and handle connection failure
   e.create.addEventListener("click", onOpen(e, sdk));
   e.textInput.addEventListener("keyup", nextOnEnter(e.addText));
   e.addText.addEventListener("click", onAddText(e, sdk));

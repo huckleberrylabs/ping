@@ -9,7 +9,7 @@ import {
   IRouterRepository,
   ISMSService,
 } from "../../interfaces";
-import { Errors } from "../../values";
+import { Errors, PersonName, NonEmptyString } from "../../values";
 import * as Channel from "../channel";
 import * as Contact from "../contact";
 import * as Conversation from "../conversation";
@@ -87,12 +87,6 @@ export const C = (
       convo = contactAddedMaybe.right;
     }
 
-    // Add message to conversation
-    const messageAddedMaybe = Conversation.Model.AddMessage(convo)(message);
-    console.log(messageAddedMaybe);
-    if (isLeft(messageAddedMaybe)) return messageAddedMaybe;
-    convo = messageAddedMaybe.right;
-
     // Get Channel
     const channelMaybe = await channelRepo.get(message.channel);
     console.log(channelMaybe);
@@ -117,7 +111,39 @@ export const C = (
       console.log(contactAddedMaybe);
       if (isLeft(contactAddedMaybe)) return contactAddedMaybe;
       convo = contactAddedMaybe.right;
+
+      // If First Message in Conversation, Modify Content
+
+      // Get Router Contact
+      const fromContactMaybe = await contactRepo.get(message.from);
+      console.log(fromContactMaybe);
+      if (isLeft(fromContactMaybe)) return fromContactMaybe;
+      const fromContact = fromContactMaybe.right;
+
+      const printName = (name: PersonName.T) =>
+        isSome(name.first) || isSome(name.last)
+          ? `${isSome(name.first) ? name.first.value : ""} ${
+              isSome(name.last) ? name.last.value : ""
+            }`
+          : "anonymous";
+      message.content = `
+        You have a new message from ping:\n    
+        ${
+          isSome(fromContact.name)
+            ? `Name: ${printName(fromContact.name.value)}\n`
+            : ""
+        }
+        Number: ${fromContact.phone.phone}\n
+        Message:\n
+        ${message.content}\n
+        ` as NonEmptyString.T;
     }
+
+    // Add message to conversation
+    const messageAddedMaybe = Conversation.Model.AddMessage(convo)(message);
+    console.log(messageAddedMaybe);
+    if (isLeft(messageAddedMaybe)) return messageAddedMaybe;
+    convo = messageAddedMaybe.right;
 
     // Send message to contacts (except message.from) based on account or channel routingrecipies
     const recipientIDs = convo.contacts.filter(

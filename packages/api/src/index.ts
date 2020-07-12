@@ -2,7 +2,7 @@ import fs from "fs";
 import https from "https";
 import http, { Server } from "http";
 import { Env } from "@huckleberrylabs/ping-core";
-import { HTTP } from "./adapters";
+import { HTTP, WSS } from "./adapters";
 
 const env = Env.Get();
 
@@ -11,10 +11,9 @@ const app = HTTP.C();
 const logPort = (server: Server) =>
   console.log(`server started on ${server.address()?.toString()}`);
 
-if (env === "development") {
-  const server = http.createServer(app);
-  server.listen(8000, () => logPort(server));
-} else if (env === "production") {
+let server: Server;
+let port: number;
+if (env === "production") {
   // TLS Encryption
   const credentials = {
     key: fs.readFileSync(
@@ -26,6 +25,12 @@ if (env === "development") {
       "utf8"
     ),
   };
-  const server = https.createServer(credentials, app);
-  server.listen(443, () => logPort(server));
+  server = https.createServer(credentials, app);
+  port = 443;
+} else {
+  server = http.createServer(app);
+  port = 8000;
 }
+
+server.listen(port, () => logPort(server));
+WSS.C(server);

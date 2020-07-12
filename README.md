@@ -1,5 +1,16 @@
 # Ping
 
+## Next Release
+
+- No CC required, updated registration flow
+- SMS proxy conversations
+- General fix for the issue related to bruce's ping
+- View conversation/message history
+- View contacts
+- Customize button animation, X/Y offset, button text controls
+- View button activity analytics
+- New Identity and Access Management System
+
 ## Tested Working Endpoints
 
 - /v1/auth/account/register
@@ -23,47 +34,67 @@
 
 ## TODO
 
-- Add Type property to all Object Data
+### Data Integrity
+
+- Add Type property to all Data
 - Script to keep Twilio numbers in sync with SMSNumberRepo
+- Cron Job to remove expired jwt tokens from invalidtokenrepo
+- Move to PostGreSQL
+
+### Organization
+
+- Include a message in Errors and log them consistently on creation
+- Remove all Console Logs
+- Rename "Maybe" variables
+
+- Create a mapping function for errors to http response, and from http response to errors
 - Repositories shouldn't be accessed outside of Bounded Context
+- Refactor Widget (move usecases from settings to top)
+- Rename Names
+-
+
+### Domain
+
 - Invariant not enforced anywhere: Account can only have one SMS channel.
 - Channel Type should be a value object of its own
 - Create SMS Channel on Setup
 - SMS Channel Settings Repo?
 - What happens if you are messaging yourself? (2 in 1 conversation)
 - Mark Contacts as Internal
+- Avoiding Number Pairing reuse
+- Billing Clean up service
+- Email Clean up Service
+- Add Phone Creation within PhoneWithCountry Creation (to ensure phone was created with the same country)
+- Add All Countries to Country (and in Front End, use a common Object)
+- Close Account
+- Update Payment
 
-* Add Account AccessPolicy Grants on Creation
-* Refactor Widget (move usecases from settings to top)
-* Admin: SDK
-* Admin: Account Create
-* Admin: Account Update
-* Admin: App
-* Admin: Widget Create add Account ID
-* Admin: Remove Phone from Widget Update
-* Billing: Clean up service
-* Email: Clean up Service
-* Move completely off Firebase
-* [Ping.buzz](http://ping.buzz) Certificate
-* Update Packages
-* Update GSuite Email Setup
-* Update Google Business Listing with [Huckleberrylabs.ca](http://huckleberrylabs.ca) website
-* Figure out how to do lerna publish and git push together
-* Add Phone Creation within PhoneWithCountry Creation (to ensure phone was created with the same country)
-* Add All Countries to Country (and in Front End, use a common Object)
-* Replace PhoneField with PhoneWithCountryField
-* Ask for CountryCode in Client instead of getting it from Widget
-* Switch to KeyDB
-* Cron Job to remove expired jwt tokens from invalidtokenrepo
-* Rename Names
-* Rename SMS Number and NumberPairing Models
-* Throttling
-* Access Filtering
-* Monitoring
-* C/Q and Event Correlation
-* Admin: color picker bottoms out
-* Admin: collapsable drawer and center app on mobile
-* Admin: center loading icons
+### UI
+
+- Restructure entire Admin app
+- Use Shadow DOM
+- Fix Bruces issue
+- Replace PhoneField with PhoneWithCountryField
+- Ask for CountryCode in Client instead of getting it from Widget
+- Admin color picker bottoms out
+- Admin collapsable drawer and center app on mobile
+- Admin center loading icons
+- View Invoices
+
+### Other
+
+- Look At Data (attention and interaction quantity/quality)
+- Check when SendGrid runs out and add in calendar for downgrade.
+- Login Email Case Sensitivity
+- [Ping.buzz](http://ping.buzz) Certificate
+- Update Packages
+- Update GSuite Email Setup
+- Update Google Business Listing with [Huckleberrylabs.ca](http://huckleberrylabs.ca) website
+- Figure out how to do lerna publish and git push together
+- Throttling
+- Access Filtering
+- Monitoring
+- Event Correlation
 
 ## Stack
 
