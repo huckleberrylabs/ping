@@ -1,0 +1,40 @@
+.send-login-email-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: var(--mdc-theme-primary);
+}
+
+.send-login-email-modal {
+  margin: auto;
+  background: var(--mdc-theme-background);
+  padding: 40px;
+  max-width: 300px;
+  min-height: 350px;
+  border-radius: 7px;
+}
+
+.send-login-email-form {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  padding: 20px 0;
+  justify-content: space-between;
+}
+
+.send-login-email-loader {
+  display: flex;
+  height: 200px;
+  width: 200px;
+}
+
+.send-login-email-loader > * {
+  margin: auto;
+}
+
+.send-login-email-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 191px;
+}

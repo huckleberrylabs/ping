@@ -1,15 +1,66 @@
 # Ping
 
+## Done
+
+## TODO
+
+- Import Core Lib
+- Complete GetAccountID Use-Case
+- Implement SendLoginEmail API Call
+- Implement Auth API Calls
+- Cleanup SendLoginEmail View
+- Test SendLoginEmail, LoginWithToken, Logout
+- Test Routing, Redirects, Authentication, Toasts
+
+## Admin Use Cases
+
+### Account
+
+- Registration
+- Cancellation
+- Contact Support
+
+### IAM
+
+- Log In
+- Log Out
+- Update Identity
+
+### Billing
+
+- View Invoices
+- Download an Invoice
+- Update Payment Method
+
+### Widget
+
+- View All Widgets
+- Create a Widget
+- Install a Widget
+- Destroy a Widget
+- Update a Widget's Settings
+- View Widget Analytics
+
+## Messaging
+
+- View all Conversations
+- View Conversation (with Messages)
+- Update Router/Channel Settings
+- View Contacts
+- Update Contacts
+
 ## Next Release
 
-- No CC required, updated registration flow
 - SMS proxy conversations
-- General fix for the issue related to bruce's ping
+- New Identity and Access Management System
+
+- No CC required, updated registration flow
+- Customize button animation, X/Y offset, button text controls
 - View conversation/message history
 - View contacts
-- Customize button animation, X/Y offset, button text controls
 - View button activity analytics
-- New Identity and Access Management System
+
+- General fix for the issue related to bruce's ping
 
 ## Tested Working Endpoints
 
