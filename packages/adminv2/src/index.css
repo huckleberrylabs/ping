@@ -49,6 +49,13 @@ h4 {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  padding: 20px 0;
+}
+
 a {
   color: inherit;
   text-decoration: inherit;
@@ -65,6 +72,6 @@ a {
   padding: 5px;
 }
 
-.mdc-button {
-  text-transform: lowercase;
+.mdc-button__label {
+  text-transform: none;
 }

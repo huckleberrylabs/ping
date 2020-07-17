@@ -10,11 +10,11 @@ import {
   TopAppBarSection,
   TopAppBarTitle,
 } from "@rmwc/top-app-bar";
-import "@material/top-app-bar/dist/mdc.top-app-bar.css";
+import "@rmwc/top-app-bar/styles";
 
 // Button
-import "@material/button/dist/mdc.button.css";
 import { Button } from "@rmwc/button";
+import "@rmwc/button/styles";
 
 // Logo
 import LightLogo from "../../media/logo-white.png";
@@ -45,8 +45,8 @@ export const NavBar = ({ fixed, transparent }: Props) => (
         </TopAppBarTitle>
       </TopAppBarSection>
       <TopAppBarSection alignEnd>
-        <Button onClick={authService.logout} unelevated={!transparent}>
-          logout
+        <Button onClick={() => authService.logout()} unelevated={!transparent}>
+          Logout
         </Button>
       </TopAppBarSection>
     </TopAppBarRow>

@@ -1,65 +1,73 @@
 # Ping
 
-## Done
+visit vs open vs send this week
+visit vs open vs send this month
+visit vs open vs send this year
 
-## TODO
+number of sends by day
+number of sends by week
+number of sends by month
 
-- Import Core Lib
-- Complete GetAccountID Use-Case
-- Implement SendLoginEmail API Call
-- Implement Auth API Calls
-- Cleanup SendLoginEmail View
-- Test SendLoginEmail, LoginWithToken, Logout
-- Test Routing, Redirects, Authentication, Toasts
+number of opens by day
+number of opens by week
+number of opens by month
 
-## Admin Use Cases
+number of visits by day
+number of visits by week
+number of visits by month
 
-### Account
+## Strictly UI TODO
 
-- Registration
-- Cancellation
-- Contact Support
+- widget analytics
+- update-widget, delete widget, routing
+- create-widget
+- registration
+- billing show current card
+- billing view / download invoice
+- account settings clean up style
 
-### IAM
+## Connect to Backend
 
-- Log In
-- Log Out
-- Update Identity
-
-### Billing
-
-- View Invoices
-- Download an Invoice
-- Update Payment Method
-
-### Widget
-
-- View All Widgets
-- Create a Widget
-- Install a Widget
-- Destroy a Widget
-- Update a Widget's Settings
-- View Widget Analytics
-
-## Messaging
-
-- View all Conversations
-- View Conversation (with Messages)
-- Update Router/Channel Settings
+- SendLoginEmail
+- GetAccountIDByCookie
+- Login
+- Logout
+- Update Account Login
+- Update Billing Info
+- View/Download Invoices
+- Cancel Account
+- View Widgets
+- View Conversations
 - View Contacts
-- Update Contacts
+- View Conversation Detail
+- Registration
+- Create a Widget
+
+## Notes on Updating Billing
+
+- Changing Org name changes name on stripe
+- Changing Address changes address on stripe
+- Changing Billing email changes email on stripe
+- Changing Payment Method is done in tandem with other billing changes
+
+## Other UI Implementation
+
+- Show free trial status / invalid payment status
+- Contact Support
+- Use Places AutoComplete for Billing Address Updates
+- Install instructions
 
 ## Next Release
 
 - SMS proxy conversations
 - New Identity and Access Management System
 
-- No CC required, updated registration flow
-- Customize button animation, X/Y offset, button text controls
 - View conversation/message history
 - View contacts
-- View button activity analytics
 
+- No CC required, updated registration flow
+- Customize button animation, X/Y offset, button text controls
+- View button activity analytics
 - General fix for the issue related to bruce's ping
 
 ## Tested Working Endpoints
@@ -83,6 +91,26 @@
 - /v1/messaging/router/get-by-id
 - /v1/sms/receive
 
+## client dependencies from core
+
+- Config InsertScriptID / GetEndpoint / SecretDeveloperMessage
+- UUID T / C / Is
+- Errors T / Decode / C
+- StatusCodes
+
+- Color IsLight
+- Phone C
+- PersonName C
+- TimeStamp C
+- NonEmptyString Decode / Is
+
+- Routes
+- Command C / Encode
+
+- Widget.Settings.Model T / Decode
+- Widget.Values.Message T
+- Log C, Logger C, ILogger
+
 ## TODO
 
 ### Data Integrity
@@ -102,7 +130,6 @@
 - Repositories shouldn't be accessed outside of Bounded Context
 - Refactor Widget (move usecases from settings to top)
 - Rename Names
--
 
 ### Domain
 
@@ -117,12 +144,9 @@
 - Email Clean up Service
 - Add Phone Creation within PhoneWithCountry Creation (to ensure phone was created with the same country)
 - Add All Countries to Country (and in Front End, use a common Object)
-- Close Account
-- Update Payment
 
 ### UI
 
-- Restructure entire Admin app
 - Use Shadow DOM
 - Fix Bruces issue
 - Replace PhoneField with PhoneWithCountryField
@@ -130,7 +154,6 @@
 - Admin color picker bottoms out
 - Admin collapsable drawer and center app on mobile
 - Admin center loading icons
-- View Invoices
 
 ### Other
 

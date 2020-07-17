@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 // Drawer
 import { Drawer, DrawerContent } from "@rmwc/drawer";
-import "@material/drawer/dist/mdc.drawer.css";
+import "@rmwc/drawer/styles";
 
 // List
 import { List, ListItem } from "@rmwc/list";
-import "@material/list/dist/mdc.list.css";
+import "@rmwc/list/styles";
 
 // Style
 import "./style.css";
@@ -20,7 +20,19 @@ export const DrawerMenu = () => (
     <DrawerContent>
       <List>
         <Link to={Routes.account}>
-          <ListItem>account</ListItem>
+          <ListItem>Account</ListItem>
+        </Link>
+        <Link to={Routes.contacts}>
+          <ListItem>Contacts</ListItem>
+        </Link>
+        <Link to={Routes.conversations}>
+          <ListItem>Conversations</ListItem>
+        </Link>
+        <Link to={Routes.widgets}>
+          <ListItem>Widgets</ListItem>
+        </Link>
+        <Link to={Routes.analytics}>
+          <ListItem>Analytics</ListItem>
         </Link>
       </List>
     </DrawerContent>

@@ -12,6 +12,8 @@ export class AuthService {
   async loginWithToken(token: string): Promise<Either<null, null>> {
     this.loading.set(true);
     // TODO API Request
+    this.isLoggedIn.set(true);
+    this.accountID.set("123");
     this.loading.set(false);
     return right(null);
   }
@@ -25,6 +27,8 @@ export class AuthService {
   private async getAccountID() {
     this.loading.set(true);
     // TODO API Request
+    this.isLoggedIn.set(true);
+    this.accountID.set("123");
     this.loading.set(false);
   }
   // TODO update with Error Type

@@ -1,0 +1,17 @@
+.widget-card-container {
+  width: 21rem;
+}
+
+.widget-card-action {
+  height: 100%;
+}
+
+.widget-card-image {
+  background-image: url("../../media/illustration.png");
+  background-size: 250px;
+}
+
+.widget-card-description {
+  height: 100%;
+  padding: 1rem;
+}

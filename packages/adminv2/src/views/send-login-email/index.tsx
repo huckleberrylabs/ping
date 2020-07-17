@@ -1,32 +1,27 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { isLeft } from "fp-ts/lib/Either";
+// import { isLeft } from "fp-ts/lib/Either";
 
 // Toast
 import { toast } from "react-toastify";
 
 // Button
 import { Button } from "@rmwc/button";
-import "@material/button/dist/mdc.button.css";
+import "@rmwc/button/styles";
 
 // Text Field
 import { TextField } from "@rmwc/textfield";
-import "@material/textfield/dist/mdc.textfield.css";
-import "@material/form-field/dist/mdc.form-field.css";
-import "@material/floating-label/dist/mdc.floating-label.css";
-import "@material/notched-outline/dist/mdc.notched-outline.css";
+import "@rmwc/textfield/styles";
 
 // Loading
 import { CircularProgress } from "@rmwc/circular-progress";
-import "@rmwc/circular-progress/circular-progress.css";
+import "@rmwc/circular-progress/styles";
 
 // Style
 import "./style.css";
 
-// Domain
-import { EmailAddress, Errors } from "@huckleberrylabs/ping-core/lib/values";
-import * as Config from "@huckleberrylabs/ping-core/lib/config";
-import { Routes } from "../../config";
+// Config
+import { Routes, SupportEmail } from "../../config";
 
 type Stage = "idle" | "loading" | "sent" | "not-found" | "error";
 
@@ -37,20 +32,19 @@ export const SendLoginEmail = (props: Props) => {
   const [stage, setStage] = useState<Stage>("idle");
 
   const submitForm = async () => {
-    if (!EmailAddress.Is(email)) {
+    if (email.indexOf("@") < 1) {
       toast.warn("a valid email must be provided.");
       return;
     }
     // TODO call a sendLoginEmail API method
-
-    if (isLeft(loginMaybe)) {
+    /*  if (isLeft(loginMaybe)) {
       if (Errors.NotFound.Is(loginMaybe.left)) {
         setStage("not-found");
         return;
       }
       setStage("error");
       return;
-    }
+    } */
     setStage("sent");
   };
 
@@ -64,7 +58,7 @@ export const SendLoginEmail = (props: Props) => {
               outlined
               label="email"
               value={email}
-              invalid={email !== "" && !EmailAddress.Is(email)}
+              invalid={email !== "" && email.indexOf("@") < 1}
               onChange={(event) =>
                 setEmail((event.target as HTMLInputElement).value)
               }
@@ -124,9 +118,7 @@ export const SendLoginEmail = (props: Props) => {
             <p>
               we had an issue on our end, please try again in a few minutes. if
               that doesn't work, please email us at{" "}
-              <a href={`mail-to:${Config.SupportEmail}`}>
-                {Config.SupportEmail}
-              </a>
+              <a href={`mail-to:${SupportEmail}`}>{SupportEmail}</a>
             </p>
 
             <Button

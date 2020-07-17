@@ -1,0 +1,31 @@
+.widget-code-snippet-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 200px;
+  max-width: 500px;
+  min-height: 200px;
+  height: auto;
+  width: 100%;
+}
+
+.widget-code-snippet-container > * {
+  margin: 20px 0;
+}
+
+.widget-code-snippet {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.widget-code-snippet > pre {
+  margin: 0;
+  padding: 0 !important;
+}
+
+.widget-code-snippet > i {
+  background: rgb(248, 248, 255);
+  padding: 1.05rem;
+}

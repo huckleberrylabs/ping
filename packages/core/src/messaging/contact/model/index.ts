@@ -11,6 +11,7 @@ import { some, none } from "fp-ts/lib/Option";
 
 export const Name = "messaging:model:contact" as NameSpaceCaseString.T;
 
+// TODO change createdAt to created
 export const Codec = iots.type(
   {
     id: UUID.Codec,

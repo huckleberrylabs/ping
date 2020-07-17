@@ -1,0 +1,22 @@
+.conversation-detail-summary {
+  padding: 20px 0;
+}
+.conversation-detail-summary > div {
+  display: flex;
+  flex-direction: row;
+  min-width: 200px;
+  width: 350px;
+  justify-content: space-between;
+}
+.conversation-detail-summary > div > div {
+  padding-top: 10px;
+}
+.conversation-detail-summary > div > div:first-child {
+  text-align: right;
+  width: 100px;
+}
+
+.conversation-detail-summary > div > div:nth-child(2) {
+  text-align: left;
+  min-width: 200px;
+}
