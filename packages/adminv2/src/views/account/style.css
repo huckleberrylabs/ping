@@ -1,0 +1,20 @@
+.account {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.account-right {
+  width: 600px;
+}
+
+@media only screen and (max-width: 1600px) {
+  .account-inner {
+    flex-direction: column;
+  }
+}

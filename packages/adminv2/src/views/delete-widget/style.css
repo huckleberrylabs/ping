@@ -1,8 +1,8 @@
-.cancel-account-closed {
+.delete-widget-closed {
   display: none;
 }
 
-.cancel-account-overlay-open {
+.delete-widget-overlay-open {
   display: block;
   height: 100vh;
   width: 100vw;
@@ -15,7 +15,7 @@
   z-index: 99;
 }
 
-.cancel-account-modal-open {
+.delete-widget-modal-open {
   background: white;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,11 @@
   padding: 20px;
 }
 
-.cancel-account-modal-buttons {
+.delete-widget-modal-open p {
+  margin-left: 15px;
+}
+
+.delete-widget-modal-buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;

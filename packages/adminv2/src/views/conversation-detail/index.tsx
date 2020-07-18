@@ -7,7 +7,7 @@ import "./style.css";
 const convo = {
   id: "123",
   messages: ["123", "234", "23434", "344", "344"],
-  created: "2020-07-17T05:00:29+00:00",
+  created: "2020-07-17T22:58:29+00:00",
   lastActive: "2020-07-17T05:00:29+00:00",
 };
 const contacts = [
@@ -15,18 +15,50 @@ const contacts = [
     id: "123",
     name: "Dragos Rotaru",
     phone: "+16472951647",
-    createdAt: "2020-07-17T05:00:29+00:00",
+    createdAt: "2020-07-17T22:58:29+00:00",
   },
 ];
 const messages = [
   {
     id: "123",
-    timestamp: "2020-07-17T05:00:29+00:00",
+    timestamp: "2020-07-17T22:58:29+00:00",
     from: "Dragos Rotaru",
     channel: "SMS",
-    content: `Hey, I am looking to move into a new apartment around september.
+    content: `Hey, I am moving to Waterloo and looking to move into a new apartment around september.
       I'm looking for 3 beds, 2 baths, somewhere central with tall ceilings and a full sized kitchen.
       would you be able to help me out?`,
+    meta: "",
+  },
+  {
+    id: "123",
+    timestamp: "2020-07-17T23:06:29+00:00",
+    from: "Josh W",
+    channel: "SMS",
+    content: `I can definitely help you find a place! Are you currently in town?`,
+    meta: "",
+  },
+  {
+    id: "123",
+    timestamp: "2020-07-17T23:18:45+00:00",
+    from: "Dragos Rotaru",
+    channel: "SMS",
+    content: `Not yet, I'm going to be there July 24-27th for a meeting. Could we look at some places then? `,
+    meta: "",
+  },
+  {
+    id: "123",
+    timestamp: "2020-07-17T23:20:45+00:00",
+    from: "Josh W",
+    channel: "SMS",
+    content: `Sure, we can definitely set something up for then. In the meantime, let schedule a call. Are you available tomorrow at 4pm?`,
+    meta: "",
+  },
+  {
+    id: "123",
+    timestamp: "2020-07-17T23:22:45+00:00",
+    from: "Dragos Rotaru",
+    channel: "SMS",
+    content: `Yep! My number is 647 295 1647, talk to you then.`,
     meta: "",
   },
 ];

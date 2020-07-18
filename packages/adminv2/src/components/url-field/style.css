@@ -1,0 +1,8 @@
+.url-field {
+  height: 50px;
+}
+
+.url-field > div {
+  width: 100%;
+  height: 100%;
+}

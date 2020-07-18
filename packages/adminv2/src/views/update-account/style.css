@@ -1,0 +1,14 @@
+.update-account {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.update-account-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-account-inner > * {
+  margin: 15px 0;
+}

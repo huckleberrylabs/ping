@@ -1,30 +1,14 @@
 # Ping
 
-visit vs open vs send this week
-visit vs open vs send this month
-visit vs open vs send this year
-
-number of sends by day
-number of sends by week
-number of sends by month
-
-number of opens by day
-number of opens by week
-number of opens by month
-
-number of visits by day
-number of visits by week
-number of visits by month
-
 ## Strictly UI TODO
 
-- widget analytics
-- update-widget, delete widget, routing
-- create-widget
-- registration
+- account settings clean up style
 - billing show current card
 - billing view / download invoice
-- account settings clean up style
+
+* routing
+* registration
+* create-widget
 
 ## Connect to Backend
 
@@ -56,6 +40,12 @@ number of visits by month
 - Contact Support
 - Use Places AutoComplete for Billing Address Updates
 - Install instructions
+
+## Widget Analytics
+
+- visit vs open vs send this week / month / year
+- Widget ID via url
+-
 
 ## Next Release
 

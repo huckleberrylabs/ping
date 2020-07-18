@@ -25,6 +25,7 @@ import { Contacts } from "../views/contacts";
 import { Conversations } from "../views/conversations";
 import { ConversationDetail } from "../views/conversation-detail";
 import { Widgets } from "../views/widgets";
+import { UpdateWidget } from "../views/update-widget";
 import { Analytics } from "../views/analytics";
 
 import "./style.css";
@@ -62,6 +63,11 @@ const PrivateRoutes = () => [
     path={Routes.widgets}
     component={Widgets}
     exact
+  />,
+  <Route
+    key={`${Routes.widgets}/:id`}
+    path={`${Routes.widgets}/:id`}
+    component={UpdateWidget}
   />,
   <Route
     key={Routes.analytics}

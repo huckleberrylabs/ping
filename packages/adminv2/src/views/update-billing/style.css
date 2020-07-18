@@ -1,6 +1,46 @@
+.update-billing {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.update-billing-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-billing-inner > * {
+  margin: 15px 0;
+}
+
+.update-billing-city-province,
+.update-billing-country-postal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.update-billing-city-province > *:first-child {
+  width: 45%;
+}
+
+.update-billing-city-province > *:nth-child(2) {
+  width: 45%;
+}
+
+.update-billing-country-postal > *:first-child {
+  width: 65%;
+}
+.update-billing-country-postal > *:nth-child(2) {
+  width: 30%;
+}
+
 .update-billing-stripe {
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.35);
   padding: 18px;
-  width: 415px;
+}
+
+.update-billing-save {
+  justify-content: end !important;
 }
