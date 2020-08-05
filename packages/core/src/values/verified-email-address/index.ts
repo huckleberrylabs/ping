@@ -1,6 +1,6 @@
 import * as iots from "io-ts";
-import * as NameSpaceCaseString from "../namespace-case-string";
 import * as EmailAddress from "../email-address";
+import * as NameSpaceCaseString from "../namespace-case-string";
 
 export const Name = "value:verified-email-address" as NameSpaceCaseString.T;
 

@@ -20,7 +20,7 @@ export const UpdateAccount = () => {
 
   return (
     <div className="update-account">
-      <h2>Login Details</h2>
+      <h2>User</h2>
       <div className="update-account-inner">
         <TextField
           outlined

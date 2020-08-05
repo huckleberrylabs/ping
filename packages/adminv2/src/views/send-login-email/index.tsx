@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// import { isLeft } from "fp-ts/lib/Either";
+import { isLeft } from "fp-ts/lib/Either";
 
 // Toast
 import { toast } from "react-toastify";
@@ -23,6 +23,11 @@ import "./style.css";
 // Config
 import { Routes, SupportEmail } from "../../config";
 
+// Services
+import { authService } from "../../services";
+
+import * as Errors from "@huckleberrylabs/ping-core/lib/values/errors";
+
 type Stage = "idle" | "loading" | "sent" | "not-found" | "error";
 
 type Props = {};
@@ -36,15 +41,15 @@ export const SendLoginEmail = (props: Props) => {
       toast.warn("a valid email must be provided.");
       return;
     }
-    // TODO call a sendLoginEmail API method
-    /*  if (isLeft(loginMaybe)) {
-      if (Errors.NotFound.Is(loginMaybe.left)) {
+    const sentMaybe = await authService.sendLoginEmail(email);
+    if (isLeft(sentMaybe)) {
+      if (Errors.NotFound.Is(sentMaybe.left)) {
         setStage("not-found");
         return;
       }
       setStage("error");
       return;
-    } */
+    }
     setStage("sent");
   };
 

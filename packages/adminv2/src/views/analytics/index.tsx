@@ -49,6 +49,8 @@ const dataGen = () =>
     xaxis: `${date.getMonth() + 1}-${date.getDate()}`,
   }));
 
+const generatedData = dataGen();
+
 const sliceByDateRange = (
   data: Data[],
   begin: Moment | null,
@@ -113,6 +115,7 @@ type TimeScale = "Days" | "Weeks" | "Months";
 const TimeScales: TimeScale[] = ["Days", "Weeks", "Months"];
 
 export const Analytics = () => {
+  const [windowWidth, setWidth] = useState<number>(window.innerWidth);
   const [eventName, setEventName] = useState<EventName>("Site Visits");
   const [timeScale, setTimeScale] = useState<TimeScale>("Months");
   const [startDate, setStartDate] = useState<Moment | null>(null);
@@ -121,14 +124,31 @@ export const Analytics = () => {
     "startDate" | "endDate" | null
   >(null);
 
+  window.onresize = () => {
+    if (window.innerWidth - 350 > 770) setWidth(window.innerWidth);
+  };
   const data = aggregateByTimeScale(
-    sliceByDateRange(dataGen(), startDate, endDate),
+    sliceByDateRange(generatedData, startDate, endDate),
     timeScale
   );
   return (
     <>
       <h1>Widget Analytics</h1>
       <div className="analytics-controls">
+        <DateRangePicker
+          startDate={startDate} // momentPropTypes.momentObj or null,
+          startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+          endDate={endDate} // momentPropTypes.momentObj or null,
+          endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+          onDatesChange={({ startDate, endDate }) => {
+            console.log(startDate, endDate);
+            setStartDate(startDate);
+            setEndDate(endDate);
+          }} // PropTypes.func.isRequired,
+          focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+          onFocusChange={setFocusedInput} // PropTypes.func.isRequired,
+          isOutsideRange={(day) => !isInclusivelyBeforeDay(day, moment())}
+        />
         <Select
           label="Event Type"
           enhanced
@@ -151,22 +171,12 @@ export const Analytics = () => {
             setTimeScale(value);
           }}
         />
-        <DateRangePicker
-          startDate={startDate} // momentPropTypes.momentObj or null,
-          startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-          endDate={endDate} // momentPropTypes.momentObj or null,
-          endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-          onDatesChange={({ startDate, endDate }) => {
-            console.log(startDate, endDate);
-            setStartDate(startDate);
-            setEndDate(endDate);
-          }} // PropTypes.func.isRequired,
-          focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-          onFocusChange={setFocusedInput} // PropTypes.func.isRequired,
-          isOutsideRange={(day) => !isInclusivelyBeforeDay(day, moment())}
-        />
       </div>
-      <LineChart width={1500} height={500} data={data}>
+      <LineChart
+        width={Math.max(windowWidth - 350, 770)}
+        height={500}
+        data={data}
+      >
         <XAxis dataKey="xaxis" />
         <YAxis domain={["auto", "auto"]} />
         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />

@@ -31,6 +31,9 @@ export const DrawerMenu = () => (
         <Link to={Routes.widgets}>
           <ListItem>Widgets</ListItem>
         </Link>
+        <Link to={Routes.routers}>
+          <ListItem>Routers</ListItem>
+        </Link>
         <Link to={Routes.analytics}>
           <ListItem>Analytics</ListItem>
         </Link>

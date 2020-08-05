@@ -38,9 +38,10 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@huckleberrylabs/ping-core": "^3.2.7",
     "axios": "^0.19.2",
-    "fp-ts": "^2.7.0",
-    "io-ts": "^2.2.7",
+    "fp-ts": "^2.8.1",
+    "io-ts": "^2.2.9",
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-color": "^2.18.1",
@@ -60,9 +61,9 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/color": "^3.0.1",
-    "@types/react": "^16.9.43",
+    "@types/react": "^16.9.44",
     "@types/react-color": "^3.0.4",
-    "@types/react-dates": "^17.1.13",
+    "@types/react-dates": "^17.1.14",
     "@types/react-dom": "^16.9.8",
     "@types/react-flags-select": "^1.1.2",
     "@types/react-router": "^5.1.8",
@@ -71,7 +72,8 @@
     "@types/react-stripe-elements": "^6.0.4",
     "@types/react-syntax-highlighter": "^11.0.4",
     "@types/recharts": "^1.8.14",
-    "react-scripts": "3.4.1",
-    "typescript": "^3.9.6"
+    "fork-ts-checker-webpack-plugin": "^5.0.14",
+    "react-scripts": "^3.4.1",
+    "typescript": "^3.9.7"
   }
 }

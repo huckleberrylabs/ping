@@ -7,9 +7,17 @@ import { ForwardButton } from "../../components/forward-button";
 import { TextField } from "@rmwc/textfield";
 import "@rmwc/textfield/styles";
 
+// Text Field
+import { Button } from "@rmwc/button";
+import "@rmwc/button/styles";
+
 // Select Field
 import { Select } from "@rmwc/select";
 import "@rmwc/select/styles";
+
+// Card
+import { Card } from "@rmwc/card";
+import "@rmwc/card/styles";
 
 // Loading
 import { CircularProgress } from "@rmwc/circular-progress";
@@ -53,6 +61,8 @@ export const UpdateBillingInner = (props: Props) => {
   const [province, setProvince] = useState<string>("Ontario");
   const [country, setCountry] = useState<Countries>(Countries.ca);
   const [postalCode, setPostalCode] = useState<string>("N2J 1B1");
+  const [changeCard, setChangeCard] = useState<boolean>(false);
+  const toggleChangeCard = () => setChangeCard(!changeCard);
   const [card, setCard] = useState<stripe.elements.ElementChangeResponse>();
 
   return (
@@ -135,15 +145,27 @@ export const UpdateBillingInner = (props: Props) => {
             }}
           />
         </div>
-        <CardElement
-          hidePostalCode={true}
-          placeholderCountry="ca"
-          supportedCountries={CountriesISOList}
-          classes={{
-            base: "update-billing-stripe mdc-ripple-surface",
-          }}
-          onChange={(change) => setCard(change)}
-        />
+        <div>
+          {changeCard ? (
+            <div className="update-billing-stripe-container">
+              <CardElement
+                hidePostalCode={true}
+                placeholderCountry="ca"
+                supportedCountries={CountriesISOList}
+                classes={{
+                  base: "update-billing-stripe mdc-ripple-surface",
+                }}
+                onChange={(change) => setCard(change)}
+              />
+              <Button onClick={toggleChangeCard}>Cancel</Button>
+            </div>
+          ) : (
+            <Card className="update-billing-cc-number-card">
+              <h4>Visa ending in 3333</h4>
+              <Button onClick={toggleChangeCard}>Change</Button>
+            </Card>
+          )}
+        </div>
         <div className="update-billing-save">
           <ForwardButton
             label={loading ? "loading..." : "save"}

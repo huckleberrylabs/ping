@@ -4,7 +4,8 @@ type Props = {};
 export const InvoiceList = (props: Props) => {
   return (
     <div>
-      <p>no invoices yet.</p>
+      <h2>Invoices</h2>
+      <p>No invoices yet.</p>
     </div>
   );
 };

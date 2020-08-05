@@ -1,10 +1,14 @@
 .analytics-controls {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   margin-bottom: 20px;
   margin-left: 55px;
 }
 
 .analytics-controls .DateRangePicker {
   margin-top: 5px;
+}
+
+.analytics-controls .DateRangePickerInput {
+  width: 310px;
 }

@@ -27,6 +27,7 @@ import { ConversationDetail } from "../views/conversation-detail";
 import { Widgets } from "../views/widgets";
 import { UpdateWidget } from "../views/update-widget";
 import { Analytics } from "../views/analytics";
+import { Routers } from "../views/routers";
 
 import "./style.css";
 
@@ -74,6 +75,7 @@ const PrivateRoutes = () => [
     path={Routes.analytics}
     component={Analytics}
   />,
+  <Route key={Routes.routers} path={Routes.routers} component={Routers} />,
   <Route key="/" render={() => <Redirect to="/" />} />,
 ];
 

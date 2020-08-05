@@ -37,7 +37,7 @@ export const Widgets = () => {
           <div className="new-widget-button-container">
             <Button
               className="new-widget-button"
-              label="new widget"
+              label="New Widget"
               icon="add"
               outlined
             />

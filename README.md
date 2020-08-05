@@ -1,21 +1,18 @@
 # Ping
 
+SendLoginEmail
+LoginWithToken
+Logout
+
 ## Strictly UI TODO
 
-- account settings clean up style
-- billing show current card
-- billing view / download invoice
-
-* routing
-* registration
-* create-widget
+- routing
+- registration
+- create-widget
 
 ## Connect to Backend
 
-- SendLoginEmail
 - GetAccountIDByCookie
-- Login
-- Logout
 - Update Account Login
 - Update Billing Info
 - View/Download Invoices
@@ -45,7 +42,6 @@
 
 - visit vs open vs send this week / month / year
 - Widget ID via url
--
 
 ## Next Release
 

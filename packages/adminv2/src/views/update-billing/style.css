@@ -35,6 +35,31 @@
   width: 30%;
 }
 
+.update-billing-cc-number-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  height: 54px;
+  width: 99%;
+}
+
+.update-billing-stripe-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.update-billing-stripe-container > *:first-child {
+  width: 80%;
+}
+
+.update-billing-stripe-container > * {
+  margin-right: 20px;
+}
+
 .update-billing-stripe {
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.35);
