@@ -1,0 +1,106 @@
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+
+// Providers and Services
+import { useObservable } from "../observable";
+import { authService } from "../services";
+import { RouterProvider, StripeProvider, ToastProvider } from "../providers";
+
+// Loading Spinner
+import { CircularProgress } from "@rmwc/circular-progress";
+import "@rmwc/circular-progress/styles";
+
+// Top Level Navigation
+import { NavBar } from "../components/navbar";
+import { DrawerMenu } from "../components/drawer-menu";
+
+// Routes
+import { Routes } from "../config";
+
+// Views
+import { SendLoginEmail } from "../views/send-login-email";
+import { LoginWithToken } from "../views/login-with-token";
+import { Account } from "../views/account";
+import { Contacts } from "../views/contacts";
+import { Conversations } from "../views/conversations";
+import { ConversationDetail } from "../views/conversation-detail";
+import { Widgets } from "../views/widgets";
+import { UpdateWidget } from "../views/update-widget";
+import { Analytics } from "../views/analytics";
+import { Routers } from "../views/routers";
+
+import "./style.css";
+import { UUID } from "@huckleberrylabs/ping-core";
+
+const PublicRoutes = () => [
+  <Route
+    key={Routes.sendLoginEmail}
+    path={Routes.sendLoginEmail}
+    component={SendLoginEmail}
+  />,
+  <Route
+    key={Routes.loginWithToken}
+    path={Routes.loginWithToken}
+    component={LoginWithToken}
+  />,
+  <Route key="/" render={() => <Redirect to={Routes.sendLoginEmail} />} />,
+];
+
+const PrivateRoutes = () => [
+  <Route key={Routes.account} path={Routes.account} component={Account} />,
+  <Route key={Routes.contacts} path={Routes.contacts} component={Contacts} />,
+  <Route
+    key={Routes.conversations}
+    path={Routes.conversations}
+    component={Conversations}
+    exact
+  />,
+  <Route
+    key={`${Routes.conversations}/:id`}
+    path={`${Routes.conversations}/:id`}
+    component={ConversationDetail}
+  />,
+  <Route
+    key={Routes.widgets}
+    path={Routes.widgets}
+    component={Widgets}
+    exact
+  />,
+  <Route
+    key={`${Routes.widgets}/:id`}
+    path={`${Routes.widgets}/:id`}
+    component={UpdateWidget}
+  />,
+  <Route
+    key={Routes.analytics}
+    path={Routes.analytics}
+    component={Analytics}
+  />,
+  <Route key={Routes.routers} path={Routes.routers} component={Routers} />,
+  <Route key="/" render={() => <Redirect to={Routes.widgets} />} />,
+];
+
+export const App = () => {
+  const authState = useObservable(authService.state);
+  const loading = authState === "Loading";
+  const isLoggedIn = UUID.Is(authState);
+  if (loading)
+    return (
+      <div className="app-loading-container">
+        <CircularProgress size="xlarge" />
+      </div>
+    );
+  else
+    return StripeProvider(
+      RouterProvider(
+        <>
+          {isLoggedIn ? <NavBar /> : null}
+          <ToastProvider offset={isLoggedIn} />
+          <div className={isLoggedIn ? "app-container" : ""}>
+            {isLoggedIn ? <DrawerMenu /> : null}
+            <Switch>{isLoggedIn ? PrivateRoutes() : PublicRoutes()}</Switch>
+          </div>
+        </>
+      )
+    );
+};

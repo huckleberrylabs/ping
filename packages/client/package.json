@@ -62,10 +62,10 @@
     "rulesDirectory": []
   },
   "scripts": {
-    "build:dev": "NODE_ENV=development npx webpack --config webpack.config.js",
+    "start": "NODE_ENV=development npx webpack --config webpack.config.js",
     "build": "npx webpack --config webpack.config.js",
-    "preinstall": "node ./scripts/netlify-preinstall.js",
-    "test": "npx jest"
+    "test": "npx jest",
+    "preinstall": "node ./scripts/netlify-preinstall.js"
   },
   "dependencies": {
     "@huckleberrylabs/ping-core": "^3.2.7",

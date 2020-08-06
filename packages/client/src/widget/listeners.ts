@@ -83,7 +83,7 @@ export const onAddNameAndSend = (
   e.loader.classList.remove("shown");
   if (isRight(res)) {
     if (w.liveChat) {
-      // TODONOW imlement LiveChat
+      // TODO imlement LiveChat
     }
     e.success.classList.add("shown");
   } else {

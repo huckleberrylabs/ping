@@ -121,6 +121,11 @@ export const C = () => {
   );
 
   app.post(
+    IAM.Authentication.UseCases.GetAccountIDByCookie.Route,
+    IAM.Authentication.UseCases.GetAccountIDByCookie.Controller()
+  );
+
+  app.post(
     IAM.Authentication.UseCases.LoginWithToken.Route,
     IAM.Authentication.UseCases.LoginWithToken.Controller(
       iamAuthenticationService,

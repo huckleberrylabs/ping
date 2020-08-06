@@ -3,9 +3,9 @@ import { Either, right, left, isRight } from "fp-ts/lib/Either";
 import validator from "validator";
 import * as Errors from "../errors";
 import * as NonEmptyString from "../non-empty-string";
-import { GenericDomains } from "./generic-domains";
+/* import { GenericDomains } from "./generic-domains";
 import { DisposableDomains } from "./disposable-domains";
-import { GenericAccounts } from "./generic-accounts";
+import { GenericAccounts } from "./generic-accounts"; */
 
 export const Name = "value:email-address";
 export interface Brand {
@@ -30,13 +30,13 @@ export const C = (
   return right(normalized as T);
 };
 
-export const HasGenericUserName = (input: T): boolean =>
+/* export const HasGenericUserName = (input: T): boolean =>
   GenericAccounts.includes(input.split("@")[0]);
 
 export const IsFromCommonProvider = (input: T): boolean =>
   GenericDomains.includes(input.split("@")[1]);
 
 export const IsDisposable = (input: T): boolean =>
-  DisposableDomains.includes(input.split("@")[1]);
+  DisposableDomains.includes(input.split("@")[1]); */
 
 export const Is = Codec.is;

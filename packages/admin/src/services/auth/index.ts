@@ -1,47 +1,131 @@
-import { isLeft, left, right, Either, isRight } from "fp-ts/lib/Either";
-import { Errors, NonEmptyString, UUID } from "@huckleberrylabs/ping-core";
-import { toast } from "react-toastify";
-import { SDK } from "../../sdk";
+import axios from "axios";
+import { Observable } from "../../observable";
+import { Either, right, left, isLeft } from "fp-ts/lib/Either";
+import {
+  IAM,
+  Config,
+  EmailAddress,
+  Errors,
+  NonEmptyString,
+  UUID,
+  StatusCode,
+} from "@huckleberrylabs/ping-core";
 
-const LocalStorageAccountIDKey = "accountID";
-
-export const isLoggedIn = (): Either<Errors.Unauthenticated.T, UUID.T> => {
-  const accountID = localStorage.getItem(LocalStorageAccountIDKey);
-  if (!UUID.Is(accountID)) {
-    localStorage.removeItem(LocalStorageAccountIDKey);
-    return left(Errors.Unauthenticated.C());
+export class AuthService {
+  readonly state = new Observable<"Unauthenticated" | "Loading" | UUID.T>(
+    "Unauthenticated"
+  );
+  constructor() {
+    this.getAccountID();
   }
-  return right(accountID);
-};
-
-export const logout = async (id: UUID.T) => {
-  localStorage.removeItem(LocalStorageAccountIDKey);
-  await SDK.Account.Logout(id);
-  window.location.reload();
-};
-
-export const login = async (token: NonEmptyString.T) => {
-  const idMaybe = await SDK.Account.LoginWithToken(token);
-  if (isLeft(idMaybe)) {
-    switch (idMaybe.left.type) {
-      case Errors.NotFound.Name:
-        toast.warn("Account doesn't exist.");
-        break;
-      case Errors.Unauthorized.Name:
-        toast.warn("Login link expired or invalid, please login again.");
-        break;
-      default:
-        break;
+  async sendLoginEmail(email: EmailAddress.T): Promise<Either<Errors.T, null>> {
+    try {
+      const res = await axios.post(
+        Config.GetEndpoint(IAM.Authentication.UseCases.SendLoginEmail.Route),
+        IAM.Authentication.UseCases.SendLoginEmail.Command.Codec.encode(
+          IAM.Authentication.UseCases.SendLoginEmail.Command.C(email)
+        ),
+        {
+          validateStatus: () => true,
+        }
+      );
+      return res.status === StatusCode.OK
+        ? right(null)
+        : left(this.onAPIError(Errors.FromStatusCode(res.status, res.data)));
+    } catch (error) {
+      return left(Errors.Adapter.C());
     }
-    return left(Errors.Unauthenticated.C());
   }
-  const id = idMaybe.right;
-  localStorage.setItem(LocalStorageAccountIDKey, id);
-  return right(null);
-};
-
-export const Auth = () => {
-  const state = { loggedIn: false };
-  const maybeLoggedIn = isLoggedIn();
-  if (isRight(maybeLoggedIn)) state.loggedIn = false;
-};
+  async loginWithToken(
+    token: NonEmptyString.T
+  ): Promise<Either<Errors.T, null>> {
+    try {
+      this.state.set("Loading");
+      const res = await axios.post(
+        Config.GetEndpoint(IAM.Authentication.UseCases.LoginWithToken.Route),
+        IAM.Authentication.UseCases.LoginWithToken.Command.Codec.encode(
+          IAM.Authentication.UseCases.LoginWithToken.Command.C(token)
+        ),
+        {
+          validateStatus: () => true,
+        }
+      );
+      if (res.status === StatusCode.OK) {
+        const idMaybe = UUID.Codec.decode(res.data);
+        if (isLeft(idMaybe)) return left(Errors.Parsing.C());
+        const id = idMaybe.right;
+        this.state.set(id);
+        return right(null);
+      } else {
+        this.state.set("Unauthenticated");
+        return left(
+          this.onAPIError(Errors.FromStatusCode(res.status, res.data))
+        );
+      }
+    } catch (error) {
+      this.state.set("Unauthenticated");
+      return left(Errors.Adapter.C());
+    }
+  }
+  async logout(): Promise<Either<Errors.T, null>> {
+    try {
+      const id = this.state.get();
+      if (!UUID.Is(id)) {
+        this.state.set("Unauthenticated");
+        return right(null);
+      }
+      this.state.set("Loading");
+      const res = await axios.post(
+        Config.GetEndpoint(IAM.Authentication.UseCases.Logout.Route),
+        IAM.Authentication.UseCases.Logout.Command.Codec.encode(
+          IAM.Authentication.UseCases.Logout.Command.C(id)
+        ),
+        {
+          validateStatus: () => true,
+        }
+      );
+      this.state.set("Unauthenticated");
+      return res.status === StatusCode.OK
+        ? right(null)
+        : left(this.onAPIError(Errors.FromStatusCode(res.status, res.data)));
+    } catch (error) {
+      this.state.set("Unauthenticated");
+      return left(Errors.Adapter.C());
+    }
+  }
+  private async getAccountID(): Promise<Either<Errors.T, UUID.T>> {
+    try {
+      this.state.set("Loading");
+      const res = await axios.post(
+        Config.GetEndpoint(
+          IAM.Authentication.UseCases.GetAccountIDByCookie.Route
+        ),
+        IAM.Authentication.UseCases.GetAccountIDByCookie.Command.Codec.encode(
+          IAM.Authentication.UseCases.GetAccountIDByCookie.Command.C()
+        ),
+        {
+          validateStatus: () => true,
+        }
+      );
+      if (res.status === StatusCode.OK) {
+        const idMaybe = UUID.Codec.decode(res.data);
+        if (isLeft(idMaybe)) return left(Errors.Parsing.C());
+        const id = idMaybe.right;
+        this.state.set(id);
+        return right(id);
+      } else {
+        this.state.set("Unauthenticated");
+        return left(
+          this.onAPIError(Errors.FromStatusCode(res.status, res.data))
+        );
+      }
+    } catch (error) {
+      this.state.set("Unauthenticated");
+      return left(Errors.Adapter.C());
+    }
+  }
+  onAPIError(err: Errors.T): Errors.T {
+    if (Errors.Unauthenticated.Is(err)) this.logout();
+    return err;
+  }
+}

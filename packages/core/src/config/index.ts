@@ -36,8 +36,6 @@ export const HuckleberryURL = `https://${HuckleberryDomain}`;
 export const NoReplyEmail = ("no-reply@" + PrimaryDomain) as EmailAddress.T;
 export const SupportEmail = ("help@" + PrimaryDomain) as EmailAddress.T;
 
-export const AlertPhone = "+16472951647" as Phone.T;
-
 export const InsertScriptID = "huckleberry-ping-insert-script";
 
 // TODO developent url shouldn't be machine specific

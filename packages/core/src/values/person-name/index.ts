@@ -4,7 +4,6 @@ import * as iots from "io-ts";
 import * as NonEmptyString from "../non-empty-string";
 import * as OptionFromNullable from "../option-from-nullable";
 import * as NameSpaceCaseString from "../namespace-case-string";
-// Try parse-full-name as well if not working well
 
 export const Name = "value:person-name" as NameSpaceCaseString.T;
 
@@ -14,7 +13,7 @@ export type NameString = iots.TypeOf<typeof NameStringCodec>;
 
 export const Codec = iots.type(
   {
-    parsed: NameStringCodec,
+    parsed: NonEmptyString.Codec,
     legal: NameStringCodec,
     first: NameStringCodec,
     last: NameStringCodec,
@@ -29,9 +28,9 @@ export type T = iots.TypeOf<typeof Codec>;
 
 export const C = (input: NonEmptyString.T) => Map(input, parseName(input));
 
-const Map = (original: string, input: NameOutput) =>
+const Map = (original: NonEmptyString.T, input: NameOutput) =>
   ({
-    parsed: some(original),
+    parsed: original,
     legal: none,
     first: NonEmptyString.Is(input.firstName) ? some(input.firstName) : none,
     last: NonEmptyString.Is(input.lastName) ? some(input.lastName) : none,
