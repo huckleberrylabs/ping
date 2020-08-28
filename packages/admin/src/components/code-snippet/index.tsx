@@ -1,25 +1,15 @@
 import React from "react";
+import { Config } from "@huckleberrylabs/ping-core";
 
-// Code Block
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-
-// Toast
+// UI
 import { toast } from "react-toastify";
-
-// Ripple
 import { Ripple } from "@rmwc/ripple";
 import "@rmwc/ripple/styles";
-
-// Icon
 import { Icon } from "@rmwc/icon";
 import "@rmwc/icon/styles";
-
-// Style
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import "./style.css";
-
-// Config
-import { Config } from "@huckleberrylabs/ping-core";
 
 export const CodeString = (id: string) =>
   `
@@ -31,15 +21,15 @@ type Props = {
 };
 
 export const WidgetCodeSnippet = (props: Props) => (
-  <div className="widget-code-snippet-container">
+  <div className="code-snippet">
     <p>
-      copy this code and insert it as high as possible inside the head tag of
-      your website. if you'd like assistance, please reach out to us at{" "}
-      <a href={`mail-to:${Config.SupportEmail}`}>{Config.SupportEmail}</a>
+      Copy this code and insert it as high as possible inside the head tag of
+      your website. If you'd like assistance, please reach out to us at{" "}
+      <a href={`mail-to:${Config.SupportEmail}`}>{Config.SupportEmail}</a>.
     </p>
     <Ripple primary>
       <div
-        className="widget-code-snippet"
+        className="code-snippet-inner"
         onClick={() => {
           const textarea = document.createElement("textarea");
           textarea.setAttribute("type", "hidden");
@@ -48,7 +38,7 @@ export const WidgetCodeSnippet = (props: Props) => (
           textarea.select();
           document.execCommand("copy");
           textarea.remove();
-          toast.info("copied!");
+          toast.info("Copied!");
         }}
       >
         <SyntaxHighlighter language="html" style={docco}>

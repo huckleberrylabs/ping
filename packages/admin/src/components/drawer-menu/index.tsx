@@ -1,22 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-// Drawer
-import { Drawer, DrawerContent } from "@rmwc/drawer";
-import "@rmwc/drawer/styles";
-
-// List
-import { List, ListItem } from "@rmwc/list";
-import "@rmwc/list/styles";
-
-// Style
-import "./style.css";
-
-// Routes
 import { Routes } from "../../config";
 
+// UI
+import { Drawer, DrawerContent } from "@rmwc/drawer";
+import "@rmwc/drawer/styles";
+import { List, ListItem } from "@rmwc/list";
+import "@rmwc/list/styles";
+import "./style.css";
+
 export const DrawerMenu = () => (
-  <Drawer className="drawer-menu-container">
+  <Drawer className="drawer-menu">
     <DrawerContent>
       <List>
         <Link to={Routes.account}>
@@ -31,12 +25,12 @@ export const DrawerMenu = () => (
         <Link to={Routes.widgets}>
           <ListItem>Widgets</ListItem>
         </Link>
-        <Link to={Routes.routers}>
-          <ListItem>Routers</ListItem>
-        </Link>
-        <Link to={Routes.analytics}>
+        {/*  <Link to={Routes.routers}>
+          <ListItem>Routing</ListItem>
+        </Link> */}
+        {/* <Link to={Routes.analytics}>
           <ListItem>Analytics</ListItem>
-        </Link>
+        </Link> */}
       </List>
     </DrawerContent>
   </Drawer>

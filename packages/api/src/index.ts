@@ -1,15 +1,12 @@
 import fs from "fs";
 import https from "https";
 import http, { Server } from "http";
-import { Env } from "@huckleberrylabs/ping-core";
+import { Env, Logger } from "@huckleberrylabs/ping-core";
 import { HTTP, WSS } from "./adapters";
 
 const env = Env.Get();
 
 const app = HTTP.C();
-
-const logPort = (server: Server) =>
-  console.log(`server started on ${server.address()?.toString()}`);
 
 let server: Server;
 let port: number;
@@ -32,5 +29,7 @@ if (env === "production") {
   port = 8000;
 }
 
-server.listen(port, () => logPort(server));
+server.listen(port, () =>
+  Logger(HTTP.Name, "info", `server started on ${port}`)
+);
 WSS.C(server);

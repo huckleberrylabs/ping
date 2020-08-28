@@ -1,7 +1,7 @@
 import { isLeft, Either } from "fp-ts/lib/Either";
 import { none } from "fp-ts/lib/Option";
 import { IWidgetRepository, IMessagingService } from "../../../../interfaces";
-import { Errors, UUID, PhoneWithCountry } from "../../../../values";
+import { Errors, UUID } from "../../../../values";
 import { Message } from "../../../../messaging";
 import * as Command from "./command";
 
@@ -19,20 +19,20 @@ export default (
   const widgetMaybe = await repo.get(command.widget);
   if (isLeft(widgetMaybe)) return widgetMaybe;
   const widget = widgetMaybe.right;
-  console.log(widgetMaybe);
 
   // Create The Contact (if doesnt already exist)
   const contactMaybe = await messaging.createContact({
     account: widget.account,
+    internal: false,
     name: command.message.name,
-    phone: PhoneWithCountry.C(command.message.phone, widget.country),
+    phone: command.message.phone,
   });
-  console.log(contactMaybe);
   if (isLeft(contactMaybe)) return contactMaybe;
   const contact = contactMaybe.right;
 
   // Create the Message
   const message: Message.Model.T = {
+    type: Message.Model.Name,
     id: UUID.C(),
     timestamp: command.message.timestamp,
     content: command.message.text,
@@ -42,7 +42,6 @@ export default (
     conversation: none,
     meta: {},
   };
-  console.log(message);
 
   // Send the Message
   return messaging.sendMessage(message);

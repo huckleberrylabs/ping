@@ -1,8 +1,8 @@
-.widget-card-container {
+.widget-card {
   width: 21rem;
 }
 
-.widget-card-action {
+.widget-card > * {
   height: 100%;
 }
 

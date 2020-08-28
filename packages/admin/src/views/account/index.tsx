@@ -1,21 +1,15 @@
 import React from "react";
-
-import "./style.css";
-
-// Use-Cases
-import { UpdateAccount } from "../update-account";
-import { UpdateBilling } from "../update-billing";
-import { CancelAccount } from "../cancel-account";
-import { Invoices } from "../invoices";
-
-// Config
 import { Config } from "@huckleberrylabs/ping-core";
+import { UpdateAccount } from "../account-update";
+import { UpdateBilling } from "../billing-update";
+import { CancelAccount } from "../account-cancel";
+import { Invoices } from "../invoice-list";
 
 export const Account = () => {
   return (
-    <div className="account">
+    <div className="container">
       <h1>Account</h1>
-      <div className="account-inner">
+      <div className="inner-container">
         <div>
           <div>
             <h2>Contacting Support</h2>
@@ -26,13 +20,13 @@ export const Account = () => {
               </a>{" "}
               or through the ping widget located at the bottom right of this
               website if you need our assistance, feel unsatisfied with the
-              product or have any questions :)
+              product or have any questions.
             </p>
           </div>
           <UpdateBilling />
           <Invoices />
         </div>
-        <div className="account-right">
+        <div>
           <UpdateAccount />
           <CancelAccount />
         </div>

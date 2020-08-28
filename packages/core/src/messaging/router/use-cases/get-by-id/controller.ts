@@ -4,6 +4,7 @@ import { StatusCode, Errors } from "../../../../values";
 import * as Query from "./query";
 import * as Model from "../../model";
 import { IHandler } from "./handler";
+
 import { IAuthorizationService } from "../../../../interfaces";
 
 export default (auth: IAuthorizationService, handler: IHandler) => async (
@@ -11,11 +12,18 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
   res: Response
 ) => {
   // Decode
-  const queryMaybe = Query.Codec.decode(req.body);
+  const queryMaybe = Query.Decode(req.body);
   if (isLeft(queryMaybe)) {
     res
       .status(StatusCode.BAD_REQUEST)
-      .send(Errors.Parsing.Codec.encode(Errors.Parsing.C()));
+      .send(
+        Errors.Validation.Encode(
+          Errors.Validation.C(
+            Query.Name,
+            `DTO decode error: ${queryMaybe.left.toString()}`
+          )
+        )
+      );
     return;
   }
   const query = queryMaybe.right;
@@ -24,7 +32,9 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
   if (!req.authenticatedID) {
     res
       .status(StatusCode.UNAUTHORIZED)
-      .send(Errors.Unauthorized.Codec.encode(Errors.Unauthorized.C()));
+      .send(
+        Errors.Unauthenticated.Encode(Errors.Unauthenticated.C(Query.Name))
+      );
     return;
   }
   const authMaybe = await auth.check({
@@ -37,12 +47,12 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
       case Errors.Unauthorized.Name:
         res
           .status(StatusCode.FORBIDDEN)
-          .send(Errors.Unauthorized.Codec.encode(authMaybe.left));
+          .send(Errors.Unauthorized.Encode(authMaybe.left));
         return;
       case Errors.Adapter.Name:
         res
           .status(StatusCode.INTERNAL_SERVER_ERROR)
-          .send(Errors.Adapter.Codec.encode(authMaybe.left));
+          .send(Errors.Adapter.Encode(authMaybe.left));
         return;
       default:
         res.status(StatusCode.INTERNAL_SERVER_ERROR).send();
@@ -59,20 +69,20 @@ export default (auth: IAuthorizationService, handler: IHandler) => async (
       case Errors.NotFound.Name:
         res
           .status(StatusCode.NOT_FOUND)
-          .send(Errors.NotFound.Codec.encode(result.left));
+          .send(Errors.NotFound.Encode(result.left));
         return;
       case Errors.Adapter.Name:
         res
           .status(StatusCode.INTERNAL_SERVER_ERROR)
-          .send(Errors.Adapter.Codec.encode(result.left));
+          .send(Errors.Adapter.Encode(result.left));
         return;
       default:
         res
           .status(StatusCode.INTERNAL_SERVER_ERROR)
-          .send(Errors.Adapter.Codec.encode(result.left));
+          .send(Errors.Adapter.Encode(result.left));
         return;
     }
   }
-  res.status(StatusCode.OK).send(Model.Codec.encode(result.right));
+  res.status(StatusCode.OK).send(Model.Encode(result.right));
   return;
 };

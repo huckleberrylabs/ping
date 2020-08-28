@@ -1,14 +1,13 @@
-import { UUID, Color, Widget } from "@huckleberrylabs/ping-core";
+import { Color, Widget } from "@huckleberrylabs/ping-core";
 import { ElementIDs } from "./elements";
 
-export const InsertCSS = (css: string) => {
+/* export const InsertCSS = (css: string) => (shadow: ShadowRoot) => {
   const style = document.createElement("style");
-  style.id = `css-${UUID.C()}`;
   style.type = "text/css";
   style.innerHTML = css;
-  const head = document.getElementsByTagName("head")[0];
-  head.appendChild(style);
-};
+  // const head = document.getElementsByTagName("head")[0];
+  shadow.appendChild(style);
+}; */
 
 export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   `
@@ -16,8 +15,9 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   
 :root {
   --huckleberry-ping-accent-color: ${w.color};
-  --huckleberry-ping-text-color:  ${Color.IsLight(w.color) ? "black" : "white"};
-  --huckleberry-ping-icon-color: white;
+  --huckleberry-ping-accent-contrast-color:  ${
+    Color.IsLight(w.color) ? "black" : "white"
+  };
   --huckleberry-ping-background-color: #f7f7f7;
   --huckleberry-ping-invalid-color: #fdd;
   --huckleberry-ping-success-color: #00ae4e;
@@ -32,8 +32,8 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   all: revert;
   position: fixed;
   z-index: 2147483647;
-  bottom: 24px;
-  right: 24px;
+  bottom: ${w.yOffset + 5}px;
+  right: ${w.xOffset + 5}px;
   width: 54px;
   max-width: 90vw;
   height: 54px;
@@ -67,7 +67,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   border-radius: 5px;
   cursor: pointer;
   background-color: var(--huckleberry-ping-accent-color);
-  color: var(--huckleberry-ping-text-color);
+  color: var(--huckleberry-ping-accent-contrast-color);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
 }
 #${e.form} input {
@@ -92,6 +92,22 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   transform: scale(1.2);
 }
 
+#${e.form} #${e.cancel} {
+  top: -20px;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  right: 20px;
+  position: relative;
+  background-color: var(--huckleberry-ping-fail-color);
+}
+
+#${e.form} #${e.cancel} line {
+  stroke: white;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
 #${e.container} > #${e.form} #${e.loader}.shown,
 #${e.container} > #${e.form} #${e.success}.shown,
 #${e.container} > #${e.form} #${e.error}.shown {
@@ -102,19 +118,34 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
 
 #${e.form} #${e.create} {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-#${e.form} #${e.create}.andrew {
-  background: white;
+#${e.create} span {
+  font-size: 12px;
+  padding: 0px 0px 3px 0px;
 }
 
-#${e.createIcon},
+#${e.createIcon} {
+  width: 54px;
+  height: auto;
+}
+
 #${e.loader},
 #${e.success},
 #${e.error} {
   border-radius: 8px;
   width: 54px;
   height: 54px;
+}
+
+#${e.form} #${e.create}.andrew span {
+  color: var(--huckleberry-ping-accent-color);
+}
+
+#${e.form} #${e.create}.andrew {
+  background: var(--huckleberry-ping-accent-contrast-color);
 }
 
 #${e.createIcon}.andrew {
@@ -133,24 +164,20 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
 }
 
 #${e.createIcon}.mo path {
-  stroke: var(--huckleberry-ping-text-color);
+  stroke: var(--huckleberry-ping-accent-contrast-color);
   stroke-width: 10;
 }
 
-#${e.createIcon} #ping-text {
-  stroke: none;
-  fill: var(--huckleberry-ping-text-color);
-}
 
 #${e.createIcon} circle,
 #${e.createIcon} rect {
-  fill: var(--huckleberry-ping-text-color);
+  fill: var(--huckleberry-ping-accent-contrast-color);
 }
 
 #${e.createIcon} #phone-outline {
   fill: none;
   stroke-width: 10;
-  stroke: var(--huckleberry-ping-text-color);
+  stroke: var(--huckleberry-ping-accent-contrast-color);
 }
 
 
@@ -160,7 +187,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
 
 #${e.success} polyline {
   fill: none;
-  stroke: var(--huckleberry-ping-icon-color);
+  stroke: white;
   stroke-linecap: round;
   stroke-miterlimit: 10;
   stroke-width: 6;
@@ -180,7 +207,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
 
 #${e.error} line {
   fill: none;
-  stroke: var(--huckleberry-ping-icon-color);
+  stroke: white;
   stroke-linecap: round;
   stroke-miterlimit: 10;
   stroke-width: 6;
@@ -206,9 +233,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
 
 #${e.loader} circle {
   fill: transparent;
-  stroke: ${
-    Color.IsLight(w.color) ? "var(--huckleberry-ping-success-color)" : w.color
-  };
+  stroke: var(--huckleberry-ping-success-color);
   stroke-width: 0.128em;
   stroke-linecap: round;
   stroke-dasharray: 1.5056em 0.30112em;

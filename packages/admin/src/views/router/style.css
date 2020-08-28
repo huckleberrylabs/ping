@@ -1,0 +1,19 @@
+.router {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.router > * {
+  margin-right: 10px;
+}
+
+.router-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.router-form > * {
+  margin-right: 15px;
+}

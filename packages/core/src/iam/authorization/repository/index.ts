@@ -29,9 +29,18 @@ export const C = (redis: RedisClient): IAccessPolicyRepository => ({
       redis.exists(Keys(params), (err, exists) =>
         resolve(
           err !== null
-            ? left(Errors.Adapter.C())
+            ? left(
+                Errors.Adapter.C(
+                  `${Name}.exists redis error: ${err.message}`,
+                  `Server error, please try again later or contact support.`
+                )
+              )
             : exists === 0
-            ? left(Errors.NotFound.C())
+            ? left(
+                Errors.NotFound.C(
+                  `${Name}.exists not found: ${params.account}, ${params.action}, ${params.entity}`
+                )
+              )
             : right(null)
         )
       )
@@ -40,12 +49,32 @@ export const C = (redis: RedisClient): IAccessPolicyRepository => ({
     new Promise(resolve => {
       const multi = redis.multi();
       Keys(params).forEach(key => multi.set(key, ""));
-      multi.exec(err => resolve(err ? left(Errors.Adapter.C()) : right(null)));
+      multi.exec(err =>
+        resolve(
+          err
+            ? left(
+                Errors.Adapter.C(
+                  `${Name}.add error: ${err.message}`,
+                  `Server error, please try again later or contact support.`
+                )
+              )
+            : right(null)
+        )
+      );
     }),
   remove: async params =>
     new Promise(resolve =>
       redis.del(Keys(params), err =>
-        resolve(err ? left(Errors.Adapter.C()) : right(null))
+        resolve(
+          err
+            ? left(
+                Errors.Adapter.C(
+                  `${Name}.remove error: ${err.message}`,
+                  `Server error, please try again later or contact support.`
+                )
+              )
+            : right(null)
+        )
       )
     ),
 });

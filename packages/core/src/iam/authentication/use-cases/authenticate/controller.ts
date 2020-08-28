@@ -8,7 +8,7 @@ export default (authenticationService: IAuthenticationService) => async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.cookies["auth"];
+  const token = req.cookies["Auth"];
   if (NonEmptyString.Is(token)) {
     const authenticatedMaybe = await authenticationService.authenticateToken(
       token
@@ -17,18 +17,18 @@ export default (authenticationService: IAuthenticationService) => async (
       switch (authenticatedMaybe.left.type) {
         case Errors.Unauthenticated.Name:
           res
-            .clearCookie("auth")
+            .clearCookie("Auth")
             .status(StatusCode.UNAUTHORIZED)
-            .send(Errors.Unauthenticated.Codec.encode(authenticatedMaybe.left));
+            .send(Errors.Unauthenticated.Encode(authenticatedMaybe.left));
           return;
         case Errors.Adapter.Name:
           res
             .status(StatusCode.INTERNAL_SERVER_ERROR)
-            .send(Errors.Adapter.Codec.encode(authenticatedMaybe.left));
+            .send(Errors.Adapter.Encode(authenticatedMaybe.left));
           return;
         default:
           res
-            .clearCookie("auth")
+            .clearCookie("Auth")
             .status(StatusCode.INTERNAL_SERVER_ERROR)
             .send();
           return;

@@ -12,6 +12,7 @@ import {
   LoginEmailTemplate,
 } from "../../../../email/model";
 import { Errors } from "../../../../values";
+import { toUndefined } from "fp-ts/lib/Option";
 
 export type IHandler = (
   command: Command.T
@@ -33,7 +34,7 @@ export default (
       {
         to: {
           address: account.email.address,
-          name: account.name,
+          name: toUndefined(account.name),
         },
         dynamicTemplateData: {
           greeting: GetEmailIntro(),

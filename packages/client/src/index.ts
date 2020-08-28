@@ -1,5 +1,5 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { Config, Widget, UUID } from "@huckleberrylabs/ping-core";
+import { Config, UUID } from "@huckleberrylabs/ping-core";
 import * as SDK from "./sdk";
 import * as WidgetClient from "./widget";
 
@@ -17,9 +17,7 @@ export const onLoad = async () => {
   const settingsMaybe = await sdk.GetByID();
   if (isLeft(settingsMaybe)) return;
   const settings = settingsMaybe.right;
-  const log = Widget.Logging.Log.C();
-  const logger = Widget.Logging.Logger.C(log);
-  if (settings.enabled) WidgetClient.C(logger, sdk)(settings);
+  if (settings.enabled) WidgetClient.C(sdk)(settings);
 };
 
 window.addEventListener("load", onLoad, false);

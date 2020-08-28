@@ -1,12 +1,9 @@
 import React from "react";
 
-// Button
+// UI
 import { Button } from "@rmwc/button";
 import { IconPropT } from "@rmwc/types";
-import "@rmwc/button/styles";
-
-// Style
-import "./style.css";
+import "@material/button/dist/mdc.button.css";
 
 type Props = {
   label?: string;

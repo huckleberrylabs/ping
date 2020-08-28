@@ -1,8 +1,17 @@
 import { pipe } from "fp-ts/lib/pipeable";
-import { tryCatch, isRight, map } from "fp-ts/lib/Either";
+import {
+  Either,
+  fold,
+  left,
+  right,
+  tryCatch,
+  isRight,
+  map,
+} from "fp-ts/lib/Either";
 import * as iots from "io-ts";
 import normalize from "normalize-url";
 import * as Errors from "../errors";
+import { DecodeErrorFormatter } from "../../logging";
 
 /*
 
@@ -31,22 +40,27 @@ encodeURIComponent(decodeURIComponent());
 */
 
 export const Name = "value:url";
-
 export interface Brand {
   readonly [Name]: unique symbol;
 }
-
 export const Codec = iots.brand(
   iots.string,
   (input): input is iots.Branded<string, Brand> => isRight(C(input)),
   Name
 );
-
+export const Decode = (value: unknown) =>
+  fold<iots.Errors, T, Either<Errors.Validation.T, T>>(
+    errors =>
+      left(
+        Errors.Validation.C(Name, `Decode: ${DecodeErrorFormatter(errors)}`)
+      ),
+    decoded => right(decoded)
+  )(Codec.decode(value));
+export const Encode = Codec.encode;
+export const Is = Codec.is;
 export type T = iots.TypeOf<typeof Codec>;
-
 export const C = (input: string) =>
   pipe(Parse(input), map(Normalize), map(Format));
-
 /* 
   - checks if valid
   - lowercases scheme and host
@@ -55,9 +69,8 @@ export const C = (input: string) =>
 export const Parse = (input: string) =>
   tryCatch(
     () => new URL(input).toString(),
-    () => Errors.Parsing.C()
+    () => Errors.Validation.C(Name, "Parse")
   );
-
 /*
   - removes trailing slash
   - removes default directory indexes
@@ -70,7 +83,4 @@ export const Normalize = (input: string): string => {
   // Remove trailing question mark
   return url.endsWith("?") ? url.slice(0, -1) : url;
 };
-
 export const Format = (input: string) => input as T;
-
-export const Is = Codec.is;

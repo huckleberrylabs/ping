@@ -75,3 +75,25 @@ a {
 .mdc-button__label {
   text-transform: none;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.inner-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.inner-container > div {
+  min-width: 600px;
+  width: 45%;
+}
+
+@media only screen and (max-width: 1600px) {
+  .inner-container {
+    flex-direction: column;
+  }
+}

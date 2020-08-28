@@ -1,5 +1,8 @@
 import WebSocket from "ws";
 import { Server } from "http";
+import { Logger, NameSpaceCaseString } from "@huckleberrylabs/ping-core";
+
+export const Name = "adapters:websocket" as NameSpaceCaseString.T;
 
 export const C = (server: Server) => {
   const wss = new WebSocket.Server({ server });
@@ -8,7 +11,7 @@ export const C = (server: Server) => {
       ws.close();
       return;
     }
-    console.log(`clients: ${wss.clients.size} `);
+    Logger(Name, "info", `ws ${wss.clients.size} client`);
     let alive = true;
     const timeout = setTimeout(() => {
       if (alive) {
@@ -20,40 +23,40 @@ export const C = (server: Server) => {
     }, 5000 + 1000);
 
     ws.on("error", () => {
-      console.log("ws error");
+      Logger(Name, "info", "ws error");
       timeout.refresh();
       alive = true;
     });
     ws.on("message", async message => {
-      console.log("ws message");
+      Logger(Name, "info", "ws message");
       timeout.refresh();
       alive = true;
       const data = JSON.parse(message.toString());
       console.log(data);
     });
     ws.on("ping", () => {
-      console.log("ws ping");
+      Logger(Name, "info", "ws ping");
       timeout.refresh();
       alive = true;
     });
     ws.on("pong", () => {
-      console.log("ws pong");
+      Logger(Name, "info", "ws pong");
       timeout.refresh();
       alive = true;
     });
     ws.on("unexpected-response", () => {
-      console.log("ws unexpected-response");
+      Logger(Name, "info", "ws unexpected-response");
       timeout.refresh();
       alive = true;
     });
     ws.on("upgrade", () => {
-      console.log("ws upgrade");
+      Logger(Name, "info", "ws upgrade");
       timeout.refresh();
       alive = true;
     });
     ws.on("close", () => {
-      console.log(`clients: ${wss.clients.size} `);
-      console.log("ws close");
+      Logger(Name, "info", "ws close");
+      Logger(Name, "info", `ws ${wss.clients.size} client`);
       clearTimeout(timeout);
     });
   });

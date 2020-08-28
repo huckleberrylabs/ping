@@ -1,5 +1,5 @@
-.contact-list {
+.contact-data-table {
   min-width: 500px;
   width: 100%;
-  max-width: 80vw;
+  margin-top: 40px;
 }

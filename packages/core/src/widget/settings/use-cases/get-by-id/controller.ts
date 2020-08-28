@@ -7,11 +7,18 @@ import { IHandler } from "./handler";
 
 export default (handler: IHandler) => async (req: Request, res: Response) => {
   // Decode
-  const queryMaybe = Query.Codec.decode(req.body);
+  const queryMaybe = Query.Decode(req.body);
   if (isLeft(queryMaybe)) {
     res
       .status(StatusCode.BAD_REQUEST)
-      .send(Errors.Parsing.Codec.encode(Errors.Parsing.C()));
+      .send(
+        Errors.Validation.Encode(
+          Errors.Validation.C(
+            Query.Name,
+            `DTO decode error: ${queryMaybe.left.toString()}`
+          )
+        )
+      );
     return;
   }
   const query = queryMaybe.right;
@@ -25,20 +32,20 @@ export default (handler: IHandler) => async (req: Request, res: Response) => {
       case Errors.NotFound.Name:
         res
           .status(StatusCode.NOT_FOUND)
-          .send(Errors.NotFound.Codec.encode(result.left));
+          .send(Errors.NotFound.Encode(result.left));
         return;
       case Errors.Adapter.Name:
         res
           .status(StatusCode.INTERNAL_SERVER_ERROR)
-          .send(Errors.Adapter.Codec.encode(result.left));
+          .send(Errors.Adapter.Encode(result.left));
         return;
       default:
         res
           .status(StatusCode.INTERNAL_SERVER_ERROR)
-          .send(Errors.Adapter.Codec.encode(result.left));
+          .send(Errors.Adapter.Encode(result.left));
         return;
     }
   }
-  res.status(StatusCode.OK).send(Model.Codec.encode(result.right));
+  res.status(StatusCode.OK).send(Model.Encode(result.right));
   return;
 };

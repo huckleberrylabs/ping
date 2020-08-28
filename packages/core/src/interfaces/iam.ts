@@ -8,6 +8,7 @@ import {
 import { Errors } from "../values";
 import * as Account from "../iam/account";
 import * as Authentication from "../iam/authentication";
+import { IRepository } from "./repository";
 
 export interface IAuthenticationService {
   // generate access token
@@ -78,20 +79,8 @@ export interface IAccessPolicyRepository {
   }): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>>;
 }
 
-export interface IAccountRepository {
-  get(
-    id: UUID.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Account.Model.T>>;
+export interface IAccountRepository extends IRepository<Account.Model.T> {
   getByEmail(
     email: EmailAddress.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Account.Model.T>>;
-  add(account: Account.Model.T): Promise<Either<Errors.Adapter.T, null>>;
-  update(
-    account: Account.Model.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>>;
-  exists(
-    id: UUID.T
-  ): Promise<
-    Either<Errors.Adapter.T | Errors.NotImplemented.T | Errors.NotFound.T, null>
-  >;
 }

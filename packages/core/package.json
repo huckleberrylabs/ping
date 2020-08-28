@@ -58,7 +58,9 @@
       "tslint-config-prettier"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+      "no-switch-case-fall-through": false
+    },
     "rulesDirectory": []
   },
   "scripts": {

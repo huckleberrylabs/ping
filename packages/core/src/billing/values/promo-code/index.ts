@@ -1,5 +1,7 @@
 import * as iots from "io-ts";
-import { NameSpaceCaseString, NonEmptyString } from "../../../values";
+import { NameSpaceCaseString, NonEmptyString, Errors } from "../../../values";
+import { Either, fold, left, right } from "fp-ts/lib/Either";
+import { DecodeErrorFormatter } from "../../../logging";
 
 export const Name = "billing:value:promo-code" as NameSpaceCaseString.T;
 
@@ -12,6 +14,17 @@ export const Codec = iots.union(
   ],
   Name
 );
+export const Is = Codec.is;
+export const Decode = (value: unknown) =>
+  fold<iots.Errors, T, Either<Errors.Validation.T, T>>(
+    errors =>
+      left(
+        Errors.Validation.C(Name, `Decode: ${DecodeErrorFormatter(errors)}`)
+      ),
+    decoded => right(decoded)
+  )(Codec.decode(value));
+export const Encode = Codec.encode;
+export type T = iots.TypeOf<typeof Codec>;
 
 type CouponMap = {
   [P in T]: {
@@ -19,7 +32,6 @@ type CouponMap = {
     description: NonEmptyString.T;
   };
 };
-
 export const ToCoupon: CouponMap = {
   HELPINGHAND: {
     couponID: "HvYlvfSS" as NonEmptyString.T,
@@ -38,9 +50,4 @@ export const ToCoupon: CouponMap = {
     description: "15% off for 1 year" as NonEmptyString.T,
   },
 };
-
 export const Default: T = "GIVEAWAY";
-
-export type T = iots.TypeOf<typeof Codec>;
-
-export const Is = Codec.is;

@@ -1,34 +1,28 @@
 import React, { useState } from "react";
-import ColorLib from "color";
+import { Widget, Color } from "@huckleberrylabs/ping-core";
 
-// Color Picker
+// UI
 import { ChromePicker } from "react-color";
-
-// Button
 import { Button } from "@rmwc/button";
 import "@rmwc/button/styles";
-
-// Style
 import "./style.css";
-
-const DefaultColor = "#0087ff";
 
 type Props = {
   label?: string;
   disabled?: boolean;
-  initialValue?: string;
-  onSelect: (input: string) => void;
+  initialValue?: Color.T;
+  onSelect: (input: Color.T) => void;
 };
 
 export const ColorField = ({
   label,
   disabled,
-  initialValue,
+  initialValue = Widget.Values.Color.DEFAULT,
   onSelect,
 }: Props) => {
   const [showColorPicker, updateColorPicker] = useState(false);
   const toggleColorPicker = () => updateColorPicker(!showColorPicker);
-  const [color, updateColor] = useState<string>(initialValue || DefaultColor);
+  const [color, setColor] = useState<Color.T>(initialValue);
   return (
     <div className="color-field">
       <Button
@@ -36,7 +30,7 @@ export const ColorField = ({
         raised
         style={{
           backgroundColor: color,
-          color: ColorLib(color).isLight() ? "black" : "white",
+          color: Color.IsLight(color) ? "black" : "white",
         }}
         disabled={disabled}
         onClick={toggleColorPicker}
@@ -49,8 +43,9 @@ export const ColorField = ({
           <ChromePicker
             color={color}
             onChangeComplete={(input: { hex: string }) => {
-              updateColor(input.hex);
-              onSelect(input.hex);
+              const color = input.hex as Color.T;
+              setColor(color);
+              onSelect(color);
             }}
           />
         </div>

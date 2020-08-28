@@ -1,4 +1,4 @@
-import { isLeft, Either, isRight, left } from "fp-ts/lib/Either";
+import { isLeft, Either } from "fp-ts/lib/Either";
 import { Errors } from "../../../../values";
 import {
   IWidgetRepository,
@@ -16,13 +16,9 @@ export type IHandler = (
 export default (
   repo: IWidgetRepository,
   auth: IAuthorizationService,
-  messaging: IMessagingService
+  messageService: IMessagingService
 ): IHandler => async command => {
-  // Check if a widget with the same id already exists
-  const widgetMaybe = await repo.exists(command.widget.id);
-  if (isRight(widgetMaybe)) return left(Errors.Validation.C());
-
-  // Save the widget
+  // Add the widget if it does not already exist
   const savedMaybe = await repo.add(command.widget);
   if (isLeft(savedMaybe)) return savedMaybe;
 
@@ -36,17 +32,11 @@ export default (
     return authMaybe;
   }
 
-  // Create Channel
-  const channelMaybe = await messaging.createChannel(
+  messageService.createChannel(
     command.widget.account,
-    command.router,
     command.widget.id,
     "widget"
   );
-  if (isLeft(channelMaybe)) return channelMaybe;
-
-  // TODO atomic exists + add
-  // TODO create channel and grant authorization in subscribers?
 
   return savedMaybe;
 };

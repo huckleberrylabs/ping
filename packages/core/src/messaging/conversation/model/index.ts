@@ -1,14 +1,16 @@
 import * as iots from "io-ts";
+import { isSome } from "fp-ts/lib/Option";
+import { Either, fold, left, right } from "fp-ts/lib/Either";
 import { UUID, NameSpaceCaseString, TimeStamp, Errors } from "../../../values";
+import { DecodeErrorFormatter } from "../../../logging";
 import * as Message from "../../message";
 import * as Contact from "../../contact";
-import { Either, left, right } from "fp-ts/lib/Either";
-import { isSome } from "fp-ts/lib/Option";
 
 export const Name = "messaging:model:conversation" as NameSpaceCaseString.T;
 
 export const Codec = iots.type(
   {
+    type: iots.literal(Name),
     id: UUID.Codec,
     created: TimeStamp.Codec,
     lastActive: TimeStamp.Codec,
@@ -18,10 +20,19 @@ export const Codec = iots.type(
   },
   Name
 );
-
+export const Is = Codec.is;
+export const Decode = (value: unknown) =>
+  fold<iots.Errors, T, Either<Errors.Validation.T, T>>(
+    errors =>
+      left(
+        Errors.Validation.C(Name, `Decode: ${DecodeErrorFormatter(errors)}`)
+      ),
+    decoded => right(decoded)
+  )(Codec.decode(value));
+export const Encode = Codec.encode;
 export type T = iots.TypeOf<typeof Codec>;
-
 export const C = (account: UUID.T): T => ({
+  type: Name,
   id: UUID.C(),
   lastActive: TimeStamp.C(),
   created: TimeStamp.C(),
@@ -30,18 +41,36 @@ export const C = (account: UUID.T): T => ({
   contacts: [],
 });
 
-export const Is = Codec.is;
-
 // Expires in 4 Hours
 export const DEFAULT_EXPIRY = 1.44e7;
 
 export const AddMessage = (convo: T) => (
   msg: Message.Model.T
 ): Either<Errors.Validation.T, T> => {
-  if (!SameAccount(convo)(msg)) return left(Errors.Validation.C());
-  if (!BelongsToConversation(convo)(msg)) return left(Errors.Validation.C());
-  if (!ContainsContactID(convo)(msg.from)) return left(Errors.Validation.C());
-  if (ContainsMessage(convo)(msg)) return left(Errors.Validation.C());
+  if (!SameAccount(convo)(msg))
+    return left(
+      Errors.Validation.C(
+        `${Name}.AddMessage must have same account as conversation`
+      )
+    );
+  if (!BelongsToConversation(convo)(msg))
+    return left(
+      Errors.Validation.C(Name, "AddMessage: must belong to the conversation")
+    );
+  if (!ContainsContactID(convo)(msg.from))
+    return left(
+      Errors.Validation.C(
+        Name,
+        "AddMessage: conversation must contain message sender id in contact list"
+      )
+    );
+  if (ContainsMessage(convo)(msg))
+    return left(
+      Errors.Validation.C(
+        Name,
+        "AddMessage: conversation already contains message"
+      )
+    );
   convo.messages.push(msg.id);
   if (TimeStamp.Compare(convo.lastActive, msg.timestamp) > 0)
     convo.lastActive = msg.timestamp;
@@ -51,7 +80,13 @@ export const AddMessage = (convo: T) => (
 export const AddContact = (convo: T) => (
   contact: Contact.Model.T
 ): Either<Errors.Validation.T, T> => {
-  if (!SameAccount(convo)(contact)) return left(Errors.Validation.C());
+  if (!SameAccount(convo)(contact))
+    return left(
+      Errors.Validation.C(
+        Name,
+        "AddMessage: must have same account as conversation"
+      )
+    );
   if (!ContainsContact(convo)(contact)) {
     convo.contacts.push(contact.id);
   }

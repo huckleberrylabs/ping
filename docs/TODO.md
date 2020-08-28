@@ -1,119 +1,112 @@
-## Strictly UI TODO
-
-- routing
-- registration
-- create-widget
-
-## Connect to Backend
+# Todo
 
 - Update Billing Info
 - View/Download Invoices
-- Cancel Account
-- View Widgets
-- View Conversations
-- View Contacts
-- View Conversation Detail
-- Registration
-- Create a Widget
+- add Animation to Client
+- migrate database
+- deploy
+- Check if Bruces issue is fixed
+- update dependencies
+- check when SendGrid runs out and add in calendar for downgrade.
+- add a ToS Agreement
+- 30 day trial enforcement
 
-## Notes on Updating Billing
+## Backlog
 
-- Changing Org name changes name on stripe
-- Changing Address changes address on stripe
-- Changing Billing email changes email on stripe
-- Changing Payment Method is done in tandem with other billing changes
-
-## Other UI Implementation
-
-- Show free trial status / invalid payment status
+- Avoiding Number Pairing Reuse, Deallocate / Cycle Numbers. Messaging Chron Job to emit a Conversation Terminated Event, Subscriber in SMS to listen to ConversationTerminatedEvent and deallocateNumberPairingsByConversation.
+- create a streamlined widget preview
+- resolve the country code issue
+- Make Installation Easier
+  - WordPress Plugin
+  - Send Email Button
+  - Instructions and Videos
+  - Manual
+    - Google Tag Manager
+    - SquareSpace
+    - Shopify
+    - Wix
+    - Weebly
+    - WordPress
+    - GoDaddy
+- Expand Country Availability
+- CORS should check if referrer is widget homePage
+- Widget.homePage should be unique
+- Login Email Case Sensitivity
+- Inform user of Free Trial Status and Failed Payments in ping-admin and via email/sms
+- Show Human-readable From and Channel in Conversation-Detail
+- Create a public Conversation View and Provide a URL in the Conversation
 - Use Places AutoComplete for Billing Address Updates
-- Install instructions
-
-## Widget Analytics
-
-- visit vs open vs send this week / month / year
-- Widget ID via url
-
-## Next Release
-
-- SMS proxy conversations
-- New Identity and Access Management System
-
-- View conversation/message history
-- View contacts
-
-- No CC required, updated registration flow
-- Customize button animation, X/Y offset, button text controls
-- View button activity analytics
-- General fix for the issue related to bruce's ping
-
-## TODO
-
-### Data Integrity
-
-- Add Type property to all Data
-- Script to keep Twilio numbers in sync with SMSNumberRepo
+- Interpolate Analytics Data
+- Analytics shows multiple widgets / multiple metrics on the same graph
+- Analytics Load vs Open vs Ping this week / month / year
+- Admin collapsable drawer and center app on mobile
+- SMS Account Model to track costs
+- Add More Channels
+- SMS Status Callback
+- Give Preference to Numbers with same area code
 - Cron Job to remove expired jwt tokens from invalidtokenrepo
+- Script to keep Twilio numbers in sync with SMSNumberRepo
+- Introduce Analytics Sessions
+- Send Widget Logs back to Server
+- Widget Live Chat
+- add scale as a widget setting
+- Ensure Unload Event triggers successfully
+- Fix Mobile Safari position:fixed
+- Email Channel
+- Include Source Site, URL in Message Meta
+- url patterns (show only on...)
+- embedded widget
+- custom fields (see typeform.ts)
+- url parameters
+- JS SDK variables
+- JS SDK fully custom
+- AB Testing
+- Website (see Website.md)
+- AppWidget
+- Throttle send-message
+- Create a Widget Session connected to Contact
+- IAM Access Log
+- IAM Access Policy Change Log
+- IAM Extensions - Policy "Traversals" - if A owns B and B owns C then A can access C.
+- Monitor Websites for Bad Installation / Low Conversion and reach out proactively
+- Include context information about where a Contact came from (channel-wise)
+
+## Refactor
+
+- delete analytics and authentication policies on account deletion
+- the entire thing should be under one aggregate - customer. rename account to user.
+- use FunctionalComponent<Props> and destructure props
+- Move Analytics Events Action UUIDs to Core
+- Return Validation Errors on Repo Adds when already exists
+- Return Not Found Error on Repo Removes
+- Move Analytics Aggregation to backend
+- re-evaluate AuthService (Errors not handled in state)
+- make a common DialogModal Component and make enter key stroke work for default action
+- clean up EmailService
 - Move to PostGreSQL
-
-### Organization
-
-- Include a message in Errors and log them consistently on creation
-- Remove all Console Logs
-- Include Message In Error
-- Log Errors on Creation Everywhere
+- create a mapping function for errors to http response
+- add debug Logging to display conditional branching in UseCases
 - Rename "Maybe" variables
-- Create a mapping function for errors to http response
+- rewrite object-nested methods in a functional way
+- rename NameSpaceCaseString to Name
 - Repositories shouldn't be accessed outside of Bounded Context
 - Refactor Widget (move usecases from settings to top)
 - Rename Names
-
-### Domain
-
-- Invariant not enforced anywhere: Account can only have one SMS channel.
-- Channel Type should be a value object of its own
-- Create SMS Channel on Setup
 - SMS Channel Settings Repo?
-- What happens if you are messaging yourself? (2 in 1 conversation)
-- Mark Contacts as Internal
-- Avoiding Number Pairing reuse
-- Billing Clean up service
-- Email Clean up Service
-- Add Phone Creation within PhoneWithCountry Creation (to ensure phone was created with the same country)
-- Add All Countries to Country (and in Front End, use a common Object)
-- Creating a Conversation View and Providing a URL to the Conversation
+- Channel Kind should be a value object of its own
 
-### SMS
+## Ping as a Floating Action Button (FAB)
 
-- Handler error when a new number is bought, but it wasn't successfully persisted to Number Repo.
-- A chron job in messaging to emit a Conversation Terminated Event.
-- A Subscriber in SMS to listen to ConversationTerminatedEvent and deallocateNumberPairingsByConversation.
-- Give Preference to Numbers with same area code
-- Deallocate/Cycle Phone Numbers
-- Status Callback
-- SMS Account Model to track costs
-- Add other Channels
-
-### UI
-
-- Use Shadow DOM
-- Fix Bruces issue
-- Replace PhoneField with PhoneWithCountryField
-- Ask for CountryCode in Client instead of getting it from Widget
-- Admin color picker bottoms out
-- Admin collapsable drawer and center app on mobile
-- Admin center loading icons
-
-### Other
-
-- Look At Data (attention and interaction quantity/quality)
-- Check when SendGrid runs out and add in calendar for downgrade.
-- Login Email Case Sensitivity
-- Update Packages
-- Update GSuite Email Setup
-- Update Google Business Listing with [Huckleberrylabs.ca](http://huckleberrylabs.ca) website
-- Figure out how to do lerna publish and git push together
-- Throttling
-- Access Filtering
-- Monitoring
-- Event Correlation
+- offset maximum
+- circle shape
+- overlay reference point
+- embed
+- speed dial
+- extended fab with text
+- show extended fab text on hover
+- expand to menu
+- close menu by pressing button again
+- other key actions (call, directions, etc)
+- custom size
+- custom SVG
+- custom PNG

@@ -1,7 +1,8 @@
 import React from "react";
 import moment from "moment";
+import { Messaging } from "@huckleberrylabs/ping-core";
 
-// Data Table
+// UI
 import {
   DataTable,
   DataTableContent,
@@ -12,38 +13,28 @@ import {
   DataTableCell,
 } from "@rmwc/data-table";
 import "@rmwc/data-table/styles";
-
-// Style
 import "./style.css";
 
-const MessageRow = (message: Message) => (
+const MessageRow = (message: Messaging.Message.Model.T) => (
   <DataTableRow key={message.id}>
     <DataTableCell>{message.from}</DataTableCell>
     <DataTableCell>{message.channel}</DataTableCell>
     <DataTableCell className="message-list-content-cell">
       {message.content}
     </DataTableCell>
-    <DataTableCell>{message.meta}</DataTableCell>
+    <DataTableCell>{JSON.stringify(message.meta)}</DataTableCell>
     <DataTableCell alignEnd>
       {moment(message.timestamp).format("ddd, MMMM Do YYYY, h:mm a")}
     </DataTableCell>
   </DataTableRow>
 );
 
-type Message = {
-  id: string;
-  timestamp: string;
-  from: string;
-  channel: string;
-  content: string;
-  meta: string;
-};
-
 type Props = {
-  messages: Message[];
+  messages: Messaging.Message.Model.T[];
 };
 
 export const MessageList = (props: Props) => {
+  console.log(props.messages);
   return (
     <DataTable className="message-list">
       <DataTableContent>

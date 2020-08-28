@@ -30,28 +30,27 @@ export const GetDayName = (date: Date): string => {
 
 export const GetEmailIntro = () => {
   const INTROS = [
-    "Howdy partner!",
-    "Hi friend!",
-    "Ahoy, matey!",
-    "Ello, gov'nor!",
-    "Aloha!",
-    "Buongiorno!",
-    "Ciao!",
-    "Salut!",
-    "Guten tag!",
-    "Hola! Mucho Gusto!",
-    "Konichiwa!",
+    "Howdy partner :)",
+    "Hi friend :)",
+    "Ahoy, matey :)",
+    "Ello, gov'nor :)",
+    "Aloha :)",
+    "Buongiorno :)",
+    "Ciao :)",
+    "Salut :)",
+    "Guten tag :)",
+    "Hola :)",
+    "Konichiwa :)",
     `Happy ${GetDayName(new Date())}!`,
   ];
   return INTROS[Math.floor(Math.random() * INTROS.length)];
 };
 
-export const LoginLink = (token: string) =>
-  `${PingAdminURL}/login?token=${token}`;
+export const LoginLink = (token: string) => `${PingAdminURL}/?token=${token}`;
 
 export type EmailAccount = {
   address: EmailAddress.T;
-  name: PersonName.T;
+  name?: PersonName.T;
 };
 
 export type Email = {
@@ -62,10 +61,15 @@ export type Email = {
   dynamicTemplateData?: { [key: string]: any };
 };
 
+export type EmailAccountWithName = {
+  address: EmailAddress.T;
+  name: PersonName.T;
+};
+
 export type EmailTemplate = {
   id: NonEmptyString.T;
-  from: EmailAccount;
-  replyTo: EmailAccount;
+  from: EmailAccountWithName;
+  replyTo: EmailAccountWithName;
   unsubscribe: {
     groupId: number;
     groupsToDisplay: number[];

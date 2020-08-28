@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { Either, left, right } from "fp-ts/lib/Either";
-import { PersonName, NonEmptyString, Errors } from "../../values";
+import { NonEmptyString, Errors, NameSpaceCaseString, Env } from "../../values";
 import { IBillingService } from "../../interfaces";
 import { PromoCode } from "../values";
 
@@ -33,16 +33,19 @@ import { PromoCode } from "../values";
   return error;
 }; */
 
+export const Name = "billing:service" as NameSpaceCaseString.T;
+
 export const C = (client: Stripe): IBillingService => ({
   createAccount: async (
     params
   ): Promise<Either<Errors.Adapter.T, NonEmptyString.T>> => {
     try {
+      const ProductionPlan = "plan_GqR7YANPMgUe0h" as NonEmptyString.T;
+      const DevPlan = "plan_GqR9gjrsaG4vNV" as NonEmptyString.T;
+      const plan = Env.Get() === "production" ? ProductionPlan : DevPlan;
       const customer = await client.customers.create(
         {
           email: params.email,
-          description: params.accountName,
-          name: PersonName.FirstLast(params.userName),
           payment_method: params.paymentMethod,
           invoice_settings: {
             default_payment_method: params.paymentMethod,
@@ -61,7 +64,7 @@ export const C = (client: Stripe): IBillingService => ({
           customer: customer.id,
           items: [
             {
-              plan: params.plan,
+              plan: plan,
               quantity: 1,
             },
           ],
@@ -70,13 +73,29 @@ export const C = (client: Stripe): IBillingService => ({
       );
       return right(customer.id as NonEmptyString.T);
     } catch (error) {
-      // const error = StripeError(err);
-      console.log(
-        `${error.type} with http status ${error.statusCode}
-        and code ${error.code}:
-        ${error.message} `
+      return left(
+        Errors.Adapter.C(
+          Name,
+          `stripe returned ${error.type} with http status ${error.statusCode} and code ${error.code}: ${error.message}`,
+          "Billing account could not be created, please try again later or contact support."
+        )
       );
-      return left(Errors.Adapter.C());
+    }
+  },
+  closeAccount: async ({ idemKey, customer }) => {
+    try {
+      await client.customers.del(customer, {
+        idempotency_key: `idem:customer:${idemKey}`,
+      });
+      return right(null);
+    } catch (error) {
+      return left(
+        Errors.Adapter.C(
+          Name,
+          `stripe returned ${error.type} with http status ${error.statusCode} and code ${error.code}: ${error.message}`,
+          "Could not cancel account due to billing issue, please contact support."
+        )
+      );
     }
   },
 });

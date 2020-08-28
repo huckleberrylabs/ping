@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "./services";
 import "./index.css";
 import { App } from "./app";
 import * as serviceWorker from "./serviceWorker";
+
+// Seeing double toasts? Its probably because the app is surrounded in StrictMode. It will go away when building for production.
 
 ReactDOM.render(
   <React.StrictMode>

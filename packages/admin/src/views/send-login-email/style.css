@@ -23,7 +23,6 @@
 }
 
 .send-login-email-loader {
-  display: flex;
   height: 200px;
   width: 200px;
 }

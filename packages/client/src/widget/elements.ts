@@ -7,6 +7,7 @@ import { GetElementById } from "./helpers";
 export type ElementIDs = {
   container: string;
   form: string;
+  cancel: string;
 
   create: string;
   createIcon: string;
@@ -28,6 +29,7 @@ export type ElementIDs = {
 export type Elements = {
   container: HTMLDivElement;
   form: HTMLFormElement;
+  cancel: HTMLButtonElement;
 
   create: HTMLButtonElement;
   textInput: HTMLInputElement;
@@ -47,6 +49,7 @@ export type Elements = {
 export const ElementIDs = (): ElementIDs => ({
   container: `container-${UUID.C()}`,
   form: `form-${UUID.C()}`,
+  cancel: `cancel-button-${UUID.C()}`,
   create: `create-button-${UUID.C()}`,
   createIcon: `open-button-icon-${UUID.C()}`,
   textInput: `text-input-${UUID.C()}`,
@@ -65,6 +68,7 @@ export const Elements = (i: ElementIDs) =>
     {
       container: toNullable(GetElementById(i.container)),
       form: toNullable(GetElementById(i.form)),
+      cancel: toNullable(GetElementById(i.cancel)),
 
       create: toNullable(GetElementById(i.create)),
       textInput: toNullable(GetElementById(i.textInput)),
@@ -80,8 +84,8 @@ export const Elements = (i: ElementIDs) =>
       success: toNullable(GetElementById(i.success)),
       error: toNullable(GetElementById(i.error)),
     },
-    (elems) =>
-      Object.values(elems).every((elems) => elems !== null)
+    elems =>
+      Object.values(elems).every(elems => elems !== null)
         ? right(elems as Elements)
         : left(new Error("html not initialized"))
   );

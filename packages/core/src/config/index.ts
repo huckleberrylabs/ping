@@ -1,4 +1,4 @@
-import { EmailAddress, Env, Url, Phone } from "../values";
+import { EmailAddress, Env, Url } from "../values";
 
 export const DefaultAPIURL = "http://localhost:8000";
 

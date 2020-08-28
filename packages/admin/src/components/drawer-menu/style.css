@@ -1,4 +1,4 @@
-.drawer-menu-container {
+.drawer-menu {
   position: fixed;
   top: 0;
   left: 0;
@@ -6,7 +6,7 @@
   padding-top: 90px;
 }
 
-.drawer-menu-container .mdc-list-item {
+.drawer-menu .mdc-list-item {
   font-size: 16px;
   padding: 5px 10px;
 }

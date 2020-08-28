@@ -5,17 +5,24 @@ import * as Command from "./command";
 
 export default () => async (req: Request, res: Response) => {
   // Decode
-  const commandMaybe = Command.Codec.decode(req.body);
+  const commandMaybe = Command.Decode(req.body);
   if (isLeft(commandMaybe)) {
     res
       .status(StatusCode.BAD_REQUEST)
-      .send(Errors.Parsing.Codec.encode(Errors.Parsing.C()));
+      .send(
+        Errors.Validation.Encode(
+          Errors.Validation.C(
+            Command.Name,
+            `DTO decode error: ${commandMaybe.left.toString()}`
+          )
+        )
+      );
     return;
   }
 
   // Clear cookie
   res
-    .clearCookie("auth")
+    .clearCookie("Auth")
     .status(StatusCode.OK)
     .send();
 };

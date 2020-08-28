@@ -6,22 +6,24 @@ import { StatusCode, Errors, NonEmptyString, Phone } from "../../../values";
 
 export default (handler: IHandler) => async (req: Request, res: Response) => {
   // Decode
-  // TODO Use other request information: To/FromCountry, NumSegments, NumMedia, To/FromCity
-  console.log(req.body);
+  // other request information available: To/FromCountry, NumSegments, NumMedia, To/FromCity
   const content = req.body.Body;
   const twilio = req.body.To; // TWILIO
   const from = req.body.From; // Person
   if (!(NonEmptyString.Is(content) && Phone.Is(twilio) && Phone.Is(from))) {
     res
       .status(StatusCode.BAD_REQUEST)
-      .send(Errors.Parsing.Codec.encode(Errors.Parsing.C()));
+      .send(
+        Errors.Validation.Encode(
+          Errors.Validation.C(Command.Name, `DTO decoding error`)
+        )
+      );
     return;
   }
   const command = Command.C(content, twilio, from);
 
   // Handle
   const successMaybe = await handler(command);
-  console.log(successMaybe);
 
   // Encode
   if (isLeft(successMaybe)) {

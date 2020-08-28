@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="104px" preserveAspectRatio="none" style="width:676px;height:104px;" version="1.1" viewBox="0 0 676 104" width="676px" zoomAndPan="magnify"><defs/><g><ellipse cx="376.8553" cy="21.242" fill="#F8F8F8" rx="38.3553" ry="13.242" style="stroke: #383838; stroke-width: 0.5;"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="50" x="351.8553" y="24.9842">adapters</text><!--MD5=[91d3fa8513849a33b53c8a56eadae34b]
+entity _event_bus_mock--><rect fill="#F8F8F8" height="34.4844" rx="3" ry="3" style="stroke: #000000; stroke-width: 0.5;" width="114" x="6" y="59"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="94" x="16" y="81.0059">event-bus-mock</text><!--MD5=[8f120dfc198e3a515a3d5827d08a7124]
+entity _event_store_mock--><rect fill="#F8F8F8" height="34.4844" rx="3" ry="3" style="stroke: #000000; stroke-width: 0.5;" width="123" x="133.5" y="59"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="103" x="143.5" y="81.0059">event-store-mock</text><!--MD5=[9a4aa2cdf9cb8e8e314c12b1af15fcf4]
+entity _fire_store--><rect fill="#F8F8F8" height="34.4844" rx="3" ry="3" style="stroke: #000000; stroke-width: 0.5;" width="73" x="269.5" y="59"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="53" x="279.5" y="81.0059">fire-store</text><!--MD5=[beaeab61d128dfdb74b428ebbd90710a]
+entity _http--><rect fill="#F8F8F8" height="34.4844" rx="3" ry="3" style="stroke: #000000; stroke-width: 0.5;" width="42" x="356" y="59"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="22" x="366" y="81.0059">http</text><ellipse cx="298.2487" cy="21.242" fill="#F8F8F8" rx="27.7487" ry="13.242" style="stroke: #383838; stroke-width: 0.5;"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="35" x="280.7487" y="24.9842">index</text><!--MD5=[a6b77a7880bea7060ce145d9d3987c5a]
+entity _sendgrid--><rect fill="#F8F8F8" height="34.4844" rx="3" ry="3" style="stroke: #000000; stroke-width: 0.5;" width="69" x="411.5" y="59"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="49" x="421.5" y="81.0059">sendgrid</text><!--MD5=[225f6ca7d2d2720d4ae97e0ff394ee78]
+entity _stripe--><rect fill="#F8F8F8" height="34.4844" rx="3" ry="3" style="stroke: #000000; stroke-width: 0.5;" width="52" x="494" y="59"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="32" x="504" y="81.0059">stripe</text><!--MD5=[700d03991b724e3253d4e7ef94611b77]
+entity _twilio--><rect fill="#F8F8F8" height="34.4844" rx="3" ry="3" style="stroke: #000000; stroke-width: 0.5;" width="50" x="559" y="59"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="30" x="569" y="81.0059">twilio</text><!--MD5=[54527a032efec0314245b19a2a79b672]
+entity _wss--><rect fill="#F8F8F8" height="34.4844" rx="3" ry="3" style="stroke: #000000; stroke-width: 0.5;" width="43" x="622.5" y="59"/><text fill="#000000" font-family="Tahoma, sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="23" x="632.5" y="81.0059">wss</text><!--MD5=[4f2b99a6683cec28ca2fa3dd79323b0b]
+link adapters to _event_bus_mock--><path d="M349.054,30.0976 C343.44,31.5416 337.557,32.9257 332,34 C241.883,51.4227 217.251,42.2818 127,59 C126.437,59.1043 125.871,59.2106 125.304,59.3189 " fill="none" id="adapters-&gt;_event_bus_mock" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="120.147,60.3414,129.7533,62.5139,125.0514,59.3686,128.1967,54.6667,120.147,60.3414" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[57b442e0cd8af83e17fae0101f7e1314]
+link adapters to _event_store_mock--><path d="M349.358,30.0496 C324.439,37.3063 286.936,48.2275 255.136,57.4878 " fill="none" id="adapters-&gt;_event_store_mock" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="250.084,58.9589,259.8432,60.2846,254.8848,57.5617,257.6077,52.6033,250.084,58.9589" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[2b30d6a763cc897bebd85e149c01cc2f]
+link adapters to _fire_store--><path d="M361.943,33.2399 C353.181,39.7805 341.898,48.2025 331.764,55.768 " fill="none" id="adapters-&gt;_fire_store" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="327.501,58.9499,337.1058,56.771,331.5076,55.9587,332.3199,50.3605,327.501,58.9499" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[5764ec7c412b4f0cf281e8e54c49f0e3]
+link adapters to _http--><path d="M373.159,34.0265 C372.566,39.8676 372.373,47.0619 372.58,53.7836 " fill="none" id="adapters-&gt;_http" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="372.817,58.8012,376.3889,49.6229,372.5816,53.8067,368.3978,49.9995,372.817,58.8012" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[da2fbf0977b01fc015060155c094ab90]
+link _http to adapters--><path d="M381.88,58.8012 C382.351,52.564 382.372,45.425 381.945,39.105 " fill="none" id="_http-&gt;adapters" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="381.481,34.0265,378.317,43.3533,381.9362,39.0057,386.2838,42.6249,381.481,34.0265" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[a9b27fcfd50e7140fab30cfe7f156c55]
+link adapters to _sendgrid--><path d="M391.633,33.2399 C400.148,39.7805 411.113,48.2025 420.962,55.768 " fill="none" id="adapters-&gt;_sendgrid" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="425.105,58.9499,420.404,50.2954,421.1397,55.9042,415.5309,56.6398,425.105,58.9499" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[4e8a39ea93bca913ee79278c8ed35f4d]
+link adapters to _stripe--><path d="M404.476,30.176 C426.944,37.1152 459.396,47.719 487,59 C487.7,59.286 488.406,59.58 489.116,59.8804 " fill="none" id="adapters-&gt;_stripe" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="493.838,61.9442,487.1938,54.6741,489.2566,59.9414,483.9893,62.0043,493.838,61.9442" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[8641b15c352fdb98d21a81509715ce58]
+link adapters to _twilio--><path d="M412.156,26.5424 C448.237,31.8587 505.639,42.1486 553,59 C553.364,59.1294 553.729,59.2623 554.094,59.3985 " fill="none" id="adapters-&gt;_twilio" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="558.872,61.329,552.0256,54.249,554.236,59.4561,549.0289,61.6666,558.872,61.329" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[84718280f9cee22c2a763c270830e859]
+link adapters to _wss--><path d="M414.872,23.6113 C462.883,26.6056 547.631,35.0942 616,59 C616.529,59.1848 617.058,59.3796 617.589,59.5833 " fill="none" id="adapters-&gt;_wss" style="stroke: #000000; stroke-width: 0.5;"/><polygon fill="#000000" points="622.352,61.6285,615.6605,54.4019,617.7577,59.6556,612.5039,61.7528,622.352,61.6285" style="stroke: #000000; stroke-width: 0.5;"/><!--MD5=[a0a9e5edd053e71ad8052cb26948e204]
+link <b>index</b> to adapters--><path d="M325.773,21 C328.229,21 330.684,21 333.14,21 " fill="none" id="&lt;b&gt;index&lt;/b&gt;-&gt;adapters" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="338.18,21,329.18,17,333.18,21,329.18,25,338.18,21" style="stroke: #000000; stroke-width: 1.0;"/><script type="text/plantuml"><![CDATA[MD5=[1c3d17e73f4693d15b259c31f589d783]
+@startuml
+
+scale max 1920 width
+top to bottom direction
+
+skinparam nodesep 13
+skinparam ranksep 25
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Tahoma
+skinparam defaultFontSize 12
+skinparam roundCorner 6
+skinparam dpi 150
+skinparam arrowColor black
+skinparam arrowThickness 0.5
+skinparam packageTitleAlignment left
+
+skinparam usecase {
+  borderThickness 0.5
+}
+
+skinparam rectangle {
+  borderThickness 0.5
+}
+
+skinparam component {
+  borderThickness 1
+}
+
+
+(adapters)
+rectangle "event-bus-mock" as _event_bus_mock
+rectangle "event-store-mock" as _event_store_mock
+rectangle "fire-store" as _fire_store
+rectangle "http" as _http
+(<b>index</b>)
+rectangle "sendgrid" as _sendgrid
+rectangle "stripe" as _stripe
+rectangle "twilio" as _twilio
+rectangle "wss" as _wss
+
+
+(adapters) --> _event_bus_mock
+(adapters) --> _event_store_mock
+(adapters) --> _fire_store
+(adapters) --> _http
+(adapters) --> _sendgrid
+(adapters) --> _stripe
+(adapters) --> _twilio
+(adapters) --> _wss
+_http --> (adapters)
+(<b>index</b>) -[thickness=1]> (adapters)
+
+@enduml
+
+
+' View and edit on https://arkit.pro
+]]></script></g></svg>

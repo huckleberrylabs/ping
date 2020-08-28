@@ -1,0 +1,59 @@
+.widgets {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.widgets-controls {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.widgets-controls p {
+  color: var(--mdc-theme-text-hint-on-light);
+}
+
+.widgets-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.widgets-grid > a {
+  margin: 10px;
+}
+
+.create-widget {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.625rem 2.25rem;
+}
+
+.create-widget > button {
+  width: 15.75rem;
+  height: 13.5rem;
+  border: 2px dashed;
+}
+
+.create-widget-modal {
+  flex-direction: column;
+  text-align: center;
+  width: 300px;
+  padding: 20px;
+}
+
+.create-widget-modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  width: 100%;
+}
+
+@media only screen and (max-width: 1050px) {
+  .widgets-grid {
+    justify-content: center;
+  }
+}

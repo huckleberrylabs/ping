@@ -1,6 +1,8 @@
-import { PersonName, TimeStamp } from "../../values";
+import { PersonName, TimeStamp, NameSpaceCaseString } from "../../values";
 import { Email, EmailTemplate, EmailOptions } from "../model";
 import { IEmailService, ISendGrid } from "../../interfaces";
+
+export const Name = "email:service" as NameSpaceCaseString.T;
 
 export const C = (client: ISendGrid): IEmailService => async (
   emails: Email[],
@@ -11,18 +13,22 @@ export const C = (client: ISendGrid): IEmailService => async (
     personalizations: emails.map(email => ({
       to: {
         email: email.to.address,
-        name: PersonName.FirstLast(email.to.name),
+        name: email.to.name ? PersonName.FirstLast(email.to.name) : undefined,
       },
       cc: email.cc
         ? {
             email: email.cc.address,
-            name: PersonName.FirstLast(email.cc.name),
+            name: email.cc.name
+              ? PersonName.FirstLast(email.cc.name)
+              : undefined,
           }
         : undefined,
       bcc: email.bcc
         ? {
             email: email.bcc.address,
-            name: PersonName.FirstLast(email.bcc.name),
+            name: email.bcc.name
+              ? PersonName.FirstLast(email.bcc.name)
+              : undefined,
           }
         : undefined,
       dynamicTemplateData: email.dynamicTemplateData,

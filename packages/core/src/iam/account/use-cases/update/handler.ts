@@ -3,6 +3,7 @@ import { IAccountRepository, IEventBus } from "../../../../interfaces";
 import { Errors } from "../../../../values";
 import * as Event from "../../events/updated";
 import * as Command from "./command";
+import { some } from "fp-ts/lib/Option";
 
 export type IHandler = (
   command: Command.T
@@ -20,13 +21,19 @@ export default (
   const account = acccountMaybe.right;
 
   // Update Name
-  account.name = command.name;
+  account.name = some(command.name);
 
   // Update Email
   if (account.email.address !== command.email) {
     // Check if account with same email already exists
     const accountMaybe = await repo.getByEmail(command.email);
-    if (isRight(accountMaybe)) return left(Errors.Validation.C());
+    if (isRight(accountMaybe))
+      return left(
+        Errors.Validation.C(
+          Command.Name,
+          `account with email ${command.email} already exists`
+        )
+      );
 
     // Reset email verification
     account.email.address = command.email;

@@ -1,6 +1,14 @@
 import axios from "axios";
-import { Config, UUID, Errors, Widget } from "@huckleberrylabs/ping-core";
+import {
+  Config,
+  UUID,
+  Errors,
+  Widget,
+  NameSpaceCaseString,
+} from "@huckleberrylabs/ping-core";
 import { Either, left, isLeft, right } from "fp-ts/lib/Either";
+
+export const Name = "sdk" as NameSpaceCaseString.T;
 
 export type T = {
   GetByID: () => Promise<Either<Errors.T, Widget.Settings.Model.T>>;
@@ -17,7 +25,7 @@ export const C = (widget: UUID.T): T => ({
     try {
       const res = await axios.post(
         Config.GetEndpoint(Widget.Settings.UseCases.GetByID.Route),
-        Widget.Settings.UseCases.GetByID.Query.Codec.encode(
+        Widget.Settings.UseCases.GetByID.Query.Encode(
           Widget.Settings.UseCases.GetByID.Query.C(widget)
         ),
         {
@@ -25,14 +33,14 @@ export const C = (widget: UUID.T): T => ({
         }
       );
       if (res.status === 200) {
-        const widgetMaybe = Widget.Settings.Model.Codec.decode(res.data);
-        if (isLeft(widgetMaybe)) return left(Errors.Parsing.C());
+        const widgetMaybe = Widget.Settings.Model.Decode(res.data);
+        if (isLeft(widgetMaybe)) return widgetMaybe;
         return widgetMaybe;
       } else {
         return left(Errors.FromStatusCode(res.status, res.data));
       }
     } catch (error) {
-      return left(Errors.Adapter.C());
+      return left(Errors.Adapter.C(Name, `GetByID ${error.message}`));
     }
   },
   Channel: {
@@ -40,7 +48,7 @@ export const C = (widget: UUID.T): T => ({
       try {
         const res = await axios.post(
           Config.GetEndpoint(Widget.Channel.UseCases.Receive.Route),
-          Widget.Channel.UseCases.Receive.Command.Codec.encode(
+          Widget.Channel.UseCases.Receive.Command.Encode(
             Widget.Channel.UseCases.Receive.Command.C(widget, message)
           ),
           {
@@ -51,7 +59,7 @@ export const C = (widget: UUID.T): T => ({
           ? right(null)
           : left(Errors.FromStatusCode(res.status, res.data));
       } catch (error) {
-        return left(Errors.Adapter.C());
+        return left(Errors.Adapter.C(Name, `Send ${error.message}`));
       }
     },
   },
@@ -60,7 +68,7 @@ export const C = (widget: UUID.T): T => ({
       navigator.sendBeacon(
         Config.GetEndpoint(Widget.Analytics.UseCases.AddEvent.Route),
         JSON.stringify(
-          Widget.Analytics.UseCases.AddEvent.Command.Codec.encode(
+          Widget.Analytics.UseCases.AddEvent.Command.Encode(
             Widget.Analytics.UseCases.AddEvent.Command.C(widget, action)
           )
         )

@@ -5,10 +5,10 @@ import { Option } from "fp-ts/lib/Option";
 
 import Stripe from "stripe";
 import { left, right, Either } from "fp-ts/lib/Either";
-import { Errors } from "@huckleberrylabs/ping-core";
+import { Errors, NameSpaceCaseString } from "@huckleberrylabs/ping-core";
 
 export type T = Stripe;
-
+export const Name = "adapters:stripe" as NameSpaceCaseString.T;
 export const C = (): Either<Errors.Environment.T, T> => {
   const key = process.env.STRIPE_SECRET_KEY;
   if (key) {
@@ -18,8 +18,8 @@ export const C = (): Either<Errors.Environment.T, T> => {
       stripe.setMaxNetworkRetries(3);
       return right(stripe);
     } catch (error) {
-      return left(Errors.Environment.C());
+      return left(Errors.Environment.C(Name, `Constructor: ${error.message}`));
     }
   }
-  return left(Errors.Environment.C());
+  return left(Errors.Environment.C(Name, `STRIPE_SECRET_KEY is missing`));
 };

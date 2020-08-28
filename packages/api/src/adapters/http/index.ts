@@ -8,7 +8,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import helmet from "helmet";
-import morgan from "morgan";
 
 import {
   StatusCode,
@@ -17,9 +16,15 @@ import {
   Widget,
   Email,
   SMS,
+  Customers,
+  Billing,
   Env,
+  Logging,
+  NameSpaceCaseString,
 } from "@huckleberrylabs/ping-core";
 import * as Adapters from "../../adapters";
+
+export const Name = "adapter:http" as NameSpaceCaseString.T;
 
 export const C = () => {
   const maybeFireStore = Adapters.FireStore.C();
@@ -28,14 +33,17 @@ export const C = () => {
   const maybeTwilio = Adapters.Twilio.C();
   const eventBus = Adapters.EventBus.C();
 
-  if (isLeft(maybeFireStore)) throw new Error("firestore credentials missing");
-  if (isLeft(maybeSendGrid)) throw new Error("sendgrid credentials missing");
-  if (isLeft(maybeStripe)) throw new Error("stripe credentials missing");
-  if (isLeft(maybeTwilio)) throw new Error("twilio credentials missing");
+  if (
+    isLeft(maybeFireStore) ||
+    isLeft(maybeSendGrid) ||
+    isLeft(maybeStripe) ||
+    isLeft(maybeTwilio)
+  )
+    throw new Error();
 
   const fireStore = maybeFireStore.right;
   const sendGrid = maybeSendGrid.right;
-  // const stripe = maybeStripe.right;
+  const stripe = maybeStripe.right;
   const twilioClient = maybeTwilio.right;
   const redis = createClient();
 
@@ -49,8 +57,7 @@ export const C = () => {
   const iamAuthenticationServiceMaybe = IAM.Authentication.Service.C(
     iamInvalidTokenRepo
   );
-  if (isLeft(iamAuthenticationServiceMaybe))
-    throw new Error("Secret Key Missing");
+  if (isLeft(iamAuthenticationServiceMaybe)) throw new Error();
   const iamAuthenticationService = iamAuthenticationServiceMaybe.right;
 
   // Widget
@@ -87,7 +94,7 @@ export const C = () => {
   );
 
   // Billing
-  // const billingService = Billing.Service.C(stripe, smsService, emailService);
+  const billingService = Billing.Service.C(stripe);
 
   const app = express();
 
@@ -101,10 +108,17 @@ export const C = () => {
   // Security
   app.use(helmet());
   app.use(cookieParser());
-  app.use(cors());
+  app.use(
+    cors({
+      origin: (origin, callback) => {
+        callback(null, true);
+      },
+      credentials: true,
+    })
+  );
 
   // Logging
-  app.use(morgan("tiny"));
+  app.use(Logging.UseCases.Log.Route, Logging.UseCases.Log.Controller());
 
   // Health
   app.get("/ping", (req, res) => {
@@ -166,17 +180,6 @@ export const C = () => {
   );
 
   app.post(
-    IAM.Account.UseCases.Register.Route,
-    IAM.Account.UseCases.Register.Controller(
-      IAM.Account.UseCases.Register.Handler(
-        iamAccountRepo,
-        iamAuthorizationService,
-        eventBus
-      )
-    )
-  );
-
-  app.post(
     IAM.Account.UseCases.Update.Route,
     IAM.Account.UseCases.Update.Controller(
       iamAuthorizationService,
@@ -189,6 +192,7 @@ export const C = () => {
   app.post(
     Messaging.Router.UseCases.Create.Route,
     Messaging.Router.UseCases.Create.Controller(
+      iamAuthorizationService,
       Messaging.Router.UseCases.Create.Handler(
         messagingRouterRepo,
         iamAuthorizationService
@@ -215,6 +219,7 @@ export const C = () => {
   app.post(
     Messaging.Contact.UseCases.Create.Route,
     Messaging.Contact.UseCases.Create.Controller(
+      iamAuthorizationService,
       Messaging.Contact.UseCases.Create.Handler(
         messagingContactRepo,
         iamAuthorizationService
@@ -231,10 +236,36 @@ export const C = () => {
   );
 
   app.post(
+    Messaging.Contact.UseCases.GetByAccount.Route,
+    Messaging.Contact.UseCases.GetByAccount.Controller(
+      iamAuthorizationService,
+      Messaging.Contact.UseCases.GetByAccount.Handler(messagingContactRepo)
+    )
+  );
+
+  app.post(
     Messaging.Contact.UseCases.Update.Route,
     Messaging.Contact.UseCases.Update.Controller(
       iamAuthorizationService,
       Messaging.Contact.UseCases.Update.Handler(messagingContactRepo)
+    )
+  );
+
+  app.post(
+    Messaging.Conversation.UseCases.GetByAccount.Route,
+    Messaging.Conversation.UseCases.GetByAccount.Controller(
+      iamAuthorizationService,
+      Messaging.Conversation.UseCases.GetByAccount.Handler(
+        messagingConversationRepo
+      )
+    )
+  );
+
+  app.post(
+    Messaging.Message.UseCases.GetByAccount.Route,
+    Messaging.Message.UseCases.GetByAccount.Controller(
+      iamAuthorizationService,
+      Messaging.Message.UseCases.GetByAccount.Handler(messagingMessageRepo)
     )
   );
 
@@ -244,6 +275,14 @@ export const C = () => {
     Widget.Analytics.UseCases.AddEvent.Route,
     Widget.Analytics.UseCases.AddEvent.Controller(
       Widget.Analytics.UseCases.AddEvent.Handler(widgetAnalyticsRepo)
+    )
+  );
+
+  app.post(
+    Widget.Analytics.UseCases.GetByWidget.Route,
+    Widget.Analytics.UseCases.GetByWidget.Controller(
+      iamAuthorizationService,
+      Widget.Analytics.UseCases.GetByWidget.Handler(widgetAnalyticsRepo)
     )
   );
 
@@ -267,10 +306,26 @@ export const C = () => {
   );
 
   app.post(
+    Widget.Settings.UseCases.GetByAccount.Route,
+    Widget.Settings.UseCases.GetByAccount.Controller(
+      iamAuthorizationService,
+      Widget.Settings.UseCases.GetByAccount.Handler(widgetSettingsRepo)
+    )
+  );
+
+  app.post(
     Widget.Settings.UseCases.Update.Route,
     Widget.Settings.UseCases.Update.Controller(
       iamAuthorizationService,
       Widget.Settings.UseCases.Update.Handler(widgetSettingsRepo)
+    )
+  );
+
+  app.post(
+    Widget.Settings.UseCases.Delete.Route,
+    Widget.Settings.UseCases.Delete.Controller(
+      iamAuthorizationService,
+      Widget.Settings.UseCases.Delete.Handler(widgetSettingsRepo)
     )
   );
 
@@ -298,6 +353,40 @@ export const C = () => {
         messagingContactRepo,
         messagingChannelRepo,
         messagingService
+      )
+    )
+  );
+
+  /* CUSTOMERS */
+
+  app.post(
+    Customers.UseCases.Register.Route,
+    Customers.UseCases.Register.Controller(
+      Customers.UseCases.Register.Handler(
+        iamAccountRepo,
+        widgetSettingsRepo,
+        messagingContactRepo,
+        messagingRouterRepo,
+        messagingService,
+        billingService,
+        iamAuthorizationService
+      )
+    )
+  );
+
+  app.post(
+    Customers.UseCases.Deregister.Route,
+    Customers.UseCases.Deregister.Controller(
+      iamAuthorizationService,
+      Customers.UseCases.Deregister.Handler(
+        iamAccountRepo,
+        widgetSettingsRepo,
+        messagingConversationRepo,
+        messagingContactRepo,
+        messagingRouterRepo,
+        messagingMessageRepo,
+        messagingChannelRepo,
+        billingService
       )
     )
   );

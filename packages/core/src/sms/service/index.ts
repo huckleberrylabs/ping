@@ -5,9 +5,13 @@ import {
   INumberPairingRepository,
   INumberRepository,
 } from "../../interfaces";
-import { Errors } from "../../values";
+import { Errors, NameSpaceCaseString, PhoneWithCountry } from "../../values";
 import { isSome } from "fp-ts/lib/Option";
 import * as NumberPairing from "../number-pairing";
+import * as Config from "../../config";
+import * as UseCases from "../use-cases";
+
+export const Name = "sms:service" as NameSpaceCaseString.T;
 
 export const C = (
   client: ITwilio,
@@ -16,15 +20,19 @@ export const C = (
 ): ISMSService => ({
   send: async (to, message) => {
     try {
-      console.log("SMS SEND");
       // Cannot send a message through this channel without a conversation already created
-      if (!isSome(message.conversation)) return left(Errors.Validation.C());
+      if (!isSome(message.conversation))
+        return left(
+          Errors.Validation.C(
+            Name,
+            "send: message has no conversation.",
+            "SMS requires a pre-existing conversation before passing along messages."
+          )
+        );
       const conversation = message.conversation.value;
-      console.log(conversation);
 
       // Get all existing pairings by receiving phone number
-      const pairingsMaybe = await pairingRepo.getByTo(to.phone);
-      console.log(pairingsMaybe);
+      const pairingsMaybe = await pairingRepo.getByTo(to.number);
       if (isLeft(pairingsMaybe)) return pairingsMaybe;
       const candidatePairings = pairingsMaybe.right;
 
@@ -38,7 +46,6 @@ export const C = (
       } else {
         // Get all existing numbers by country
         const numbersMaybe = await numberRepo.getByCountry(to.country);
-        console.log(numbersMaybe);
         // Return if another error
         if (isLeft(numbersMaybe)) return numbersMaybe;
         const numbers = numbersMaybe.right;
@@ -52,25 +59,51 @@ export const C = (
 
         // If there is no number, buy one.
         if (candidateNumbers.length === 0) {
-          // TODONOW Buy Number. assign to "from" and save number to Repo
-          /* client
-            .availablePhoneNumbers(client.TWILIO_ACCOUNT_SID)
-            .local.list({ smsEnabled: true }); */
-          return left(Errors.Adapter.C());
+          try {
+            const list = await client
+              .availablePhoneNumbers(to.country)
+              .local.list({ smsEnabled: true });
+            const number = list[0].phoneNumber;
+            await client.incomingPhoneNumbers.create({
+              phoneNumber: number,
+              smsUrl: Config.GetEndpoint(UseCases.Receive.Route),
+            });
+            const phoneMaybe = PhoneWithCountry.C(number, to.country);
+            if (isLeft(phoneMaybe)) {
+              throw new Error("phone couldn't be parsed");
+            }
+            const saved = await numberRepo.save(phoneMaybe.right);
+            if (isLeft(saved)) return saved;
+            from = phoneMaybe.right.number;
+          } catch (error) {
+            return left(
+              Errors.Adapter.C(
+                Name,
+                `send: coudn't purchase number: ${error.message}`,
+                "Server error, please try again later or contact support."
+              )
+            );
+          }
         }
 
         // Create a new Pairing
         pairing = NumberPairing.Model.C(
           message.account,
           conversation,
-          to.phone,
+          to.number,
           from
         );
 
         // Save the new pairing
         const savedMaybe = await pairingRepo.save(pairing);
-        console.log(savedMaybe);
-        if (isLeft(savedMaybe)) return left(Errors.Adapter.C());
+        if (isLeft(savedMaybe))
+          return left(
+            Errors.Adapter.C(
+              Name,
+              "send: could not save to pairing repo.",
+              "Server error, please try again later or contact support."
+            )
+          );
       }
 
       // Send the Message
@@ -81,9 +114,14 @@ export const C = (
       });
 
       return right(null);
-    } catch (error) {
-      console.log(error);
-      return left(Errors.Adapter.C());
+    } catch (err) {
+      return left(
+        Errors.Adapter.C(
+          Name,
+          `send: ${err.message}`,
+          "Server error, please try again later or contact support."
+        )
+      );
     }
   },
   deallocateNumberPairingsByConversation: async conversation => {

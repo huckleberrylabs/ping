@@ -1,6 +1,3 @@
-import { UUID, Color } from "../../src/domain/value-objects";
-import { CountryCode } from "libphonenumber-js/min";
-
 /* Recall Info, Image or Video, Dev ID */
 type FieldBase = {
   id: UUID.T;
@@ -50,7 +47,6 @@ type EmailField = FieldBase & { type: "email-field" };
 type UrlField = FieldBase & { type: "url-field" };
 type PhoneField = FieldBase & {
   type: "phone-field";
-  defaultCountyCode: CountryCode;
 };
 
 type TextField = FieldBase & {

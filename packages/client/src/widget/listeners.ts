@@ -2,10 +2,10 @@ import { isLeft, isRight } from "fp-ts/lib/Either";
 import {
   UUID,
   NonEmptyString,
-  Phone,
   PersonName,
   Widget,
   TimeStamp,
+  PhoneWithCountry,
 } from "@huckleberrylabs/ping-core";
 import { Elements } from "./elements";
 import * as SDK from "../sdk";
@@ -14,9 +14,26 @@ const message: Partial<Widget.Values.Message.T> = {
   timestamp: TimeStamp.C(),
 };
 
-export const onOpen = (e: Elements, sdk: SDK.T) => async () => {
+export const onCancel = (e: Elements, sdk: SDK.T) => async () => {
+  e.container.style.width = "54px";
+  e.create.classList.add("shown");
+
+  e.addText.classList.remove("shown");
+  e.textInput.classList.remove("shown");
+  e.addPhone.classList.remove("shown");
+  e.phoneInput.classList.remove("shown");
+  e.nameInput.classList.remove("shown");
+  e.send.classList.remove("shown");
+  e.cancel.classList.remove("shown");
+
+  const analyticsEvent = "ebd8a24b-4d40-4f3f-86fa-de10217a933d" as UUID.T;
+  sdk.Analytics.AddEvent(analyticsEvent);
+};
+
+const onOpen = (e: Elements, sdk: SDK.T) => async () => {
   e.container.style.width = "37rem";
   e.create.classList.remove("shown");
+  e.cancel.classList.add("shown");
   e.addText.classList.add("shown");
   e.textInput.classList.add("shown");
   e.textInput.focus();
@@ -24,8 +41,8 @@ export const onOpen = (e: Elements, sdk: SDK.T) => async () => {
   sdk.Analytics.AddEvent(analyticsEvent);
 };
 
-export const onAddText = (e: Elements, sdk: SDK.T) => async () => {
-  const textMaybe = NonEmptyString.Codec.decode(e.textInput.value.trim());
+const onAddText = (e: Elements, sdk: SDK.T) => async () => {
+  const textMaybe = NonEmptyString.Decode(e.textInput.value.trim());
   if (isLeft(textMaybe)) {
     e.textInput.setCustomValidity("Invalid");
     return;
@@ -41,12 +58,12 @@ export const onAddText = (e: Elements, sdk: SDK.T) => async () => {
   sdk.Analytics.AddEvent(analyticsEvent);
 };
 
-export const onAddPhone = (
+const onAddPhone = (
   e: Elements,
   w: Widget.Settings.Model.T,
   sdk: SDK.T
 ) => async () => {
-  const phoneMaybe = Phone.C(e.phoneInput.value, w.country);
+  const phoneMaybe = PhoneWithCountry.C(e.phoneInput.value, "CA");
   if (isLeft(phoneMaybe)) {
     e.phoneInput.setCustomValidity("Invalid");
     return;
@@ -62,7 +79,7 @@ export const onAddPhone = (
   sdk.Analytics.AddEvent(analyticsEvent);
 };
 
-export const onAddNameAndSend = (
+const onAddNameAndSend = (
   e: Elements,
   w: Widget.Settings.Model.T,
   sdk: SDK.T
@@ -91,9 +108,7 @@ export const onAddNameAndSend = (
   }
 };
 
-export const nextOnEnter = (button: HTMLButtonElement) => (
-  event: KeyboardEvent
-) => {
+const nextOnEnter = (button: HTMLButtonElement) => (event: KeyboardEvent) => {
   event.preventDefault();
   if (event.keyCode === 13) button.click();
 };
@@ -103,8 +118,10 @@ export const AddEventListeners = (
   w: Widget.Settings.Model.T,
   sdk: SDK.T
 ) => {
+  console.log("Yas");
   // const ws = new WebSocket("ws://localhost:8000"); // TODO URL from ENV
   // TODO setup WS ping pong, and handle connection failure
+  e.cancel.addEventListener("click", onCancel(e, sdk));
   e.create.addEventListener("click", onOpen(e, sdk));
   e.textInput.addEventListener("keyup", nextOnEnter(e.addText));
   e.addText.addEventListener("click", onAddText(e, sdk));

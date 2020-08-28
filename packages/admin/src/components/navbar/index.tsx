@@ -1,9 +1,7 @@
 import React from "react";
-
-// IAM Service
 import { authService } from "../../services";
 
-// Top App Bar
+// UI
 import {
   TopAppBar,
   TopAppBarRow,
@@ -11,16 +9,10 @@ import {
   TopAppBarTitle,
 } from "@rmwc/top-app-bar";
 import "@rmwc/top-app-bar/styles";
-
-// Button
 import { Button } from "@rmwc/button";
 import "@rmwc/button/styles";
-
-// Logo
-import LightLogo from "../../media/logo-white.png";
-import DarkLogo from "../../media/logo.png";
-
-// Style
+//import LightLogo from "../../media/logo-white.png";
+//import DarkLogo from "../../media/logo.png";
 import "./style.css";
 
 type Props = {
@@ -32,17 +24,11 @@ export const NavBar = ({ fixed, transparent }: Props) => (
   <TopAppBar
     fixed={fixed}
     scrollTarget={null}
-    className={`nav-bar ${transparent ? "nav-bar-transparent" : ""}`}
+    className={`nav-bar ${transparent ? "transparent" : ""}`}
   >
     <TopAppBarRow>
       <TopAppBarSection alignStart>
-        <TopAppBarTitle>
-          <img
-            src={transparent ? DarkLogo : LightLogo}
-            className="nav-bar-logo"
-            alt="Ping"
-          />
-        </TopAppBarTitle>
+        <TopAppBarTitle>Ping</TopAppBarTitle>
       </TopAppBarSection>
       <TopAppBarSection alignEnd>
         <Button onClick={() => authService.logout()} unelevated={!transparent}>

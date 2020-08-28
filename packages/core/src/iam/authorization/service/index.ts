@@ -3,7 +3,9 @@ import {
   IAuthorizationService,
   IAccessPolicyRepository,
 } from "../../../interfaces";
-import { Errors } from "../../../values";
+import { Errors, NameSpaceCaseString } from "../../../values";
+
+export const Name = "authorization:service" as NameSpaceCaseString.T;
 
 export const C = (repo: IAccessPolicyRepository): IAuthorizationService => {
   return {
@@ -13,7 +15,7 @@ export const C = (repo: IAccessPolicyRepository): IAuthorizationService => {
         isLeft(existsMaybe) &&
         existsMaybe.left.type === Errors.NotFound.Name
       ) {
-        return left(Errors.Unauthorized.C());
+        return left(Errors.Unauthorized.C(Name, "policy not found"));
       }
       return existsMaybe;
     },

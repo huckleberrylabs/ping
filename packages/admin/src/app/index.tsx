@@ -1,106 +1,133 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-
-// Providers and Services
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import { isLeft } from "fp-ts/lib/Either";
+import { UUID, NonEmptyString } from "@huckleberrylabs/ping-core";
 import { useObservable } from "../observable";
-import { authService } from "../services";
-import { RouterProvider, StripeProvider, ToastProvider } from "../providers";
+import { Routes } from "../config";
+import { toast } from "react-toastify";
+import { authService, AuthStates } from "../services";
+import { RouterProvider, ToastProvider } from "../providers";
 
-// Loading Spinner
-import { CircularProgress } from "@rmwc/circular-progress";
-import "@rmwc/circular-progress/styles";
-
-// Top Level Navigation
+// UI
 import { NavBar } from "../components/navbar";
 import { DrawerMenu } from "../components/drawer-menu";
-
-// Routes
-import { Routes } from "../config";
+import { Loading } from "../components/loading";
+import "./style.css";
 
 // Views
 import { SendLoginEmail } from "../views/send-login-email";
-import { LoginWithToken } from "../views/login-with-token";
 import { Account } from "../views/account";
-import { Contacts } from "../views/contacts";
-import { Conversations } from "../views/conversations";
+import { Contacts } from "../views/contact-list";
+import { Conversations } from "../views/conversation-list";
 import { ConversationDetail } from "../views/conversation-detail";
-import { Widgets } from "../views/widgets";
-import { UpdateWidget } from "../views/update-widget";
+import { Widgets } from "../views/widget-list";
+import { WidgetDetail } from "../views/widget-detail";
 import { Analytics } from "../views/analytics";
-import { Routers } from "../views/routers";
+import { Registration } from "../views/registration";
 
-import "./style.css";
-import { UUID } from "@huckleberrylabs/ping-core";
+const PublicRoutes = () => (
+  <Switch>
+    <Route
+      key={Routes.register}
+      path={Routes.register}
+      component={Registration}
+    />
+    ,
+    <Route
+      key={Routes.sendLoginEmail}
+      path={Routes.sendLoginEmail}
+      component={SendLoginEmail}
+    />
+    ,
+    <Route key="/" render={() => <Redirect to={Routes.sendLoginEmail} />} />,
+  </Switch>
+);
+const PrivateRoutes = () => (
+  <Switch>
+    <Route key={Routes.account} path={Routes.account} component={Account} />,
+    <Route key={Routes.contacts} path={Routes.contacts} component={Contacts} />,
+    <Route
+      key={Routes.conversations}
+      path={Routes.conversations}
+      component={Conversations}
+      exact
+    />
+    ,
+    <Route
+      key={`${Routes.conversations}/:id`}
+      path={`${Routes.conversations}/:id`}
+      component={ConversationDetail}
+    />
+    ,
+    <Route
+      key={Routes.widgets}
+      path={Routes.widgets}
+      component={Widgets}
+      exact
+    />
+    ,
+    <Route
+      key={`${Routes.widgets}/:id`}
+      path={`${Routes.widgets}/:id`}
+      component={WidgetDetail}
+    />
+    ,
+    <Route
+      key={`${Routes.analytics}/:id`}
+      path={`${Routes.analytics}/:id`}
+      component={Analytics}
+    />
+    ,
+    <Route key="/" render={() => <Redirect to={Routes.widgets} />} />,
+  </Switch>
+);
 
-const PublicRoutes = () => [
-  <Route
-    key={Routes.sendLoginEmail}
-    path={Routes.sendLoginEmail}
-    component={SendLoginEmail}
-  />,
-  <Route
-    key={Routes.loginWithToken}
-    path={Routes.loginWithToken}
-    component={LoginWithToken}
-  />,
-  <Route key="/" render={() => <Redirect to={Routes.sendLoginEmail} />} />,
-];
-
-const PrivateRoutes = () => [
-  <Route key={Routes.account} path={Routes.account} component={Account} />,
-  <Route key={Routes.contacts} path={Routes.contacts} component={Contacts} />,
-  <Route
-    key={Routes.conversations}
-    path={Routes.conversations}
-    component={Conversations}
-    exact
-  />,
-  <Route
-    key={`${Routes.conversations}/:id`}
-    path={`${Routes.conversations}/:id`}
-    component={ConversationDetail}
-  />,
-  <Route
-    key={Routes.widgets}
-    path={Routes.widgets}
-    component={Widgets}
-    exact
-  />,
-  <Route
-    key={`${Routes.widgets}/:id`}
-    path={`${Routes.widgets}/:id`}
-    component={UpdateWidget}
-  />,
-  <Route
-    key={Routes.analytics}
-    path={Routes.analytics}
-    component={Analytics}
-  />,
-  <Route key={Routes.routers} path={Routes.routers} component={Routers} />,
-  <Route key="/" render={() => <Redirect to={Routes.widgets} />} />,
-];
-
-export const App = () => {
+const AuthApp = () => {
+  const history = useHistory();
   const authState = useObservable(authService.state);
-  const loading = authState === "Loading";
-  const isLoggedIn = UUID.Is(authState);
-  if (loading)
+
+  if (UUID.Is(authState))
     return (
-      <div className="app-loading-container">
-        <CircularProgress size="xlarge" />
-      </div>
+      <>
+        <NavBar />
+        <ToastProvider offset={true} />
+        <div className="app">
+          <DrawerMenu />
+          <Switch>{PrivateRoutes()}</Switch>
+        </div>
+      </>
     );
-  else
-    return StripeProvider(
-      RouterProvider(
-        <>
-          {isLoggedIn ? <NavBar /> : null}
-          <ToastProvider offset={isLoggedIn} />
-          <div className={isLoggedIn ? "app-container" : ""}>
-            {isLoggedIn ? <DrawerMenu /> : null}
-            <Switch>{isLoggedIn ? PrivateRoutes() : PublicRoutes()}</Switch>
-          </div>
-        </>
-      )
+  if (authState === AuthStates.UNAUTHENTICATED)
+    return (
+      <>
+        <ToastProvider />
+        {PublicRoutes()}
+      </>
     );
+  if (authState === AuthStates.UNINITIALIZED) {
+    const query = new URLSearchParams(history.location.search);
+    const token = query.get("token");
+
+    if (NonEmptyString.Is(token)) {
+      authService.loginWithToken(token).then(async (result) => {
+        if (isLeft(result)) {
+          toast.warn(result.left.userMessage);
+          history.push(Routes.sendLoginEmail);
+        } else {
+          history.push("/");
+          toast.success("Login successful.");
+        }
+      });
+    } else {
+      authService.getAccountID();
+    }
+  }
+  // AuthStates.LOADING
+  return (
+    <div className="app-loading">
+      <Loading />
+    </div>
+  );
 };
+
+export const App = () => RouterProvider(<AuthApp />);

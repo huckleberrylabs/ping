@@ -1,16 +1,17 @@
 import { Either } from "fp-ts/lib/Either";
 import { Errors, UUID, PersonName, Phone, PhoneWithCountry } from "../values";
 import { Message, Conversation, Contact, Router, Channel } from "../messaging";
+import { IRepository } from "./repository";
 
 export interface IMessagingService {
   createChannel: (
     account: UUID.T,
-    router: UUID.T,
     channel: UUID.T,
     kind: "widget" | "sms"
   ) => Promise<Either<Errors.Adapter.T, null>>;
   createContact: (params: {
     account: UUID.T;
+    internal: boolean;
     phone: PhoneWithCountry.T;
     name?: PersonName.T;
   }) => Promise<Either<Errors.Adapter.T, UUID.T>>;
@@ -19,91 +20,35 @@ export interface IMessagingService {
   ) => Promise<Either<Errors.Adapter.T, null>>;
 }
 
-export interface IMessageRepository {
-  get(
-    id: UUID.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Message.Model.T>>;
-  add(message: Message.Model.T): Promise<Either<Errors.Adapter.T, null>>;
-  remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
-  update(
-    message: Message.Model.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>>;
-  exists(
-    id: UUID.T
+export interface IMessageRepository extends IRepository<Message.Model.T> {
+  getByAccount(
+    account: UUID.T
+  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Message.Model.T[]>>;
+}
+
+export interface IConversationRepository
+  extends IRepository<Conversation.Model.T> {
+  getByAccount(
+    account: UUID.T
   ): Promise<
-    Either<Errors.Adapter.T | Errors.NotImplemented.T | Errors.NotFound.T, null>
+    Either<Errors.Adapter.T | Errors.NotFound.T, Conversation.Model.T[]>
   >;
 }
 
-export interface IConversationRepository {
-  get(
-    id: UUID.T
-  ): Promise<
-    Either<Errors.Adapter.T | Errors.NotFound.T, Conversation.Model.T>
-  >;
-  add(convo: Conversation.Model.T): Promise<Either<Errors.Adapter.T, null>>;
-  remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
-  update(
-    convo: Conversation.Model.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>>;
-  exists(
-    id: UUID.T
-  ): Promise<
-    Either<Errors.Adapter.T | Errors.NotImplemented.T | Errors.NotFound.T, null>
-  >;
-}
-
-export interface IContactRepository {
-  get(
-    id: UUID.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Contact.Model.T>>;
+export interface IContactRepository extends IRepository<Contact.Model.T> {
+  getByAccount(
+    account: UUID.T
+  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Contact.Model.T[]>>;
   getByPhone(
     account: UUID.T,
     phone: Phone.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Contact.Model.T>>;
-  add(contact: Contact.Model.T): Promise<Either<Errors.Adapter.T, null>>;
-  remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
-  update(
-    contact: Contact.Model.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>>;
-  exists(
-    id: UUID.T
-  ): Promise<
-    Either<Errors.Adapter.T | Errors.NotImplemented.T | Errors.NotFound.T, null>
-  >;
 }
 
-export interface IChannelRepository {
-  get(
-    id: UUID.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Channel.Model.T>>;
+export interface IChannelRepository extends IRepository<Channel.Model.T> {
   getByAccount(
-    id: UUID.T
+    account: UUID.T
   ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Channel.Model.T[]>>;
-  add(channel: Channel.Model.T): Promise<Either<Errors.Adapter.T, null>>;
-  remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
-  update(
-    channel: Channel.Model.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>>;
-  exists(
-    id: UUID.T
-  ): Promise<
-    Either<Errors.Adapter.T | Errors.NotImplemented.T | Errors.NotFound.T, null>
-  >;
 }
 
-export interface IRouterRepository {
-  get(
-    id: UUID.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, Router.Model.T>>;
-  add(router: Router.Model.T): Promise<Either<Errors.Adapter.T, null>>;
-  remove(id: UUID.T): Promise<Either<Errors.Adapter.T, null>>;
-  update(
-    router: Router.Model.T
-  ): Promise<Either<Errors.Adapter.T | Errors.NotFound.T, null>>;
-  exists(
-    id: UUID.T
-  ): Promise<
-    Either<Errors.Adapter.T | Errors.NotImplemented.T | Errors.NotFound.T, null>
-  >;
-}
+export interface IRouterRepository extends IRepository<Router.Model.T> {}

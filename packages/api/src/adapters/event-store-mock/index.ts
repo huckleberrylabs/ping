@@ -1,12 +1,19 @@
-import { Event, IEventStore, Errors } from "@huckleberrylabs/ping-core";
+import {
+  Event,
+  IEventStore,
+  Errors,
+  NameSpaceCaseString,
+} from "@huckleberrylabs/ping-core";
 import { right, left } from "fp-ts/lib/Either";
 
 const EventStore: { [key: string]: Event.T[] } = {};
 
+export const Name = "adapters:event-store-mock" as NameSpaceCaseString.T;
+
 export const C = (): IEventStore => ({
   getEventsByStreamID: async stream => {
     if (stream in EventStore) return right(EventStore[stream]);
-    return left(Errors.NotFound.C());
+    return left(Errors.NotFound.C(Name, stream));
   },
   persist: async (stream, event) => {
     const events = Array.isArray(event) ? event : [event];

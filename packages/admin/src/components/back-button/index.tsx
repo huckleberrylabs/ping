@@ -1,11 +1,8 @@
 import React from "react";
 
-// Button
+// UI
 import { Button } from "@rmwc/button";
 import "@rmwc/button/styles";
-
-// Style
-import "./style.css";
 
 type Props = {
   label?: string;

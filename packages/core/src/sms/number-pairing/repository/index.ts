@@ -7,42 +7,94 @@ import * as Model from "../model";
 export const Name = "sms:repository:number-pairing" as NameSpaceCaseString.T;
 
 const Key = (to: Phone.T, twilio: Phone.T) =>
-  Name + ":pair:" + Phone.Codec.encode(to) + ":" + Phone.Codec.encode(twilio);
+  Name + ":pair:" + Phone.Encode(to) + ":" + Phone.Encode(twilio);
 
 export const C = (redis: RedisClient): INumberPairingRepository => ({
   getByPhones: async (to, twilio) =>
     new Promise(resolve =>
       redis.get(Key(to, twilio), (err, serialized) => {
-        if (err) resolve(left(Errors.Adapter.C()));
-        else if (serialized === null) resolve(left(Errors.NotFound.C()));
+        if (err)
+          resolve(
+            left(
+              Errors.Adapter.C(
+                Name,
+                `getByPhones: ${err.message}`,
+                "A database error occured, please try again later or contact support."
+              )
+            )
+          );
+        else if (serialized === null)
+          resolve(
+            left(
+              Errors.NotFound.C(
+                Name,
+                `getByPhones: to ${to} twilio ${twilio}`,
+                "Number pairing not found."
+              )
+            )
+          );
         else {
-          const pairingMaybe = Model.Codec.decode(JSON.parse(serialized));
-          if (isLeft(pairingMaybe)) resolve(left(Errors.Adapter.C()));
-          else resolve(pairingMaybe);
+          const pairingMaybe = Model.Decode(JSON.parse(serialized));
+          if (isLeft(pairingMaybe)) {
+            resolve(
+              left(
+                Errors.Adapter.C(
+                  Name,
+                  `get: to ${to} twilio ${twilio}`,
+                  "A database error occured, please try again later or contact support."
+                )
+              )
+            );
+          } else {
+            resolve(pairingMaybe);
+          }
         }
       })
     ),
   getByTo: async to =>
     new Promise(resolve =>
-      redis.smembers(Name + ":to:" + Phone.Codec.encode(to), (err, set) => {
-        console.log(to, err, set);
-        if (err) resolve(left(Errors.Adapter.C()));
+      redis.smembers(Name + ":to:" + Phone.Encode(to), (err, set) => {
+        if (err)
+          resolve(
+            left(
+              Errors.Adapter.C(
+                Name,
+                `getByTo: ${err.message}`,
+                "A database error occured, please try again later or contact support."
+              )
+            )
+          );
         else if (set.length === 0) resolve(right([]));
         else
           redis.mget(set, (err, entries) => {
-            console.log(set, err, entries);
-            if (err) resolve(left(Errors.Adapter.C()));
-            else
+            if (err) {
               resolve(
-                right(
-                  entries
-                    .filter(e => e !== null)
-                    .map(e => JSON.parse(e))
-                    .map(Model.Codec.decode)
-                    .filter(isRight) // TODO notify if there is a left
-                    .map(e => e.right)
+                left(
+                  Errors.Adapter.C(
+                    Name,
+                    `getByTo: ${err.message}`,
+                    "A database error occured, please try again later or contact support."
+                  )
                 )
               );
+            } else {
+              const decode = entries.map(e => JSON.parse(e)).map(Model.Decode);
+              if (decode.some(isLeft)) {
+                resolve(
+                  left(
+                    Errors.Adapter.C(
+                      Name,
+                      `getByPhone: ${to} has ${
+                        decode.filter(isLeft).length
+                      } decode errors`,
+                      "A database error occured, please try again later or contact support."
+                    )
+                  )
+                );
+              } else {
+                resolve(right(decode.filter(isRight).map(e => e.right)));
+              }
+            }
           });
       })
     ),
@@ -52,26 +104,47 @@ export const C = (redis: RedisClient): INumberPairingRepository => ({
         .multi()
         .set(
           Key(pairing.to, pairing.from),
-          JSON.stringify(Model.Codec.encode(pairing))
+          JSON.stringify(Model.Encode(pairing))
         )
         .sadd(
-          Name + ":to:" + Phone.Codec.encode(pairing.to),
+          Name + ":to:" + Phone.Encode(pairing.to),
           Key(pairing.to, pairing.from)
         )
         .sadd(
-          Name + ":conversation:" + UUID.Codec.encode(pairing.conversation),
+          Name + ":conversation:" + UUID.Encode(pairing.conversation),
           Key(pairing.to, pairing.from)
         )
-        .exec(err => resolve(err ? left(Errors.Adapter.C()) : right(null)))
+        .exec(err =>
+          resolve(
+            err
+              ? left(
+                  Errors.Adapter.C(
+                    Name,
+                    `save: ${err.message}`,
+                    "A database error occured, please try again later or contact support."
+                  )
+                )
+              : right(null)
+          )
+        )
     ),
-  // TODO delete the conversation as well, using WATCH
+  // TODO delete the conversation index as well, using WATCH
   deleteByConversaton: async conversation =>
     new Promise(resolve =>
       // Get all the pairing keys from the converation index
       redis.smembers(
-        Name + ":conversation:" + UUID.Codec.encode(conversation),
+        Name + ":conversation:" + UUID.Encode(conversation),
         (err, set) => {
-          if (err) resolve(left(Errors.Adapter.C()));
+          if (err)
+            resolve(
+              left(
+                Errors.Adapter.C(
+                  Name,
+                  `deleteByConversation: ${err.message}`,
+                  "A database error occured, please try again later or contact support."
+                )
+              )
+            );
           else {
             // Create a map of all :to: indicies and their intersection the :conversation: index
             const toIndex: { [k: string]: string[] } = {};
@@ -79,8 +152,15 @@ export const C = (redis: RedisClient): INumberPairingRepository => ({
               const key = set[i];
               const to = key.split(":")[4]; // sms:repository:number-pairing:pair:TO_PHONE(this one):FROM_PHONE
               if (to === undefined) {
-                // This means we changed the format of the keys without updating the line of code above
-                resolve(left(Errors.Adapter.C()));
+                resolve(
+                  left(
+                    Errors.Adapter.C(
+                      Name,
+                      "deleteByConversaton: possibly changed the format of the keys without updating the line of code above",
+                      "A database error occured, please try again later or contact support."
+                    )
+                  )
+                );
                 return;
               }
               const toKey = Name + ":to:" + to;
@@ -99,11 +179,20 @@ export const C = (redis: RedisClient): INumberPairingRepository => ({
             );
             // Remove all pairing keys from :conversation: index
             multi.srem(
-              Name + ":conversation:" + UUID.Codec.encode(conversation),
+              Name + ":conversation:" + UUID.Encode(conversation),
               set
             );
             multi.exec(err => {
-              if (err) resolve(left(Errors.Adapter.C()));
+              if (err)
+                resolve(
+                  left(
+                    Errors.Adapter.C(
+                      Name,
+                      `deleteByConversation: ${err.message}`,
+                      "A database error occured, please try again later or contact support."
+                    )
+                  )
+                );
               else resolve(right(null));
             });
           }

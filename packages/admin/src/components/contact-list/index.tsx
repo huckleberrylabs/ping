@@ -1,7 +1,9 @@
 import React from "react";
 import moment from "moment";
+import { isSome } from "fp-ts/lib/Option";
+import { Messaging, PersonName } from "@huckleberrylabs/ping-core";
 
-// Data Table
+// UI
 import {
   DataTable,
   DataTableContent,
@@ -12,37 +14,32 @@ import {
   DataTableCell,
 } from "@rmwc/data-table";
 import "@rmwc/data-table/styles";
-
-// Style
 import "./style.css";
 
-type Contact = {
-  id: string;
-  name: string;
-  phone: string;
-  createdAt: string;
-};
-
-const ContactRow = (contact: Contact) => (
+const ContactRow = (contact: Messaging.Contact.Model.T) => (
   <DataTableRow key={contact.id}>
-    <DataTableCell>{contact.name}</DataTableCell>
-    <DataTableCell>{contact.phone}</DataTableCell>
+    <DataTableCell>{contact.internal ? "Yes" : "No"}</DataTableCell>
+    <DataTableCell>
+      {isSome(contact.name) ? PersonName.FirstLast(contact.name.value) : "None"}
+    </DataTableCell>
+    <DataTableCell>{contact.phone.number}</DataTableCell>
     <DataTableCell alignEnd>
-      {moment(contact.createdAt).format("ddd, MMMM Do YYYY, h:mm a")}
+      {moment(contact.created).format("ddd, MMMM Do YYYY, h:mm a")}
     </DataTableCell>
   </DataTableRow>
 );
 
 type Props = {
-  contacts: Contact[];
+  contacts: Messaging.Contact.Model.T[];
 };
 
 export const ContactList = (props: Props) => {
   return (
-    <DataTable className="contact-list">
+    <DataTable className="contact-data-table">
       <DataTableContent>
         <DataTableHead>
           <DataTableRow>
+            <DataTableHeadCell>Internal</DataTableHeadCell>
             <DataTableHeadCell>Name</DataTableHeadCell>
             <DataTableHeadCell>Phone</DataTableHeadCell>
             <DataTableHeadCell alignEnd>Created</DataTableHeadCell>

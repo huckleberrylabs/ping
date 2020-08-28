@@ -13,7 +13,7 @@ export const Codec = iots.type(
   },
   Name
 );
-
+export const Is = Codec.is;
 export type CodecType = iots.TypeOf<typeof Codec>;
 
 export type T = {
@@ -29,5 +29,3 @@ export const C = (): CodecType => ({
   timestamp: TimeStamp.C(),
   id: UUID.C(),
 });
-
-export const Is = Codec.is;

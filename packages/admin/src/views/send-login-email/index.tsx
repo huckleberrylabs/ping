@@ -1,56 +1,40 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { isLeft } from "fp-ts/lib/Either";
-
-// Toast
 import { toast } from "react-toastify";
-
-// Button
-import { Button } from "@rmwc/button";
-import "@rmwc/button/styles";
-
-// Text Field
-import { TextField } from "@rmwc/textfield";
-import "@rmwc/textfield/styles";
-
-// Loading
-import { CircularProgress } from "@rmwc/circular-progress";
-import "@rmwc/circular-progress/styles";
-
-// Style
-import "./style.css";
-
-// Config
+import { Errors, EmailAddress, Config } from "@huckleberrylabs/ping-core";
 import { Routes } from "../../config";
-
-// Services
 import { authService } from "../../services";
 
-import { Errors, EmailAddress, Config } from "@huckleberrylabs/ping-core";
+// UI
+import { Loading } from "../../components/loading";
+import { Button } from "@rmwc/button";
+import "@rmwc/button/styles";
+import { TextField } from "@rmwc/textfield";
+import "@rmwc/textfield/styles";
+import "./style.css";
 
 type Stage = "idle" | "loading" | "sent" | "not-found" | "error";
 
-type Props = {};
-
-export const SendLoginEmail = (props: Props) => {
+export const SendLoginEmail = () => {
   const [email, setEmail] = useState<string>("");
   const [stage, setStage] = useState<Stage>("idle");
 
   const submitForm = async () => {
     if (!EmailAddress.Is(email)) {
-      toast.warn("a valid email must be provided.");
-      return;
-    }
-    const sentMaybe = await authService.sendLoginEmail(email);
-    if (isLeft(sentMaybe)) {
-      if (Errors.NotFound.Is(sentMaybe.left)) {
-        setStage("not-found");
-        return;
+      toast.warn("A valid email must be provided.");
+    } else {
+      const sentMaybe = await authService.sendLoginEmail(email);
+      if (isLeft(sentMaybe)) {
+        if (Errors.NotFound.Is(sentMaybe.left)) {
+          setStage("not-found");
+        } else {
+          setStage("error");
+        }
+      } else {
+        setStage("sent");
       }
-      setStage("error");
-      return;
     }
-    setStage("sent");
   };
 
   return (
@@ -98,7 +82,7 @@ export const SendLoginEmail = (props: Props) => {
           </div>
         ) : stage === "loading" ? (
           <div className="send-login-email-loader">
-            <CircularProgress size="large" />
+            <Loading />
           </div>
         ) : stage === "sent" ? (
           <div>

@@ -1,4 +1,4 @@
-import { isLeft, Either, isRight, left } from "fp-ts/lib/Either";
+import { isLeft, Either } from "fp-ts/lib/Either";
 import { Errors } from "../../../../values";
 import {
   IRouterRepository,
@@ -16,25 +16,19 @@ export default (
   repo: IRouterRepository,
   auth: IAuthorizationService
 ): IHandler => async command => {
-  // Check if a router with the same id already exists
-  const routerMaybe = await repo.exists(command.router.id);
-  if (isRight(routerMaybe)) return left(Errors.Validation.C());
-
-  // Save the widget
+  // Add the router if it does not already exist
   const savedMaybe = await repo.add(command.router);
   if (isLeft(savedMaybe)) return savedMaybe;
 
-  // Grant Authorization for all actions between account and widget
+  // Grant Authorization for all actions between account and router
   const authMaybe = await auth.grant({
-    account: command.router.account,
+    account: command.router.id,
     entity: command.router.id,
   });
   if (isLeft(authMaybe)) {
     await repo.remove(command.router.id);
     return authMaybe;
   }
-
-  // TODO atomic exists + add
 
   return savedMaybe;
 };

@@ -1,28 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// Card
+// UI
 import { Card, CardMedia, CardPrimaryAction } from "@rmwc/card";
 import "@rmwc/card/styles";
-
-// Style
 import "./style.css";
-
-// Domain
-
-type Widget = {
-  id: string;
-  homePage: string;
-};
+import { Widget } from "@huckleberrylabs/ping-core";
 
 type Props = {
-  widget: Widget;
+  widget: Widget.Settings.Model.T;
 };
 
 export const WidgetCard = (props: Props) => (
   <Link to={`/widgets/${props.widget.id}`}>
-    <Card className="widget-card-container">
-      <CardPrimaryAction className="widget-card-action">
+    <Card className="widget-card">
+      <CardPrimaryAction>
         <CardMedia className="widget-card-image" sixteenByNine />
         <div className="widget-card-description">
           <h2>{new URL(props.widget.homePage).host}</h2>

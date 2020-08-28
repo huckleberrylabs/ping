@@ -1,12 +1,10 @@
 .message-list {
   min-width: 500px;
   width: 100%;
-  max-width: 80vw;
 }
 
 .message-list-content-cell {
   min-width: 200px;
-  max-width: 300px;
   white-space: normal;
   padding: 10px;
 }

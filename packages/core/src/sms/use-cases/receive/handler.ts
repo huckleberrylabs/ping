@@ -27,7 +27,6 @@ export default (
     command.from,
     command.twilio
   );
-  console.log(pairingMaybe);
   if (isLeft(pairingMaybe)) return pairingMaybe;
   const pairing = pairingMaybe.right;
 
@@ -36,21 +35,27 @@ export default (
     pairing.account,
     pairing.to
   );
-  console.log(contactMaybe);
   if (isLeft(contactMaybe)) return contactMaybe;
   const contact = contactMaybe.right;
 
   // Get Channel
   const channelsMaybe = await channelRepo.getByAccount(pairing.account);
-  console.log(channelsMaybe);
   if (isLeft(channelsMaybe)) return channelsMaybe;
   const channel = channelsMaybe.right.filter(
     channel => channel.kind === "sms"
   )[0];
-  if (!channel) return left(Errors.Adapter.C());
+  if (!channel)
+    return left(
+      Errors.Adapter.C(
+        Command.Name,
+        `No channel exists in sms-receive use case`,
+        `Channel not found.`
+      )
+    );
 
   // Create the Message
   const message: Message.Model.T = {
+    type: Message.Model.Name,
     id: UUID.C(),
     timestamp: command.timestamp,
     content: command.content,
@@ -60,7 +65,6 @@ export default (
     conversation: some(pairing.conversation),
     meta: {},
   };
-  console.log(message);
 
   // Send the Message
   return messaging.sendMessage(message);

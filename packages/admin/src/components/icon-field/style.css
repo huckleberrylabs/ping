@@ -1,11 +1,21 @@
-.icon-field-button {
+.icon-field > * {
   min-width: 0;
   width: 65px;
   height: 65px;
 }
 
-.icon-field-button.selected {
-  box-shadow: 0 3px 0 0 var(--mdc-theme-secondary);
+.icon-field > * {
+  border: grey 1px solid;
+}
+
+.icon-field > *:not(.selected) {
+  filter: grayscale();
+}
+
+.icon-field > *.selected {
+  box-shadow: 5px 5px 0 0 rgb(172, 166, 166, 0.4);
+  transform: scale(1.1);
+  filter: brightness(1.1);
 }
 
 #mo path {

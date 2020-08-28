@@ -2,7 +2,13 @@ import sendGrid from "@sendgrid/mail";
 import { MailDataRequired } from "@sendgrid/helpers/classes/mail";
 import { ResponseError } from "@sendgrid/helpers/classes";
 import { left, right, Either } from "fp-ts/lib/Either";
-import { Errors, ISendGrid } from "@huckleberrylabs/ping-core";
+import {
+  Errors,
+  NameSpaceCaseString,
+  ISendGrid,
+} from "@huckleberrylabs/ping-core";
+
+export const Name = "adapters:sendgrid" as NameSpaceCaseString.T;
 
 export const C = (): Either<Errors.Environment.T, ISendGrid> => {
   const key = process.env.SENDGRID_API_KEY;
@@ -21,15 +27,15 @@ export const C = (): Either<Errors.Environment.T, ISendGrid> => {
               await sendGrid.send(data);
               return right(null);
             } catch (error) {
-              return left(Errors.Adapter.C());
+              return left(Errors.Adapter.C(Name, `Send: ${error.message}`));
             }
           }
-          return left(Errors.Adapter.C());
+          return left(Errors.Adapter.C(Name, `Send: ${error.message}`));
         }
       });
     } catch (error) {
-      return left(Errors.Environment.C());
+      return left(Errors.Environment.C(Name, `Constructor: ${error.message}`));
     }
   }
-  return left(Errors.Environment.C());
+  return left(Errors.Environment.C(Name, "SENDGRID_API_KEY is missing"));
 };

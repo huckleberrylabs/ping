@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { isLeft } from "fp-ts/lib/Either";
-import { StatusCode, Errors, UUID } from "../../../../values";
+import { StatusCode, Errors, UUID, Env } from "../../../../values";
 import * as Command from "./command";
 import { IHandler } from "./handler";
 import { IAuthenticationService } from "../../../../interfaces";
@@ -11,11 +11,18 @@ export default (
   handler: IHandler
 ) => async (req: Request, res: Response) => {
   // Decode
-  const commandMaybe = Command.Codec.decode(req.body);
+  const commandMaybe = Command.Decode(req.body);
   if (isLeft(commandMaybe)) {
     res
       .status(StatusCode.BAD_REQUEST)
-      .send(Errors.Parsing.Codec.encode(Errors.Parsing.C()));
+      .send(
+        Errors.Validation.Encode(
+          Errors.Validation.C(
+            Command.Name,
+            `DTO decode error: ${commandMaybe.left.toString()}`
+          )
+        )
+      );
     return;
   }
 
@@ -28,12 +35,12 @@ export default (
       case Errors.Unauthenticated.Name:
         res
           .status(StatusCode.UNAUTHORIZED)
-          .send(Errors.Unauthenticated.Codec.encode(idMaybe.left));
+          .send(Errors.Unauthenticated.Encode(idMaybe.left));
         return;
       case Errors.Adapter.Name:
         res
           .status(StatusCode.INTERNAL_SERVER_ERROR)
-          .send(Errors.Adapter.Codec.encode(idMaybe.left));
+          .send(Errors.Adapter.Encode(idMaybe.left));
         return;
       default:
         res.status(StatusCode.INTERNAL_SERVER_ERROR).send();
@@ -47,8 +54,15 @@ export default (
       ACCESS_TOKEN_EXPIRY
     );
     res
-      .cookie("auth", sessionToken, { httpOnly: true, secure: true })
+      .cookie("Auth", sessionToken, {
+        httpOnly: true,
+        secure: Env.Get() === "production",
+        expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        sameSite: "none",
+        path: "/",
+        // domain defaults to host (not including sub-domain)
+      })
       .status(StatusCode.OK)
-      .send(UUID.Codec.encode(idMaybe.right));
+      .send(UUID.Encode(idMaybe.right));
   }
 };
