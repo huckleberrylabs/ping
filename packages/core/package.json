@@ -65,7 +65,7 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "test": "npx jest",
+    "test": "npx jest --passWithNoTests",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test"
   },
@@ -106,5 +106,5 @@
     "twilio": "^3.46.0",
     "typescript": "^3.9.5"
   },
-  "gitHead": "c82709737c51f8029b23824a79de2f34723a8e4b"
+  "gitHead": "588368c0e8bc285f4dffc6e8542bdd319fa5f452"
 }

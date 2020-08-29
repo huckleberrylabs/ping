@@ -63,7 +63,7 @@
   "scripts": {
     "start": "npm run build && node -r dotenv/config lib/index.js",
     "build": "npx tsc",
-    "test": "npx jest"
+    "test": "npx jest --passWithNoTests"
   },
   "dependencies": {
     "@google-cloud/firestore": "^2.2.6",
