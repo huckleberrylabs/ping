@@ -48,6 +48,7 @@ export const UpdateBilling = () => {
   const [changeCard, setChangeCard] = useState<boolean>(false);
   const toggleChangeCard = () => setChangeCard(!changeCard);
   const [card, setCard] = useState<StripeCardElementChangeEvent>();
+  console.log(card);
   return (
     <div className="update-billing">
       <h2>Billing</h2>

@@ -1,7 +1,19 @@
 # Todo
 
+id: 'bps_1HLHLQDQmuogfPdPi0OUZ8cU',
+object: 'billing_portal.session',
+created: 1598658656,
+customer: 'cus_HPU6iTyL6zfBcH',
+livemode: false,
+return_url: 'https://app.ping.buzz/account',
+url: 'https://billing.stripe.com/session/QgQGA3xCwZ15ckR3Vcjv501Ohad2Tj9z'
+
+- connect billing portal to ui
+- connect billing portal to api
+
 - Update Billing Info
 - View/Download Invoices
+
 - add Animation to Client
 - migrate database
 - deploy

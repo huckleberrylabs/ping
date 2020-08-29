@@ -58,7 +58,6 @@ export const C = (client: Stripe): IBillingService => ({
       );
       await client.subscriptions.create(
         {
-          prorate: true,
           trial_from_plan: false,
           trial_period_days: 30,
           customer: customer.id,

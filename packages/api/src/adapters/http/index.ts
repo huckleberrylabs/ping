@@ -391,5 +391,15 @@ export const C = () => {
     )
   );
 
+  /* BILLING */
+
+  app.post(
+    Billing.UseCases.OpenBillingPortal.Route,
+    Billing.UseCases.OpenBillingPortal.Controller(
+      iamAuthorizationService,
+      Billing.UseCases.OpenBillingPortal.Handler(stripe)
+    )
+  );
+
   return app;
 };

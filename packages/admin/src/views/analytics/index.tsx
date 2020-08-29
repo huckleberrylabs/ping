@@ -140,8 +140,13 @@ export const Analytics = () => {
 
   if (!UUID.Is(id)) history.push(Routes.widgets);
   if (Errors.Is(state)) {
-    toast.error(state.userMessage);
-    return <ErrorButton />;
+    if (Errors.NotFound.Is(state)) {
+      return <div>No Analytics Events Yet</div>;
+    } else {
+      // @ts-ignore
+      toast.error(state.userMessage);
+      return <ErrorButton />;
+    }
   }
   const events = map.get(id);
   if (events) {

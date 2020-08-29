@@ -13,7 +13,7 @@ export const C = (): Either<Errors.Environment.T, T> => {
   const key = process.env.STRIPE_SECRET_KEY;
   if (key) {
     try {
-      const stripe = new Stripe(key);
+      const stripe = new Stripe(key, { apiVersion: "2020-08-27" });
       stripe.setTimeout(20000);
       stripe.setMaxNetworkRetries(3);
       return right(stripe);
