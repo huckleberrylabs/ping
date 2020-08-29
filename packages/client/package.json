@@ -1,7 +1,7 @@
 {
   "name": "@huckleberrylabs/ping-client",
   "private": true,
-  "version": "3.2.8",
+  "version": "4.0.0",
   "description": "Ping Client",
   "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
@@ -68,7 +68,7 @@
     "preinstall": "node ./scripts/netlify-preinstall.js"
   },
   "dependencies": {
-    "@huckleberrylabs/ping-core": "^3.2.7",
+    "@huckleberrylabs/ping-core": "^4.0.0",
     "axios": "^0.19.0",
     "dotenv": "^8.2.0",
     "fp-ts": "^2.6.7",
