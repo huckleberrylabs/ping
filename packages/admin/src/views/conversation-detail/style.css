@@ -1,0 +1,19 @@
+.conversation-detail-summary {
+  padding: 20px 0;
+}
+.conversation-detail-summary > div {
+  display: flex;
+  flex-direction: row;
+}
+.conversation-detail-summary > div > div {
+  padding: 10px;
+}
+.conversation-detail-summary > div > div:first-child {
+  text-align: right;
+  width: 100px;
+}
+
+.conversation-detail-summary > div > div:nth-child(2) {
+  text-align: left;
+  min-width: 200px;
+}

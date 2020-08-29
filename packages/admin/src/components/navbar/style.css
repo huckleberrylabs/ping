@@ -1,0 +1,12 @@
+.nav-bar {
+  z-index: 10;
+}
+
+.nav-bar-transparent {
+  background-color: transparent;
+}
+
+.nav-bar img {
+  height: 45px;
+  padding-top: 10px;
+}

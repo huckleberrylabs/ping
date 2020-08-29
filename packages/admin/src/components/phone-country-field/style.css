@@ -1,0 +1,13 @@
+.phone-country-field {
+  display: flex;
+  flex-direction: row;
+}
+
+.phone-country-field > :first-child {
+  flex: 0 0 10px;
+  margin-right: 5px;
+}
+
+.phone-country-field > :nth-child(2) {
+  width: 100%;
+}

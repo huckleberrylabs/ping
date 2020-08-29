@@ -1,0 +1,124 @@
+# Todo
+
+id: 'bps_1HLHLQDQmuogfPdPi0OUZ8cU',
+object: 'billing_portal.session',
+created: 1598658656,
+customer: 'cus_HPU6iTyL6zfBcH',
+livemode: false,
+return_url: 'https://app.ping.buzz/account',
+url: 'https://billing.stripe.com/session/QgQGA3xCwZ15ckR3Vcjv501Ohad2Tj9z'
+
+- connect billing portal to ui
+- connect billing portal to api
+
+- Update Billing Info
+- View/Download Invoices
+
+- add Animation to Client
+- migrate database
+- deploy
+- Check if Bruces issue is fixed
+- update dependencies
+- check when SendGrid runs out and add in calendar for downgrade.
+- add a ToS Agreement
+- 30 day trial enforcement
+
+## Backlog
+
+- Avoiding Number Pairing Reuse, Deallocate / Cycle Numbers. Messaging Chron Job to emit a Conversation Terminated Event, Subscriber in SMS to listen to ConversationTerminatedEvent and deallocateNumberPairingsByConversation.
+- create a streamlined widget preview
+- resolve the country code issue
+- Make Installation Easier
+  - WordPress Plugin
+  - Send Email Button
+  - Instructions and Videos
+  - Manual
+    - Google Tag Manager
+    - SquareSpace
+    - Shopify
+    - Wix
+    - Weebly
+    - WordPress
+    - GoDaddy
+- Expand Country Availability
+- CORS should check if referrer is widget homePage
+- Widget.homePage should be unique
+- Login Email Case Sensitivity
+- Inform user of Free Trial Status and Failed Payments in ping-admin and via email/sms
+- Show Human-readable From and Channel in Conversation-Detail
+- Create a public Conversation View and Provide a URL in the Conversation
+- Use Places AutoComplete for Billing Address Updates
+- Interpolate Analytics Data
+- Analytics shows multiple widgets / multiple metrics on the same graph
+- Analytics Load vs Open vs Ping this week / month / year
+- Admin collapsable drawer and center app on mobile
+- SMS Account Model to track costs
+- Add More Channels
+- SMS Status Callback
+- Give Preference to Numbers with same area code
+- Cron Job to remove expired jwt tokens from invalidtokenrepo
+- Script to keep Twilio numbers in sync with SMSNumberRepo
+- Introduce Analytics Sessions
+- Send Widget Logs back to Server
+- Widget Live Chat
+- add scale as a widget setting
+- Ensure Unload Event triggers successfully
+- Fix Mobile Safari position:fixed
+- Email Channel
+- Include Source Site, URL in Message Meta
+- url patterns (show only on...)
+- embedded widget
+- custom fields (see typeform.ts)
+- url parameters
+- JS SDK variables
+- JS SDK fully custom
+- AB Testing
+- Website (see Website.md)
+- AppWidget
+- Throttle send-message
+- Create a Widget Session connected to Contact
+- IAM Access Log
+- IAM Access Policy Change Log
+- IAM Extensions - Policy "Traversals" - if A owns B and B owns C then A can access C.
+- Monitor Websites for Bad Installation / Low Conversion and reach out proactively
+- Include context information about where a Contact came from (channel-wise)
+
+## Refactor
+
+- delete analytics and authentication policies on account deletion
+- the entire thing should be under one aggregate - customer. rename account to user.
+- use FunctionalComponent<Props> and destructure props
+- Move Analytics Events Action UUIDs to Core
+- Return Validation Errors on Repo Adds when already exists
+- Return Not Found Error on Repo Removes
+- Move Analytics Aggregation to backend
+- re-evaluate AuthService (Errors not handled in state)
+- make a common DialogModal Component and make enter key stroke work for default action
+- clean up EmailService
+- Move to PostGreSQL
+- create a mapping function for errors to http response
+- add debug Logging to display conditional branching in UseCases
+- Rename "Maybe" variables
+- rewrite object-nested methods in a functional way
+- rename NameSpaceCaseString to Name
+- Repositories shouldn't be accessed outside of Bounded Context
+- Refactor Widget (move usecases from settings to top)
+- Rename Names
+- SMS Channel Settings Repo?
+- Channel Kind should be a value object of its own
+
+## Ping as a Floating Action Button (FAB)
+
+- offset maximum
+- circle shape
+- overlay reference point
+- embed
+- speed dial
+- extended fab with text
+- show extended fab text on hover
+- expand to menu
+- close menu by pressing button again
+- other key actions (call, directions, etc)
+- custom size
+- custom SVG
+- custom PNG

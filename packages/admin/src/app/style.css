@@ -1,0 +1,12 @@
+.app {
+  margin-left: 250px;
+  padding-top: 104px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 100px;
+}
+
+.app-loading {
+  display: flex;
+  height: 100vh;
+}

@@ -1,0 +1,113 @@
+[
+  {
+    "value": null,
+    "context": [
+      {
+        "key": "",
+        "type": {
+          "name": "auth:model:account",
+          "props": {
+            "type": {
+              "name": "\"auth:model:account\"",
+              "value": "auth:model:account",
+              "_tag": "LiteralType"
+            },
+            "id": {
+              "name": "value:uuid",
+              "type": { "name": "string", "_tag": "StringType" },
+              "_tag": "RefinementType"
+            },
+            "registeredAt": {
+              "name": "value:timestamp",
+              "type": { "name": "string", "_tag": "StringType" },
+              "_tag": "RefinementType"
+            },
+            "name": {
+              "name": "value:person-name",
+              "props": {
+                "parsed": {
+                  "name": "value:non-empty-string",
+                  "type": { "name": "string", "_tag": "StringType" },
+                  "_tag": "RefinementType"
+                },
+                "legal": { "name": "Option<value:non-empty-string>" },
+                "first": { "name": "Option<value:non-empty-string>" },
+                "last": { "name": "Option<value:non-empty-string>" },
+                "middle": { "name": "Option<value:non-empty-string>" },
+                "prefix": { "name": "Option<value:non-empty-string>" },
+                "suffix": { "name": "Option<value:non-empty-string>" }
+              },
+              "_tag": "InterfaceType"
+            },
+            "email": {
+              "name": "value:verified-email-address",
+              "props": {
+                "address": {
+                  "name": "value:email-address",
+                  "type": { "name": "string", "_tag": "StringType" },
+                  "_tag": "RefinementType"
+                },
+                "verified": { "name": "boolean", "_tag": "BooleanType" }
+              },
+              "_tag": "InterfaceType"
+            }
+          },
+          "_tag": "InterfaceType"
+        },
+        "actual": {
+          "type": "auth:model:account",
+          "email": { "address": "dragos+test3@rotaru.co", "verified": false },
+          "name": {
+            "legal": null,
+            "suffix": null,
+            "middle": null,
+            "first": "Dragos",
+            "parsed": null,
+            "last": "Rotaru",
+            "prefix": null
+          },
+          "id": "3bfff632-86d4-4127-9668-aca742a917dd",
+          "registeredAt": "2020-07-04T22:41:27.572Z"
+        }
+      },
+      {
+        "key": "name",
+        "type": {
+          "name": "value:person-name",
+          "props": {
+            "parsed": {
+              "name": "value:non-empty-string",
+              "type": { "name": "string", "_tag": "StringType" },
+              "_tag": "RefinementType"
+            },
+            "legal": { "name": "Option<value:non-empty-string>" },
+            "first": { "name": "Option<value:non-empty-string>" },
+            "last": { "name": "Option<value:non-empty-string>" },
+            "middle": { "name": "Option<value:non-empty-string>" },
+            "prefix": { "name": "Option<value:non-empty-string>" },
+            "suffix": { "name": "Option<value:non-empty-string>" }
+          },
+          "_tag": "InterfaceType"
+        },
+        "actual": {
+          "legal": null,
+          "suffix": null,
+          "middle": null,
+          "first": "Dragos",
+          "parsed": null,
+          "last": "Rotaru",
+          "prefix": null
+        }
+      },
+      {
+        "key": "parsed",
+        "type": {
+          "name": "value:non-empty-string",
+          "type": { "name": "string", "_tag": "StringType" },
+          "_tag": "RefinementType"
+        },
+        "actual": null
+      }
+    ]
+  }
+]

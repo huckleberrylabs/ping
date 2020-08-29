@@ -1,0 +1,15 @@
+.delete-widget-modal {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 300px;
+  padding: 20px;
+}
+
+.delete-widget-modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  width: 100%;
+}

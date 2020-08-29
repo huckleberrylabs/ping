@@ -1,0 +1,30 @@
+.registration {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.registration > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 400px;
+  width: 33vw;
+  min-width: 400px;
+  min-height: 500px;
+}
+
+.registration > div > * {
+  margin-bottom: 20px;
+}
+
+.button-div {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.button-div > div {
+  width: auto;
+}

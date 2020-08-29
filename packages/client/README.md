@@ -1,0 +1,9 @@
+# Ping Client
+
+# Environment Variables
+
+GITHUB_TOKEN
+NODE_ENV
+NPM_CONFIG_PRODUCTION
+API_URL
+WIDGET_ID

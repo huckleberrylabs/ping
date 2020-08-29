@@ -1,0 +1,12 @@
+.error-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.error-button button {
+  margin-top: 20px;
+  width: 100px;
+}

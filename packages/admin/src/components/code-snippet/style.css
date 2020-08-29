@@ -1,0 +1,30 @@
+.code-snippet {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 250px;
+  min-height: 200px;
+  height: auto;
+  width: 100%;
+}
+
+.code-snippet > * {
+  margin: 20px 0;
+}
+
+.code-snippet-inner {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.code-snippet > pre {
+  margin: 0;
+  padding: 0 !important;
+}
+
+.code-snippet i {
+  background: rgb(248, 248, 255);
+  padding: 1.5rem;
+}

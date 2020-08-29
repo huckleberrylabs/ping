@@ -1,0 +1,23 @@
+.create-contact-modal {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 300px;
+  padding: 20px;
+}
+
+.create-contact-modal > div > * {
+  margin-bottom: 20px;
+}
+
+.create-contact-modal label {
+  width: 100%;
+}
+
+.create-contact-modal-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  width: 100%;
+}

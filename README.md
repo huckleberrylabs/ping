@@ -1,41 +1,38 @@
-# Ping
+# Ping Monorepo
 
-Ping Admin: [![Netlify Status](https://api.netlify.com/api/v1/badges/12980c82-4e75-4e7b-9b9d-f3990750d2a6/deploy-status)](https://app.netlify.com/sites/ping-admin/deploys)
+## Netlify Latest Build Status
 
-Ping Client: [![Netlify Status](https://api.netlify.com/api/v1/badges/317ab9aa-d5ea-4def-a4f7-a40452a0cbf6/deploy-status)](https://app.netlify.com/sites/ping-client/deploys)
+### Ping Client
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/317ab9aa-d5ea-4def-a4f7-a40452a0cbf6/deploy-status)](https://app.netlify.com/sites/ping-client/deploys)
+
+### Ping Admin
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/12980c82-4e75-4e7b-9b9d-f3990750d2a6/deploy-status)](https://app.netlify.com/sites/ping-admin/deploys)
 
 ## Stack
 
 - Language: Typescript + NodeJS
 - Front-end Framework: React
-- Testing Framework: Jest
-- Integrated Continuous Test Runner: WallabyJS
-- Serverless Continuous Deployment: Zeit Now
-- Continuous Integration: CircleCI
-- Monorepo Package Management: Lerna
+- Data Persistance: Google FireStore + Redis // TODO replace with PostGreSQL
+- Deployment: Netlify for ping-client / ping-admin, Google Cloud Platform Virtual Machine for ping-api
+- Third-Party Services: Stripe, Twilio, SendGrid
 
-## Development Environment
+## Setup
 
-### Setup
-
-- NodeJS + NPM
-- Git
-- Visual Studio Code
-- The following Plugins for Visual Studio
-
-  - GitLens
-  - Wallaby.js
-  - Quokka.js
-  - Prettier
-  - TSLint
-  - ESLint
-  - StyleLint
-  - GraphQL for VSCode
-
-If you would like a GUI for Git, I recommend GitKraken.
+- install the latest versions of node, npm and redis on your machine
+- run `npm run bootstrap` in the project root
+- add `.env` files in `packages/api`, `packages/client` and `packages/admin` as described in each respective README
 
 ## Run Project
 
-- Option 1: `npm start` at project root. Variables are loaded from .env file
-- Option 2: `now dev` at project root. Variables are loaded from .env file
-- Option 3: `npm start` inside a specific package. Variables are loaded from .env file
+- run Redis
+- run `npm start` in the project root or inside each specific package
+
+- Make AuthService work like AccountService
+- Add messages to errors and update toasts
+
+## Deployment
+
+- Manually deploy `ping-api` in GCP Virtual Machine
+- Automatically deploy `ping-client` and `ping-admin` by pushing to GitHub master branch

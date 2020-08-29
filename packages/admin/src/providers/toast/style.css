@@ -1,0 +1,29 @@
+/* Toastify */
+
+.Toastify__toast-container {
+  width: 320px;
+}
+
+.toastify-with-app-bar {
+  padding-top: 0;
+  margin-top: 64px;
+}
+.Toastify__toast {
+  padding-left: 20px;
+}
+.Toastify__toast--default {
+  background: var(--mdc-theme-background);
+  color: var(--mdc-theme-primary);
+}
+.Toastify__toast--info {
+  background: var(--mdc-theme-primary);
+}
+.Toastify__toast--success {
+  background: var(--huckleberry-ping-success-color);
+}
+.Toastify__toast--warning {
+  background: var(--huckleberry-ping-warning-color);
+}
+.Toastify__toast--error {
+  background: var(--mdc-theme-error);
+}
