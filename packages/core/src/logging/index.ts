@@ -5,6 +5,6 @@ import { C, DecodeErrorFormatter } from "./logger";
 export const Logger = C(
   Log.C(),
   process.env.LOGGING_ENABLED === "true" ||
-    process.env.REACT_LOGGING_ENABLED === "true"
+    process.env.REACT_APP_LOGGING_ENABLED === "true"
 );
 export { UseCases, DecodeErrorFormatter };
