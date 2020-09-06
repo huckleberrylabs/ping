@@ -1,23 +1,12 @@
 # Todo
 
-id: 'bps_1HLHLQDQmuogfPdPi0OUZ8cU',
-object: 'billing_portal.session',
-created: 1598658656,
-customer: 'cus_HPU6iTyL6zfBcH',
-livemode: false,
-return_url: 'https://app.ping.buzz/account',
-url: 'https://billing.stripe.com/session/QgQGA3xCwZ15ckR3Vcjv501Ohad2Tj9z'
-
-- connect billing portal to ui
-- connect billing portal to api
-
-- Update Billing Info
-- View/Download Invoices
-
+- Button text appears under the button on my own site.
+- message doesn't send
+- close button doesn't disappear while button is loading / message is sending
+- on mobile, the phone outline disappears
 - add Animation to Client
 - migrate database
-- deploy
-- Check if Bruces issue is fixed
+- check if Bruces issue is fixed
 - update dependencies
 - check when SendGrid runs out and add in calendar for downgrade.
 - add a ToS Agreement
