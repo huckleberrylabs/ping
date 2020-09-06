@@ -25,6 +25,8 @@ export const onCancel = (e: Elements, sdk: SDK.T) => async () => {
   e.nameInput.classList.remove("shown");
   e.send.classList.remove("shown");
   e.cancel.classList.remove("shown");
+  e.success.classList.remove("shown");
+  e.error.classList.remove("shown");
 
   message = {
     timestamp: TimeStamp.C(),

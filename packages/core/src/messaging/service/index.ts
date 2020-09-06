@@ -43,9 +43,10 @@ export const C = (
 
     if (kind === "sms") {
       const channels = await channelRepo.getByAccount(account);
-      if (isLeft(channels)) return channels;
-
-      if (channels.right.filter(channel => channel.kind === "sms").length > 0)
+      if (
+        isRight(channels) &&
+        channels.right.filter(channel => channel.kind === "sms").length > 0
+      )
         return left(
           Errors.Validation.C(
             Name,

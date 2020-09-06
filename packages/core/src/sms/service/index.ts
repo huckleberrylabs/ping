@@ -79,7 +79,7 @@ export const C = (
             return left(
               Errors.Adapter.C(
                 Name,
-                `send: coudn't purchase number: ${error.message}`,
+                `send: couldn't purchase number: ${error.message}`,
                 "Server error, please try again later or contact support."
               )
             );
