@@ -1,7 +1,7 @@
 {
   "name": "@huckleberrylabs/ping-api",
   "private": true,
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Ping API",
   "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^2.2.6",
-    "@huckleberrylabs/ping-core": "^4.0.4",
+    "@huckleberrylabs/ping-core": "^4.0.5",
     "@sendgrid/mail": "^6.4.0",
     "@types/stripe": "^7.13.24",
     "cookie-parser": "^1.4.4",

@@ -1,7 +1,7 @@
 {
   "name": "@huckleberrylabs/ping-admin",
   "private": true,
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Ping Admin",
   "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
@@ -39,7 +39,7 @@
     "preinstall": "node ./scripts/netlify-preinstall.js"
   },
   "dependencies": {
-    "@huckleberrylabs/ping-core": "^4.0.4",
+    "@huckleberrylabs/ping-core": "^4.0.5",
     "axios": "^0.19.2",
     "fp-ts": "^2.8.1",
     "io-ts": "^2.2.9",
