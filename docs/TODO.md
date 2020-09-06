@@ -1,8 +1,8 @@
 # Todo
 
-- Button text appears under the button on my own site.
-- message doesn't send
+- sms channel is not created on registration
 - on mobile, the phone outline disappears
+- Button text appears under the button.
 - add Animation to Client
 - migrate database
 - check if Bruces issue is fixed
