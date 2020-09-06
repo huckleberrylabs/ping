@@ -2,7 +2,6 @@
 
 - Button text appears under the button on my own site.
 - message doesn't send
-- close button doesn't disappear while button is loading / message is sending
 - on mobile, the phone outline disappears
 - add Animation to Client
 - migrate database

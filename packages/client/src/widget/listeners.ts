@@ -10,7 +10,7 @@ import {
 import { Elements } from "./elements";
 import * as SDK from "../sdk";
 
-const message: Partial<Widget.Values.Message.T> = {
+let message: Partial<Widget.Values.Message.T> = {
   timestamp: TimeStamp.C(),
 };
 
@@ -25,6 +25,10 @@ export const onCancel = (e: Elements, sdk: SDK.T) => async () => {
   e.nameInput.classList.remove("shown");
   e.send.classList.remove("shown");
   e.cancel.classList.remove("shown");
+
+  message = {
+    timestamp: TimeStamp.C(),
+  };
 
   const analyticsEvent = "ebd8a24b-4d40-4f3f-86fa-de10217a933d" as UUID.T;
   sdk.Analytics.AddEvent(analyticsEvent);
@@ -92,12 +96,14 @@ const onAddNameAndSend = (
   message.name = PersonName.C(value);
   e.nameInput.classList.remove("shown");
   e.send.classList.remove("shown");
+  e.cancel.classList.remove("shown");
   e.container.style.width = "";
   e.loader.classList.add("shown");
   const addNameFieldID = "179b3014-4b93-40e6-beb9-5153ddf8e3af" as UUID.T;
   sdk.Analytics.AddEvent(addNameFieldID);
   const res = await sdk.Channel.Send(message as Widget.Values.Message.T);
   e.loader.classList.remove("shown");
+  e.cancel.classList.add("shown");
   if (isRight(res)) {
     if (w.liveChat) {
       // TODO imlement LiveChat
@@ -118,7 +124,6 @@ export const AddEventListeners = (
   w: Widget.Settings.Model.T,
   sdk: SDK.T
 ) => {
-  console.log("Yas");
   // const ws = new WebSocket("ws://localhost:8000"); // TODO URL from ENV
   // TODO setup WS ping pong, and handle connection failure
   e.cancel.addEventListener("click", onCancel(e, sdk));

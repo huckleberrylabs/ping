@@ -1,5 +1,4 @@
 import * as iots from "io-ts";
-import { Env } from "../../values";
 import * as Event from "../event";
 import * as Log from "../log";
 import * as Level from "../level";
@@ -16,7 +15,7 @@ export const DecodeErrorFormatter = (errors: iots.Errors) =>
     .map(error => `key ${error.key} with value ${error.value} `)
     .join(",");
 
-export const C = (log: Log.T, env: Env.T) => (
+export const C = (log: Log.T, printToConsole: boolean) => (
   origin: string,
   level: Level.T,
   message?: string,
@@ -24,7 +23,7 @@ export const C = (log: Log.T, env: Env.T) => (
 ): void => {
   const event = Event.C({ origin, level, message, tags });
   log.push(event);
-  if (env !== "production") {
+  if (printToConsole) {
     console.log(
       event.timestamp.toString(),
       event.origin,

@@ -10,7 +10,11 @@ function getEnv() {
     if (dotenv.error) throw new Error(".env file couldn't be parsed");
     process.env = dotenv.parsed;
   }
-  return new webpack.EnvironmentPlugin(["NODE_ENV", "API_URL"]);
+  return new webpack.EnvironmentPlugin([
+    "NODE_ENV",
+    "API_URL",
+    "LOGGING_ENABLED",
+  ]);
 }
 
 const options = {
@@ -48,7 +52,6 @@ if (process.env.NODE_ENV !== "production") {
   options.plugins.push(
     new HtmlWebpackPlugin({
       title: process.env.NODE_ENV,
-      api_url: process.env.API_URL,
       widget_id: process.env.WIDGET_ID,
       template: "index.html",
     })
