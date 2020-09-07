@@ -1,8 +1,7 @@
 # Todo
 
-- sms channel is not created on registration
-- on mobile, the phone outline disappears
-- Button text appears under the button.
+- on mobile, the phone outline disappears and text is not aligned
+- messaging yourself is silent, fix.
 - add Animation to Client
 - migrate database
 - check if Bruces issue is fixed

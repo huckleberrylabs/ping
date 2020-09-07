@@ -82,17 +82,17 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   background-color: var(--huckleberry-ping-invalid);
 }
 
-#${e.container} > #${e.form} .shown {
+#${e.form} .shown {
   transition: all 0.4s ease 0.4s;
   transform: scale(1);
   opacity: 1;
 }
 
-#${e.container} > #${e.form} button.shown {
+#${e.form} button.shown {
   transform: scale(1.2);
 }
 
-#${e.form} #${e.cancel} {
+#${e.cancel} {
   top: -20px;
   border-radius: 50%;
   height: 15px;
@@ -102,15 +102,15 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   background-color: var(--huckleberry-ping-fail-color);
 }
 
-#${e.form} #${e.cancel} line {
+#${e.cancel} line {
   stroke: white;
   stroke-linecap: round;
   stroke-width: 2;
 }
 
-#${e.container} > #${e.form} #${e.loader}.shown,
-#${e.container} > #${e.form} #${e.success}.shown,
-#${e.container} > #${e.form} #${e.error}.shown {
+#${e.loader}.shown,
+#${e.success}.shown,
+#${e.error}.shown {
   transition: opacity 0.4s ease 0.4s;
   transform: scale(1);
   opacity: 1;
@@ -120,6 +120,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 #${e.create} span {
@@ -129,23 +130,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
 
 #${e.createIcon} {
   width: 54px;
-  height: auto;
-}
-
-#${e.loader},
-#${e.success},
-#${e.error} {
-  border-radius: 8px;
-  width: 54px;
-  height: 54px;
-}
-
-#${e.form} #${e.create}.andrew span {
-  color: var(--huckleberry-ping-accent-color);
-}
-
-#${e.form} #${e.create}.andrew {
-  background: var(--huckleberry-ping-accent-contrast-color);
+  height: ${w.buttonText === "none" ? "54px" : "34px"};
 }
 
 #${e.createIcon}.andrew {
@@ -181,6 +166,14 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
 }
 
 
+#${e.loader},
+#${e.success},
+#${e.error} {
+  border-radius: 8px;
+  width: 54px;
+  height: 54px;
+}
+
 #${e.success} rect { 
   fill: var(--huckleberry-ping-success-color);
 }
@@ -195,7 +188,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   stroke-dashoffset: -100;
 }
 
-#${e.container} > #${e.form} #${e.success}.shown polyline {
+#${e.success}.shown polyline {
   -webkit-animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation-delay: 0.4s;
@@ -215,7 +208,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   stroke-dashoffset: 1000;
 }
 
-#${e.container} > #${e.form} #${e.error}.shown line {
+#${e.error}.shown line {
   -webkit-animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation-delay: 0.4s;
@@ -227,7 +220,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   height: 1em;
 }
 
-#${e.container} > #${e.form} #${e.loader}.shown {
+#${e.loader}.shown {
   animation: 2s rotate infinite linear;
 }
 

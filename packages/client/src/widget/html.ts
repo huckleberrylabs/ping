@@ -46,9 +46,7 @@ export const GenerateHTML = (e: ElementIDs) => (w: Widget.Settings.Model.T) => (
         </svg>
         </button>
         <!-- Stage 1 -->
-        <button id="${e.create}" class="shown ${
-    w.icon === 2 ? "andrew" : ""
-  }" type="button">
+        <button id="${e.create}" class="shown" type="button">
           ${
             w.icon === 1
               ? MoIcon(e.createIcon)
