@@ -35,7 +35,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   bottom: ${w.yOffset + 5}px;
   right: ${w.xOffset + 5}px;
   width: 54px;
-  max-width: 90vw;
+  max-width: 85vw;
   height: 54px;
   border-radius: 8px;
   transition: width 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -82,17 +82,17 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   background-color: var(--huckleberry-ping-invalid);
 }
 
-#${e.form} .shown {
+#${e.container} > #${e.form} .shown {
   transition: all 0.4s ease 0.4s;
   transform: scale(1);
   opacity: 1;
 }
 
-#${e.form} button.shown {
+#${e.container} > #${e.form} button.shown {
   transform: scale(1.2);
 }
 
-#${e.cancel} {
+#${e.form} #${e.cancel} {
   top: -20px;
   border-radius: 50%;
   height: 15px;
@@ -102,15 +102,15 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   background-color: var(--huckleberry-ping-fail-color);
 }
 
-#${e.cancel} line {
+#${e.form} #${e.cancel} line {
   stroke: white;
   stroke-linecap: round;
   stroke-width: 2;
 }
 
-#${e.loader}.shown,
-#${e.success}.shown,
-#${e.error}.shown {
+#${e.container} > #${e.form} #${e.loader}.shown,
+#${e.container} > #${e.form} #${e.success}.shown,
+#${e.container} > #${e.form} #${e.error}.shown {
   transition: opacity 0.4s ease 0.4s;
   transform: scale(1);
   opacity: 1;
@@ -165,7 +165,6 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   stroke: var(--huckleberry-ping-accent-contrast-color);
 }
 
-
 #${e.loader},
 #${e.success},
 #${e.error} {
@@ -188,7 +187,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   stroke-dashoffset: -100;
 }
 
-#${e.success}.shown polyline {
+#${e.container} > #${e.form} #${e.success}.shown polyline {
   -webkit-animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation-delay: 0.4s;
@@ -208,7 +207,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   stroke-dashoffset: 1000;
 }
 
-#${e.error}.shown line {
+#${e.container} > #${e.form} #${e.error}.shown line {
   -webkit-animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation: dash-check 0.9s 0.45s ease-in-out forwards;
   animation-delay: 0.4s;
@@ -220,7 +219,7 @@ export const GenerateCSS = (e: ElementIDs) => (w: Widget.Settings.Model.T) =>
   height: 1em;
 }
 
-#${e.loader}.shown {
+#${e.container} > #${e.form} #${e.loader}.shown {
   animation: 2s rotate infinite linear;
 }
 
