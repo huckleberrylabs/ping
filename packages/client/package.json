@@ -1,7 +1,7 @@
 {
   "name": "@huckleberrylabs/ping-client",
   "private": true,
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "Ping Client",
   "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
