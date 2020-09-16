@@ -1,7 +1,7 @@
 {
   "name": "@huckleberrylabs/ping-admin",
   "private": true,
-  "version": "4.0.5",
+  "version": "4.0.8",
   "description": "Ping Admin",
   "author": "Dragos Rotaru <dragos@ping.buzz>",
   "license": "ISC",
