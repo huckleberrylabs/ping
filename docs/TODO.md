@@ -1,17 +1,17 @@
 # Todo
 
-- on mobile, the phone outline disappears and text is not aligned
-- messaging yourself is silent, fix.
-- add Animation to Client
 - migrate database
 - check if Bruces issue is fixed
+
+## Backlog
+
+- add Animation to Client
 - update dependencies
 - check when SendGrid runs out and add in calendar for downgrade.
 - add a ToS Agreement
 - 30 day trial enforcement
-
-## Backlog
-
+- stripe idempotency_key => idempotencyKey, setTimeout => timeout
+- messaging yourself is silent, fix.
 - Avoiding Number Pairing Reuse, Deallocate / Cycle Numbers. Messaging Chron Job to emit a Conversation Terminated Event, Subscriber in SMS to listen to ConversationTerminatedEvent and deallocateNumberPairingsByConversation.
 - create a streamlined widget preview
 - resolve the country code issue
