@@ -1,11 +1,12 @@
 # Todo
 
-- migrate database
-- check if Bruces issue is fixed
+- change db to MySQL
 
 ## Backlog
 
 - add Animation to Client
+- make AuthService work like AccountService
+- Add messages to errors and update toasts
 - update dependencies
 - check when SendGrid runs out and add in calendar for downgrade.
 - add a ToS Agreement

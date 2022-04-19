@@ -1,21 +1,17 @@
 # Ping Monorepo
 
-## Netlify Latest Build Status
+## Status
 
-### Ping Client
+client.ping.buzz: [![Netlify Status](https://api.netlify.com/api/v1/badges/317ab9aa-d5ea-4def-a4f7-a40452a0cbf6/deploy-status)](https://app.netlify.com/sites/ping-client/deploys)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/317ab9aa-d5ea-4def-a4f7-a40452a0cbf6/deploy-status)](https://app.netlify.com/sites/ping-client/deploys)
-
-### Ping Admin
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/12980c82-4e75-4e7b-9b9d-f3990750d2a6/deploy-status)](https://app.netlify.com/sites/ping-admin/deploys)
+admin.ping.buzz: [![Netlify Status](https://api.netlify.com/api/v1/badges/12980c82-4e75-4e7b-9b9d-f3990750d2a6/deploy-status)](https://app.netlify.com/sites/ping-admin/deploys)
 
 ## Stack
-
-- Language: Typescript + NodeJS
+- Language: Typescript on NodeJS
 - Front-end Framework: React
-- Data Persistance: Google FireStore + Redis // TODO replace with PostGreSQL
-- Deployment: Netlify for ping-client / ping-admin, Google Cloud Platform Virtual Machine for ping-api
+- DNS: Netlify
+- Data Persistance: Google DataStore + local Redis
+- Deployment: Netlify for ping-client / ping-admin, Google Cloud Platform Virtual Machine for ping-api (live.ping.buzz)
 - Third-Party Services: Stripe, Twilio, SendGrid
 
 ## Setup
@@ -26,12 +22,8 @@
 
 ## Run Project
 
-- run Redis
+- run redis
 - run `npm start` in the project root or inside each specific package
-
-- Make AuthService work like AccountService
-- Add messages to errors and update toasts
-
 ## Deployment
 
 - Manually deploy `ping-api` in GCP Virtual Machine
